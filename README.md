@@ -13,7 +13,74 @@ WARNING: This repository is under active development, so we expect many changes 
 The graphical output (interactive trees and heatmap will be added soon).
 
 
-## Install required R libraries + C script compilation
+## Install required software
+
+
+### Download this repository
+
+```
+git clone https://github.com/jaimicore/matrix-clustering_stand-alone.git
+cd matrix-clustering_stand-alone
+```
+
+### R libraries
+
+```R
+##############################################################
+## List of R packages requires in the 'minimal_output' mode ##
+##############################################################
+required.packages = c("dplyr",          ## Data manipulation
+                      "data.table",     ## Read long matrices in a quick way
+                      "furrr",          ## Run functions in parallel
+                      "optparse",       ## Read command-line arguments
+                      "purrr",          ## Iterations
+                      "rcartocolor",    ## Cluster colors
+                      "tidyr",          ## Data manipulation
+                      "dendsort",       ## To draw heatmap
+                      "RColorBrewer",   ## Heatmap cell colors
+                      "ape",            ## Export hclust tree in newick format
+                      "RJSONIO",        ## Export hclust tree in JSON format
+
+
+for (lib in required.packages) {
+  if (!require(lib, character.only = TRUE)) {
+    install.packages(lib)
+    suppressPackageStartupMessages(library(lib, character.only = TRUE))
+  }
+}
+
+
+############################################
+## Install required Bioconductor packages ##
+############################################
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("universalmotif")
+BiocManager::install("circlize")
+BiocManager::install("ComplexHeatmap")
+```
+
+### Compile C dependencies
+
+The motif comparison step is ran by `compare-matrices-quick`, a fast version of `RSAT compare-matrices` implemented in C (with less options but very fast).
+
+This repository contains the script written in `C` but it needs to be compiled to generate the executable script that will be called inside `matrix-clustering`.
+
+Assuming you are in the main directory, after cloning the repository:
+
+```bash
+cd compare-matrices-quick
+make
+```
+
+The makefile contains the command to compile the `compare-matrices-quick.c` script, after running the makefile, be sure it generated the executable script
+
+```
+./compare-matrices-quick
+``` 
+
+This should print the help to run `compare-matrices-quick` and the exaplanation of the parameters, but don't worry you don't have to read it, this script will be called within the `R` scripts.
 
 
 ## How to run
