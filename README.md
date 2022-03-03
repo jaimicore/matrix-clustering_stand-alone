@@ -10,3 +10,5 @@ Castro-Mondragon JA, Jaeger S, Thieffry D, Thomas-Chollier M, and van Helden J. 
 ```
 
 The graphical output (interactive trees and heatmap will be added soon).
+
+Special acknowledgements to Ieva Rauluseviciute and Vipin Kumar (from Anthony Mathelier's lab) for testing this software, the discussions, ideas, suggestions of R libraries that make this script faster.
