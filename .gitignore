@@ -36,4 +36,9 @@ vignettes/*.pdf
 *.knit.md
 
 # R Environment Variables
-.Renviron
+
+
+# Compare-matrices
+compare-matrices-quick/.cvsignore
+compare-matrices-quick/compare-matrices-quick
+compare-matrices-quick/compare-matrices-quick.o
