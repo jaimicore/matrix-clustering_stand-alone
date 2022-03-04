@@ -319,7 +319,7 @@ align.motifs.in.cluster <- function(tree       = NULL,
   # for (l in 1:nn) {
   for (l in seq_len(nrow(best.comparison.pair.in.tree.nodes))) {
     
-    message("; Aligning cluster, node ", l)
+    # message("; Aligning cluster, node ", l)
     
     ## Paired Comparison information
     l.id1    <- as.vector(unlist(best.comparison.pair.in.tree.nodes[l, "id1"]))
@@ -443,81 +443,6 @@ align.motifs.in.cluster <- function(tree       = NULL,
     slice(match(tree$labels[tree$order], id)) %>%
     dplyr::filter(id %in% c(ids.node1, ids.node2))
   
-  ##567
-  # id Oriented_consensus Strand
-  # 1  HS_D1205_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGCAAACArmnnnn      D
-  # 2 HS_D3736_C264_J5_T1_AR_right_5_components_cobinder_pfm_0_m1_Comp_0_trimmed_-3_15 NNNNWGYAAACARMNNNN      R
-  # 3  HS_D1216_C262_J5_T1_AR_left_5_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACArmnnnn      D
-  # 4  HS_D3337_C474_J5_T1_AR_left_4_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGyAAACAgmnnnn      D
-  # 5  HS_D3337_C474_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAsynnnn      D
-
-  
-  # id Oriented_consensus Strand
-  # 1   HS_D1205_C262_J5_T1_AR_left_3_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGCAAACAaannnn      D
-  # 2   HS_D1216_C262_J5_T1_AR_left_3_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGYAAACAarnnnn      D
-  # 3   HS_D1773_C474_J5_T1_AR_left_4_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnaryAAACAwrnnnn      D
-  # 4    HS_D937_C474_J5_T1_AR_left_3_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwryAAACAatnnnn      D
-  # 5    HS_D937_C474_J5_T1_AR_left_4_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnaryAAACAatnnnn      D
-  # 6    HS_D937_C474_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGyAAACAwtnnnn      D
-  # 7    HS_D937_C474_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAkwnnnn      D
-  # 8   HS_D2913_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGcAAACAwwnnnn      D
-  # 9   HS_D2895_C275_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGCAAACAtwnnnn      D
-  # 10  HS_D2994_C262_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGyAAACAwwnnnn      D
-  # 11  HS_D2994_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAwwnnnn      D
-  # 12  HS_D1373_C474_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAwwnnnn      D
-  # 13  HS_D2895_C275_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAwwnnnn      D
-  # 14  HS_D1242_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAwwnnnn      D
-  # 15  HS_D2850_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAwwnnnn      D
-  # 16  HS_D1207_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGCAAACAwwnnnn      D
-  # 17  HS_D2983_C267_J5_T1_AR_left_3_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnaryAAACArannnn      D
-  # 18  HS_D1211_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwryAAACAaannnn      D
-  # 19  HS_D1206_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAwwnnnn      D
-  # 20  HS_D1213_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwryAAACAawnnnn      D
-  # 21  HS_D1219_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAwannnn      D
-  # 22  HS_D3595_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAaannnn      D
-  # 23  HS_D1378_C262_J5_T1_AR_left_5_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAdannnn      D
-  # 24  HS_D1378_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAdannnn      D
-  # 25  HS_D3993_C262_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwgyAAACAaannnn      D
-  # 26  HS_D3379_C474_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGyAAACArannnn      D
-  # 27  HS_D3379_C474_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAdannnn      D
-  # 28  HS_D3380_C474_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACArannnn      D
-  # 29  HS_D3383_C474_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGyAAACArannnn      D
-  # 30  HS_D3383_C474_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAaannnn      D
-  # 31  HS_D3594_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwryAAACArannnn      D
-  # 32  HS_D3378_C474_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACArannnn      D
-  # 33  HS_D3990_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAwannnn      D
-  # 34  HS_D3993_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAwannnn      D
-  # 35  HS_D1115_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACArmnnnn      D
-  # 36  HS_D1115_C262_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGyAAACAmmnnnn      D
-  # 37  HS_D3738_C262_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGyAAACArannnn      D
-  # 38 HS_D3769_C262_J5_T1_AR_right_5_components_cobinder_pfm_0_m1_Comp_0_trimmed_-3_15 NNNNWGYAAACARANNNN      R
-  # 39  HS_D3780_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwryAAACAaannnn      D
-  # 40   HS_D858_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACArannnn      D
-  # 41  HS_D3755_C262_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwgyAAACArannnn      D
-  # 42  HS_D3755_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACArannnn      D
-  # 43  HS_D1007_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACArannnn      D
-  # 44  HS_D1547_C262_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwgyAAACAwwnnnn      D
-  # 45  HS_D1412_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAaannnn      D
-  # 46  HS_D1410_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAaannnn      D
-  # 47  HS_D1411_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAaannnn      D
-  # 48  HS_D1548_C262_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwryAAACAawnnnn      D
-  # 49  HS_D1409_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAaannnn      D
-  # 50  HS_D1548_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwryAAACArannnn      D
-  # 51  HS_D2814_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAaannnn      D
-  # 52  HS_D2815_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwgyAAACAwwnnnn      D
-  # 53 HS_D3737_C262_J5_T1_AR_right_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_-3_15 NNNNWGYAAACADWNNNN      R
-  # 54  HS_D3033_C262_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGyAAACAwwnnnn      D
-  # 55  HS_D3033_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAwwnnnn      D
-  # 56  HS_D2852_C262_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwGyAAACAdwnnnn      D
-  # 57  HS_D2983_C267_J5_T1_AR_left_5_components_cobinder_pfm_1_m1_Comp_1_trimmed_15_-3 nnnnwgyAAACAdwnnnn      D
-  # 58  HS_D2852_C262_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAwwnnnn      D
-  # 59  HS_D2893_C475_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAwwnnnn      D
-  # 60  HS_D2894_C475_J5_T1_AR_left_6_components_cobinder_pfm_0_m1_Comp_0_trimmed_15_-3 nnnnwGyAAACAwwnnnn      D
-  
-  
-  #nnnnGyAAACArmmnnnn
-  #nnnnkttTkTTTktTtnnnn
-
   # alignment.tab %>%
   #   slice(match(tree$labels[tree$order], id)) %>%
   #   dplyr::filter(id %in% c(ids.node1, ids.node2))
