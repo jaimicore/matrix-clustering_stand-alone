@@ -85,6 +85,18 @@ This should print the help to run `compare-matrices-quick` and the exaplanation 
 
 ## How to run
 
+Assuming you are in the root of the repository folder you can run the following example format.
+
+```
+Rscript matrix-clustering.R                          \
+  -i data/OCT4_datasets/OCT4_motif_table.txt         \
+  -o results/OCT4_motifs_example/OCT4_motif_analysis \
+  -q compare-matrices-quick/compare-matrices-quick   \
+  -r ./R                                             \
+  --number_of_workers 8                              \
+  --minimal_output FALSE 
+```
+
 
 ## Expected output
 
