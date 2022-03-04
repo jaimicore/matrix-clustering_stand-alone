@@ -1,3 +1,3 @@
-/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/data/OCT4_datasets/HOMER_OCT4_motifs.tf	RSAT	tf
-/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/data/OCT4_datasets/MEME_OCT4_motifs.tf	MEME	tf
-/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/data/OCT4_datasets/RSAT_OCT4_motifs.tf	HOMER	tf
+data/OCT4_datasets/HOMER_OCT4_motifs.tf	RSAT	tf
+data/OCT4_datasets/MEME_OCT4_motifs.tf	MEME	tf
+data/OCT4_datasets/RSAT_OCT4_motifs.tf	HOMER	tf
