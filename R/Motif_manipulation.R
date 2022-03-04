@@ -17,10 +17,10 @@ set.um.alt.name <- function(um       = NULL,
 
 
 ## This function reads motifs in cluster-buster format and returns a universalmotif object
-read_cluster_buster <- function(file = NULL) {
+read_cluster_buster <- function(motif.file = NULL) {
   
   ## Read motif file using universalmotif functions    
-  cluster.buster.uo <- list(universalmotif::read_matrix(file, positions = "rows", sep = "//"))
+  cluster.buster.uo <- list(universalmotif::read_matrix(file = motif.file, positions = "rows", sep = "//"))
   
   ## Add name and altternate name fields
   cluster.buster.uo.id <-  purrr::map_chr(cluster.buster.uo, `[`, "name")
@@ -51,26 +51,6 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
                              "transfac"       = universalmotif::read_transfac(file = motif.file),
                              "uniprobe"       = universalmotif::read_uniprobe(file = motif.file))
   
-  
-
-  read_cluster_buster <- function(cluster_buster_motif = NULL) {
-
-    ## Read motif file using universalmotif functions    
-    cluster.buster.uo <- list(universalmotif::read_matrix(cluster_buster_motif, positions = "rows", sep = "//"))
-    
-    ## Add name and altternate name fields
-    cluster.buster.uo.id <-  purrr::map_chr(cluster.buster.uo, `[`, "name")
-    
-    cluster.buster.uo.new.altname <- purrr::map2(.x = cluster.buster.uo,
-                                                 .y = cluster.buster.uo.id,
-                                                 .f = ~set.um.alt.name(um       = .x,
-                                                                       new.name = .y))
-    
-    return(cluster.buster.uo.new.altname)
-  }
-  
-  
-
   
   ## This step is required when there are cases of motifs with empty columns, for some reason
   ## this generates an NA within the Universalmotif object and crashes the script
