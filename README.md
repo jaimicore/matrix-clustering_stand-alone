@@ -1,5 +1,14 @@
 # matrix-clustering_stand-alone
-This is a stand-alone version of RSAT matrix-clustering. This version is faster and simplified compared to the original RSAT matrix-clustering but the graphical output is still under development.
+
+This is a stand-alone version of *RSAT matrix-clustering*. This version is faster and simplified compared to the original one but the graphical output is still under development.
+
+*RSAT matrix-clustering* is a software for Transcription Factor binding motifs clustering and alignment. Here is a brief description of the method:
+
+  - **Motif comparison**: The motifs are compared to each other using two comparison metrics (pearson correlation coeficient (*cor*) and a alignment-width correction (normalized pearson correlation (*Ncor*)).
+  - **Hierarchical clustering**: The motifs are hierarchically clustered based in the values of a comparison metric (default = *Ncor*) .
+  - **Tree partition**: the hierarchical tree is partitioned by calculating the average *cor* and *Ncor* values at each node, each time a node does not satisfy the thresholds (one value for *cor* and another for *Ncor*) the node is split in two clusters.
+  - **Motif alignment**: for each cluster, the motifs are progressively aligned following the linkage order of the hierarchical tree, this ensures that each motif is aligned in relation to its most similar motif in the cluster. 
+
 
 Originally, matrix-clustering was planned to be part of the RSAT suite (http://www.rsat.eu/) for motif analysis, we decided to create a portable stand-alone version that can be ran without installing the whole RSAT environment.
 
@@ -97,6 +106,12 @@ Rscript matrix-clustering.R                          \
   --minimal_output FALSE 
 ```
 
+In this example three motif collections are clustered. A ChIP-seq dataset was analyzed with three different motif discovery tools (RSAT peak-motifs, MEME-ChIP, and HOMER).
+
+
+```
+
+```
 
 ## Expected output
 
