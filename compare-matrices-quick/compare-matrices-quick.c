@@ -299,7 +299,7 @@ int main(int argc, char *argv[]){
 	
 	t2 = clock();
 	exec_time = (float)(t2-t1)/CLOCKS_PER_SEC;
-	fprintf(fp,";Analysis performed in %fs\n",exec_time);
+	//fprintf(fp,";Analysis performed in %fs\n",exec_time);
 	if (verbose > 0) { printf("Analysis performed in %fs\n",exec_time); }
 	
 	fclose(fp);
