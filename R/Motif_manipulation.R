@@ -42,7 +42,7 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   ## Read motifs 
   message("; Reading motif collection: ", collection.name)
   motif.collection <- switch(motif.format,
-                             "cluster-buster" = read_cluster_buster(file = motif.file),
+                             "cluster-buster" = read_cluster_buster(motif.file = motif.file),
                              "cisbp"          = universalmotif::read_cisbp(file = motif.file),
                              "homer"          = universalmotif::read_homer(file = motif.file),
                              "jaspar"         = universalmotif::read_jaspar(file = motif.file),
