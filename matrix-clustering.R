@@ -8,16 +8,11 @@ required.packages = c("dplyr",          ## Data manipulation
                       "furrr",          ## Run functions in parallel
                       "optparse",       ## Read command-line arguments
                       "purrr",          ## Iterations
-                      "rcartocolor",    ## Cluster colors
                       "tidyr",          ## Data manipulation
-                      "universalmotif") ## Motif manipulation
-
+                      "universalmotif") ## Motif manipulation (Bioconductor)
 
 for (lib in required.packages) {
-  if (!require(lib, character.only = TRUE)) {
-    install.packages(lib)
-    suppressPackageStartupMessages(library(lib, character.only = TRUE))
-  }
+  suppressPackageStartupMessages(library(lib, character.only = TRUE, quietly = TRUE))
 }
 
 
@@ -321,9 +316,9 @@ if (params.list[["Nb_motifs"]] > 1) {
   ## Clusters - ID table ##
   #########################
   results.list$Clusters_table <- results.list$Alignment_table %>% 
-    group_by(cluster) %>% 
-    summarise(id   = paste(id, collapse = ","),
-              name = paste(name, collapse = ","))
+                                  group_by(cluster) %>% 
+                                  summarise(id   = paste(id, collapse = ","),
+                                            name = paste(name, collapse = ","))
   
 } else {
   stop("The clustering analysis required at least 2 motifs.")
