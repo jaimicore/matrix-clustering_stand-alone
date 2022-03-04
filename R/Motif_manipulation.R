@@ -59,6 +59,11 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   ## Generate the reverse-complement version of the input motif collection
   motif.collection.rc <- universalmotif::motif_rc(motif.collection)
   
+  ## In cases when there is only 1 motif in the motif collection, save the universalmotif
+  ## object within a list
+  if (length(motif.collection) == 1) {
+    motif.collection <- list(motif.collection)
+  }
   
   ## Returns a motif information data.table
   motif.info.dt <- data.table(id_old       = purrr::map_chr(motif.collection, `[`, "name"),
