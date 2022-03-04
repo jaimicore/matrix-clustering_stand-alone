@@ -136,17 +136,23 @@ source(file.path(params.list$clustering_lib_path, "Tree_partition_utils.R"))
 ##############################################################
 ## Initialize output + result lists + create output folders ##
 ##############################################################
-output.files.list <- list("Alignment_table"     = file.path(paste0(out.folder, "_tables"), "alignment_table.tab"),
-                          "Clusters_table"      = file.path(paste0(out.folder, "_tables"), "clusters.tab"),
-                          "Distance_table"      = file.path(paste0(out.folder, "_tables"), "distance_table.tab"),
-                          "Motif_compa"         = file.path(paste0(out.folder, "_tables"), "pairwise_motif_comparison.tab"),
-                          "Cluster_colors"      = file.path(paste0(out.folder, "_tables"), "cluster_color_map.tab"),
-                          "Motifs_transfac_tmp" = file.path(paste0(out.folder, "_motifs"), "input_motifs_parsed_id.tf.tmp"),
-                          "Motifs_transfac"     = file.path(paste0(out.folder, "_motifs"), "input_motifs_parsed_id.tf"),
-                          "Heatmap"             = file.path(paste0(out.folder, "_plots"), "Heatmap.pdf"),
-                          "hclust_all"          = file.path(paste0(out.folder, "_trees"), "tree.RData"),
-                          "JSON_tree_all"       = file.path(paste0(out.folder, "_trees"), "tree.json"),
-                          "Newick_tree_all"     = file.path(paste0(out.folder, "_trees"), "tree.newick"))
+
+out.folder.list <- list(tables = file.path(paste0(out.folder, "_tables")),
+                        motifs = file.path(paste0(out.folder, "_motifs")),
+                        plots  = file.path(paste0(out.folder, "_plots")),
+                        trees  = file.path(paste0(out.folder, "_trees")))
+
+output.files.list <- list("Alignment_table"     = file.path(out.folder.list$tables, "alignment_table.tab"),
+                          "Clusters_table"      = file.path(out.folder.list$tables, "clusters.tab"),
+                          "Distance_table"      = file.path(out.folder.list$tables, "distance_table.tab"),
+                          "Motif_compa"         = file.path(out.folder.list$tables, "pairwise_motif_comparison.tab"),
+                          "Cluster_colors"      = file.path(out.folder.list$tables, "cluster_color_map.tab"),
+                          "Motifs_transfac_tmp" = file.path(out.folder.list$motifs, "input_motifs_parsed_id.tf.tmp"),
+                          "Motifs_transfac"     = file.path(out.folder.list$motifs, "input_motifs_parsed_id.tf"),
+                          "Heatmap"             = file.path(out.folder.list$plots, "Heatmap.pdf"),
+                          "hclust_all"          = file.path(out.folder.list$trees, "tree.RData"),
+                          "JSON_tree_all"       = file.path(out.folder.list$trees, "tree.json"),
+                          "Newick_tree_all"     = file.path(out.folder.list$trees, "tree.newick"))
 
 
 results.list <- list(Dist_table       = NULL,
@@ -159,6 +165,7 @@ results.list <- list(Dist_table       = NULL,
                      Motif_compa_tab  = NULL)
 
 ## Create output folders
+purrr::map_chr(output.files.list, dirname)
 no.output <- sapply(sapply(output.files.list, dirname), dir.create, showWarnings = FALSE, recursive = TRUE)
 
 
@@ -418,5 +425,13 @@ if (params.list$min_output == FALSE) {
     draw(heatmap.w.clusters)
     dev.off()
   }
+  
+  
+  ##########################
+  ## Delete empty folders ##
+  ##########################
+  unlink(out.folder.list$plots, recursive = TRUE)
+  unlink(out.folder.list$trees, recursive = TRUE)
+
 }
 message("; End of program")
