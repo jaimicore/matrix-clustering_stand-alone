@@ -221,6 +221,14 @@ cluster.centroid.id <- function(compa.tab = cluster.compa.entries) {
 cluster.color.map <- function(cluster.tab = NULL,
                               seed        = 130290) {
   
+  ## Require ape (CRNA package) if it is required
+  if (!require("rcartocolor")) {
+    install.packages("rcartocolor")
+  }
+  suppressPackageStartupMessages(library("rcartocolor", character.only = TRUE, quietly = TRUE))
+  message("; Generating cluster-color table")
+  
+  
   clusters.names <- unique(cluster.tab$cluster)
   nb.clusters    <- length(clusters.names)
   
@@ -263,10 +271,7 @@ draw.heatmap.motifs <- function(dist.table    = NULL,
                         "RColorBrewer")
   
   for (lib in required.packages) {
-    if (!require(lib, character.only = TRUE)) {
-      install.packages(lib)
-      suppressPackageStartupMessages(library(lib, character.only = TRUE, quietly = TRUE))
-    }
+    suppressPackageStartupMessages(library(lib, character.only = TRUE, quietly = TRUE))
   }
   
   
