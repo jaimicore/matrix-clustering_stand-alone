@@ -62,7 +62,8 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   ## In cases when there is only 1 motif in the motif collection, save the universalmotif
   ## object within a list
   if (length(motif.collection) == 1) {
-    motif.collection <- list(motif.collection)
+    motif.collection    <- list(motif.collection)
+    motif.collection.rc <- list(motif.collection.rc)
   }
   
   ## Returns a motif information data.table
