@@ -20,7 +20,7 @@ set.um.alt.name <- function(um       = NULL,
 read_cluster_buster <- function(file = NULL) {
   
   ## Read motif file using universalmotif functions    
-  cluster.buster.uo <- list(universalmotif::read_matrix(cluster_buster_motif, positions = "rows", sep = "//"))
+  cluster.buster.uo <- list(universalmotif::read_matrix(file, positions = "rows", sep = "//"))
   
   ## Add name and altternate name fields
   cluster.buster.uo.id <-  purrr::map_chr(cluster.buster.uo, `[`, "name")
