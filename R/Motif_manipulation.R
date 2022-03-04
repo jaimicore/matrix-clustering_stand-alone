@@ -7,6 +7,33 @@ set.um.id.name <- function(um = NULL,
 }
 
 
+## Reset the 'Alternate name' field of universalmotif object
+set.um.alt.name <- function(um       = NULL,
+                           new.name = "New_alt_name") {
+  um@altname <- new.name
+  
+  return(um)
+}
+
+
+## This function reads motifs in cluster-buster format and returns a universalmotif object
+read_cluster_buster <- function(file = NULL) {
+  
+  ## Read motif file using universalmotif functions    
+  cluster.buster.uo <- list(universalmotif::read_matrix(cluster_buster_motif, positions = "rows", sep = "//"))
+  
+  ## Add name and altternate name fields
+  cluster.buster.uo.id <-  purrr::map_chr(cluster.buster.uo, `[`, "name")
+  
+  cluster.buster.uo.new.altname <- purrr::map2(.x = cluster.buster.uo,
+                                               .y = cluster.buster.uo.id,
+                                               .f = ~set.um.alt.name(um       = .x,
+                                                                     new.name = .y))
+  
+  return(cluster.buster.uo.new.altname)
+}
+
+
 ## Returns a data.frame with the description table of each motif in the input collection
 preprocess.one.motif.collection <- function(motif.file      = NULL,
                                             motif.format    = NULL,
@@ -15,8 +42,35 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   ## Read motifs 
   message("; Reading motif collection: ", collection.name)
   motif.collection <- switch(motif.format,
-                             "transfac" = universalmotif::read_transfac(file = motif.file),
-                             "tf"       = universalmotif::read_transfac(file = motif.file))
+                             "cluster-buster" = read_cluster_buster(file = motif.file),
+                             "cisbp"          = universalmotif::read_cisbp(file = motif.file),
+                             "homer"          = universalmotif::read_homer(file = motif.file),
+                             "jaspar"         = universalmotif::read_jaspar(file = motif.file),
+                             "meme"           = universalmotif::read_meme(file = motif.file),
+                             "tf"             = universalmotif::read_transfac(file = motif.file),
+                             "transfac"       = universalmotif::read_transfac(file = motif.file),
+                             "uniprobe"       = universalmotif::read_uniprobe(file = motif.file))
+  
+  
+
+  read_cluster_buster <- function(cluster_buster_motif = NULL) {
+
+    ## Read motif file using universalmotif functions    
+    cluster.buster.uo <- list(universalmotif::read_matrix(cluster_buster_motif, positions = "rows", sep = "//"))
+    
+    ## Add name and altternate name fields
+    cluster.buster.uo.id <-  purrr::map_chr(cluster.buster.uo, `[`, "name")
+    
+    cluster.buster.uo.new.altname <- purrr::map2(.x = cluster.buster.uo,
+                                                 .y = cluster.buster.uo.id,
+                                                 .f = ~set.um.alt.name(um       = .x,
+                                                                       new.name = .y))
+    
+    return(cluster.buster.uo.new.altname)
+  }
+  
+  
+
   
   ## This step is required when there are cases of motifs with empty columns, for some reason
   ## this generates an NA within the Universalmotif object and crashes the script
@@ -81,7 +135,14 @@ check.input.motif.file <- function(motif.file       = NULL,
                                    motif.format     = NULL,
                                    file.line        = NULL) {
   
-  supported.motif.formats <- c("transfac", "tf")
+  supported.motif.formats <- c("cluster-buster",
+                               "cisbp",
+                               "homer",
+                               "jaspar",
+                               "meme",
+                               "tf",
+                               "transfac",
+                               "uniprobe")
   
   ## Check the status of each element in the input table
   motif.file.flag       <- ifelse(file.exists(motif.file), yes = TRUE, no = FALSE)
