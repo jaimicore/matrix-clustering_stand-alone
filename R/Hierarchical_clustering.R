@@ -56,11 +56,6 @@ build.distance.matrix <- function(compa.table = NULL,
 #####################################
 hclust.motifs <- function(dist.matrix, hclust.method = "average"){
 
-#   if(!require("Rclusterpp")){
-#     install.packages("Rclusterpp")
-#   }
-
-#    return(Rclusterpp.hclust(dist.matrix, method = hclust.method))
    return(hclust(dist.matrix, method = hclust.method))
 }
 
@@ -76,7 +71,7 @@ convert.hclust.to.newick <- function(tree){
   if (!require("ape")) {
     install.packages("ape")
   }
-  suppressPackageStartupMessages(library("ape", warn.conflicts = FALSE))
+  suppressPackageStartupMessages(library("ape", character.only = TRUE, quietly = TRUE))
   message("; Converting hclust object to newick tree")
   
   ## Round the decimals of the branches distances
@@ -99,7 +94,7 @@ convert.hclust.to.JSON <- function(tree){
   if (!require("RJSONIO")) {
     install.packages("RJSONIO")
   }
-  suppressPackageStartupMessages(library("RJSONIO", warn.conflicts = FALSE))
+  suppressPackageStartupMessages(library("RJSONIO", character.only = TRUE, quietly = TRUE))
   
   message("; Converting hclust object to a JSON tree")
   
