@@ -114,7 +114,7 @@ source(file.path(params.list$clustering_lib_path, "Tree_partition_utils.R"))
 ## Debug ##
 ###########
 ## Example:
-## Rscript /home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/matrix-clustering.R -i /home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/data/OCT4_datasets/OCT4_motif_table.txt -o /home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/results/OCT4_motifs_example --number_of_workers 8 -q /home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/compare-matrices/compare-matrices-quick --minimal_output FALSE
+## Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8 -q compare-matrices-quick/compare-matrices-quick --minimal_output FALSE -r ./R
 
 # matrix.file.tab <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/data/motif_table.txt"
 # out.folder  <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/results/JASPAR_2022_example"
@@ -317,8 +317,9 @@ if (params.list[["Nb_motifs"]] > 1) {
   #########################
   results.list$Clusters_table <- results.list$Alignment_table %>% 
                                   group_by(cluster) %>% 
-                                  summarise(id   = paste(id, collapse = ","),
-                                            name = paste(name, collapse = ","))
+                                  summarise(id      = paste(id, collapse = ","),
+                                            name    = paste(name, collapse = ","),
+                                            .groups = "drop")
   
 } else {
   stop("The clustering analysis required at least 2 motifs.")

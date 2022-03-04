@@ -203,8 +203,8 @@ cluster.centroid.id <- function(compa.tab = cluster.compa.entries) {
   
   as.vector(unlist(compa.tab %>% 
                      group_by(id1) %>% 
-                     summarise(Ncor = median(Ncor),
-                               cor  = median(cor),
+                     summarise(Ncor    = median(Ncor),
+                               cor     = median(cor),
                                .groups = "drop") %>% 
                      mutate(Score = Ncor * cor) %>% 
                      dplyr::filter(Score == max(Score)) %>% 
