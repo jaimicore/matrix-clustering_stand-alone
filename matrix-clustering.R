@@ -218,7 +218,6 @@ results.list[["Dist_table"]]      <- data.table(as.data.frame.matrix(distances.o
 results.list[["Dist_matrix"]]     <- distances.objects$matrix
 results.list[["Original_matrix"]] <- data.table(as.data.frame.matrix(distances.objects$original))
 
-save.image("Debug.Rdata")
 
 ##############################################
 ## Compute the hierarchical clustering tree ##
@@ -262,10 +261,11 @@ if (params.list[["Nb_motifs"]] > 1) {
   ## This function is ran in parallel using furrr::future_map , see https://furrr.futureverse.org/
   plan(multisession, workers = params.list$nb_workers)
   message("; Motif alignment step")
-  aligment.clusters.tab <- furrr::future_map(.x = cl.many.hclust, .f = ~align.motifs.in.cluster(tree       = .x,
-                                                                                                compa      = results.list$Motif_compa_tab,
-                                                                                                motif.info = results.list$Motif_info_tab,
-                                                                                                parameters = params.list))
+  aligment.clusters.tab <- furrr::future_map(.x = cl.many.hclust,
+                                             .f = ~align.motifs.in.cluster(tree       = .x,
+                                                                           compa      = results.list$Motif_compa_tab,
+                                                                           motif.info = results.list$Motif_info_tab,
+                                                                           parameters = params.list))
   
   ###########################
   ## Debug : do not delete ##
@@ -293,28 +293,34 @@ if (params.list[["Nb_motifs"]] > 1) {
   ## Groups
   ## Add cluster name, rename columns and remove unnecessary columns
   aligment.clusters.tab.export <-  rbindlist(aligment.clusters.tab, idcol = "cluster") %>% 
-    within(rm(N, Update_status)) %>% 
-    rename(strand            = Strand,
-           offset_up         = Offset_up,
-           offset_down       = Offset_down,
-           aligned_consensus = Oriented_consensus)
+                                      within(rm(N, Update_status)) %>% 
+                                      rename(strand            = Strand,
+                                             offset_up         = Offset_up,
+                                             offset_down       = Offset_down,
+                                             aligned_consensus = Oriented_consensus)
   
   
   ## Singletons
-  singleton.clusters.tab.export <- data.table(cluster = names(find.clusters.list$clusters[cl.singleton]),
-                                              id      = unlist(find.clusters.list$clusters[cl.singleton])) %>% 
-    left_join(results.list$Motif_info_tab, by = "id") %>% 
-    mutate(strand            = "D",
-           offset_up         = 0,
-           offset_down       = 0,
-           aligned_consensus = consensus) %>% 
-    within(rm(n, width, IC, nb_sites, id_old))
-  
-  
-  ## Combine groups + singleton clusters
-  clusters.tab.export <- rbind(aligment.clusters.tab.export, singleton.clusters.tab.export) %>% 
-    mutate(alignment_width = nchar(aligned_consensus))
-  
+  if (sum(cluster.sizes == 0) > 0) {
+   
+    singleton.clusters.tab.export <- data.table(cluster = names(find.clusters.list$clusters[cl.singleton]),
+                                                id      = unlist(find.clusters.list$clusters[cl.singleton])) %>% 
+                                        left_join(results.list$Motif_info_tab, by = "id") %>% 
+                                        mutate(strand            = "D",
+                                               offset_up         = 0,
+                                               offset_down       = 0,
+                                               aligned_consensus = consensus) %>% 
+                                        within(rm(n, width, IC, nb_sites, id_old)) 
+    
+    ## Combine groups + singleton clusters
+    clusters.tab.export <- rbind(aligment.clusters.tab.export, singleton.clusters.tab.export) %>% 
+      mutate(alignment_width = nchar(aligned_consensus))
+    
+  } else {
+    clusters.tab.export <- aligment.clusters.tab.export %>% 
+                            mutate(alignment_width = nchar(aligned_consensus))
+  }
+
   results.list$Alignment_table <- clusters.tab.export
   
   
