@@ -243,6 +243,7 @@ if (params.list[["Nb_motifs"]] > 1) {
   cluster.sizes                <- purrr::map_dbl(find.clusters.list$clusters, length)
   cl.singleton                 <- names(cluster.sizes[cluster.sizes == 1])
   cl.many                      <- names(cluster.sizes[cluster.sizes > 1])
+  singleton.flag               <- as.logical(length(cl.singleton))
   params.list[["Nb_clusters"]] <- length(find.clusters.list$clusters)
   message("; Number of clusters: ", params.list[["Nb_clusters"]])
   
@@ -292,7 +293,7 @@ if (params.list[["Nb_motifs"]] > 1) {
   
   ## Groups
   ## Add cluster name, rename columns and remove unnecessary columns
-  aligment.clusters.tab.export <-  rbindlist(aligment.clusters.tab, idcol = "cluster") %>% 
+  alignment.clusters.tab.export <-  rbindlist(aligment.clusters.tab, idcol = "cluster") %>% 
                                       within(rm(N, Update_status)) %>% 
                                       rename(strand            = Strand,
                                              offset_up         = Offset_up,
@@ -300,8 +301,9 @@ if (params.list[["Nb_motifs"]] > 1) {
                                              aligned_consensus = Oriented_consensus)
   
   
-  ## Singletons
-  if (sum(cluster.sizes == 0) > 0) {
+  ## Singleton section
+  ## This if only applied when there is at least one singleton
+  if (singleton.flag) {
    
     singleton.clusters.tab.export <- data.table(cluster = names(find.clusters.list$clusters[cl.singleton]),
                                                 id      = unlist(find.clusters.list$clusters[cl.singleton])) %>% 
@@ -313,17 +315,14 @@ if (params.list[["Nb_motifs"]] > 1) {
                                         within(rm(n, width, IC, nb_sites, id_old)) 
     
     ## Combine groups + singleton clusters
-    clusters.tab.export <- rbind(aligment.clusters.tab.export, singleton.clusters.tab.export) %>% 
-      mutate(alignment_width = nchar(aligned_consensus))
+    results.list$Alignment_table <- rbind(alignment.clusters.tab.export, singleton.clusters.tab.export) %>% 
+                                        mutate(alignment_width = nchar(aligned_consensus))
     
   } else {
-    clusters.tab.export <- aligment.clusters.tab.export %>% 
-                            mutate(alignment_width = nchar(aligned_consensus))
+    results.list$Alignment_table <- alignment.clusters.tab.export %>% 
+                                      mutate(alignment_width = nchar(aligned_consensus))
   }
 
-  results.list$Alignment_table <- clusters.tab.export
-  
-  
   
   #########################
   ## Clusters - ID table ##
