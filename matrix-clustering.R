@@ -218,6 +218,7 @@ results.list[["Dist_table"]]      <- data.table(as.data.frame.matrix(distances.o
 results.list[["Dist_matrix"]]     <- distances.objects$matrix
 results.list[["Original_matrix"]] <- data.table(as.data.frame.matrix(distances.objects$original))
 
+save.image("Debug.Rdata")
 
 ##############################################
 ## Compute the hierarchical clustering tree ##
@@ -281,7 +282,6 @@ if (params.list[["Nb_motifs"]] > 1) {
   #                         motif.info = results.list$Motif_info_tab,
   #                         parameters = params.list)
   # toc()
-  
   
   ###################################
   ## Parse tables before exporting ##
