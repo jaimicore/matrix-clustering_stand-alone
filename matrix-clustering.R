@@ -351,6 +351,8 @@ fwrite(x         = results.list$Clusters_table,
        col.names = TRUE,
        sep       = "\t")
 
+save("Debug.Rdata")
+
 ## Export motifs as transfac files in D and R orientation
 message("; Export individual motifs in transfac format")
 export.indiv.motif.files(un.motifs = all.motifs.um,
