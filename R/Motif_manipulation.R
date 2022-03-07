@@ -22,10 +22,18 @@ read_cluster_buster <- function(motif.file = NULL) {
   ## Read motif file using universalmotif functions    
   cluster.buster.uo <- list(universalmotif::read_matrix(file = motif.file, positions = "rows", sep = "//"))
   
-  ## Add name and altternate name fields
+  ## Add name and alternate name fields
   cluster.buster.uo.id <-  purrr::map_chr(cluster.buster.uo, `[`, "name")
+  cluster.buster.uo.id <- gsub(cluster.buster.uo.id, pattern = ">", replacement = "")
   
-  cluster.buster.uo.new.altname <- purrr::map2(.x = cluster.buster.uo,
+  
+  cluster.buster.uo.new.id <- purrr::map2(.x = cluster.buster.uo,
+                                          .y = cluster.buster.uo.id,
+                                          .f = ~set.um.id.name(um     = .x,
+                                                               new.id = .y))
+  
+  
+  cluster.buster.uo.new.altname <- purrr::map2(.x = cluster.buster.uo.new.id,
                                                .y = cluster.buster.uo.id,
                                                .f = ~set.um.alt.name(um       = .x,
                                                                      new.name = .y))
@@ -75,7 +83,7 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
                               IC           = purrr::map_dbl(motif.collection, `[`, "icscore")) %>% 
                     mutate(width = nchar(consensus),
                            n     = 1:n()) %>% 
-                    mutate(id = paste0(collection.name, "_", id_old, "_n", n))
+                    mutate(id = paste0(collection.name, "_m", n, "_", id_old,))
   
   
   ## Change the motif IDs, this is required to map the collection of origin of each
