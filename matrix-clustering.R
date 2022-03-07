@@ -6,9 +6,9 @@
 required.packages = c("dplyr",          ## Data manipulation
                       "data.table",     ## Read long matrices in a quick way
                       "furrr",          ## Run functions in parallel
-                      "here",           ## Create relative paths
                       "optparse",       ## Read command-line arguments
-                      "purrr",          ## Iterations
+                      "purrr",          ## Iterations,
+                      "this.path",      ## Create relative paths
                       "tidyr",          ## Data manipulation
                       "universalmotif") ## Motif manipulation (Bioconductor)
 
@@ -92,12 +92,14 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
 ###############################
 ## Source here the functions ##
 ###############################
-here::set_here(verbose = FALSE)
-source(here("R", "General_utils.R"))
-source(here("R", "Hierarchical_clustering.R"))
-source(here("R", "Motif_alignment_utils.R"))
-source(here("R", "Motif_manipulation.R"))
-source(here("R", "Tree_partition_utils.R"))
+
+## 'here' is set to the path where matrix-clustering.R is located, then the libraries
+## are sourced relative to where 'here' was set
+source(this.path::here("R", "General_utils.R"))
+source(this.path::here("R", "Hierarchical_clustering.R"))
+source(this.path::here("R", "Motif_alignment_utils.R"))
+source(this.path::here("R", "Motif_manipulation.R"))
+source(this.path::here("R", "Tree_partition_utils.R"))
 # source(file.path(params.list$clustering_lib_path, "General_utils.R"))
 # source(file.path(params.list$clustering_lib_path, "Hierarchical_clustering.R"))
 # source(file.path(params.list$clustering_lib_path, "Motif_alignment_utils.R"))
