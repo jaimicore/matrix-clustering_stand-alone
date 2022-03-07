@@ -67,7 +67,6 @@ opt = parse_args(opt_parser);
 ## Output file prefix
 out.folder        <- opt$output_folder
 matrix.file.table <- opt$matrix_file_table
-matrix.file.table <- opt$matrix_file_table
 
 ## Mandatory input
 if (!file.exists(matrix.file.table)) {
@@ -84,8 +83,6 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "cor"                   = as.numeric(opt$cor_th),
                     "Ncor"                  = as.numeric(opt$Ncor_th),
                     "nb_workers"            = as.numeric(opt$number_of_workers),
-                    "compare_matrices_path" = opt$compare_matrices_quick_path,
-                    "clustering_lib_path"   = opt$matrix_clustering_r_lib,
                     "min_output"            = opt$minimal_output)
 
 
@@ -100,13 +97,10 @@ source(this.path::here(.. = 0, "R", "Hierarchical_clustering.R"))
 source(this.path::here(.. = 0, "R", "Motif_alignment_utils.R"))
 source(this.path::here(.. = 0, "R", "Motif_manipulation.R"))
 source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
-# source(file.path(params.list$clustering_lib_path, "General_utils.R"))
-# source(file.path(params.list$clustering_lib_path, "Hierarchical_clustering.R"))
-# source(file.path(params.list$clustering_lib_path, "Motif_alignment_utils.R"))
-# source(file.path(params.list$clustering_lib_path, "Motif_manipulation.R"))
-# source(file.path(params.list$clustering_lib_path, "Tree_partition_utils.R"))
 # sourceCpp(file.path(params.list$clustering_lib_path, "Utils.cpp"))
 
+
+## oriented instead of aligned + oriented_rc
 
 
 ###########
@@ -128,7 +122,6 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 #                     "cor"                   = 0.75,
 #                     "Ncor"                  = 0.55,
 #                     "nb_workers"            = 8,
-#                     "compare_matrices_path" = "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/compare-matrices/compare-matrices-quick",
 #                     "min_output"            = TRUE)
 
 
