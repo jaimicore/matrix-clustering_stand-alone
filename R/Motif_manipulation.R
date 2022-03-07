@@ -300,7 +300,7 @@ export.indiv.motif.files <- function(un.motifs = NULL,
     }
     
     ## Iterate over each motif to export it as a transfac file
-    furrr::future_walk2(.x = motifs.D,
+    furrr::future_walk2(.x = uo.motifs.oriented,
                         .y = rep(outdir, times = length(motifs.D)),
                         .f = ~export.one.motif.transfac(un     = .x,
                                                         outdir = .y,
