@@ -351,7 +351,7 @@ fwrite(x         = results.list$Clusters_table,
        col.names = TRUE,
        sep       = "\t")
 
-save("Debug.Rdata")
+save.image("Debug.Rdata")
 
 ## Export motifs as transfac files in D and R orientation
 message("; Export individual motifs in transfac format")
