@@ -83,7 +83,7 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
                               IC           = purrr::map_dbl(motif.collection, `[`, "icscore")) %>% 
                     mutate(width = nchar(consensus),
                            n     = 1:n()) %>% 
-                    mutate(id = paste0(collection.name, "_m", n, "_", id_old,))
+                    mutate(id = paste0(collection.name, "_m", n, "_", id_old))
   
   
   ## Change the motif IDs, this is required to map the collection of origin of each
