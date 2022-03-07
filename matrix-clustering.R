@@ -109,9 +109,9 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 ## Example:
 ## Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8 -q compare-matrices-quick/compare-matrices-quick --minimal_output FALSE -r ./R
 
-# matrix.file.tab <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/data/motif_table.txt"
-# out.folder  <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/results/JASPAR_2022_example"
-
+# matrix.file.table <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/OCT4_datasets/OCT4_motif_table.txt"
+# out.folder        <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/results/Oct4_example/Oct4_example"
+# 
 # params.list <- list("export_newick"         = 0,
 #                     "export_heatmap"        = 0,
 #                     "heatmap_color_classes" = NULL,
@@ -329,14 +329,13 @@ if (params.list[["Nb_motifs"]] > 1) {
 
 
 
-
 ############################
 ## Export results section ##
 ############################
 
-################################################################################
-## Export the alignment + clusters table:  these files are the minimal output ##
-###############################################################################
+#############################################################################################
+## Export the alignment + clusters table + motif files: these files are the minimal output ##
+#############################################################################################
 message("; Exporting alignment table:", output.files.list$Alignment_table)
 fwrite(x         = results.list$Alignment_table,
        file      = output.files.list$Alignment_table,
@@ -351,6 +350,11 @@ fwrite(x         = results.list$Clusters_table,
        row.names = FALSE,
        col.names = TRUE,
        sep       = "\t")
+
+## Export motifs as transfac files in D and R orientation
+message("; Export individual motifs in transfac format")
+export.indiv.motif.files(un.motifs = all.motifs.um,
+                         outdir    = out.folder.list$motifs)
 
 
 ## When minimal output mode is not activated exports trees, heatmap, and cluster-color table
