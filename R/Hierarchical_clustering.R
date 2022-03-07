@@ -156,13 +156,14 @@ convert.hclust.to.JSON <- function(tree){
 ## among all motifs in the input collection and the offsets of the best alignment
 ## of each comparisons, this offsets will be used to align the motifs
 motif.comparison <- function(transfac.file     = NULL,
-                             output.compa.file = NULL,
-                             bin               = NULL) {
+                             output.compa.file = NULL) {
+  
+  bin <- here("compare-matrices-quick", "compare-matrices-quick")
   
   message("; Running compare-matrices-quick")
   ## Keep the lowest thresholds, this ensures all comparisons are shown (all comparisons satisfy the thresholds)
   compa.mat.quick.command <- paste0(bin," -v 2 -file1 ", transfac.file, " -file2 ", transfac.file, " -lth_ncor1 -1 -lth_ncor2 -1 -lth_ncor -1 -lth_cor -1 -lth_w 0 -mode matches -o ", output.compa.file)
-  message(compa.mat.quick.command)
+  #message(compa.mat.quick.command)
   system(compa.mat.quick.command)
   
   if (file.exists(output.compa.file)) {
