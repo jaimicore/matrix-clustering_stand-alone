@@ -80,7 +80,7 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   
   ## Change the motif IDs, this is required to map the collection of origin of each
   ## motif and to avoid repeated IDs
-  message("; Renaming motif IDs")
+  # message("; Renaming motif IDs")
   motif.collection.new.id <- purrr::map2(.x = motif.collection,
                                          .y = motif.info.dt$id,
                                          .f = ~set.um.id.name(um     = .x,
