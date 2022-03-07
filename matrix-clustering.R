@@ -95,11 +95,11 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
 
 ## 'here' is set to the path where matrix-clustering.R is located, then the libraries
 ## are sourced relative to where 'here' was set
-source(this.path::here("R", "General_utils.R"))
-source(this.path::here("R", "Hierarchical_clustering.R"))
-source(this.path::here("R", "Motif_alignment_utils.R"))
-source(this.path::here("R", "Motif_manipulation.R"))
-source(this.path::here("R", "Tree_partition_utils.R"))
+source(this.path::here(.. = 0, "R", "General_utils.R"))
+source(this.path::here(.. = 0, "R", "Hierarchical_clustering.R"))
+source(this.path::here(.. = 0, "R", "Motif_alignment_utils.R"))
+source(this.path::here(.. = 0, "R", "Motif_manipulation.R"))
+source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 # source(file.path(params.list$clustering_lib_path, "General_utils.R"))
 # source(file.path(params.list$clustering_lib_path, "Hierarchical_clustering.R"))
 # source(file.path(params.list$clustering_lib_path, "Motif_alignment_utils.R"))

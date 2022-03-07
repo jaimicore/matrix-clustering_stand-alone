@@ -158,7 +158,7 @@ convert.hclust.to.JSON <- function(tree){
 motif.comparison <- function(transfac.file     = NULL,
                              output.compa.file = NULL) {
   
-  bin <- this.path::here("compare-matrices-quick", "compare-matrices-quick")
+  bin <- this.path::here(.. = 0, "compare-matrices-quick", "compare-matrices-quick")
   
   message("; Running compare-matrices-quick")
   ## Keep the lowest thresholds, this ensures all comparisons are shown (all comparisons satisfy the thresholds)
