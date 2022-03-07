@@ -116,12 +116,11 @@ motif.comparison.entries <- function(ids   = NULL,
   
   
   ## Select relevant motifs + create comparison pair IDs
-  comparison.subset <- comparison.subset %>%                 
-                          dplyr::filter(id2 %in% ids & id1 %in% ids) %>%  ## Select table entries associated with the input motif IDs
-                          mutate(Nb_compa = 1:n()) #%>%                  
-                          # group_by(Nb_compa) %>% 
-                          # mutate(Compa_ID = paste(sort(c(id1, id2)),    ## Create a unique comparison identifier
-                          #                         collapse = ",")) 
+  comparison.subset <- comparison.subset %>%   
+                          dplyr::filter(id1 %in% ids) %>% 
+                          dplyr::filter(id2 %in% ids) %>% 
+                          # dplyr::filter(id2 %in% ids & id1 %in% ids) %>%  ## Select table entries associated with the input motif IDs
+                          mutate(Nb_compa = 1:n())
   
   ## Not full returns only the first instance of each comparison pair ID 
   if (full == FALSE) {
