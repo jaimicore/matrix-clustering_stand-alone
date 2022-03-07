@@ -105,9 +105,12 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
 ## have to be renamed to be read by compare-matrices quick
 export.tf.motifs.w.parsed.header <- function(um.object   = NULL,
                                              old.tf.file = NULL,
-                                             new.tf.file = NULL) {
+                                             new.tf.file = NULL,
+                                             verbose     = TRUE) {
   
-  message("; Exporting motifs with updated ID: ", old.tf.file)
+  if (verbose) {
+    message("; Exporting motifs with updated ID: ", old.tf.file)
+  }
   universalmotif::write_transfac(motifs    = um.object,
                                  file      = old.tf.file,
                                  overwrite = TRUE)
@@ -204,4 +207,103 @@ check.status.motif.table <- function(matrix.file.table = NULL) {
   }
   
   return(matrix.files.list)
+}
+
+
+
+
+## This function returns two universalmotif objects, each object contains the motifs
+## oriented according to the alignment, the second list is the reverse-complement
+## 
+## un.motifs         = Object of class 'universalmotif'
+## orientation.table = a table containing the motif IDs and its final strand after alignment 
+motifs.final.orientation <- function(un.motifs         = NULL,    
+                                     orientation.table = NULL) {  
+  
+  ## Assign names to the entries of the universalmotif object
+  ## By default the names are NULL, after these lines the object can be indexed through motif IDs
+  motif.ids.um     <- purrr::map_chr(un.motifs, `[`, "name")
+  names(un.motifs) <- motif.ids.um
+  
+  ## Obtain the RC
+  all.motifs.um.D <- un.motifs
+  all.motifs.um.R <- universalmotif::motif_rc(all.motifs.um.D)
+  
+  
+  ## Get the IDs of motifs in D and R strand after alignment
+  final.orientation.tab <- orientation.table %>% 
+                            select(id, strand)
+  
+  motif.id.strandD <- subset(final.orientation.tab, strand == "D")$id
+  motif.id.strandR <- subset(final.orientation.tab, strand == "R")$id
+  
+  oriented.um    <- c(all.motifs.um.D[motif.id.strandD], all.motifs.um.R[motif.id.strandR])
+  oriented.um.rc <- universalmotif::motif_rc(oriented.um)
+  
+  return(list(D = oriented.um,
+              R = oriented.um.rc))
+}
+
+
+
+## Export one motif stored as a universalmotif object as a transfac file
+## in a given directory
+## NOTE: this function adds the suffix '_oriented' in the motif filename
+export.one.motif.transfac <- function(un     = NULL,
+                                      outdir = NULL,
+                                      strand = "D") {
+  
+  ## Suffix based in strand
+  strand.suffix <- switch(strand,
+                          "D" = "",
+                          "R" = "_rc")
+  
+  
+  ind.motif.file.path.tmp <- file.path(outdir, paste0(un@name, "_oriented", strand.suffix,".tf.tmp")) 
+  ind.motif.file.path     <- file.path(outdir, paste0(un@name, "_oriented", strand.suffix,".tf")) 
+  
+  ## Export transfac file with correct header to be read by compare-matrices-quick
+  export.tf.motifs.w.parsed.header(old.tf.file = ind.motif.file.path.tmp,
+                                   new.tf.file = ind.motif.file.path,
+                                   um.object   = un,
+                                   verbose     = FALSE) 
+}
+
+
+
+## Export the motifs stored in the input universalmotif object as inidividual transfac files
+## Each motif is exported in D and R orientations
+export.indiv.motif.files <- function(un.motifs = NULL,
+                                     outdir    = NULL) {
+  
+  ## A list containing the oriented motifs in D and R orientations
+  um.final.orientation <- motifs.final.orientation(un.motifs         = all.motifs.um,    
+                                                   orientation.table = results.list$Alignment_table)
+  
+  
+  ## Iterate over the strands
+  motifs.D <- um.final.orientation$D
+  motifs.R <- um.final.orientation$R
+  plan(multisession, workers = params.list$nb_workers)
+  for (i in 1:2) {
+    
+    ## Select strand and universalmotif object
+    if (i == 1) { 
+      uo.motifs.oriented <- motifs.D
+      strand.oriented    <- "D"
+      message("; Exporting oriented individual motif files: D strand")
+      
+    } else if (i == 2) { 
+      uo.motifs.oriented <- motifs.R
+      strand.oriented    <- "R"
+      message("; Exporting oriented individual motif files: R strand")
+    }
+    
+    ## Iterate over each motif to export it as a transfac file
+    furrr::future_walk2(.x = motifs.D,
+                        .y = rep(outdir, times = length(motifs.D)),
+                        .f = ~export.one.motif.transfac(un     = .x,
+                                                        outdir = .y,
+                                                        strand = strand.oriented))
+  }
 }
