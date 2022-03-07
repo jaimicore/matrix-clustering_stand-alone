@@ -44,6 +44,7 @@ required.packages = c("dplyr",          ## Data manipulation
                       "optparse",       ## Read command-line arguments
                       "purrr",          ## Iterations
                       "rcartocolor",    ## Cluster colors
+                      "this.path",      ## Create relative paths
                       "tidyr",          ## Data manipulation
                       "dendsort",       ## To draw heatmap
                       "RColorBrewer",   ## Heatmap cell colors
@@ -100,10 +101,7 @@ Assuming you are in the root of the repository folder you can run the following 
 Rscript matrix-clustering.R                          \
   -i data/OCT4_datasets/OCT4_motif_table.txt         \
   -o results/OCT4_motifs_example/OCT4_motif_analysis \
-  -q compare-matrices-quick/compare-matrices-quick   \
-  -r ./R                                             \
-  --number_of_workers 8                              \
-  --minimal_output FALSE 
+  --number_of_workers 8                              
 ```
 
 In this example three motif collections are clustered. A ChIP-seq dataset was analyzed with three different motif discovery tools (RSAT peak-motifs, MEME-ChIP, and HOMER).
