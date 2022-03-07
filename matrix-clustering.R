@@ -6,6 +6,7 @@
 required.packages = c("dplyr",          ## Data manipulation
                       "data.table",     ## Read long matrices in a quick way
                       "furrr",          ## Run functions in parallel
+                      "here",           ## Create relative paths
                       "optparse",       ## Read command-line arguments
                       "purrr",          ## Iterations
                       "tidyr",          ## Data manipulation
@@ -16,7 +17,6 @@ for (lib in required.packages) {
 }
 
 
-
 ####################
 ## Read arguments ##
 ####################
@@ -25,17 +25,8 @@ option_list = list(
   make_option(c("-i", "--matrix_file_table"), type = "character", default = NULL, 
               help = "A text-delimited file where each line contain the next fields. 1: Motif file path; 2: Motif collection name; 3: Motif format (Mandatory). It does not expect a header, but it expects those columns in the indicated order.", metavar = "character"),
   
-  make_option(c("-q", "--compare_matrices_quick_path"), type = "character", default = NULL, 
-              help = "Path to the executable of compare-matrices-quick (Mandatory). From the main directory of the repository: ./compare-matrices/compare-matrices-quick", metavar = "character"),
-  
-  make_option(c("-r", "--matrix_clustering_r_lib"), type = "character", default = NULL, 
-              help = "Path to the matrix-clustering_stand-alone/R (Mandatory). From the main directory of the repository: ./R", metavar = "character"),
-  
   make_option(c("-o", "--output_folder"), type = "character", default = NULL, 
               help = "Folder to save the results (Mandatory)", metavar = "character"),
-  
-  # make_option(c("-t", "--title"), type = "character", default = "matrix-clustering_analysis", 
-  #             help = "Analysis title, this is part of the ouput file names. [Default: \"%default\".", metavar = "character"),  
   
   make_option(c("-m", "--comparison_metric"), type = "character", default = "Ncor", 
               help = "Comparison metric used to build the hierarchical tree. [Default: \"%default\" . Options: cor, Ncor]", metavar = "character"),  
@@ -101,11 +92,17 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
 ###############################
 ## Source here the functions ##
 ###############################
-source(file.path(params.list$clustering_lib_path, "General_utils.R"))
-source(file.path(params.list$clustering_lib_path, "Hierarchical_clustering.R"))
-source(file.path(params.list$clustering_lib_path, "Motif_alignment_utils.R"))
-source(file.path(params.list$clustering_lib_path, "Motif_manipulation.R"))
-source(file.path(params.list$clustering_lib_path, "Tree_partition_utils.R"))
+here::set_here(verbose = FALSE)
+source(here("R", "General_utils.R"))
+source(here("R", "Hierarchical_clustering.R"))
+source(here("R", "Motif_alignment_utils.R"))
+source(here("R", "Motif_manipulation.R"))
+source(here("R", "Tree_partition_utils.R"))
+# source(file.path(params.list$clustering_lib_path, "General_utils.R"))
+# source(file.path(params.list$clustering_lib_path, "Hierarchical_clustering.R"))
+# source(file.path(params.list$clustering_lib_path, "Motif_alignment_utils.R"))
+# source(file.path(params.list$clustering_lib_path, "Motif_manipulation.R"))
+# source(file.path(params.list$clustering_lib_path, "Tree_partition_utils.R"))
 # sourceCpp(file.path(params.list$clustering_lib_path, "Utils.cpp"))
 
 
@@ -165,7 +162,6 @@ results.list <- list(Dist_table       = NULL,
                      Motif_compa_tab  = NULL)
 
 ## Create output folders
-purrr::map_chr(output.files.list, dirname)
 no.output <- sapply(sapply(output.files.list, dirname), dir.create, showWarnings = FALSE, recursive = TRUE)
 
 
@@ -203,8 +199,7 @@ message("; Analysis with ", params.list[["Nb_motifs"]], " motifs in ", params.li
 ## Read motif comparison table ##
 #################################
 results.list$Motif_compa_tab <- motif.comparison(transfac.file     = output.files.list$Motifs_transfac,
-                                                 output.compa.file = output.files.list$Motif_compa,
-                                                 bin               = params.list$compare_matrices_path)
+                                                 output.compa.file = output.files.list$Motif_compa)
 
 
 #######################################################################
@@ -355,7 +350,7 @@ fwrite(x         = results.list$Alignment_table,
        sep       = "\t")
 
 
-message("; Exporting clusters table:", output.files.list$Alignment_table)
+message("; Exporting clusters table:", output.files.list$Clusters_table)
 fwrite(x         = results.list$Clusters_table,
        file      = output.files.list$Clusters_table,
        row.names = FALSE,
@@ -363,6 +358,7 @@ fwrite(x         = results.list$Clusters_table,
        sep       = "\t")
 
 
+## When minimal output mode is not activated exports trees, heatmap, and cluster-color table
 if (params.list$min_output == FALSE) {
   
   ######################################
@@ -431,12 +427,13 @@ if (params.list$min_output == FALSE) {
     dev.off()
   }
   
+## Remove these folder when --minimal_output mode is activated
+} else {
   
   ##########################
   ## Delete empty folders ##
   ##########################
   unlink(out.folder.list$plots, recursive = TRUE)
   unlink(out.folder.list$trees, recursive = TRUE)
-
 }
 message("; End of program")
