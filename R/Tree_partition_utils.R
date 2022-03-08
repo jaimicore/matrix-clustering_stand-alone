@@ -221,13 +221,13 @@ find.motif.clusters <- function(tree             = NULL,
   
   
   ## Return the values in the tree$merge object corresponding to the clusters
-  message(";      Finding nodes where hierarchical tree will be partitioned")
+  message(";     Finding nodes where hierarchical tree will be partitioned")
   entries.with.clusters <- tree.partition(tree               = tree,
                                           merge.status.table = nodes.merge.status.tab)
   
   
   ## Get the IDs of the motifs in each cluster
-  message(";      Associating tree nodes with motif IDs")
+  message(";     Associating tree nodes with motif IDs")
   clusters.list <- get.motifs.ids.in.clusters(tree                      = tree,
                                               clusters.leaves.nodes.ind = entries.with.clusters,
                                               motif.ids.per.node        = motif.IDs.per.tree.level)
