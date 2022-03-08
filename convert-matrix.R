@@ -4,6 +4,7 @@
 
 ## List of packages to install from CRAN
 required.packages = c("furrr",          ## Run functions in parallel
+                      "optparse",
                       "this.path",      ## Create relative paths
                       "universalmotif") ## Motif manipulation (Bioconductor)
 
@@ -70,12 +71,12 @@ if (is.null(format.in)) {
 ###########
 ## Example:
 ## Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8 -q compare-matrices-quick/compare-matrices-quick --minimal_output FALSE -r ./R
-tf.matrix.file.in <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/OCT4_datasets/RSAT_OCT4_motifs.tf"
-format.in         <- "tf"
-format.out        <- "meme"
-format.out        <- "homer"
-format.out        <- "jaspar"
-rc.flag           <- TRUE
+# tf.matrix.file.in <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/OCT4_datasets/RSAT_OCT4_motifs.tf"
+# format.in         <- "tf"
+# format.out        <- "meme"
+# format.out        <- "homer"
+# format.out        <- "jaspar"
+# rc.flag           <- TRUE
 
 ## Format in/out test
 fit <- check.supported.formats(motif.format = format.in)
@@ -105,7 +106,9 @@ if (rc.flag) {
 #######################
 ## Export motif file ##
 #######################
-message("; Exporting motifs in ", format.out, " format: ", tf.matrix.file.out)
+write.motif.file(um.object    = motifs.uo,
+                 motif.format = format.out,
+                 outfile.name = tf.matrix.file.out)
 
 if (rc.flag) {
   message("; Exporting reverse-complement motifs in ", format.out, " format: ", tf.matrix.file.out.rc)
