@@ -142,10 +142,10 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
 ## The transfac file header exported by universalmotif::write_transfac is not correctly
 ## recognized by compare-matrices-quick (it only accepts transfac files) so the fields
 ## have to be renamed to be read by compare-matrices quick
-export.tf.motifs.w.parsed.header <- function(um.object   = NULL,
-                                             old.tf.file = NULL,
-                                             new.tf.file = NULL,
-                                             verbose     = TRUE) {
+write.transfac.pased.header <- function(um.object   = NULL,
+                                        old.tf.file = NULL,
+                                        new.tf.file = NULL,
+                                        verbose     = TRUE) {
   
   if (verbose) {
     message("; Exporting motifs with updated ID: ", old.tf.file)
@@ -317,9 +317,9 @@ write.motif.file <- function(um.object    = NULL,
                              motif.format = NULL,
                              outfile.name = NULL) {
   
-  dir.create(dirname(motif.format), recursive = TRUE, showWarnings = FALSE)
+  dir.create(dirname(outfile.name), recursive = TRUE, showWarnings = FALSE)
   
-  message("; Exporting motifs in ", motif.format, " format: ", motif.format)
+  message("; Exporting motifs in ", motif.format, " format: ", outfile.name)
   
   if (motif.format == "homer") {
     universalmotif::write_homer(motifs    = um.object,
@@ -337,9 +337,10 @@ write.motif.file <- function(um.object    = NULL,
                                overwrite = TRUE)
     
   } else if (motif.format %in% c("tf", "transfac")) {
-    universalmotif::write_transfac(motifs    = um.object,
-                                   file      = outfile.name,
-                                   overwrite = TRUE)
+    write.transfac.pased.header(old.tf.file = paste0(outfile.name, ".tmp"),
+                                new.tf.file = outfile.name,
+                                um.object   = um.object,
+                                verbose     = FALSE) 
   } else {
     stop("; ", motif.format, " exporting function has not yet been implemented.")
   }
@@ -364,10 +365,10 @@ export.one.motif.transfac <- function(un     = NULL,
   ind.motif.file.path     <- file.path(outdir, paste0(un@name, "_oriented", strand.suffix,".tf")) 
   
   ## Export transfac file with correct header to be read by compare-matrices-quick
-  export.tf.motifs.w.parsed.header(old.tf.file = ind.motif.file.path.tmp,
-                                   new.tf.file = ind.motif.file.path,
-                                   um.object   = un,
-                                   verbose     = FALSE) 
+  write.transfac.pased.header(old.tf.file = ind.motif.file.path.tmp,
+                              new.tf.file = ind.motif.file.path,
+                              um.object   = un,
+                              verbose     = FALSE) 
 }
 
 
