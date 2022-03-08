@@ -312,6 +312,22 @@ read.motif.file <- function(motif.file  = NULL,
 
 
 
+## Export universalmotif object as cluster-buster motif file
+write_cluster_buster <- function(motifs    = NULL,
+                                 file      = NULL,
+                                 overwrite = TRUE) {
+  
+  universalmotif::write_matrix(motifs    = motifs,
+                               file      = file,
+                               positions = "rows",
+                               # sep       = "//",
+                               overwrite = overwrite,
+                               headers   = ">")
+  
+}
+
+
+
 ## Export a universalmotif file as a text-file motif
 write.motif.file <- function(um.object    = NULL,
                              motif.format = NULL,
@@ -335,6 +351,12 @@ write.motif.file <- function(um.object    = NULL,
     universalmotif::write_meme(motifs    = um.object,
                                file      = outfile.name,
                                overwrite = TRUE)
+    
+  } else if (motif.format == "cluster-buster") {
+
+    write_cluster_buster(motifs    = um.object,
+                         file      = outfile.name,
+                         overwrite = TRUE)
     
   } else if (motif.format %in% c("tf", "transfac")) {
     write.transfac.pased.header(old.tf.file = paste0(outfile.name, ".tmp"),
