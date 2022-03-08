@@ -2,16 +2,14 @@
 set.um.id.name <- function(um = NULL,
                            new.id = "New_ID") {
   um@name <- new.id
-  
   return(um)
 }
 
 
 ## Reset the 'Alternate name' field of universalmotif object
 set.um.alt.name <- function(um       = NULL,
-                           new.name = "New_alt_name") {
+                            new.name = "New_alt_name") {
   um@altname <- new.name
-  
   return(um)
 }
 
@@ -20,9 +18,9 @@ set.um.alt.name <- function(um       = NULL,
 set.um.nb.sites <- function(um       = NULL,
                             nb.sites = 100) {
   um@nsites <- nb.sites
-  
   return(um)
 }
+
 
 
 ## Count the number of sites in an input motif, in case there are columns with different
@@ -32,7 +30,7 @@ nb.sites.in.um <- function(um.motif = NULL){
   ## Calculate the number of sites in the motif by summin the columns in the matrix
   nbsites.vec       <- sort(unique(as.vector(colSums(um.motif))))
   nb.uniq.count.sum <- length(nbsites.vec)
-  
+
   if (nb.uniq.count.sum > 1) {
     warning("; Motif colSum is different in ", nb.uniq.count.sum, " positions. Motif nbsites attibute will be set to ", min(nbsites.vec))
   }
@@ -46,10 +44,10 @@ calculate.nbsites.uo <- function(um = NULL) {
   
   um.motifs     <- furrr::future_map(um, `[`, "motif")
   motifs.colsum <- furrr::future_map_dbl(um.motifs, nb.sites.in.um)
-  
-  return(motifs.colsum)
 
+  return(motifs.colsum)
 }
+
 
 
 ## This function reads motifs in cluster-buster format and returns a universalmotif object
@@ -62,13 +60,12 @@ read_cluster_buster <- function(motif.file = NULL) {
   ## By default it is set to 100 and this create a problem when genereting RC because
   ## the counts are scaled to the number of sites
   cluster.buster.uo.nbsites <- calculate.nbsites.uo(cluster.buster.uo)
-
+  
   ## Set nbsites attribute correctly
   cluster.buster.uo.new.id <- purrr::map2(.x = cluster.buster.uo,
                                           .y = cluster.buster.uo.nbsites,
                                           .f = ~set.um.nb.sites(um       = .x,
                                                                 nb.sites = .y))
-  
   
   ## Add name and alternate name fields
   cluster.buster.uo.id <-  purrr::map_chr(cluster.buster.uo, `[`, "name")
@@ -90,6 +87,7 @@ read_cluster_buster <- function(motif.file = NULL) {
 }
 
 
+
 ## Returns a data.frame with the description table of each motif in the input collection
 preprocess.one.motif.collection <- function(motif.file      = NULL,
                                             motif.format    = NULL,
@@ -97,22 +95,13 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   
   ## Read motifs 
   message("; Reading motif collection: ", collection.name)
-  motif.collection <- switch(motif.format,
-                             "cluster-buster" = read_cluster_buster(motif.file = motif.file),
-                             "cisbp"          = universalmotif::read_cisbp(file = motif.file),
-                             "homer"          = universalmotif::read_homer(file = motif.file),
-                             "jaspar"         = universalmotif::read_jaspar(file = motif.file),
-                             "meme"           = universalmotif::read_meme(file = motif.file),
-                             "tf"             = universalmotif::read_transfac(file = motif.file),
-                             "transfac"       = universalmotif::read_transfac(file = motif.file),
-                             "uniprobe"       = universalmotif::read_uniprobe(file = motif.file))
+  motif.collection <- read.motif.file(motif.file   = motif.file,
+                                      motif.format = motif.format)
   
   
   ## This step is required when there are cases of motifs with empty columns, for some reason
   ## this generates an NA within the Universalmotif object and crashes the script
   motif.collection <- universalmotif::trim_motifs(motif.collection, min.ic = 0.0001)
-  
-  as.vector(colSums(motif.collection@motif))
   
   ## Generate the reverse-complement version of the input motif collection
   motif.collection.rc <- universalmotif::motif_rc(motif.collection)
@@ -131,9 +120,9 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
                               consensus    = purrr::map_chr(motif.collection, `[`, "consensus"),
                               nb_sites     = round(purrr::map_dbl(motif.collection, `[`, "nsites")),
                               IC           = purrr::map_dbl(motif.collection, `[`, "icscore")) %>% 
-                    mutate(width = nchar(consensus),
-                           n     = 1:n()) %>% 
-                    mutate(id = paste0(collection.name, "_m", n, "_", id_old))
+    mutate(width = nchar(consensus),
+           n     = 1:n()) %>% 
+    mutate(id = paste0(collection.name, "_", id_old, "_n", n))
   
   
   ## Change the motif IDs, this is required to map the collection of origin of each
@@ -181,20 +170,12 @@ check.input.motif.file <- function(motif.file       = NULL,
                                    motif.collection = NULL,
                                    motif.format     = NULL,
                                    file.line        = NULL) {
-  
-  supported.motif.formats <- c("cluster-buster",
-                               "cisbp",
-                               "homer",
-                               "jaspar",
-                               "meme",
-                               "tf",
-                               "transfac",
-                               "uniprobe")
+
   
   ## Check the status of each element in the input table
   motif.file.flag       <- ifelse(file.exists(motif.file), yes = TRUE, no = FALSE)
   motif.collection.flag <- ifelse(motif.collection != "", yes = TRUE, no = FALSE)
-  motif.format.flag     <- ifelse(motif.format %in% supported.motif.formats, yes = TRUE, no = FALSE)
+  motif.format.flag     <- check.supported.formats(motif.format = motif.format)
   
   ## In case one of the element's flag is false, stop the script and report the line with the problem
   if (all(motif.file.flag, motif.collection.flag, motif.format.flag)) {
@@ -207,10 +188,6 @@ check.input.motif.file <- function(motif.file       = NULL,
     
     if (!motif.collection.flag) {
       stop("Line ", file.line, ": Invalid collection name")
-    }
-    
-    if (!motif.format.flag) {
-      stop("Line ", file.line, ": Invalid motif format. upported formats: ", paste(supported.motif.formats, collapse = ", "))
     }
   }
 }
@@ -225,10 +202,10 @@ check.status.motif.table <- function(matrix.file.table = NULL) {
   matrix.files <- fread(matrix.file.table,
                         header    = FALSE,
                         col.names = c("Motif_file", "Collection_name", "Format")) %>% 
-    mutate(Line = 1:n())
+                  mutate(Line = 1:n())
   
   matrix.files.no.dup <- matrix.files %>% 
-    distinct()
+                          distinct()
   
   if (nrow(matrix.files) != nrow(matrix.files.no.dup)) {
     warning("There is a duplicated line in the input matrix file table. This line was removed and will not be considered in the analysis.")
@@ -261,15 +238,11 @@ check.status.motif.table <- function(matrix.file.table = NULL) {
 
 
 
-
 ## This function returns two universalmotif objects, each object contains the motifs
 ## oriented according to the alignment, the second list is the reverse-complement
 ## 
 ## un.motifs         = Object of class 'universalmotif'
 ## orientation.table = a table containing the motif IDs and its final strand after alignment 
-
-# un.motifs = all.motifs.um
-# example <- "HS_D844_C262_J5_T1_AR_left_4_components_cobinder_pfm_1_m1_Comp_1_trimmed_14_-4"
 motifs.final.orientation <- function(un.motifs         = NULL,    
                                      orientation.table = NULL) {  
   
@@ -288,7 +261,7 @@ motifs.final.orientation <- function(un.motifs         = NULL,
   
   ## Get the IDs of motifs in D and R strand after alignment
   final.orientation.tab <- orientation.table %>% 
-                            select(id, strand)
+    select(id, strand)
   
   motif.id.strandD <- subset(final.orientation.tab, strand == "D")$id
   motif.id.strandR <- subset(final.orientation.tab, strand == "R")$id
@@ -298,6 +271,78 @@ motifs.final.orientation <- function(un.motifs         = NULL,
   
   return(list(D = oriented.um,
               R = oriented.um.rc))
+}
+
+
+
+## Stop the script when the input format name is not in the list of supported formats
+check.supported.formats <- function(motif.format = NULL) {
+  
+  supported.formats <- c("cluster-buster", "cisbp", "homer", "jaspar", "meme", "tf", "transfac", "uniprobe")
+  
+  if (motif.format %in% supported.formats) {
+    return(TRUE)
+  } else {
+    stop(motif.format , " is not a supported format. Suported formats: ", paste(supported.formats, collapse = ", "))
+  }
+  
+}
+
+
+
+## Given the path of a motif file and its format load the content as a universalmotif object
+read.motif.file <- function(motif.file  = NULL,
+                            motif.format = NULL) {
+  
+  message("; Reading input file in ", motif.format, " format: ", motif.file)
+  
+  ## Add here more supported motifs
+  um.object <- switch(motif.format,
+                      "cluster-buster" = read_cluster_buster(motif.file = motif.file),      ## This is a custom function to read cluster-buster format
+                      "cisbp"          = universalmotif::read_cisbp(file = motif.file),
+                      "homer"          = universalmotif::read_homer(file = motif.file),
+                      "jaspar"         = universalmotif::read_jaspar(file = motif.file),
+                      "meme"           = universalmotif::read_meme(file = motif.file),
+                      "tf"             = universalmotif::read_transfac(file = motif.file),
+                      "transfac"       = universalmotif::read_transfac(file = motif.file),
+                      "uniprobe"       = universalmotif::read_uniprobe(file = motif.file))
+  
+  return(um.object)
+}
+
+
+
+## Export a universalmotif file as a text-file motif
+write.motif.file <- function(um.object    = NULL,
+                             motif.format = NULL,
+                             outfile.name = NULL) {
+  
+  dir.create(dirname(motif.format), recursive = TRUE, showWarnings = FALSE)
+  
+  message("; Exporting motifs in ", motif.format, " format: ", motif.format)
+  
+  if (motif.format == "homer") {
+    universalmotif::write_homer(motifs    = um.object,
+                                file      = outfile.name,
+                                overwrite = TRUE)
+    
+  } else if (motif.format == "jaspar") {
+    universalmotif::write_jaspar(motifs    = um.object,
+                                 file      = outfile.name,
+                                 overwrite = TRUE)
+    
+  } else if (motif.format == "meme") {
+    universalmotif::write_meme(motifs    = um.object,
+                               file      = outfile.name,
+                               overwrite = TRUE)
+    
+  } else if (motif.format %in% c("tf", "transfac")) {
+    universalmotif::write_transfac(motifs    = um.object,
+                                   file      = outfile.name,
+                                   overwrite = TRUE)
+  } else {
+    stop("; ", motif.format, " exporting function has not yet been implemented.")
+  }
 }
 
 
