@@ -70,13 +70,12 @@ if (is.null(format.in)) {
 ## Debug ##
 ###########
 ## Example:
-## Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8 -q compare-matrices-quick/compare-matrices-quick --minimal_output FALSE -r ./R
-# tf.matrix.file.in <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/OCT4_datasets/RSAT_OCT4_motifs.tf"
-# format.in         <- "tf"
-# format.out        <- "meme"
-# format.out        <- "homer"
-# format.out        <- "jaspar"
-# rc.flag           <- TRUE
+## Rscript convert-matrix.R -i data/OCT4_datasets/RSAT_OCT4_motifs.tf --from tf --to meme -o RSAT_OCT4_motifs.meme
+# tf.matrix.file.in  <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/OCT4_datasets/RSAT_OCT4_motifs.tf"
+# tf.matrix.file.out <- "Example_motif_out.motif"
+# format.in          <- "tf"
+# format.out         <- "cluster-buster"
+# rc.flag            <- TRUE
 
 ## Format in/out test
 fit <- check.supported.formats(motif.format = format.in)
