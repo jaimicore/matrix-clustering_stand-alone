@@ -16,11 +16,59 @@ set.um.alt.name <- function(um       = NULL,
 }
 
 
+## Reset the 'Alternate name' field of universalmotif object
+set.um.nb.sites <- function(um       = NULL,
+                            nb.sites = 100) {
+  um@nsites <- nb.sites
+  
+  return(um)
+}
+
+
+## Count the number of sites in an input motif, in case there are columns with different
+## numbers, the smallest number will be considered 
+nb.sites.in.um <- function(um.motif = NULL){
+  
+  ## Calculate the number of sites in the motif by summin the columns in the matrix
+  nbsites.vec       <- sort(unique(as.vector(colSums(um.motif))))
+  nb.uniq.count.sum <- length(nbsites.vec)
+  
+  if (nb.uniq.count.sum > 1) {
+    warning("; Motif colSum is different in ", nb.uniq.count.sum, " positions. Motif nbsites attibute will be set to ", min(nbsites.vec))
+  }
+  
+  return(min(nbsites.vec))
+}
+
+
+
+calculate.nbsites.uo <- function(um = NULL) {
+  
+  um.motifs     <- furrr::future_map(um, `[`, "motif")
+  motifs.colsum <- furrr::future_map_dbl(um.motifs, nb.sites.in.um)
+  
+  return(motifs.colsum)
+
+}
+
+
 ## This function reads motifs in cluster-buster format and returns a universalmotif object
 read_cluster_buster <- function(motif.file = NULL) {
   
   ## Read motif file using universalmotif functions    
   cluster.buster.uo <- list(universalmotif::read_matrix(file = motif.file, positions = "rows", sep = "//"))
+  
+  ## Set nbsites attribute correctly
+  ## By default it is set to 100 and this create a problem when genereting RC because
+  ## the counts are scaled to the number of sites
+  cluster.buster.uo.nbsites <- calculate.nbsites.uo(cluster.buster.uo)
+
+  ## Set nbsites attribute correctly
+  cluster.buster.uo.new.id <- purrr::map2(.x = cluster.buster.uo,
+                                          .y = cluster.buster.uo.nbsites,
+                                          .f = ~set.um.nb.sites(um       = .x,
+                                                                nb.sites = .y))
+  
   
   ## Add name and alternate name fields
   cluster.buster.uo.id <-  purrr::map_chr(cluster.buster.uo, `[`, "name")
@@ -63,6 +111,8 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   ## This step is required when there are cases of motifs with empty columns, for some reason
   ## this generates an NA within the Universalmotif object and crashes the script
   motif.collection <- universalmotif::trim_motifs(motif.collection, min.ic = 0.0001)
+  
+  as.vector(colSums(motif.collection@motif))
   
   ## Generate the reverse-complement version of the input motif collection
   motif.collection.rc <- universalmotif::motif_rc(motif.collection)
@@ -217,17 +267,23 @@ check.status.motif.table <- function(matrix.file.table = NULL) {
 ## 
 ## un.motifs         = Object of class 'universalmotif'
 ## orientation.table = a table containing the motif IDs and its final strand after alignment 
+
+# un.motifs = all.motifs.um
+# example <- "HS_D844_C262_J5_T1_AR_left_4_components_cobinder_pfm_1_m1_Comp_1_trimmed_14_-4"
 motifs.final.orientation <- function(un.motifs         = NULL,    
                                      orientation.table = NULL) {  
   
   ## Assign names to the entries of the universalmotif object
   ## By default the names are NULL, after these lines the object can be indexed through motif IDs
+  
   motif.ids.um     <- purrr::map_chr(un.motifs, `[`, "name")
   names(un.motifs) <- motif.ids.um
   
   ## Obtain the RC
   all.motifs.um.D <- un.motifs
-  all.motifs.um.R <- universalmotif::motif_rc(all.motifs.um.D)
+  
+  ## Check why after this function the motifs are not the same
+  all.motifs.um.R <- universalmotif::motif_rc(motifs = un.motifs)
   
   
   ## Get the IDs of motifs in D and R strand after alignment
@@ -277,7 +333,7 @@ export.indiv.motif.files <- function(un.motifs = NULL,
                                      outdir    = NULL) {
   
   ## A list containing the oriented motifs in D and R orientations
-  um.final.orientation <- motifs.final.orientation(un.motifs         = all.motifs.um,    
+  um.final.orientation <- motifs.final.orientation(un.motifs         = un.motifs,    
                                                    orientation.table = results.list$Alignment_table)
   
   
