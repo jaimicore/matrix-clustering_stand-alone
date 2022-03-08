@@ -181,9 +181,9 @@ all.motifs.um                <- unlist(purrr::map(motif.info.and.motifs, `[[`, "
 
 
 ## Export transfac file with correct header to be read by compare-matrices-quick
-export.tf.motifs.w.parsed.header(old.tf.file = output.files.list$Motifs_transfac_tmp,
-                                 new.tf.file = output.files.list$Motifs_transfac,
-                                 um.object   = all.motifs.um) 
+write.transfac.pased.header(old.tf.file = output.files.list$Motifs_transfac_tmp,
+                            new.tf.file = output.files.list$Motifs_transfac,
+                            um.object   = all.motifs.um) 
 
 params.list[["Nb_motifs"]]      <- nrow(results.list$Motif_info_tab)
 params.list[["Nb_collections"]] <- length(matrix.file.list$Motif_file)
@@ -351,7 +351,6 @@ fwrite(x         = results.list$Clusters_table,
        col.names = TRUE,
        sep       = "\t")
 
-save.image("Debug.Rdata")
 
 ## Export motifs as transfac files in D and R orientation
 message("; Export individual motifs in transfac format")
