@@ -351,11 +351,31 @@ fwrite(x         = results.list$Clusters_table,
        col.names = TRUE,
        sep       = "\t")
 
+##################
+##Export motifs ##
+##################
 
-## Export motifs as transfac files in D and R orientation
-message("; Export individual motifs in transfac format")
+## Export motifs (without gaps) as transfac files in D and R orientation
+message("; Exporting individual motif files")
 export.indiv.motif.files(un.motifs = all.motifs.um,
                          outdir    = out.folder.list$motifs)
+
+## universalmotif does not accepts rows containing only 0s, therefore, the insertion of gaps
+## must be done directly to the transfac file, instead of using universalmotif functions
+message("; Adding gaps to motif files")
+add.gaps.tab <- add.gaps.to.indiv.tf.files(motif.folder = out.folder.list$motifs,
+                                           gap.info     = results.list$Alignment_table)
+
+add.gaps.list <- list(File = add.gaps.tab$file,
+                      Up   = add.gaps.tab$offset_up,
+                      Down = add.gaps.tab$offset_down)
+
+plan(multisession, workers = params.list$nb_workers)
+furrr::future_pwalk(.l = add.gaps.list,
+                    .f = ~add.gaps.transfac.motif(tf.file.in  = ..1,
+                                                  gap.up      = ..2,
+                                                  gap.down    = ..3,
+                                                  tf.file.out = ..1))
 
 
 ## When minimal output mode is not activated exports trees, heatmap, and cluster-color table
