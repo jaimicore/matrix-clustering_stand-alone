@@ -515,7 +515,7 @@ add.gaps.transfac.motif <- function(tf.file.in  = NULL,
                          .f = ~strsplit(x     = .x,
                                         split = "\\s+"))
   
-  motif.df <- matrix(unlist(purrr::map(motif.df, `[[`, 1)), byrow = TRUE, ncol = 5) %>% 
+  motif.df <- matrix(unlist(purrr::map(motif.df, `[[`, 1)), byrow = TRUE, ncol = 6) %>% 
                   data.table() %>% 
                   rename(AA = V2,
                          CC = V3,
