@@ -485,9 +485,9 @@ add.gaps.transfac.motif <- function(tf.file.in  = NULL,
                                     gap.down    = 0,
                                     tf.file.out = NULL) {
   
-  # if (!file.exists(tf.file.in)) {
-  #   stop("Transfac file not found: ", tf.file.in)
-  # }
+  if (!file.exists(tf.file.in)) {
+    stop("Transfac file not found: ", tf.file.in)
+  }
   
   ## Read transfac file
   tf.lines <- readLines(tf.file.in)
@@ -515,7 +515,8 @@ add.gaps.transfac.motif <- function(tf.file.in  = NULL,
                          .f = ~strsplit(x     = .x,
                                         split = "\\s+"))
   
-  motif.df <- as.data.table(t(purrr::map_dfc(motif.df, `[[`, 1))) %>% 
+  motif.df <- matrix(unlist(purrr::map(motif.df, `[[`, 1)), byrow = TRUE, ncol = 5) %>% 
+                  data.table() %>% 
                   rename(AA = V2,
                          CC = V3,
                          GG = V4,
