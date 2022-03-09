@@ -431,3 +431,220 @@ export.indiv.motif.files <- function(un.motifs = NULL,
                                                         strand = strand.oriented))
   }
 }
+
+
+
+## Check whether the input file is indeed a transfac file
+is.transfac.file <- function(AC  = NULL,
+                             ID  = NULL,
+                             P0  = NULL,
+                             SEP = NULL) {
+  
+  ## Minimal fields
+  ## AC (beginning of a matrix), ID, P0 (Position 0, before the count matrix), SEP (end of matrix)
+  AC  <- length(AC)
+  ID  <- length(ID)
+  P0  <- length(P0)
+  SEP <- length(SEP)
+  
+  
+  if (!all(AC, ID, P0, SEP)) {
+    
+    stop("Incorrect transfac file format. Verify the following fields are present in your motif file: AC, ID, P0, //")
+    
+  } else {
+    return(TRUE)
+  }
+  
+}
+
+
+
+## Return a 4 * nb matrix initialized with 0s
+tf.empty.row <- function(nb = 1) {
+  
+  ## Matrix of 4 * nb initialized with 0s
+  empty.rows <- matrix(nrow = nb, ncol = 4, data = 0)
+  
+  colnames(empty.rows) <- c("AA", "CC", "GG", "TT")
+  rownames(empty.rows) <- NULL
+  
+  return(empty.rows)
+  
+}
+
+
+
+###############
+###############
+
+
+## Add a given number of gaps (rows with 0s) to a transfac file containing a single motif
+add.gaps.transfac.motif <- function(tf.file.in  = NULL,
+                                    gap.up      = 0,
+                                    gap.down    = 0,
+                                    tf.file.out = NULL) {
+  
+  # if (!file.exists(tf.file.in)) {
+  #   stop("Transfac file not found: ", tf.file.in)
+  # }
+  
+  ## Read transfac file
+  tf.lines <- readLines(tf.file.in)
+  
+  ## Save the important lines
+  ac.line  <- which(grepl(x = tf.lines, pattern = "^\\s*AC"))
+  id.line  <- which(grepl(x = tf.lines, pattern = "^\\s*ID"))
+  p0.line  <- which(grepl(x = tf.lines, pattern = "^\\s*P0"))
+  sep.line <- which(grepl(x = tf.lines, pattern = "^\\s*//"))
+  
+  ## Verify the input motif has the minimal transfac fields
+  istf <- is.transfac.file(AC  = ac.line,
+                           ID  = id.line,
+                           P0  = p0.line,
+                           SEP = sep.line)
+  
+  ## Extract the motif from the transfac file
+  xx.lines       <- which(grepl(x = tf.lines, pattern = "^\\s*XX"))
+  end.motif.line <- xx.lines[min(which(xx.lines > p0.line))]
+  motif.lines    <- tf.lines[(p0.line + 1):(end.motif.line - 1)]
+  
+  
+  ## Convert the motif to a data.frame
+  motif.df <- purrr::map(.x = motif.lines,
+                         .f = ~strsplit(x     = .x,
+                                        split = "\\s+"))
+  
+  motif.df <- as.data.table(t(purrr::map_dfc(motif.df, `[[`, 1))) %>% 
+                  rename(AA = V2,
+                         CC = V3,
+                         GG = V4,
+                         TT = V5) %>% 
+                  select(AA, CC, GG, TT)
+
+  
+  ## Add upstream/downstream gaps
+  gap.upstream   <- tf.empty.row(nb = gap.up)
+  gap.downstream <- tf.empty.row(nb = gap.down)
+  
+  motif.w.gaps <- rbind(gap.upstream,
+                        motif.df,
+                        gap.downstream) %>% 
+                    mutate(LL = 1:n()) %>% 
+                    select(LL, AA, CC, GG, TT)
+  
+  
+  ## Reconstruct the transfac file, insert the matrix with gaps
+  motif.w.gaps.text <- reconstruct.transfac.file.vector(AC  = tf.lines[ac.line],
+                                                        ID  = tf.lines[id.line],
+                                                        MAT = motif.w.gaps)
+  
+  ## Print the vector as a text file
+  dir.create(dirname(tf.file.out), recursive = TRUE, showWarnings = FALSE)
+  file.remove(tf.file.out)
+  writeLines(motif.w.gaps.text, con = tf.file.out)
+  
+}
+
+
+
+## Return a dataframe where each row is a string
+## These are the lines that will be printed in a text file
+df.to.vector.text <- function(df = NULL) {
+  
+  ## Clean the column LL
+  df$LL   <- as.numeric(df$LL)
+  df.char <- apply(df, 2, as.character)
+  df.char <- apply(df.char, 2, function(x){
+    gsub(x, pattern = "^ ", replacement = "")
+  })
+  
+  
+  ## Convert each row in a text vector, then as a single string using paste
+  nt.counts.lines <- apply(df.char, 1, function(x){
+    nt.counts <- paste(x[2], x[3], x[4], x[5], sep = "   ")  ## One tab (/t) = 4 spaces
+    paste(x[1], nt.counts, sep = "        ")                 ## Double tab
+  })
+  
+  return(nt.counts.lines)
+}
+
+
+
+## Construct a transfac file as a character vector, each entry in the vector 
+## corresponds to a line in the text file
+reconstruct.transfac.file.vector <- function(AC  = NULL,
+                                             ID  = NULL,
+                                             MAT = NULL){
+  
+  ## Required fields
+  tf.comment   <- "XX"
+  tf.separator <- "//"
+  p0           <- "P0       A     C     G     T"
+  
+  
+  ## Concat the variables to create a vector
+  new.tf.vec <- c(AC,
+                  tf.comment,
+                  ID,
+                  tf.comment,
+                  p0,
+                  df.to.vector.text(MAT),
+                  tf.comment,
+                  tf.separator)
+  
+  return(new.tf.vec)
+}
+
+
+
+
+add.gaps.to.indiv.tf.files <- function(motif.folder = NULL,
+                                       gap.info     = NULL){
+  
+  if (!dir.exists(motif.folder)) {
+    stop("Motif folder not found: ", motif.folder)
+  }
+  
+  ## Read transfac files in a directory
+  transfac.files <- list.files(motif.folder)
+  transfac.files <- transfac.files[transfac.files != "input_motifs_parsed_id.tf"]
+  
+  r.ind <- which(grepl(transfac.files, pattern = "_rc"))
+  d.ind <- which(grepl(transfac.files, pattern = "oriented\\.tf"))
+  
+  ## Separate files by strand
+  transfac.files.r <- file.path(motif.folder, transfac.files[r.ind])
+  transfac.files.d <- file.path(motif.folder, transfac.files[d.ind])
+  
+  
+  ## Get the motif ID (as part of the file name) to combine the alignment table 
+  ## and identify the number of gaps that need to be added 
+  gap.file.tab <- rbind(data.frame(file   = transfac.files.d,
+                                   strand = "D",
+                                   id     = gsub(basename(transfac.files.d), pattern = "_oriented.+$", replacement = "")),
+                        data.frame(file   = transfac.files.r,
+                                   strand = "R",
+                                   id     = gsub(basename(transfac.files.r), pattern = "_oriented.+$", replacement = "")))
+  
+  gap.file.tab <- gap.file.tab %>% 
+    left_join(gap.info, by = "id") %>% 
+    rename(strand = strand.x) %>% 
+    select(file, strand, offset_up, offset_down) %>% 
+    data.table()
+  
+  
+  ## Invert the offsets for the motifs in reverse complement
+  gap.file.tab.list <- split(gap.file.tab, f = gap.file.tab$strand)
+  tmp.off <- gap.file.tab.list$R$offset_up
+  gap.file.tab.list$R$offset_up   <- gap.file.tab.list$R$offset_down
+  gap.file.tab.list$R$offset_down <- tmp.off
+  gap.file.tab <- rbindlist(gap.file.tab.list) %>% 
+    data.table()
+  
+  ## Restrict the table to those motifs that need gaps
+  gap.file.tab <- gap.file.tab %>% 
+    dplyr::filter(offset_up != 0 & offset_down != 0)
+  
+  return(gap.file.tab)
+}
