@@ -98,7 +98,7 @@ if (rc.flag) {
   
   ## Add the suffix '_rc' before the file format
   ## Example: 'RSAT_OCT4_motifs.tf' becomes 'RSAT_OCT4_motifs_rc.tf' 
-  tf.matrix.file.out.rc <- gsub(tf.matrix.file.in, pattern = "^(.+)(\\.\\D+)$", replacement = "\\1_rc\\2")
+  tf.matrix.file.out.rc <- gsub(tf.matrix.file.out, pattern = "^(.+)(\\.\\D+)$", replacement = "\\1_rc\\2")
 }
 
 
