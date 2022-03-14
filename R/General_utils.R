@@ -120,7 +120,7 @@ motif.comparison.entries <- function(ids   = NULL,
                           dplyr::filter(id1 %in% ids) %>% 
                           dplyr::filter(id2 %in% ids) %>% 
                           # dplyr::filter(id2 %in% ids & id1 %in% ids) %>%  ## Select table entries associated with the input motif IDs
-                          mutate(Nb_compa = 1:n())
+                          dplyr::mutate(Nb_compa = 1:n())
   
   ## Not full returns only the first instance of each comparison pair ID 
   if (full == FALSE) {
