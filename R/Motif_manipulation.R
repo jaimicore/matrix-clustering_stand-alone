@@ -120,9 +120,9 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
                               consensus    = purrr::map_chr(motif.collection, `[`, "consensus"),
                               nb_sites     = round(purrr::map_dbl(motif.collection, `[`, "nsites")),
                               IC           = purrr::map_dbl(motif.collection, `[`, "icscore")) %>% 
-    mutate(width = nchar(consensus),
-           n     = 1:n()) %>% 
-    mutate(id = paste0(collection.name, "_", id_old, "_n", n))
+                       dplyr::mutate(width = nchar(consensus),
+                                     n     = 1:n()) %>% 
+                       dplyr::mutate(id = paste0(collection.name, "_", id_old, "_n", n))
   
   
   ## Change the motif IDs, this is required to map the collection of origin of each
@@ -202,7 +202,7 @@ check.status.motif.table <- function(matrix.file.table = NULL) {
   matrix.files <- fread(matrix.file.table,
                         header    = FALSE,
                         col.names = c("Motif_file", "Collection_name", "Format")) %>% 
-                  mutate(Line = 1:n())
+                  dplyr::mutate(Line = 1:n())
   
   matrix.files.no.dup <- matrix.files %>% 
                           distinct()
@@ -517,10 +517,10 @@ add.gaps.transfac.motif <- function(tf.file.in  = NULL,
   
   motif.df <- matrix(unlist(purrr::map(motif.df, `[[`, 1)), byrow = TRUE, ncol = 6) %>% 
                   data.table() %>% 
-                  rename(AA = V2,
-                         CC = V3,
-                         GG = V4,
-                         TT = V5) %>% 
+                  dplyr::rename(AA = V2,
+                                CC = V3,
+                                GG = V4,
+                                TT = V5) %>% 
                   select(AA, CC, GG, TT)
 
   
@@ -531,7 +531,7 @@ add.gaps.transfac.motif <- function(tf.file.in  = NULL,
   motif.w.gaps <- rbind(gap.upstream,
                         motif.df,
                         gap.downstream) %>% 
-                    mutate(LL = 1:n()) %>% 
+                    dplyr::mutate(LL = 1:n()) %>% 
                     select(LL, AA, CC, GG, TT)
   
   
