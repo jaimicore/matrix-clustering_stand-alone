@@ -32,8 +32,8 @@ nodes.summary.stats <- function(comparison.list = NULL,
   
   ## Add the tree linkage matrix to each node
   stats.summary.per.node <- cbind(stats.summary.per.node, data.frame(tree$merge)) %>% 
-                              rename(Merge1 = X1,
-                                     Merge2 = X2)
+                                dplyr::rename(Merge1 = X1,
+                                              Merge2 = X2)
   
   
   ## Update the merge status ('Merge' column) to set as FALSE all the parent nodes
