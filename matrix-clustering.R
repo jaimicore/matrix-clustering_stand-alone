@@ -56,7 +56,10 @@ option_list = list(
               help = "Number of cores to run in parallel. [Default \"%default\"] ", metavar = "number"),
   
   make_option(c("--minimal_output"), type = "logical", default = FALSE, 
-              help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical")
+              help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical"),
+  
+  make_option(c("--reference_cluster_annotation"), type = "character", default = NULL, 
+              help = "User defined cluster annotation tab, when this file is provided, this script will calculate the Adjusted Rand Index (ARI) of the resulting clusters. A tab-delimited file with two columns: 1) Motif ID and 2) Reference group. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "logical")
   
 );
 message("; Reading arguments from command-line")
@@ -73,6 +76,17 @@ if (!file.exists(matrix.file.table)) {
   stop("Mandatory input file not found: ", matrix.file.table)
 }
 
+
+## In case of a reference clustering file is provided
+reference.clusters.flag     <- FALSE
+reference.clusters.tab.file <- opt$reference_cluster_annotation
+if (!is.null(reference.clusters.tab.file)) {
+  if (!file.exists(reference.clusters.tab.file)) {
+    stop("Reference clustering annotation file not found: ", reference.clusters.tab.file)
+  }
+  reference.clusters.flag <- TRUE
+}
+
 params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "export_heatmap"        = as.numeric(opt$export_heatmap),
                     "heatmap_color_classes" = as.numeric(opt$color_palette_classes),
@@ -83,7 +97,8 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "cor"                   = as.numeric(opt$cor_th),
                     "Ncor"                  = as.numeric(opt$Ncor_th),
                     "nb_workers"            = as.numeric(opt$number_of_workers),
-                    "min_output"            = opt$minimal_output)
+                    "min_output"            = opt$minimal_output,
+                    "ref_clusters"          = reference.clusters.flag)
 
 
 ###############################
@@ -100,17 +115,20 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 # sourceCpp(file.path(params.list$clustering_lib_path, "Utils.cpp"))
 
 
-## oriented instead of aligned + oriented_rc
-
 
 ###########
 ## Debug ##
 ###########
 ## Example:
-## Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8 -q compare-matrices-quick/compare-matrices-quick --minimal_output FALSE -r ./R
 
+# Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8 
 # matrix.file.table <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/OCT4_datasets/OCT4_motif_table.txt"
 # out.folder        <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/results/Oct4_example/Oct4_example"
+
+# Rscript matrix-clustering.R -i data/JASPAR_2022/Jaspar_plants_motifs_tab.txt -o results/Jaspar_plants/Jaspar_plants --number_of_workers 8 --reference_cluster_annotation data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab
+# matrix.file.table           <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_plants_motifs_tab.txt"
+# out.folder                  <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/results/Jaspar_plants/Jaspar_plants"
+# reference.clusters.tab.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab"
 # 
 # params.list <- list("export_newick"         = 0,
 #                     "export_heatmap"        = 0,
@@ -122,7 +140,8 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 #                     "cor"                   = 0.75,
 #                     "Ncor"                  = 0.55,
 #                     "nb_workers"            = 8,
-#                     "min_output"            = TRUE)
+#                     "min_output"            = TRUE,
+#                     "ref_clusters"          = TRUE)
 
 
 ##############################################################
@@ -144,17 +163,19 @@ output.files.list <- list("Alignment_table"     = file.path(out.folder.list$tabl
                           "Heatmap"             = file.path(out.folder.list$plots, "Heatmap.pdf"),
                           "hclust_all"          = file.path(out.folder.list$trees, "tree.RData"),
                           "JSON_tree_all"       = file.path(out.folder.list$trees, "tree.json"),
-                          "Newick_tree_all"     = file.path(out.folder.list$trees, "tree.newick"))
+                          "Newick_tree_all"     = file.path(out.folder.list$trees, "tree.newick"),
+                          "Summary_table"       = file.path(out.folder.list$tables, "summary_table.tab"))
 
 
-results.list <- list(Dist_table       = NULL,
-                     Dist_matrix      = NULL,
-                     Original_matrix  = NULL,
-                     All_motifs_tree  = NULL,
-                     Alignment_table  = NULL,
-                     Cluster_color    = NULL,
-                     Motif_info_tab   = NULL,
-                     Motif_compa_tab  = NULL)
+results.list <- list(Dist_table         = NULL,
+                     Dist_matrix        = NULL,
+                     Original_matrix    = NULL,
+                     All_motifs_tree    = NULL,
+                     Alignment_table    = NULL,
+                     Cluster_color      = NULL,
+                     Motif_info_tab     = NULL,
+                     Motif_compa_tab    = NULL,
+                     Reference_clusters = NULL)
 
 ## Create output folders
 no.output <- sapply(sapply(output.files.list, dirname), dir.create, showWarnings = FALSE, recursive = TRUE)
@@ -209,6 +230,34 @@ results.list[["Dist_matrix"]]     <- distances.objects$matrix
 results.list[["Original_matrix"]] <- data.table(as.data.frame.matrix(distances.objects$original))
 
 
+############################################
+## Optional: read reference cluster table ##
+############################################
+if (params.list$ref_clusters) {
+  
+  message('; Reading user-provided reference clusters table')
+  reference.clusters.tab <- fread(reference.clusters.tab.file)
+  colnames(reference.clusters.tab) <- c("ID", "cluster", "Collection")
+  
+  ## Parse the motif ID in the 'Motif Information Table' (remove the numeric suffix) to create Ids with simlar format
+  motif.id.parsed <- gsub(x = results.list$Motif_info_tab$id, pattern = "_n\\d+$", replacement = "")
+  
+  ## Combine Id and collection columns 
+  reference.clusters.tab <- reference.clusters.tab %>% 
+                              mutate(id = paste0(Collection, "_", ID)) %>% 
+                              within(rm(Collection, ID)) %>% 
+                              dplyr::filter(id %in% motif.id.parsed) %>% 
+                              select(id, cluster)
+
+  results.list$Reference_clusters <- reference.clusters.tab
+  
+  ## Check that all IDs in the reference cluster table are found within the IDs obtained directly from the motifs
+  if (!all(motif.id.parsed %in% reference.clusters.tab$id)) {
+    stop("There are discrepancies in the id provided in the reference ID and the IDs obtained from the motif files. In addition, verify that the collection name provided with --matrix_file_table and --reference_cluster_annotation are identical.")
+  }
+}
+
+
 ##############################################
 ## Compute the hierarchical clustering tree ##
 ##############################################
@@ -228,6 +277,20 @@ if (params.list[["Nb_motifs"]] > 1) {
                                             comparison.table = results.list$Motif_compa_tab,
                                             parameters       = params.list)
   
+  
+  ###################################
+  ## Calculate Adjusted Rand Index ##
+  ###################################
+  if (params.list$ref_clusters) {
+    
+    message("; Calculating Adjusted Rand Index (ARI) based on the user-provided reference clusters")
+    clustering.ari <- calculate.ARI(matrix.clustering.clusters = clusters.list.to.df(find.clusters.list$clusters),
+                                    reference.clusters         = results.list$Reference_clusters)
+    
+    params.list[["ARI"]] <- clustering.ari$ARI
+    params.list[["RI"]]  <- clustering.ari$RI
+  }
+
   
   ## Identify singletons and clusters with many motifs
   cluster.sizes                <- purrr::map_dbl(find.clusters.list$clusters, length)
@@ -285,10 +348,10 @@ if (params.list[["Nb_motifs"]] > 1) {
   ## Add cluster name, rename columns and remove unnecessary columns
   alignment.clusters.tab.export <-  rbindlist(aligment.clusters.tab, idcol = "cluster") %>% 
                                       within(rm(N, Update_status)) %>% 
-                                      rename(strand            = Strand,
-                                             offset_up         = Offset_up,
-                                             offset_down       = Offset_down,
-                                             aligned_consensus = Oriented_consensus)
+                                      dplyr::rename(strand            = Strand,
+                                                    offset_up         = Offset_up,
+                                                    offset_down       = Offset_down,
+                                                    aligned_consensus = Oriented_consensus)
   
   
   ## Singleton section
@@ -332,6 +395,34 @@ if (params.list[["Nb_motifs"]] > 1) {
 ############################
 ## Export results section ##
 ############################
+
+##########################
+## Export summary table ##
+##########################
+summary.clustering.tab <- data.table(Nb_motifs         = params.list$Nb_motifs,
+                                     Nb_collections    = params.list$Nb_collections,
+                                     Nb_clusters       = params.list$Nb_clusters,
+                                     Thresholds        = paste0("Ncor = ", params.list$Ncor, "; cor = ", params.list$cor),
+                                     Linkage_method    = params.list$linkage_method,
+                                     Similarity_metric = params.list$comparison_metric)
+
+## Add columns when the Rand index is calculated
+if (params.list$ref_clusters) {
+  
+  ri.dt <- data.table(Rand_Index          = params.list$RI,
+                      Adjusted_Rand_Index = params.list$ARI)
+  
+  summary.clustering.tab <- cbind(summary.clustering.tab, ri.dt)
+}
+
+message("; Exporting parameters + summary table:", output.files.list$Summary_table)
+fwrite(x         = summary.clustering.tab,
+       file      = output.files.list$Summary_table,
+       row.names = FALSE,
+       col.names = TRUE,
+       sep       = "\t")
+
+
 
 #############################################################################################
 ## Export the alignment + clusters table + motif files: these files are the minimal output ##
