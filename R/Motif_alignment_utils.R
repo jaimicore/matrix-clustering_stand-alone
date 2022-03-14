@@ -297,12 +297,12 @@ align.motifs.in.cluster <- function(tree       = NULL,
   alignment.tab <- motif.info %>% 
                     dplyr::filter(id %in% tree$labels) %>% 
                     select(id, name, consensus, rc_consensus) %>% 
-                    mutate(Strand             = "D",
-                           Offset_up          = 0,
-                           Offset_down        = 0,
-                           Oriented_consensus = consensus,
-                           N                  = 1:n(),
-                           Update_status      = 0)
+                    dplyr::mutate(Strand             = "D",
+                                  Offset_up          = 0,
+                                  Offset_down        = 0,
+                                  Oriented_consensus = consensus,
+                                  N                  = 1:n(),
+                                  Update_status      = 0)
   
   
   ## This list contains N entries (N = agglomeration steps in a tree)
