@@ -50,6 +50,7 @@ required.packages = c("dplyr",          ## Data manipulation
                       "RColorBrewer",   ## Heatmap cell colors
                       "ape",            ## Export hclust tree in newick format
                       "RJSONIO",        ## Export hclust tree in JSON format
+                      "flexclust)       ## Calculate adjusted rand index
 
 
 for (lib in required.packages) {
