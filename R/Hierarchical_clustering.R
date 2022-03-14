@@ -173,7 +173,7 @@ motif.comparison <- function(transfac.file     = NULL,
     
     ## Rename and select relevant columns
     motif.comparison.tab <- motif.comparison.tab %>% 
-      rename(id1 = '#id1') %>% 
+      dplyr::rename(id1 = '#id1') %>% 
       select(id1, id2, cor, Ncor, strand, offset)
     
     ## Check that the comparison table table contains the required metric and threshold columns
@@ -187,4 +187,44 @@ motif.comparison <- function(transfac.file     = NULL,
   }
   
   return(motif.comparison.tab)
+}
+
+
+## Calculate the Adjusted-Rand-Index by comparing the RSAT matrix-clustering and 
+## a user provided reference clusters
+calculate.ARI <- function(matrix.clustering.clusters = NULL,
+                          reference.clusters         = NULL) {
+  
+  if (!require("flexclust")) {
+    install.packages("flexclust")
+  }
+  suppressPackageStartupMessages(library("RJSONIO", character.only = TRUE, quietly = TRUE))
+  
+  
+  ## Combine matrix-clustering with reference-cluster tables
+  mc.rf <- matrix.clustering.clusters %>% 
+              left_join(reference.clusters, by = "id") %>% 
+              dplyr::rename(matrix_clustering = cluster.x,
+                            reference         = cluster.y)
+  
+  mc.rf.tab <- table(mc.rf$matrix_clustering, mc.rf$reference)
+  mc.rf.ari <- randIndex(mc.rf.tab, correct = TRUE)
+  mc.rf.ri  <- randIndex(mc.rf.tab, correct = FALSE)
+  
+  return(list(ARI = mc.rf.ari,
+              RI  = mc.rf.ri))
+  
+}
+
+
+
+## A small function to convert a list with vectors to a dataframe
+clusters.list.to.df <- function(clusters.list = NULL) {
+  
+    melt(clusters.list) %>% 
+      dplyr::rename(id      = value,
+                    cluster = L1) %>% 
+      data.table() %>% 
+      dplyr::mutate(id = gsub(x = id, pattern = "_n\\d+$", replacement = ""))
+  
 }
