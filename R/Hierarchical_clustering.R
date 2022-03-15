@@ -212,7 +212,8 @@ calculate.ARI <- function(matrix.clustering.clusters = NULL,
   mc.rf.ri  <- randIndex(mc.rf.tab, correct = FALSE)
   
   return(list(ARI = mc.rf.ari,
-              RI  = mc.rf.ri))
+              RI  = mc.rf.ri,
+              tab = mc.rf.tab))
   
 }
 
@@ -227,4 +228,100 @@ clusters.list.to.df <- function(clusters.list = NULL) {
       data.table() %>% 
       dplyr::mutate(id = gsub(x = id, pattern = "_n\\d+$", replacement = ""))
   
+}
+
+
+
+draw.heatmap.ari <- function(clusters.tab = NULL) {
+  
+  ## List of packages to install from CRAN
+  required.packages = c("circlize",      
+                        "ComplexHeatmap",
+                        "RColorBrewer")
+  
+  for (lib in required.packages) {
+    suppressPackageStartupMessages(library(lib, character.only = TRUE, quietly = TRUE))
+  }
+  
+  
+  ## Convert the actual values into frequencies
+  ## This helps to better detect the classes in the heatmap
+  clusters.tab.mt <- as.data.frame.matrix(clusters.tab) %>%
+    dplyr::rename(Unkwnon = V1) %>% 
+    as.matrix() %>% 
+    t()
+  
+  clusters.tab.perc <- apply(clusters.tab.mt, 1, function(cc){
+    cc.sum <- sum(cc)
+    cc/cc.sum
+  })
+  # clusters.tab.perc <- clusters.tab.perc[rev(rownames(clusters.tab.perc)),]
+  
+  ## Heatmap cell colors, depending in the similarity metric
+  # largest.intersect.size <- max(clusters.tab.mt)
+  # nb.classes.ht <- ifelse(largest.intersect.size >= 100, yes = 100, no = largest.intersect.size) + 1
+  # palette <- rev(colorRampPalette(rev(brewer.pal(9, "Greys")), space = "Lab")(nb.classes.ht))
+  # col_fun <- colorRamp2(seq(0, largest.intersect.size, length.out = nb.classes.ht), palette)
+
+  palette <- rev(colorRampPalette(rev(brewer.pal(9, "PuRd")), space = "Lab")(100))
+  col_fun <- colorRamp2(seq(0, 1, length.out = 100), palette)
+  
+  
+  ## Sidebar annotations
+  max.row.col <- max( max(colSums(clusters.tab.mt)), max(rowSums(clusters.tab.mt)))
+  palette.ha  <- rev(colorRampPalette(rev(brewer.pal(9, "Reds")), space = "Lab")(max.row.col + 1))
+  colfun.ha   <- colorRamp2(seq(0, max.row.col, length.out = max.row.col + 1 ), palette.ha)
+  
+  
+  hac = HeatmapAnnotation(df                   = data.frame(Group_size = rowSums(clusters.tab.mt)),
+                          col                  = list(Group_size = colfun.ha),
+                          simple_anno_size     = unit(0.5, "cm"),
+                          which                = "column",
+                          show_legend          = FALSE,
+                          show_annotation_name = TRUE,
+                          text                 = anno_text(rowSums(clusters.tab.mt), rot = 0, location = 3, just = "center", gp = gpar(fontsize = 5)))
+  
+  har = HeatmapAnnotation(df                      = data.frame(Group_size = colSums(clusters.tab.mt)),
+                          col                     = list(Group_size = colfun.ha),
+                          simple_anno_size        = unit(0.5, "cm"),
+                          which                   = "row",
+                          show_legend             = TRUE,
+                          show_annotation_name    = FALSE,
+                          annotation_legend_param = list(Group_size = list(direction      = "horizontal",
+                                                                           legend_width   = unit(4, "cm"),
+                                                                           title_position = "topcenter")),
+                          text = anno_text(colSums(clusters.tab.mt), location = -1.5, just = "center", gp = gpar(fontsize = 5)))
+  
+  ## Draw heatmap
+  ht1 = Heatmap(matrix            = clusters.tab.perc,
+                name              = "Fraction",
+                row_title         = "RSAT matrix-clustering", column_title_side = "top",
+                column_title      = "Reference groups",
+                col               = col_fun,
+                show_row_names    = TRUE,
+                show_column_names = TRUE,
+                cluster_rows      = TRUE,
+                show_row_dend     = FALSE,
+                cluster_columns   = TRUE,
+                show_column_dend  = FALSE,
+                rect_gp           = gpar(col = "white", lwd = 1),
+                column_names_rot  = 65,
+                bottom_annotation = hac,
+                right_annotation  = har, 
+                column_names_max_height = max_text_width(colnames(clusters.tab.perc), gp = gpar(fontsize = 10)),
+                row_names_gp      = gpar(fontsize = 13),
+                heatmap_legend_param = list(direction      = "horizontal", 
+                                            legend_width   = unit(4, "cm"),
+                                            title_position = "topcenter"),
+                cell_fun          = function(j, i, x, y, width, height, fill) {
+                  if (clusters.tab.perc[i, j] > 0) {
+                    grid.text(sprintf("%.2f", clusters.tab.perc[i, j]), x, y, gp = gpar(fontsize = 5))
+                  }
+                })
+  
+  ht1
+  
+  # dev.off()
+  
+  return(ht1)
 }
