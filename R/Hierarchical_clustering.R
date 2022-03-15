@@ -325,3 +325,34 @@ draw.heatmap.ari <- function(clusters.tab = NULL) {
   
   return(ht1)
 }
+
+
+## Export a ComplexHeatmap object as a PDF. Precalculates the size to generate
+## cells with same height and width
+export.heatmap.ari <- function(ht        = NULL,
+                               ht.matrix = NULL,
+                               pdf.file  = NULL) {
+  
+  nb.rows.ari.ht <- nrow(ht.matrix)
+  nb.cols.ari.ht <- ncol(ht.matrix)
+  y              <- NULL
+  
+  for (nr in c(nb.rows.ari.ht, nb.rows.ari.ht * 2)) {
+    
+    heatmap.ari.draw <- draw(ht, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", height = unit(5, "mm") * nr, gap = unit(50, "mm"))
+    ht_height        <- sum(component_height(heatmap.ari.draw)) + unit(4, "mm")
+    ht_height        <- convertHeight(ht_height, "inch", valueOnly = TRUE)
+    y                <- c(y, ht_height)
+    dev.off()
+  }
+  lm.xy <- lm(y ~ c(nb.rows.ari.ht, nb.rows.ari.ht*2))
+  
+  
+  message("; Exporting ARI heatmap as PDF file: ", pdf.file)
+  ht_opt$message = FALSE
+  pdf(file   = pdf.file,
+      width  = ht_height/3.5,
+      height = as.vector(lm.xy$coefficients[2]) * nb.rows.ari.ht + as.vector(lm.xy$coefficients[1]))
+  draw(ht, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", height = unit(5, "mm") * nb.rows.ari.ht, gap = unit(50, "mm"))
+  dev.off()
+}
