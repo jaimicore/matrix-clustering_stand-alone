@@ -112,7 +112,7 @@ Rscript matrix-clustering.R                          \
 
 ### Example 2
 
-The (*JASPAR plants*)[https://jaspar.genereg.net/matrix-clusters/plants/] motif collection was clustered and we compared the clusters detected by *RSAT matrix-clustering* against the reference annotation.
+The [*JASPAR plants*](https://jaspar.genereg.net/matrix-clusters/plants/) motif collection was clustered and we compared the clusters detected by *RSAT matrix-clustering* against the reference annotation.
 
 
 
@@ -137,6 +137,6 @@ Nguyen NTT, Contreras-Moreira B, et al. 2018. RSAT 2018: regulatory sequence ana
 
 ## Acknowledgements
 
-We thank the (*JASPAR*)[https://jaspar.genereg.net/] curation team for their input to improve *RSAT matrix-clustering*; the (*RSAT developer team*)[http://rsat-tagc.univ-mrs.fr/rsat/people.php] for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs.
+We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](http://rsat-tagc.univ-mrs.fr/rsat/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs.
 
 Special thanks to Ieva Rauluseviciute (who pushed me to write this stand-alone version) and Vipin Kumar (from [Anthony Mathelier's lab](https://mathelierlab.com/)) for testing this software, the discussions, ideas, and their suggestions of R libraries that make this script faster.
