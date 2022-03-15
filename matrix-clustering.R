@@ -549,28 +549,9 @@ if (params.list$min_output == FALSE) {
     message("; Drawing Adjusted Rand Index heatmap")
     heatmap.ari <- draw.heatmap.ari(clusters.tab = clustering.ari$tab)
     
-    nb.rows.ari.ht <- nrow(clustering.ari$tab)
-    nb.cols.ari.ht <- ncol(clustering.ari$tab)
-    y              <- NULL
-    
-    for (nr in c(nb.rows.ari.ht, nb.rows.ari.ht * 2)) {
-    
-      heatmap.ari.draw <- draw(heatmap.ari, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", height = unit(5, "mm") * nr, gap = unit(50, "mm"))
-      ht_height        <- sum(component_height(heatmap.ari.draw)) + unit(4, "mm")
-      ht_height        <- convertHeight(ht_height, "inch", valueOnly = TRUE)
-      y                <- c(y, ht_height)
-      dev.off()
-    }
-    lm.xy <- lm(y ~ c(nb.rows.ari.ht, nb.rows.ari.ht*2))
-    
-    
-    message("; Exporting ARI heatmap as PDF file: ", output.files.list$Heatmap_ARI)
-    pdf(file   = output.files.list$Heatmap_ARI,
-        width  = ht_height/3.5,
-        height = as.vector(lm.xy$coefficients[2]) * nb.rows.ari.ht + as.vector(lm.xy$coefficients[1]))
-    draw(heatmap.ari, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", height = unit(5, "mm") * nb.rows.ari.ht, gap = unit(50, "mm"))
-    dev.off()
-    
+    export.heatmap.ari(ht        = heatmap.ari,
+                       ht.matrix = clustering.ari$tab,
+                       pdf.file  = output.files.list$Heatmap_ARI)
     
   }
   
