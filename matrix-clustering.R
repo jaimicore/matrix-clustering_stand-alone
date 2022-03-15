@@ -160,7 +160,8 @@ output.files.list <- list("Alignment_table"     = file.path(out.folder.list$tabl
                           "Cluster_colors"      = file.path(out.folder.list$tables, "cluster_color_map.tab"),
                           "Motifs_transfac_tmp" = file.path(out.folder.list$motifs, "input_motifs_parsed_id.tf.tmp"),
                           "Motifs_transfac"     = file.path(out.folder.list$motifs, "input_motifs_parsed_id.tf"),
-                          "Heatmap"             = file.path(out.folder.list$plots, "Heatmap.pdf"),
+                          "Heatmap_clusters"    = file.path(out.folder.list$plots, "Heatmap_clusters.pdf"),
+                          "Heatmap_ARI"         = file.path(out.folder.list$plots, "Heatmap_ARI.pdf"),
                           "hclust_all"          = file.path(out.folder.list$trees, "tree.RData"),
                           "JSON_tree_all"       = file.path(out.folder.list$trees, "tree.json"),
                           "Newick_tree_all"     = file.path(out.folder.list$trees, "tree.newick"),
@@ -519,12 +520,13 @@ if (params.list$min_output == FALSE) {
          col.names = FALSE,
          sep       = "\t")
   
-  ##################
-  ## Draw heatmap ##
-  ##################
+  
+  ###########################
+  ## Draw clusters heatmap ##
+  ###########################
   if (params.list$export_heatmap == 1) {
     
-    message("; Drawing heatmap")
+    message("; Drawing cluster heatmap")
     heatmap.w.clusters <- draw.heatmap.motifs(dist.table    = results.list[["Original_matrix"]], 
                                               clusters      = results.list$Clusters_table, 
                                               metric        = "Ncor", 
@@ -532,11 +534,46 @@ if (params.list$min_output == FALSE) {
                                               color.palette = params.list$heatmap_color_palette,
                                               color.classes = params.list$heatmap_color_classes)
     
-    message("; Exporting heatmap as PDF file: ", output.files.list$Heatmap)
-    pdf(file = output.files.list$Heatmap, width = 15, height = 17)
+    message("; Exporting heatmap as PDF file: ", output.files.list$Heatmap_clusters)
+    pdf(file = output.files.list$Heatmap_clusters, width = 15, height = 17)
     draw(heatmap.w.clusters)
     dev.off()
   }
+  
+  
+  #############################
+  ## Draw Rand Index heatmap ##
+  #############################
+  if (params.list$ref_clusters) {
+    
+    message("; Drawing Adjusted Rand Index heatmap")
+    heatmap.ari <- draw.heatmap.ari(clusters.tab = clustering.ari$tab)
+    
+    nb.rows.ari.ht <- nrow(clustering.ari$tab)
+    nb.cols.ari.ht <- ncol(clustering.ari$tab)
+    y              <- NULL
+    
+    for (nr in c(nb.rows.ari.ht, nb.rows.ari.ht * 2)) {
+    
+      heatmap.ari.draw <- draw(heatmap.ari, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", height = unit(5, "mm") * nr, gap = unit(50, "mm"))
+      ht_height        <- sum(component_height(heatmap.ari.draw)) + unit(4, "mm")
+      ht_height        <- convertHeight(ht_height, "inch", valueOnly = TRUE)
+      y                <- c(y, ht_height)
+      dev.off()
+    }
+    lm.xy <- lm(y ~ c(nb.rows.ari.ht, nb.rows.ari.ht*2))
+    
+    
+    message("; Exporting ARI heatmap as PDF file: ", output.files.list$Heatmap_ARI)
+    pdf(file   = output.files.list$Heatmap_ARI,
+        width  = ht_height/3.5,
+        height = as.vector(lm.xy$coefficients[2]) * nb.rows.ari.ht + as.vector(lm.xy$coefficients[1]))
+    draw(heatmap.ari, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", height = unit(5, "mm") * nb.rows.ari.ht, gap = unit(50, "mm"))
+    dev.off()
+    
+    
+  }
+  
   
 ## Remove these folder when --minimal_output mode is activated
 } else {
