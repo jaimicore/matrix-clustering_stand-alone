@@ -11,12 +11,6 @@ PO	A	C	G	T
 05	3.0	14.0	2.0	2.0
 06	7.0	6.0	3.0	5.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10074718
-CC uniprot_ids:Q41800
-CC data_type:SELEX
 XX
 //
 AC MA0021.1
@@ -32,12 +26,6 @@ PO	A	C	G	T
 05	0.0	10.0	3.0	8.0
 06	6.0	6.0	9.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10074718
-CC uniprot_ids:Q41801
-CC data_type:SELEX
 XX
 //
 AC MA0034.1
@@ -57,12 +45,6 @@ PO	A	C	G	T
 09	10.0	11.0	0.0	4.0
 10	5.0	19.0	1.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:10069063
-CC uniprot_ids:Q96464
-CC data_type:SELEX
 XX
 //
 AC MA0053.1
@@ -77,12 +59,6 @@ PO	A	C	G	T
 04	0.0	0.0	15.0	0.0
 05	3.0	9.0	0.0	3.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10074718
-CC uniprot_ids:P38564
-CC data_type:SELEX
 XX
 //
 AC MA0054.1
@@ -101,12 +77,6 @@ PO	A	C	G	T
 08	3.0	17.0	1.0	49.0
 09	28.0	1.0	0.0	41.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:7737128
-CC uniprot_ids:Q02994
-CC data_type:SELEX
 XX
 //
 AC MA0064.1
@@ -121,12 +91,6 @@ PO	A	C	G	T
 04	0.0	0.0	16.0	0.0
 05	1.0	9.0	1.0	5.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10074718
-CC uniprot_ids:O24463
-CC data_type:SELEX
 XX
 //
 AC MA0082.1
@@ -150,12 +114,6 @@ PO	A	C	G	T
 13	21.0	2.0	3.0	4.0
 14	7.0	5.0	8.0	10.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:9826749
-CC uniprot_ids:Q38742
-CC data_type:SELEX
 XX
 //
 AC MA0096.1
@@ -172,12 +130,6 @@ PO	A	C	G	T
 06	0.0	0.0	35.0	0.0
 07	0.0	0.0	0.0	35.0
 XX
-CC tax_group:plants
-CC tf_family:Group S
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:O22676
-CC data_type:SELEX
 XX
 //
 AC MA0097.1
@@ -199,12 +151,6 @@ PO	A	C	G	T
 11	11.0	20.0	1.0	1.0
 12	1.0	32.0	0.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:Group S
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:O22677
-CC data_type:SELEX
 XX
 //
 AC MA0121.1
@@ -222,12 +168,6 @@ PO	A	C	G	T
 07	0.0	0.0	9.0	6.0
 08	3.0	6.0	4.0	2.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_ARR-B
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:12215502
-CC uniprot_ids:O49397
-CC data_type:SELEX
 XX
 //
 AC MA0123.1
@@ -247,12 +187,6 @@ PO	A	C	G	T
 09	3.0	31.0	5.0	10.0
 10	4.0	26.0	7.0	12.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:12368505
-CC uniprot_ids:Q8L7W9
-CC data_type:SELEX
 XX
 //
 AC MA0127.1
@@ -272,12 +206,6 @@ PO	A	C	G	T
 09	4.0	3.0	0.0	35.0
 10	2.0	5.0	14.0	21.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:
-CC pubmed_ids:9973626
-CC uniprot_ids:Q5DW98
-CC data_type:SELEX
 XX
 //
 AC MA0128.1
@@ -295,12 +223,6 @@ PO	A	C	G	T
 07	0.0	1.0	12.0	0.0
 08	0.0	1.0	12.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:Group G
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:10561063
-CC uniprot_ids:P25032
-CC data_type:SELEX
 XX
 //
 AC MA0129.1
@@ -317,12 +239,6 @@ PO	A	C	G	T
 06	0.0	15.0	0.0	0.0
 07	13.0	0.0	1.0	1.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:10561063
-CC uniprot_ids:P14232
-CC data_type:SELEX
 XX
 //
 AC MA0549.1
@@ -343,12 +259,6 @@ PO	A	C	G	T
 10	17.0	33.0	46.0	3.0
 11	36.0	29.0	33.0	1.0
 XX
-CC tax_group:plants
-CC tf_family:BES/BZR
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15680330
-CC uniprot_ids:Q9LN63
-CC data_type:ChIP-chip
 XX
 //
 AC MA0551.1
@@ -374,12 +284,6 @@ PO	A	C	G	T
 15	94.0	62.0	56.0	108.0
 16	89.0	68.0	60.0	103.0
 XX
-CC tax_group:plants
-CC tf_family:Group H
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:18287490
-CC uniprot_ids:O24646
-CC data_type:ChIP-chip
 XX
 //
 AC MA0552.1
@@ -403,12 +307,6 @@ PO	A	C	G	T
 13	0.0	0.0	114.0	0.0
 14	22.0	23.0	51.0	18.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15448264
-CC uniprot_ids:Q8GZM7
-CC data_type:ChIP-chip
 XX
 //
 AC MA0553.1
@@ -426,12 +324,6 @@ PO	A	C	G	T
 07	135.0	12.0	0.0	0.0
 08	0.0	147.0	0.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:AP2
-CC tf_class:AP2/EREBP
-CC pubmed_ids:19582143
-CC uniprot_ids:Q6PV68
-CC data_type:ChIP-chip
 XX
 //
 AC MA0554.1
@@ -456,12 +348,6 @@ PO	A	C	G	T
 14	181.0	10.0	683.0	14.0
 15	17.0	23.0	665.0	183.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:8774892
-CC uniprot_ids:O64645
-CC data_type:ChIP-chip
 XX
 //
 AC MA0555.1
@@ -491,12 +377,6 @@ PO	A	C	G	T
 19	50.0	16.0	5.0	21.0
 20	38.0	21.0	3.0	30.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:8774892
-CC uniprot_ids:Q9FVC1
-CC data_type:ChIP-chip
 XX
 //
 AC MA0556.1
@@ -521,12 +401,6 @@ PO	A	C	G	T
 14	231.0	18.0	9.0	33.0
 15	243.0	9.0	19.0	20.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:8774892
-CC uniprot_ids:P35632
-CC data_type:ChIP-seq
 XX
 //
 AC MA0557.1
@@ -548,12 +422,6 @@ PO	A	C	G	T
 11	63.0	68.0	40.0	64.0
 12	82.0	44.0	50.0	59.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY-like_FRS/FRF
-CC tf_class:GCM domain factors
-CC pubmed_ids:21803941
-CC uniprot_ids:Q9LIE5
-CC data_type:ChIP-seq
 XX
 //
 AC MA0558.1
@@ -584,12 +452,6 @@ PO	A	C	G	T
 20	109.0	47.0	17.0	102.0
 21	103.0	50.0	29.0	93.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:21464308
-CC uniprot_ids:Q5Q9J1
-CC data_type:ChIP-seq
 XX
 //
 AC MA0559.1
@@ -613,12 +475,6 @@ PO	A	C	G	T
 13	456.0	26.0	60.0	16.0
 14	256.0	58.0	199.0	45.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:8774892
-CC uniprot_ids:P48007
-CC data_type:ChIP-seq
 XX
 //
 AC MA0560.1
@@ -638,12 +494,6 @@ PO	A	C	G	T
 09	0.0	0.0	527.0	0.0
 10	259.0	33.0	137.0	98.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:10797009
-CC uniprot_ids:O80536
-CC data_type:ChIP-seq
 XX
 //
 AC MA0561.1
@@ -661,12 +511,6 @@ PO	A	C	G	T
 07	0.0	99.0	183.0	53.0
 08	64.0	206.0	65.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:22536829
-CC uniprot_ids:Q8W2F3
-CC data_type:ChIP-seq
 XX
 //
 AC MA0562.1
@@ -684,12 +528,6 @@ PO	A	C	G	T
 07	0.0	0.0	286.0	0.0
 08	0.0	95.0	161.0	30.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:22536829
-CC uniprot_ids:Q84LH8
-CC data_type:ChIP-seq
 XX
 //
 AC MA0563.1
@@ -710,12 +548,6 @@ PO	A	C	G	T
 10	9.0	0.0	138.0	3.0
 11	0.0	7.0	114.0	29.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:19033361
-CC uniprot_ids:O22456
-CC data_type:ChIP-seq
 XX
 //
 AC MA0564.1
@@ -734,12 +566,6 @@ PO	A	C	G	T
 08	6.0	84.0	8.0	2.0
 09	50.0	15.0	13.0	22.0
 XX
-CC tax_group:plants
-CC tf_family:ABI3
-CC tf_class:B3
-CC pubmed_ids:30183137
-CC uniprot_ids:Q01593
-CC data_type:PBM
 XX
 //
 AC MA0566.1
@@ -757,12 +583,6 @@ PO	A	C	G	T
 07	0.0	0.0	91.0	9.0
 08	5.0	60.0	10.0	25.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21284757
-CC uniprot_ids:Q39204
-CC data_type:PBM
 XX
 //
 AC MA0567.1
@@ -780,12 +600,6 @@ PO	A	C	G	T
 07	1.0	98.0	1.0	1.0
 08	58.0	5.0	24.0	12.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:21284757
-CC uniprot_ids:Q8LDC8
-CC data_type:PBM
 XX
 //
 AC MA0568.1
@@ -803,12 +617,6 @@ PO	A	C	G	T
 07	0.0	0.0	89.0	10.0
 08	7.0	40.0	28.0	25.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q9FIP9
-CC data_type:PBM
 XX
 //
 AC MA0569.1
@@ -826,12 +634,6 @@ PO	A	C	G	T
 07	0.0	0.0	98.0	2.0
 08	2.0	72.0	8.0	17.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:O49687
-CC data_type:PBM
 XX
 //
 AC MA0005.2
@@ -859,12 +661,6 @@ PO	A	C	G	T
 17	40.0	6.0	9.0	11.0
 18	15.0	10.0	16.0	25.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:7901838
-CC uniprot_ids:P17839
-CC data_type:SELEX
 XX
 //
 AC MA0571.1
@@ -895,12 +691,6 @@ PO	A	C	G	T
 20	12.0	10.0	4.0	8.0
 21	19.0	4.0	3.0	8.0
 XX
-CC tax_group:plants
-CC tf_family:AP2
-CC tf_class:AP2/EREBP
-CC pubmed_ids:11058102
-CC uniprot_ids:Q38914
-CC data_type:SELEX
 XX
 //
 AC MA0573.1
@@ -929,12 +719,6 @@ PO	A	C	G	T
 18	0.0	3.0	4.0	3.0
 19	0.0	5.0	3.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:9747806
-CC uniprot_ids:O04292
-CC data_type:SELEX
 XX
 //
 AC MA0574.1
@@ -957,12 +741,6 @@ PO	A	C	G	T
 12	18.0	0.0	78.0	4.0
 13	4.0	0.0	87.0	9.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:9628022
-CC uniprot_ids:Q9LTC4
-CC data_type:SELEX
 XX
 //
 AC MA0575.1
@@ -985,12 +763,6 @@ PO	A	C	G	T
 12	68.0	3.0	26.0	3.0
 13	3.0	55.0	30.0	12.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:9628022
-CC uniprot_ids:Q9SN12
-CC data_type:SELEX
 XX
 //
 AC MA0576.1
@@ -1013,12 +785,6 @@ PO	A	C	G	T
 12	0.0	0.0	96.0	4.0
 13	4.0	32.0	60.0	4.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:9628022
-CC uniprot_ids:Q9M2Y9
-CC data_type:SELEX
 XX
 //
 AC MA0578.1
@@ -1044,12 +810,6 @@ PO	A	C	G	T
 15	10.0	3.0	0.0	17.0
 16	11.0	6.0	0.0	13.0
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16095614
-CC uniprot_ids:Q8GXL3
-CC data_type:SELEX
 XX
 //
 AC MA0579.1
@@ -1070,12 +830,6 @@ PO	A	C	G	T
 10	2.0	55.0	27.0	16.0
 11	18.0	23.0	45.0	14.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:8917598
-CC uniprot_ids:P92948
-CC data_type:SELEX
 XX
 //
 AC MA0580.1
@@ -1099,12 +853,6 @@ PO	A	C	G	T
 13	0.0	0.0	11.0	0.0
 14	11.0	0.0	0.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:22775442
-CC uniprot_ids:O81900
-CC data_type:SELEX
 XX
 //
 AC MA0581.1
@@ -1125,12 +873,6 @@ PO	A	C	G	T
 10	228.0	86.0	44.0	129.0
 11	96.0	79.0	62.0	250.0
 XX
-CC tax_group:plants
-CC tf_family:ABI3
-CC tf_class:B3
-CC pubmed_ids:16492731
-CC uniprot_ids:Q1PFR7
-CC data_type:SELEX
 XX
 //
 AC MA0582.1
@@ -1152,12 +894,6 @@ PO	A	C	G	T
 11	34.0	6.0	10.0	19.0
 12	27.0	9.0	17.0	16.0
 XX
-CC tax_group:plants
-CC tf_family:RAV
-CC tf_class:B3
-CC pubmed_ids:9862967
-CC uniprot_ids:Q9ZWM9
-CC data_type:SELEX
 XX
 //
 AC MA0583.1
@@ -1179,12 +915,6 @@ PO	A	C	G	T
 11	12.0	14.0	16.0	10.0
 12	8.0	20.0	5.0	13.0
 XX
-CC tax_group:plants
-CC tf_family:RAV
-CC tf_class:B3
-CC pubmed_ids:9862967
-CC uniprot_ids:Q9ZWM9
-CC data_type:SELEX
 XX
 //
 AC MA0584.1
@@ -1212,12 +942,6 @@ PO	A	C	G	T
 17	33.0	5.0	5.0	8.0
 18	6.0	8.0	17.0	20.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:8597661
-CC uniprot_ids:P29382
-CC data_type:SELEX
 XX
 //
 AC MA0001.2
@@ -1245,12 +969,6 @@ PO	A	C	G	T
 17	45.0	23.0	13.0	14.0
 18	21.0	24.0	26.0	24.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:8597661
-CC uniprot_ids:P29383
-CC data_type:SELEX
 XX
 //
 AC MA0585.1
@@ -1278,12 +996,6 @@ PO	A	C	G	T
 17	39.0	9.0	8.0	9.0
 18	18.0	15.0	19.0	13.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:8597661
-CC uniprot_ids:P29381
-CC data_type:SELEX
 XX
 //
 AC MA0587.1
@@ -1303,12 +1015,6 @@ PO	A	C	G	T
 09	18.0	10.0	29.0	7.0
 10	12.0	20.0	26.0	6.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:22074922
-CC uniprot_ids:Q9M1U4
-CC data_type:SELEX
 XX
 //
 AC MA0588.1
@@ -1329,12 +1035,6 @@ PO	A	C	G	T
 10	6.0	5.0	6.0	5.0
 11	11.0	0.0	6.0	7.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:1446171
-CC uniprot_ids:Q39237
-CC data_type:SELEX
 XX
 //
 AC MA0589.1
@@ -1355,12 +1055,6 @@ PO	A	C	G	T
 10	2.0	28.0	5.0	14.0
 11	8.0	20.0	5.0	13.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:8972846
-CC uniprot_ids:Q9SI37
-CC data_type:SELEX
 XX
 //
 AC MA0590.1
@@ -1389,12 +1083,6 @@ PO	A	C	G	T
 18	80.0	17.0	13.0	266.0
 19	199.0	49.0	104.0	32.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:LEAFY
-CC pubmed_ids:21515819
-CC uniprot_ids:Q00958
-CC data_type:SELEX-seq
 XX
 //
 AC MA0931.1
@@ -1414,12 +1102,6 @@ PO	A	C	G	T
 09	152.0	70.0	709.0	70.0
 10	164.0	164.0	337.0	336.0
 XX
-CC tax_group:plants
-CC tf_family:Group A
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:12376636
-CC uniprot_ids:Q9SJN0
-CC data_type:PBM
 XX
 //
 AC MA0932.1
@@ -1437,12 +1119,6 @@ PO	A	C	G	T
 07	98.0	24.0	35.0	843.0
 08	64.0	146.0	18.0	772.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:A.T hook factors
-CC pubmed_ids:22442143
-CC uniprot_ids:Q8LPN5
-CC data_type:PBM
 XX
 //
 AC MA0933.1
@@ -1460,12 +1136,6 @@ PO	A	C	G	T
 07	648.0	12.0	3.0	337.0
 08	54.0	28.0	18.0	900.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:A.T hook factors
-CC pubmed_ids:22442143
-CC uniprot_ids:Q8GWQ2
-CC data_type:PBM
 XX
 //
 AC MA0934.1
@@ -1483,12 +1153,6 @@ PO	A	C	G	T
 07	375.0	6.0	4.0	616.0
 08	49.0	53.0	26.0	872.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:A.T hook factors
-CC pubmed_ids:22442143
-CC uniprot_ids:Q6DBQ1
-CC data_type:PBM
 XX
 //
 AC MA0935.1
@@ -1506,12 +1170,6 @@ PO	A	C	G	T
 07	930.0	0.0	0.0	69.0
 08	50.0	599.0	50.0	300.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q8GY42
-CC data_type:PBM
 XX
 //
 AC MA0936.1
@@ -1529,12 +1187,6 @@ PO	A	C	G	T
 07	459.0	402.0	48.0	91.0
 08	805.0	40.0	96.0	59.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9SQQ6
-CC data_type:PBM
 XX
 //
 AC MA0937.1
@@ -1552,12 +1204,6 @@ PO	A	C	G	T
 07	878.0	80.0	4.0	37.0
 08	866.0	9.0	4.0	121.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9LDY8
-CC data_type:PBM
 XX
 //
 AC MA0939.1
@@ -1575,12 +1221,6 @@ PO	A	C	G	T
 07	784.0	72.0	1.0	143.0
 08	998.0	1.0	1.0	1.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9FLR3
-CC data_type:PBM
 XX
 //
 AC MA0940.1
@@ -1603,12 +1243,6 @@ PO	A	C	G	T
 12	1279.0	122.0	168.0	53.0
 13	1257.0	22.0	162.0	181.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:8774892
-CC uniprot_ids:P35631
-CC data_type:ChIP-seq
 XX
 //
 AC MA0941.1
@@ -1631,12 +1265,6 @@ PO	A	C	G	T
 12	213.0	130.0	287.0	371.0
 13	229.0	229.0	229.0	312.0
 XX
-CC tax_group:plants
-CC tf_family:Group A
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:11005831
-CC uniprot_ids:Q9M7Q4
-CC data_type:PBM
 XX
 //
 AC MA0942.1
@@ -1654,12 +1282,6 @@ PO	A	C	G	T
 07	901.0	4.0	88.0	8.0
 08	262.0	220.0	207.0	312.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:9188533
-CC uniprot_ids:Q8L7G0
-CC data_type:PBM
 XX
 //
 AC MA0943.1
@@ -1677,12 +1299,6 @@ PO	A	C	G	T
 07	773.0	224.0	2.0	2.0
 08	491.0	98.0	218.0	193.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:25002510
-CC uniprot_ids:P93024
-CC data_type:PBM
 XX
 //
 AC MA0944.1
@@ -1701,12 +1317,6 @@ PO	A	C	G	T
 08	121.0	138.0	651.0	89.0
 09	228.0	337.0	217.0	219.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:Q9FGV1
-CC data_type:PBM
 XX
 //
 AC MA0945.1
@@ -1726,12 +1336,6 @@ PO	A	C	G	T
 09	143.0	156.0	91.0	609.0
 10	257.0	190.0	181.0	372.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_ARR-B
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:11135105
-CC uniprot_ids:Q940D0
-CC data_type:PBM
 XX
 //
 AC MA0946.1
@@ -1749,12 +1353,6 @@ PO	A	C	G	T
 07	3.0	833.0	2.0	162.0
 08	14.0	5.0	968.0	13.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_ARR-B
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:12610214
-CC uniprot_ids:Q9FXD6
-CC data_type:PBM
 XX
 //
 AC MA0947.1
@@ -1772,12 +1370,6 @@ PO	A	C	G	T
 07	10.0	5.0	960.0	26.0
 08	83.0	484.0	401.0	32.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_ARR-B
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q8L9Y3
-CC data_type:PBM
 XX
 //
 AC MA0948.1
@@ -1800,12 +1392,6 @@ PO	A	C	G	T
 12	341.0	243.0	264.0	151.0
 13	225.0	225.0	225.0	326.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_ARR-B
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FGT7
-CC data_type:PBM
 XX
 //
 AC MA0949.1
@@ -1825,12 +1411,6 @@ PO	A	C	G	T
 09	162.0	76.0	76.0	687.0
 10	205.0	205.0	205.0	386.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_ARR-B
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9ZWJ9
-CC data_type:PBM
 XX
 //
 AC MA0950.1
@@ -1848,12 +1428,6 @@ PO	A	C	G	T
 07	30.0	10.0	19.0	940.0
 08	128.0	18.0	766.0	88.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q9M276
-CC data_type:PBM
 XX
 //
 AC MA0951.1
@@ -1871,12 +1445,6 @@ PO	A	C	G	T
 07	0.0	0.0	0.0	999.0
 08	67.0	1.0	67.0	865.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q940J1
-CC data_type:PBM
 XX
 //
 AC MA0952.1
@@ -1894,12 +1462,6 @@ PO	A	C	G	T
 07	5.0	18.0	12.0	965.0
 08	105.0	18.0	777.0	100.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:16554366
-CC uniprot_ids:Q9LZR0
-CC data_type:PBM
 XX
 //
 AC MA0953.1
@@ -1918,12 +1480,6 @@ PO	A	C	G	T
 08	106.0	66.0	130.0	698.0
 09	234.0	111.0	266.0	389.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:P46668
-CC data_type:PBM
 XX
 //
 AC MA0955.1
@@ -1940,12 +1496,6 @@ PO	A	C	G	T
 06	41.0	80.0	859.0	19.0
 07	188.0	50.0	696.0	67.0
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16554053
-CC uniprot_ids:B9GPL8
-CC data_type:PBM
 XX
 //
 AC MA0956.1
@@ -1965,12 +1515,6 @@ PO	A	C	G	T
 09	218.0	342.0	229.0	211.0
 10	255.0	236.0	253.0	256.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:12897250
-CC uniprot_ids:Q93VJ4
-CC data_type:PBM
 XX
 //
 AC MA0957.1
@@ -1988,12 +1532,6 @@ PO	A	C	G	T
 07	11.0	14.0	930.0	45.0
 08	44.0	603.0	94.0	258.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:O23487
-CC data_type:PBM
 XX
 //
 AC MA0958.1
@@ -2011,12 +1549,6 @@ PO	A	C	G	T
 07	1.0	2.0	987.0	10.0
 08	38.0	696.0	65.0	201.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q9LNJ5
-CC data_type:PBM
 XX
 //
 AC MA0959.1
@@ -2034,12 +1566,6 @@ PO	A	C	G	T
 07	2.0	1.0	939.0	59.0
 08	8.0	901.0	14.0	76.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q9ZPY8
-CC data_type:PBM
 XX
 //
 AC MA0960.1
@@ -2059,12 +1585,6 @@ PO	A	C	G	T
 09	45.0	866.0	74.0	15.0
 10	22.0	822.0	26.0	130.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q8L467
-CC data_type:PBM
 XX
 //
 AC MA0961.1
@@ -2083,12 +1603,6 @@ PO	A	C	G	T
 08	0.0	0.0	1000.0	0.0
 09	218.0	343.0	217.0	223.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q94JL3
-CC data_type:PBM
 XX
 //
 AC MA0962.1
@@ -2106,12 +1620,6 @@ PO	A	C	G	T
 07	0.0	0.0	999.0	0.0
 08	96.0	143.0	476.0	286.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q9LTC7
-CC data_type:PBM
 XX
 //
 AC MA0963.1
@@ -2129,12 +1637,6 @@ PO	A	C	G	T
 07	10.0	10.0	971.0	10.0
 08	10.0	971.0	10.0	10.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q9FJL4
-CC data_type:PBM
 XX
 //
 AC MA0966.1
@@ -2154,12 +1656,6 @@ PO	A	C	G	T
 09	243.0	433.0	165.0	159.0
 10	233.0	270.0	203.0	294.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15680330
-CC uniprot_ids:Q9FMB6
-CC data_type:PBM
 XX
 //
 AC MA0967.1
@@ -2177,12 +1673,6 @@ PO	A	C	G	T
 07	74.0	840.0	59.0	26.0
 08	893.0	24.0	64.0	18.0
 XX
-CC tax_group:plants
-CC tf_family:Group K
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:Q9C7S0
-CC data_type:PBM
 XX
 //
 AC MA0969.1
@@ -2201,12 +1691,6 @@ PO	A	C	G	T
 08	8.0	7.0	970.0	15.0
 09	7.0	11.0	54.0	928.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:CAMTA
-CC pubmed_ids:17689537
-CC uniprot_ids:Q6NPP4
-CC data_type:PBM
 XX
 //
 AC MA0970.1
@@ -2225,12 +1709,6 @@ PO	A	C	G	T
 08	290.0	247.0	250.0	213.0
 09	241.0	258.0	251.0	251.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:CAMTA
-CC pubmed_ids:17689537
-CC uniprot_ids:Q8GSA7
-CC data_type:PBM
 XX
 //
 AC MA0971.1
@@ -2250,12 +1728,6 @@ PO	A	C	G	T
 09	341.0	240.0	279.0	140.0
 10	322.0	205.0	322.0	152.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9952441
-CC uniprot_ids:Q9M0L0
-CC data_type:PBM
 XX
 //
 AC MA0972.1
@@ -2273,12 +1745,6 @@ PO	A	C	G	T
 07	5.0	991.0	0.0	4.0
 08	21.0	91.0	14.0	874.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:19218364
-CC uniprot_ids:P92973
-CC data_type:PBM
 XX
 //
 AC MA0973.1
@@ -2298,12 +1764,6 @@ PO	A	C	G	T
 09	328.0	77.0	395.0	200.0
 10	299.0	282.0	155.0	264.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:7995527
-CC uniprot_ids:Q93ZL5
-CC data_type:PBM
 XX
 //
 AC MA0975.1
@@ -2321,12 +1781,6 @@ PO	A	C	G	T
 07	23.0	931.0	0.0	46.0
 08	118.0	735.0	59.0	88.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9SUQ2
-CC data_type:PBM
 XX
 //
 AC MA0977.1
@@ -2344,12 +1798,6 @@ PO	A	C	G	T
 07	8.0	198.0	65.0	729.0
 08	238.0	44.0	557.0	160.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9ZPY0
-CC data_type:PBM
 XX
 //
 AC MA0978.1
@@ -2367,12 +1815,6 @@ PO	A	C	G	T
 07	169.0	0.0	828.0	2.0
 08	1.0	790.0	1.0	208.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:18643985
-CC uniprot_ids:Q9SGJ6
-CC data_type:PBM
 XX
 //
 AC MA0979.1
@@ -2390,12 +1832,6 @@ PO	A	C	G	T
 07	70.0	828.0	68.0	34.0
 08	100.0	417.0	329.0	154.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:O22174
-CC data_type:PBM
 XX
 //
 AC MA0981.1
@@ -2415,12 +1851,6 @@ PO	A	C	G	T
 09	268.0	189.0	270.0	273.0
 10	288.0	209.0	269.0	234.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q84JQ8
-CC data_type:PBM
 XX
 //
 AC MA0982.1
@@ -2437,12 +1867,6 @@ PO	A	C	G	T
 06	81.0	73.0	762.0	84.0
 07	177.0	242.0	210.0	371.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:O80928
-CC data_type:PBM
 XX
 //
 AC MA0983.1
@@ -2460,12 +1884,6 @@ PO	A	C	G	T
 07	50.0	28.0	884.0	38.0
 08	152.0	247.0	213.0	388.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9FM03
-CC data_type:PBM
 XX
 //
 AC MA0984.1
@@ -2483,12 +1901,6 @@ PO	A	C	G	T
 07	102.0	191.0	460.0	247.0
 08	174.0	215.0	408.0	204.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9LSL6
-CC data_type:PBM
 XX
 //
 AC MA0986.1
@@ -2506,12 +1918,6 @@ PO	A	C	G	T
 07	5.0	977.0	5.0	13.0
 08	806.0	50.0	27.0	117.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:23868510
-CC uniprot_ids:Q8LFR2
-CC data_type:PBM
 XX
 //
 AC MA0987.1
@@ -2531,12 +1937,6 @@ PO	A	C	G	T
 09	271.0	193.0	271.0	265.0
 10	280.0	218.0	272.0	229.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:A9T5V8
-CC data_type:PBM
 XX
 //
 AC MA0988.1
@@ -2556,12 +1956,6 @@ PO	A	C	G	T
 09	169.0	392.0	231.0	208.0
 10	256.0	222.0	272.0	250.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:A9TDF9
-CC data_type:PBM
 XX
 //
 AC MA0989.1
@@ -2580,12 +1974,6 @@ PO	A	C	G	T
 08	139.0	288.0	195.0	378.0
 09	285.0	158.0	297.0	260.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:A9TZW5
-CC data_type:PBM
 XX
 //
 AC MA0990.1
@@ -2605,12 +1993,6 @@ PO	A	C	G	T
 09	81.0	25.0	756.0	137.0
 10	220.0	504.0	49.0	227.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q9FX31
-CC data_type:PBM
 XX
 //
 AC MA0993.1
@@ -2630,12 +2012,6 @@ PO	A	C	G	T
 09	276.0	208.0	198.0	317.0
 10	279.0	209.0	201.0	312.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9LDE4
-CC data_type:PBM
 XX
 //
 AC MA0997.1
@@ -2654,12 +2030,6 @@ PO	A	C	G	T
 08	224.0	404.0	193.0	180.0
 09	351.0	209.0	231.0	209.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q8W4I5
-CC data_type:PBM
 XX
 //
 AC MA0998.1
@@ -2679,12 +2049,6 @@ PO	A	C	G	T
 09	384.0	176.0	240.0	200.0
 10	233.0	254.0	223.0	290.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9LSX0
-CC data_type:PBM
 XX
 //
 AC MA1004.1
@@ -2702,12 +2066,6 @@ PO	A	C	G	T
 07	0.0	999.0	0.0	0.0
 08	461.0	103.0	282.0	154.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q8L9K1
-CC data_type:PBM
 XX
 //
 AC MA1006.1
@@ -2727,12 +2085,6 @@ PO	A	C	G	T
 09	159.0	156.0	530.0	155.0
 10	172.0	278.0	257.0	294.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q8VZ91
-CC data_type:PBM
 XX
 //
 AC MA1007.1
@@ -2750,12 +2102,6 @@ PO	A	C	G	T
 07	0.0	150.0	0.0	849.0
 08	84.0	1.0	665.0	250.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:A9U3V6
-CC data_type:PBM
 XX
 //
 AC MA1008.1
@@ -2775,12 +2121,6 @@ PO	A	C	G	T
 09	70.0	70.0	789.0	70.0
 10	292.0	246.0	291.0	171.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:A9S898
-CC data_type:PBM
 XX
 //
 AC MA1009.1
@@ -2798,12 +2138,6 @@ PO	A	C	G	T
 07	618.0	124.0	212.0	46.0
 08	575.0	95.0	191.0	139.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:O23661
-CC data_type:PBM
 XX
 //
 AC MA1010.1
@@ -2826,12 +2160,6 @@ PO	A	C	G	T
 12	309.0	230.0	230.0	230.0
 13	309.0	230.0	230.0	230.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:A9RC32
-CC data_type:PBM
 XX
 //
 AC MA1011.1
@@ -2851,12 +2179,6 @@ PO	A	C	G	T
 09	337.0	272.0	181.0	210.0
 10	190.0	308.0	238.0	264.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:A9RZ73
-CC data_type:PBM
 XX
 //
 AC MA1012.1
@@ -2880,12 +2202,6 @@ PO	A	C	G	T
 13	33.0	0.0	109.0	0.0
 14	11.0	2.0	92.0	37.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:24067612
-CC uniprot_ids:Q9AT76
-CC data_type:ChIP-seq
 XX
 //
 AC MA1013.1
@@ -2903,12 +2219,6 @@ PO	A	C	G	T
 07	0.0	111.0	84.0	805.0
 08	111.0	111.0	740.0	37.0
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:12504119
-CC uniprot_ids:Q8VZP4
-CC data_type:PBM
 XX
 //
 AC MA1014.1
@@ -2926,12 +2236,6 @@ PO	A	C	G	T
 07	0.0	0.0	0.0	999.0
 08	44.0	131.0	695.0	131.0
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:12504119
-CC uniprot_ids:Q6DBP8
-CC data_type:PBM
 XX
 //
 AC MA1015.1
@@ -2949,12 +2253,6 @@ PO	A	C	G	T
 07	59.0	230.0	112.0	599.0
 08	382.0	146.0	282.0	190.0
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:12504119
-CC uniprot_ids:P69781
-CC data_type:PBM
 XX
 //
 AC MA1016.1
@@ -2973,12 +2271,6 @@ PO	A	C	G	T
 08	324.0	201.0	268.0	207.0
 09	269.0	239.0	280.0	212.0
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:12504119
-CC uniprot_ids:Q8LG10
-CC data_type:PBM
 XX
 //
 AC MA1017.1
@@ -2997,12 +2289,6 @@ PO	A	C	G	T
 08	384.0	158.0	369.0	89.0
 09	314.0	187.0	320.0	179.0
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:12504119
-CC uniprot_ids:Q9SV30
-CC data_type:PBM
 XX
 //
 AC MA1018.1
@@ -3023,12 +2309,6 @@ PO	A	C	G	T
 10	294.0	89.0	452.0	165.0
 11	296.0	199.0	199.0	305.0
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:12504119
-CC uniprot_ids:O82632
-CC data_type:PBM
 XX
 //
 AC MA1019.1
@@ -3047,12 +2327,6 @@ PO	A	C	G	T
 08	896.0	17.0	76.0	11.0
 09	17.0	844.0	50.0	89.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:I1N7U7
-CC data_type:PBM
 XX
 //
 AC MA1020.1
@@ -3070,12 +2344,6 @@ PO	A	C	G	T
 07	0.0	939.0	0.0	61.0
 08	624.0	167.0	125.0	84.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:10437822
-CC uniprot_ids:Q9FX53
-CC data_type:PBM
 XX
 //
 AC MA1021.1
@@ -3093,12 +2361,6 @@ PO	A	C	G	T
 07	1.0	1.0	998.0	1.0
 08	143.0	642.0	72.0	143.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:A9TN45
-CC data_type:PBM
 XX
 //
 AC MA1022.1
@@ -3118,12 +2380,6 @@ PO	A	C	G	T
 09	259.0	174.0	307.0	259.0
 10	283.0	262.0	227.0	227.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:A9TZG0
-CC data_type:PBM
 XX
 //
 AC MA1023.1
@@ -3141,12 +2397,6 @@ PO	A	C	G	T
 07	0.0	217.0	0.0	782.0
 08	118.0	1.0	705.0	177.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:A9RGN0
-CC data_type:PBM
 XX
 //
 AC MA1024.1
@@ -3166,12 +2416,6 @@ PO	A	C	G	T
 09	101.0	101.0	286.0	512.0
 10	349.0	181.0	289.0	181.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:8253077
-CC uniprot_ids:P46600
-CC data_type:PBM
 XX
 //
 AC MA1025.1
@@ -3193,12 +2437,6 @@ PO	A	C	G	T
 11	202.0	485.0	195.0	118.0
 12	226.0	226.0	226.0	322.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:24550223
-CC uniprot_ids:Q9ZPW3
-CC data_type:PBM
 XX
 //
 AC MA1027.1
@@ -3216,12 +2454,6 @@ PO	A	C	G	T
 07	36.0	147.0	169.0	648.0
 08	63.0	876.0	18.0	44.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:24464295
-CC uniprot_ids:Q93WJ9
-CC data_type:PBM
 XX
 //
 AC MA1028.1
@@ -3239,12 +2471,6 @@ PO	A	C	G	T
 07	21.0	26.0	12.0	941.0
 08	14.0	965.0	10.0	11.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:20444210
-CC uniprot_ids:Q9FJV5
-CC data_type:PBM
 XX
 //
 AC MA1030.1
@@ -3264,12 +2490,6 @@ PO	A	C	G	T
 09	266.0	258.0	226.0	250.0
 10	241.0	256.0	220.0	283.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q5N9C9
-CC data_type:PBM
 XX
 //
 AC MA1031.1
@@ -3289,12 +2509,6 @@ PO	A	C	G	T
 09	445.0	335.0	146.0	74.0
 10	279.0	414.0	131.0	175.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q6H878
-CC data_type:PBM
 XX
 //
 AC MA1032.1
@@ -3314,12 +2528,6 @@ PO	A	C	G	T
 09	845.0	22.0	22.0	111.0
 10	131.0	219.0	221.0	430.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q6EP77
-CC data_type:PBM
 XX
 //
 AC MA1033.1
@@ -3337,12 +2545,6 @@ PO	A	C	G	T
 07	3.0	3.0	990.0	3.0
 08	5.0	5.0	495.0	495.0
 XX
-CC tax_group:plants
-CC tf_family:Group A
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:Q75HX9
-CC data_type:PBM
 XX
 //
 AC MA1034.1
@@ -3360,12 +2562,6 @@ PO	A	C	G	T
 07	3.0	990.0	3.0	3.0
 08	495.0	5.0	495.0	5.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q75K84
-CC data_type:PBM
 XX
 //
 AC MA1035.1
@@ -3383,12 +2579,6 @@ PO	A	C	G	T
 07	997.0	1.0	1.0	1.0
 08	1.0	996.0	1.0	1.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:12000681
-CC uniprot_ids:Q8LPR5
-CC data_type:PBM
 XX
 //
 AC MA1036.1
@@ -3406,12 +2596,6 @@ PO	A	C	G	T
 07	6.0	4.0	5.0	985.0
 08	525.0	30.0	390.0	55.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9FJ07
-CC data_type:PBM
 XX
 //
 AC MA1037.1
@@ -3430,12 +2614,6 @@ PO	A	C	G	T
 08	51.0	5.0	860.0	84.0
 09	39.0	360.0	19.0	582.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9SPG9
-CC data_type:PBM
 XX
 //
 AC MA1038.1
@@ -3456,12 +2634,6 @@ PO	A	C	G	T
 10	273.0	191.0	345.0	191.0
 11	311.0	230.0	230.0	230.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9S9K9
-CC data_type:PBM
 XX
 //
 AC MA1039.1
@@ -3479,12 +2651,6 @@ PO	A	C	G	T
 07	10.0	0.0	0.0	990.0
 08	319.0	73.0	536.0	73.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9SZP1
-CC data_type:PBM
 XX
 //
 AC MA1040.1
@@ -3502,12 +2668,6 @@ PO	A	C	G	T
 07	2.0	33.0	1.0	964.0
 08	580.0	24.0	358.0	38.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9LXV2
-CC data_type:PBM
 XX
 //
 AC MA1041.1
@@ -3525,12 +2685,6 @@ PO	A	C	G	T
 07	2.0	958.0	1.0	39.0
 08	118.0	54.0	756.0	72.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9M118
-CC data_type:PBM
 XX
 //
 AC MA1042.1
@@ -3548,12 +2702,6 @@ PO	A	C	G	T
 07	39.0	40.0	5.0	916.0
 08	552.0	267.0	23.0	158.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q4JL84
-CC data_type:PBM
 XX
 //
 AC MA1043.1
@@ -3573,12 +2721,6 @@ PO	A	C	G	T
 09	126.0	522.0	126.0	226.0
 10	225.0	325.0	225.0	225.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9FY93
-CC data_type:PBM
 XX
 //
 AC MA1044.1
@@ -3600,12 +2742,6 @@ PO	A	C	G	T
 11	274.0	299.0	256.0	170.0
 12	314.0	229.0	229.0	229.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9FKA0
-CC data_type:PBM
 XX
 //
 AC MA1045.1
@@ -3625,12 +2761,6 @@ PO	A	C	G	T
 09	806.0	65.0	65.0	65.0
 10	310.0	205.0	205.0	280.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q84WP6
-CC data_type:PBM
 XX
 //
 AC MA1046.1
@@ -3649,12 +2779,6 @@ PO	A	C	G	T
 08	985.0	5.0	5.0	5.0
 09	10.0	10.0	10.0	971.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:F4JN35
-CC data_type:DAP-seq
 XX
 //
 AC MA1048.1
@@ -3672,12 +2796,6 @@ PO	A	C	G	T
 07	44.0	943.0	1.0	12.0
 08	735.0	10.0	70.0	184.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9S7L5
-CC data_type:PBM
 XX
 //
 AC MA1049.1
@@ -3695,12 +2813,6 @@ PO	A	C	G	T
 07	0.0	999.0	0.0	0.0
 08	241.0	104.0	482.0	173.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9LND1
-CC data_type:PBM
 XX
 //
 AC MA1050.1
@@ -3718,12 +2830,6 @@ PO	A	C	G	T
 07	899.0	50.0	50.0	0.0
 08	1.0	855.0	72.0	72.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:A2X7K8
-CC data_type:PBM
 XX
 //
 AC MA1051.1
@@ -3741,12 +2847,6 @@ PO	A	C	G	T
 07	109.0	780.0	26.0	85.0
 08	257.0	664.0	6.0	73.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:P42736
-CC data_type:PBM
 XX
 //
 AC MA1053.1
@@ -3764,12 +2864,6 @@ PO	A	C	G	T
 07	38.0	862.0	13.0	86.0
 08	207.0	773.0	2.0	18.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:25882345
-CC uniprot_ids:Q9SZ06
-CC data_type:PBM
 XX
 //
 AC MA1054.1
@@ -3789,12 +2883,6 @@ PO	A	C	G	T
 09	862.0	2.0	132.0	4.0
 10	20.0	907.0	6.0	67.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:D7L3Y2
-CC data_type:PBM
 XX
 //
 AC MA1056.1
@@ -3816,12 +2904,6 @@ PO	A	C	G	T
 11	572.0	78.0	78.0	271.0
 12	188.0	271.0	188.0	353.0
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16554053
-CC uniprot_ids:Q9FZK0
-CC data_type:PBM
 XX
 //
 AC MA1057.1
@@ -3839,12 +2921,6 @@ PO	A	C	G	T
 07	249.0	53.0	538.0	159.0
 08	278.0	262.0	151.0	310.0
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16554053
-CC uniprot_ids:Q9S7P5
-CC data_type:PBM
 XX
 //
 AC MA1058.1
@@ -3863,12 +2939,6 @@ PO	A	C	G	T
 08	252.0	252.0	205.0	290.0
 09	269.0	258.0	195.0	277.0
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16554053
-CC uniprot_ids:Q9S7A9
-CC data_type:PBM
 XX
 //
 AC MA1060.1
@@ -3886,12 +2956,6 @@ PO	A	C	G	T
 07	286.0	208.0	365.0	142.0
 08	118.0	614.0	41.0	227.0
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16554053
-CC uniprot_ids:Q8S9G8
-CC data_type:PBM
 XX
 //
 AC MA1061.1
@@ -3910,12 +2974,6 @@ PO	A	C	G	T
 08	84.0	115.0	724.0	76.0
 09	221.0	301.0	237.0	242.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q9FUA4
-CC data_type:PBM
 XX
 //
 AC MA1063.1
@@ -3935,12 +2993,6 @@ PO	A	C	G	T
 09	841.0	29.0	128.0	2.0
 10	0.0	812.0	106.0	81.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q9LT89
-CC data_type:PBM
 XX
 //
 AC MA1064.1
@@ -3960,12 +3012,6 @@ PO	A	C	G	T
 09	564.0	154.0	194.0	88.0
 10	186.0	429.0	168.0	217.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q93V43
-CC data_type:PBM
 XX
 //
 AC MA1066.1
@@ -3983,12 +3029,6 @@ PO	A	C	G	T
 07	954.0	10.0	31.0	5.0
 08	10.0	959.0	11.0	21.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q9LQF0
-CC data_type:PBM
 XX
 //
 AC MA1067.1
@@ -4006,12 +3046,6 @@ PO	A	C	G	T
 07	995.0	2.0	2.0	2.0
 08	2.0	745.0	2.0	250.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q9FME3
-CC data_type:PBM
 XX
 //
 AC MA1071.1
@@ -4028,12 +3062,6 @@ PO	A	C	G	T
 06	611.0	329.0	14.0	47.0
 07	66.0	52.0	767.0	116.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q84TE9
-CC data_type:PBM
 XX
 //
 AC MA1074.1
@@ -4051,12 +3079,6 @@ PO	A	C	G	T
 07	0.0	0.0	999.0	0.0
 08	267.0	533.0	67.0	134.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q8GZ38
-CC data_type:PBM
 XX
 //
 AC MA1075.1
@@ -4074,12 +3096,6 @@ PO	A	C	G	T
 07	29.0	949.0	5.0	16.0
 08	25.0	722.0	101.0	151.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q93WY4
-CC data_type:PBM
 XX
 //
 AC MA1077.1
@@ -4099,12 +3115,6 @@ PO	A	C	G	T
 09	186.0	372.0	289.0	153.0
 10	212.0	254.0	398.0	135.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9C5T4
-CC data_type:PBM
 XX
 //
 AC MA1078.1
@@ -4122,12 +3132,6 @@ PO	A	C	G	T
 07	806.0	0.0	163.0	31.0
 08	271.0	528.0	72.0	129.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9FG77
-CC data_type:PBM
 XX
 //
 AC MA1080.1
@@ -4145,12 +3149,6 @@ PO	A	C	G	T
 07	167.0	831.0	1.0	1.0
 08	143.0	143.0	712.0	1.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:O22900
-CC data_type:PBM
 XX
 //
 AC MA1084.1
@@ -4168,12 +3166,6 @@ PO	A	C	G	T
 07	16.0	951.0	13.0	20.0
 08	15.0	679.0	17.0	289.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q8GWF1
-CC data_type:PBM
 XX
 //
 AC MA1086.1
@@ -4193,12 +3185,6 @@ PO	A	C	G	T
 09	332.0	196.0	310.0	163.0
 10	231.0	311.0	218.0	240.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q8GY11
-CC data_type:PBM
 XX
 //
 AC MA1088.1
@@ -4218,12 +3204,6 @@ PO	A	C	G	T
 09	269.0	386.0	155.0	190.0
 10	234.0	232.0	313.0	221.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9FGZ4
-CC data_type:PBM
 XX
 //
 AC MA1089.1
@@ -4243,12 +3223,6 @@ PO	A	C	G	T
 09	260.0	508.0	87.0	145.0
 10	199.0	207.0	386.0	207.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9C983
-CC data_type:PBM
 XX
 //
 AC MA1090.1
@@ -4269,12 +3243,6 @@ PO	A	C	G	T
 10	145.0	246.0	465.0	145.0
 11	228.0	228.0	228.0	316.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9SK33
-CC data_type:PBM
 XX
 //
 AC MA1091.1
@@ -4292,12 +3260,6 @@ PO	A	C	G	T
 07	998.0	1.0	1.0	1.0
 08	273.0	726.0	1.0	1.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9LZV6
-CC data_type:PBM
 XX
 //
 AC MA1092.1
@@ -4315,12 +3277,6 @@ PO	A	C	G	T
 07	981.0	0.0	0.0	19.0
 08	128.0	513.0	231.0	128.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9C6H5
-CC data_type:PBM
 XX
 //
 AC MA1093.1
@@ -4338,12 +3294,6 @@ PO	A	C	G	T
 07	1000.0	0.0	0.0	0.0
 08	260.0	620.0	0.0	120.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9FYA2
-CC data_type:PBM
 XX
 //
 AC MA1095.1
@@ -4361,12 +3311,6 @@ PO	A	C	G	T
 07	993.0	2.0	2.0	2.0
 08	3.0	990.0	3.0	3.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:D7MRK3
-CC data_type:PBM
 XX
 //
 AC MA1096.1
@@ -4384,12 +3328,6 @@ PO	A	C	G	T
 07	994.0	2.0	2.0	2.0
 08	3.0	990.0	3.0	3.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:D7MUG0
-CC data_type:PBM
 XX
 //
 AC MA1097.1
@@ -4407,12 +3345,6 @@ PO	A	C	G	T
 07	990.0	3.0	3.0	3.0
 08	5.0	985.0	5.0	5.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:D7MCT1
-CC data_type:PBM
 XX
 //
 AC MA1098.1
@@ -4430,12 +3362,6 @@ PO	A	C	G	T
 07	993.0	2.0	2.0	2.0
 08	3.0	990.0	3.0	3.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:D7LRC3
-CC data_type:PBM
 XX
 //
 AC MA1156.1
@@ -4465,12 +3391,6 @@ PO	A	C	G	T
 19	47.0	135.0	39.0	375.0
 20	143.0	55.0	209.0	189.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24039602
-CC uniprot_ids:Q700D2
-CC data_type:DAP-seq
 XX
 //
 AC MA1157.1
@@ -4500,12 +3420,6 @@ PO	A	C	G	T
 19	24.0	148.0	55.0	343.0
 20	131.0	54.0	227.0	158.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24039602
-CC uniprot_ids:Q9FFH3
-CC data_type:DAP-seq
 XX
 //
 AC MA1158.1
@@ -4535,12 +3449,6 @@ PO	A	C	G	T
 19	257.0	80.0	94.0	163.0
 20	263.0	68.0	104.0	159.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24039602
-CC uniprot_ids:Q9ZWA6
-CC data_type:DAP-seq
 XX
 //
 AC MA1159.1
@@ -4565,12 +3473,6 @@ PO	A	C	G	T
 14	428.0	34.0	21.0	117.0
 15	285.0	83.0	43.0	189.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24039602
-CC uniprot_ids:F4IPE3
-CC data_type:DAP-seq
 XX
 //
 AC MA1160.1
@@ -4600,12 +3502,6 @@ PO	A	C	G	T
 19	4.0	66.0	4.0	168.0
 20	38.0	15.0	117.0	72.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24039602
-CC uniprot_ids:Q8RWX7
-CC data_type:DAP-seq
 XX
 //
 AC MA1161.1
@@ -4630,12 +3526,6 @@ PO	A	C	G	T
 14	264.0	0.0	0.0	0.0
 15	264.0	0.0	0.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:CPP
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9LUI3
-CC data_type:DAP-seq
 XX
 //
 AC MA1162.1
@@ -4660,12 +3550,6 @@ PO	A	C	G	T
 14	599.0	0.0	0.0	0.0
 15	178.0	93.0	10.0	318.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:CPP
-CC pubmed_ids:25215497
-CC uniprot_ids:F4JIF5
-CC data_type:DAP-seq
 XX
 //
 AC MA1164.1
@@ -4686,12 +3570,6 @@ PO	A	C	G	T
 10	0.0	600.0	0.0	0.0
 11	79.0	233.0	70.0	218.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:F4JRB0
-CC data_type:DAP-seq
 XX
 //
 AC MA1166.1
@@ -4715,12 +3593,6 @@ PO	A	C	G	T
 13	0.0	86.0	0.0	19.0
 14	7.0	44.0	14.0	40.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q8VYI2
-CC data_type:DAP-seq
 XX
 //
 AC MA1167.1
@@ -4741,12 +3613,6 @@ PO	A	C	G	T
 10	138.0	158.0	149.0	155.0
 11	206.0	79.0	166.0	149.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9ZQ85
-CC data_type:DAP-seq
 XX
 //
 AC MA1168.1
@@ -4770,12 +3636,6 @@ PO	A	C	G	T
 13	110.0	131.0	102.0	255.0
 14	146.0	96.0	131.0	225.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9SQQ9
-CC data_type:DAP-seq
 XX
 //
 AC MA1169.1
@@ -4798,12 +3658,6 @@ PO	A	C	G	T
 12	0.0	0.0	1.0	94.0
 13	80.0	2.0	6.0	7.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9SEZ4
-CC data_type:DAP-seq
 XX
 //
 AC MA1170.1
@@ -4830,12 +3684,6 @@ PO	A	C	G	T
 16	123.0	24.0	23.0	108.0
 17	138.0	22.0	18.0	100.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9LVW4
-CC data_type:DAP-seq
 XX
 //
 AC MA1171.1
@@ -4856,12 +3704,6 @@ PO	A	C	G	T
 10	0.0	0.0	0.0	109.0
 11	81.0	0.0	10.0	18.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q6R0C4
-CC data_type:DAP-seq
 XX
 //
 AC MA1172.1
@@ -4886,12 +3728,6 @@ PO	A	C	G	T
 14	4.0	0.0	0.0	562.0
 15	238.0	0.0	291.0	37.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q6R032
-CC data_type:DAP-seq
 XX
 //
 AC MA1173.1
@@ -4916,12 +3752,6 @@ PO	A	C	G	T
 14	206.0	112.0	22.0	260.0
 15	139.0	181.0	68.0	212.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:O80883
-CC data_type:DAP-seq
 XX
 //
 AC MA1174.1
@@ -4946,12 +3776,6 @@ PO	A	C	G	T
 14	194.0	58.0	25.0	323.0
 15	133.0	135.0	37.0	295.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q6R053
-CC data_type:DAP-seq
 XX
 //
 AC MA1175.1
@@ -4972,12 +3796,6 @@ PO	A	C	G	T
 10	124.0	59.0	7.0	410.0
 11	113.0	180.0	39.0	268.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9SLH1
-CC data_type:DAP-seq
 XX
 //
 AC MA1176.1
@@ -4998,12 +3816,6 @@ PO	A	C	G	T
 10	13.0	506.0	7.0	72.0
 11	316.0	36.0	155.0	91.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FIM4
-CC data_type:DAP-seq
 XX
 //
 AC MA1177.1
@@ -5026,12 +3838,6 @@ PO	A	C	G	T
 12	280.0	219.0	2.0	98.0
 13	266.0	57.0	75.0	201.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FR97
-CC data_type:DAP-seq
 XX
 //
 AC MA1179.1
@@ -5060,12 +3866,6 @@ PO	A	C	G	T
 18	28.0	23.0	17.0	76.0
 19	60.0	3.0	39.0	42.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q42575
-CC data_type:DAP-seq
 XX
 //
 AC MA1180.1
@@ -5090,12 +3890,6 @@ PO	A	C	G	T
 14	262.0	3.0	301.0	29.0
 15	151.0	115.0	202.0	127.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q94FL9
-CC data_type:DAP-seq
 XX
 //
 AC MA1181.1
@@ -5116,12 +3910,6 @@ PO	A	C	G	T
 10	548.0	0.0	38.0	0.0
 11	40.0	139.0	89.0	318.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FNV9
-CC data_type:DAP-seq
 XX
 //
 AC MA1182.1
@@ -5143,12 +3931,6 @@ PO	A	C	G	T
 11	167.0	73.0	133.0	220.0
 12	145.0	96.0	123.0	229.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q8RWU3
-CC data_type:DAP-seq
 XX
 //
 AC MA1183.1
@@ -5169,12 +3951,6 @@ PO	A	C	G	T
 10	90.0	109.0	92.0	305.0
 11	134.0	91.0	141.0	230.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q8H0W3
-CC data_type:DAP-seq
 XX
 //
 AC MA1184.1
@@ -5198,12 +3974,6 @@ PO	A	C	G	T
 13	205.0	103.0	77.0	215.0
 14	254.0	130.0	87.0	129.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:F4KGY6
-CC data_type:DAP-seq
 XX
 //
 AC MA1185.1
@@ -5223,12 +3993,6 @@ PO	A	C	G	T
 09	172.0	46.0	34.0	347.0
 10	113.0	144.0	117.0	225.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:F4HQG9
-CC data_type:DAP-seq
 XX
 //
 AC MA1186.1
@@ -5253,12 +4017,6 @@ PO	A	C	G	T
 14	243.0	49.0	47.0	260.0
 15	194.0	202.0	24.0	179.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9M9A3
-CC data_type:DAP-seq
 XX
 //
 AC MA1187.1
@@ -5278,12 +4036,6 @@ PO	A	C	G	T
 09	79.0	25.0	10.0	447.0
 10	95.0	100.0	93.0	273.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q6R0G4
-CC data_type:DAP-seq
 XX
 //
 AC MA1188.1
@@ -5307,12 +4059,6 @@ PO	A	C	G	T
 13	290.0	15.0	28.0	249.0
 14	112.0	155.0	30.0	285.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1189.1
@@ -5337,12 +4083,6 @@ PO	A	C	G	T
 14	185.0	71.0	35.0	308.0
 15	179.0	52.0	62.0	306.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FKF9
-CC data_type:DAP-seq
 XX
 //
 AC MA1190.1
@@ -5363,12 +4103,6 @@ PO	A	C	G	T
 10	98.0	107.0	83.0	311.0
 11	153.0	105.0	120.0	221.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:C0SVG5
-CC data_type:DAP-seq
 XX
 //
 AC MA1191.1
@@ -5393,12 +4127,6 @@ PO	A	C	G	T
 14	199.0	103.0	79.0	218.0
 15	287.0	103.0	91.0	118.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:F4J2J6
-CC data_type:DAP-seq
 XX
 //
 AC MA1192.1
@@ -5423,12 +4151,6 @@ PO	A	C	G	T
 14	232.0	53.0	108.0	187.0
 15	188.0	63.0	131.0	198.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1193.1
@@ -5459,12 +4181,6 @@ PO	A	C	G	T
 20	30.0	6.0	18.0	10.0
 21	21.0	0.0	24.0	19.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1194.1
@@ -5489,12 +4205,6 @@ PO	A	C	G	T
 14	63.0	0.0	0.0	77.0
 15	12.0	22.0	12.0	94.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1195.1
@@ -5519,12 +4229,6 @@ PO	A	C	G	T
 14	254.0	68.0	25.0	253.0
 15	197.0	147.0	88.0	168.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1196.1
@@ -5549,12 +4253,6 @@ PO	A	C	G	T
 14	92.0	119.0	37.0	339.0
 15	150.0	256.0	41.0	140.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1197.1
@@ -5576,12 +4274,6 @@ PO	A	C	G	T
 11	235.0	33.0	156.0	174.0
 12	237.0	58.0	170.0	133.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:CAMTA
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FY74
-CC data_type:DAP-seq
 XX
 //
 AC MA1198.1
@@ -5602,12 +4294,6 @@ PO	A	C	G	T
 10	114.0	42.0	36.0	406.0
 11	229.0	52.0	131.0	186.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:8253077
-CC uniprot_ids:P46601
-CC data_type:DAP-seq
 XX
 //
 AC MA1199.1
@@ -5632,12 +4318,6 @@ PO	A	C	G	T
 14	210.0	44.0	12.0	152.0
 15	358.0	15.0	8.0	37.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:12743119
-CC uniprot_ids:A2RVQ5
-CC data_type:DAP-seq
 XX
 //
 AC MA1201.1
@@ -5654,12 +4334,6 @@ PO	A	C	G	T
 06	0.0	0.0	0.0	146.0
 07	17.0	73.0	16.0	40.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:12743119
-CC uniprot_ids:Q9FIS1
-CC data_type:DAP-seq
 XX
 //
 AC MA1202.1
@@ -5675,12 +4349,6 @@ PO	A	C	G	T
 05	0.0	90.0	0.0	0.0
 06	90.0	0.0	0.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:M alpha
-CC tf_class:MADS box factors
-CC pubmed_ids:12743119
-CC uniprot_ids:Q9C960
-CC data_type:DAP-seq
 XX
 //
 AC MA1203.1
@@ -5705,12 +4373,6 @@ PO	A	C	G	T
 14	546.0	13.0	2.0	36.0
 15	473.0	10.0	28.0	86.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:12743119
-CC uniprot_ids:Q9SA07
-CC data_type:DAP-seq
 XX
 //
 AC MA1204.1
@@ -5738,12 +4400,6 @@ PO	A	C	G	T
 17	126.0	14.0	41.0	38.0
 18	90.0	19.0	20.0	90.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:12743119
-CC uniprot_ids:Q38837
-CC data_type:DAP-seq
 XX
 //
 AC MA1205.1
@@ -5772,12 +4428,6 @@ PO	A	C	G	T
 18	256.0	27.0	46.0	153.0
 19	237.0	41.0	26.0	178.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:12743119
-CC uniprot_ids:P29386
-CC data_type:DAP-seq
 XX
 //
 AC MA1206.1
@@ -5797,12 +4447,6 @@ PO	A	C	G	T
 09	271.0	57.0	131.0	140.0
 10	219.0	87.0	207.0	86.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:25002510
-CC uniprot_ids:Q94JM3
-CC data_type:DAP-seq
 XX
 //
 AC MA1207.1
@@ -5829,12 +4473,6 @@ PO	A	C	G	T
 16	80.0	42.0	36.0	213.0
 17	91.0	42.0	140.0	98.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:10437822
-CC uniprot_ids:Q9SDW0
-CC data_type:DAP-seq
 XX
 //
 AC MA1208.1
@@ -5858,12 +4496,6 @@ PO	A	C	G	T
 13	173.0	52.0	165.0	208.0
 14	112.0	97.0	105.0	284.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:10437822
-CC uniprot_ids:Q39117
-CC data_type:DAP-seq
 XX
 //
 AC MA1209.1
@@ -5884,12 +4516,6 @@ PO	A	C	G	T
 10	71.0	19.0	110.0	30.0
 11	131.0	27.0	31.0	41.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q8LAT0
-CC data_type:DAP-seq
 XX
 //
 AC MA1211.1
@@ -5910,12 +4536,6 @@ PO	A	C	G	T
 10	219.0	15.0	234.0	127.0
 11	114.0	73.0	216.0	192.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:A9Z1E8
-CC data_type:DAP-seq
 XX
 //
 AC MA1212.1
@@ -5936,12 +4556,6 @@ PO	A	C	G	T
 10	201.0	70.0	187.0	142.0
 11	269.0	62.0	109.0	160.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q8LC03
-CC data_type:DAP-seq
 XX
 //
 AC MA1214.1
@@ -5972,12 +4586,6 @@ PO	A	C	G	T
 20	261.0	64.0	54.0	221.0
 21	221.0	85.0	51.0	243.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:O23208
-CC data_type:DAP-seq
 XX
 //
 AC MA1215.1
@@ -5998,12 +4606,6 @@ PO	A	C	G	T
 10	130.0	29.0	380.0	60.0
 11	241.0	57.0	146.0	155.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q9LVR0
-CC data_type:DAP-seq
 XX
 //
 AC MA1218.1
@@ -6026,12 +4628,6 @@ PO	A	C	G	T
 12	274.0	65.0	165.0	93.0
 13	214.0	152.0	88.0	143.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9952441
-CC uniprot_ids:Q9FJ93
-CC data_type:DAP-seq
 XX
 //
 AC MA1220.1
@@ -6056,12 +4652,6 @@ PO	A	C	G	T
 14	195.0	66.0	165.0	170.0
 15	154.0	173.0	95.0	174.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q39127
-CC data_type:DAP-seq
 XX
 //
 AC MA1221.1
@@ -6086,12 +4676,6 @@ PO	A	C	G	T
 14	114.0	32.0	337.0	114.0
 15	107.0	62.0	346.0	82.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q7G1L2
-CC data_type:DAP-seq
 XX
 //
 AC MA1222.1
@@ -6116,12 +4700,6 @@ PO	A	C	G	T
 14	0.0	591.0	0.0	4.0
 15	351.0	2.0	137.0	105.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9LPE8
-CC data_type:DAP-seq
 XX
 //
 AC MA1223.1
@@ -6145,12 +4723,6 @@ PO	A	C	G	T
 13	56.0	19.0	472.0	38.0
 14	161.0	71.0	323.0	30.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9M210
-CC data_type:DAP-seq
 XX
 //
 AC MA1225.1
@@ -6175,12 +4747,6 @@ PO	A	C	G	T
 14	55.0	424.0	29.0	72.0
 15	238.0	17.0	219.0	106.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:O80341
-CC data_type:DAP-seq
 XX
 //
 AC MA1226.1
@@ -6205,12 +4771,6 @@ PO	A	C	G	T
 14	54.0	38.0	491.0	4.0
 15	237.0	156.0	50.0	144.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:P61827
-CC data_type:DAP-seq
 XX
 //
 AC MA1228.1
@@ -6237,12 +4797,6 @@ PO	A	C	G	T
 16	101.0	68.0	290.0	78.0
 17	127.0	182.0	83.0	145.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q8LBQ7
-CC data_type:DAP-seq
 XX
 //
 AC MA1229.1
@@ -6267,12 +4821,6 @@ PO	A	C	G	T
 14	145.0	63.0	217.0	135.0
 15	151.0	78.0	164.0	167.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q8LBQ7
-CC data_type:DAP-seq
 XX
 //
 AC MA1230.1
@@ -6296,12 +4844,6 @@ PO	A	C	G	T
 13	154.0	142.0	101.0	201.0
 14	136.0	213.0	62.0	187.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:O80654
-CC data_type:DAP-seq
 XX
 //
 AC MA1232.1
@@ -6331,12 +4873,6 @@ PO	A	C	G	T
 19	121.0	97.0	245.0	104.0
 20	144.0	85.0	231.0	107.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9M0J3
-CC data_type:DAP-seq
 XX
 //
 AC MA1234.1
@@ -6360,12 +4896,6 @@ PO	A	C	G	T
 13	136.0	46.0	292.0	125.0
 14	192.0	83.0	226.0	98.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q84QC2
-CC data_type:DAP-seq
 XX
 //
 AC MA1235.1
@@ -6386,12 +4916,6 @@ PO	A	C	G	T
 10	517.0	0.0	0.0	22.0
 11	32.0	6.0	403.0	98.0
 XX
-CC tax_group:plants
-CC tf_family:AP2
-CC tf_class:AP2/EREBP
-CC pubmed_ids:11058102
-CC uniprot_ids:Q6J9N8
-CC data_type:DAP-seq
 XX
 //
 AC MA1236.1
@@ -6420,12 +4944,6 @@ PO	A	C	G	T
 18	146.0	69.0	347.0	34.0
 19	233.0	98.0	74.0	191.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1239.1
@@ -6454,12 +4972,6 @@ PO	A	C	G	T
 18	40.0	274.0	51.0	192.0
 19	130.0	218.0	60.0	149.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9FKG1
-CC data_type:DAP-seq
 XX
 //
 AC MA1240.1
@@ -6490,12 +5002,6 @@ PO	A	C	G	T
 20	44.0	310.0	42.0	175.0
 21	143.0	182.0	86.0	160.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9ZWA2
-CC data_type:DAP-seq
 XX
 //
 AC MA1241.1
@@ -6521,12 +5027,6 @@ PO	A	C	G	T
 15	161.0	138.0	96.0	196.0
 16	137.0	191.0	73.0	190.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9M080
-CC data_type:DAP-seq
 XX
 //
 AC MA1242.1
@@ -6547,12 +5047,6 @@ PO	A	C	G	T
 10	21.0	438.0	0.0	19.0
 11	20.0	346.0	2.0	110.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9SVX5
-CC data_type:DAP-seq
 XX
 //
 AC MA1243.1
@@ -6579,12 +5073,6 @@ PO	A	C	G	T
 16	240.0	74.0	33.0	250.0
 17	252.0	65.0	155.0	125.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9952441
-CC uniprot_ids:O80917
-CC data_type:DAP-seq
 XX
 //
 AC MA1244.1
@@ -6613,12 +5101,6 @@ PO	A	C	G	T
 18	196.0	298.0	30.0	76.0
 19	66.0	36.0	421.0	77.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9FGF8
-CC data_type:DAP-seq
 XX
 //
 AC MA1246.1
@@ -6649,12 +5131,6 @@ PO	A	C	G	T
 20	88.0	240.0	51.0	111.0
 21	68.0	278.0	44.0	100.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9M644
-CC data_type:DAP-seq
 XX
 //
 AC MA1247.1
@@ -6679,12 +5155,6 @@ PO	A	C	G	T
 14	133.0	42.0	294.0	126.0
 15	125.0	69.0	296.0	105.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9FZ90
-CC data_type:DAP-seq
 XX
 //
 AC MA1248.1
@@ -6714,12 +5184,6 @@ PO	A	C	G	T
 19	299.0	171.0	0.0	98.0
 20	0.0	558.0	0.0	10.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9952441
-CC uniprot_ids:Q9SFE4
-CC data_type:DAP-seq
 XX
 //
 AC MA1250.1
@@ -6744,12 +5208,6 @@ PO	A	C	G	T
 14	21.0	395.0	8.0	133.0
 15	237.0	21.0	127.0	172.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9LQZ2
-CC data_type:DAP-seq
 XX
 //
 AC MA1251.1
@@ -6778,12 +5236,6 @@ PO	A	C	G	T
 18	278.0	100.0	6.0	209.0
 19	170.0	134.0	72.0	217.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9952441
-CC uniprot_ids:Q8W3M3
-CC data_type:DAP-seq
 XX
 //
 AC MA1252.1
@@ -6808,12 +5260,6 @@ PO	A	C	G	T
 14	104.0	214.0	34.0	126.0
 15	194.0	37.0	123.0	124.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q6J9Q2
-CC data_type:DAP-seq
 XX
 //
 AC MA1253.1
@@ -6837,12 +5283,6 @@ PO	A	C	G	T
 13	171.0	165.0	68.0	157.0
 14	164.0	72.0	187.0	138.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9LU18
-CC data_type:DAP-seq
 XX
 //
 AC MA1256.1
@@ -6873,12 +5313,6 @@ PO	A	C	G	T
 20	98.0	42.0	350.0	107.0
 21	155.0	81.0	252.0	109.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9SSA8
-CC data_type:DAP-seq
 XX
 //
 AC MA1257.1
@@ -6909,12 +5343,6 @@ PO	A	C	G	T
 20	52.0	8.0	439.0	56.0
 21	161.0	71.0	264.0	59.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9FE67
-CC data_type:DAP-seq
 XX
 //
 AC MA1258.1
@@ -6945,12 +5373,6 @@ PO	A	C	G	T
 20	149.0	87.0	225.0	120.0
 21	182.0	91.0	206.0	102.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9952441
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1259.1
@@ -6975,12 +5397,6 @@ PO	A	C	G	T
 14	162.0	67.0	308.0	35.0
 15	165.0	149.0	70.0	188.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q1ECI2
-CC data_type:DAP-seq
 XX
 //
 AC MA1260.1
@@ -7011,12 +5427,6 @@ PO	A	C	G	T
 20	104.0	45.0	351.0	41.0
 21	198.0	128.0	60.0	155.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9CAP4
-CC data_type:DAP-seq
 XX
 //
 AC MA1261.1
@@ -7041,12 +5451,6 @@ PO	A	C	G	T
 14	0.0	10.0	91.0	37.0
 15	25.0	26.0	67.0	20.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q38Q40
-CC data_type:DAP-seq
 XX
 //
 AC MA1262.1
@@ -7077,12 +5481,6 @@ PO	A	C	G	T
 20	122.0	251.0	78.0	144.0
 21	218.0	29.0	212.0	136.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:O80338
-CC data_type:DAP-seq
 XX
 //
 AC MA1263.1
@@ -7106,12 +5504,6 @@ PO	A	C	G	T
 13	110.0	54.0	319.0	115.0
 14	181.0	78.0	246.0	93.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9SKW5
-CC data_type:DAP-seq
 XX
 //
 AC MA1264.1
@@ -7136,12 +5528,6 @@ PO	A	C	G	T
 14	90.0	25.0	402.0	74.0
 15	143.0	51.0	318.0	79.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:A0A178VAV2
-CC data_type:DAP-seq
 XX
 //
 AC MA1266.1
@@ -7166,12 +5552,6 @@ PO	A	C	G	T
 14	0.0	560.0	0.0	28.0
 15	102.0	132.0	193.0	161.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q6J9S1
-CC data_type:DAP-seq
 XX
 //
 AC MA1267.1
@@ -7210,12 +5590,6 @@ PO	A	C	G	T
 28	147.0	104.0	54.0	292.0
 29	182.0	82.0	50.0	283.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9FGD6
-CC data_type:DAP-seq
 XX
 //
 AC MA1268.1
@@ -7252,12 +5626,6 @@ PO	A	C	G	T
 26	134.0	98.0	73.0	291.0
 27	153.0	122.0	48.0	273.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9SEZ3
-CC data_type:DAP-seq
 XX
 //
 AC MA1269.1
@@ -7281,12 +5649,6 @@ PO	A	C	G	T
 13	67.0	31.0	45.0	457.0
 14	65.0	51.0	24.0	460.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:O49550
-CC data_type:DAP-seq
 XX
 //
 AC MA1270.1
@@ -7315,12 +5677,6 @@ PO	A	C	G	T
 18	132.0	92.0	88.0	288.0
 19	77.0	134.0	115.0	274.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9M1E6
-CC data_type:DAP-seq
 XX
 //
 AC MA1273.1
@@ -7349,12 +5705,6 @@ PO	A	C	G	T
 18	285.0	75.0	119.0	119.0
 19	265.0	94.0	120.0	119.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9SUB1
-CC data_type:DAP-seq
 XX
 //
 AC MA1274.1
@@ -7385,12 +5735,6 @@ PO	A	C	G	T
 20	115.0	104.0	44.0	337.0
 21	122.0	84.0	60.0	334.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9M2U1
-CC data_type:DAP-seq
 XX
 //
 AC MA1275.1
@@ -7411,12 +5755,6 @@ PO	A	C	G	T
 10	342.0	1.0	227.0	30.0
 11	298.0	45.0	155.0	102.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9SX97
-CC data_type:DAP-seq
 XX
 //
 AC MA1276.1
@@ -7437,12 +5775,6 @@ PO	A	C	G	T
 10	348.0	48.0	136.0	67.0
 11	276.0	131.0	67.0	125.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9SVC5
-CC data_type:DAP-seq
 XX
 //
 AC MA1277.1
@@ -7473,12 +5805,6 @@ PO	A	C	G	T
 20	266.0	78.0	95.0	156.0
 21	273.0	62.0	151.0	109.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:O82155
-CC data_type:DAP-seq
 XX
 //
 AC MA1278.1
@@ -7509,12 +5835,6 @@ PO	A	C	G	T
 20	145.0	29.0	0.0	426.0
 21	59.0	105.0	104.0	332.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q39088
-CC data_type:DAP-seq
 XX
 //
 AC MA1279.1
@@ -7545,12 +5865,6 @@ PO	A	C	G	T
 20	340.0	71.0	54.0	135.0
 21	308.0	63.0	119.0	110.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:P68350
-CC data_type:DAP-seq
 XX
 //
 AC MA1280.1
@@ -7574,12 +5888,6 @@ PO	A	C	G	T
 13	262.0	96.0	76.0	166.0
 14	273.0	87.0	55.0	185.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q8LDR0
-CC data_type:DAP-seq
 XX
 //
 AC MA1281.1
@@ -7610,12 +5918,6 @@ PO	A	C	G	T
 20	275.0	59.0	140.0	41.0
 21	263.0	39.0	119.0	94.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9LZ56
-CC data_type:DAP-seq
 XX
 //
 AC MA1282.1
@@ -7638,12 +5940,6 @@ PO	A	C	G	T
 12	57.0	16.0	12.0	45.0
 13	50.0	10.0	27.0	43.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:12000681
-CC uniprot_ids:Q9S7W5
-CC data_type:DAP-seq
 XX
 //
 AC MA1283.1
@@ -7673,12 +5969,6 @@ PO	A	C	G	T
 19	43.0	0.0	4.0	0.0
 20	0.0	47.0	0.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q93Z00
-CC data_type:DAP-seq
 XX
 //
 AC MA1284.1
@@ -7718,12 +6008,6 @@ PO	A	C	G	T
 29	36.0	19.0	21.0	19.0
 30	12.0	35.0	8.0	40.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q9FYG7
-CC data_type:DAP-seq
 XX
 //
 AC MA1285.1
@@ -7754,12 +6038,6 @@ PO	A	C	G	T
 20	2.0	346.0	11.0	36.0
 21	104.0	178.0	36.0	77.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:O64647
-CC data_type:DAP-seq
 XX
 //
 AC MA1286.1
@@ -7781,12 +6059,6 @@ PO	A	C	G	T
 11	16.0	560.0	9.0	9.0
 12	195.0	192.0	40.0	167.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q9C758
-CC data_type:DAP-seq
 XX
 //
 AC MA1287.1
@@ -7810,12 +6082,6 @@ PO	A	C	G	T
 13	153.0	150.0	118.0	177.0
 14	161.0	104.0	96.0	237.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q9FTA2
-CC data_type:DAP-seq
 XX
 //
 AC MA1288.1
@@ -7838,12 +6104,6 @@ PO	A	C	G	T
 12	441.0	25.0	87.0	42.0
 13	51.0	321.0	70.0	153.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q9C7G4
-CC data_type:DAP-seq
 XX
 //
 AC MA1289.1
@@ -7866,12 +6126,6 @@ PO	A	C	G	T
 12	215.0	154.0	51.0	162.0
 13	196.0	74.0	104.0	208.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:12000681
-CC uniprot_ids:Q9MAH8
-CC data_type:DAP-seq
 XX
 //
 AC MA1290.1
@@ -7892,12 +6146,6 @@ PO	A	C	G	T
 10	90.0	6.0	6.0	6.0
 11	9.0	77.0	9.0	13.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:12000681
-CC uniprot_ids:Q9LEZ9
-CC data_type:DAP-seq
 XX
 //
 AC MA1291.1
@@ -7918,12 +6166,6 @@ PO	A	C	G	T
 10	451.0	30.0	75.0	32.0
 11	42.0	321.0	66.0	159.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:Q9FMX2
-CC data_type:DAP-seq
 XX
 //
 AC MA1292.1
@@ -7948,12 +6190,6 @@ PO	A	C	G	T
 14	277.0	66.0	103.0	150.0
 15	315.0	55.0	139.0	87.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9SCP1
-CC data_type:DAP-seq
 XX
 //
 AC MA1293.1
@@ -7977,12 +6213,6 @@ PO	A	C	G	T
 13	133.0	108.0	56.0	300.0
 14	171.0	88.0	67.0	271.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9SSA1
-CC data_type:DAP-seq
 XX
 //
 AC MA1294.1
@@ -8007,12 +6237,6 @@ PO	A	C	G	T
 14	228.0	47.0	71.0	94.0
 15	130.0	66.0	134.0	110.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9C9G7
-CC data_type:DAP-seq
 XX
 //
 AC MA1295.1
@@ -8035,12 +6259,6 @@ PO	A	C	G	T
 12	160.0	40.0	136.0	264.0
 13	156.0	68.0	127.0	249.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q93WV0
-CC data_type:DAP-seq
 XX
 //
 AC MA1296.1
@@ -8061,12 +6279,6 @@ PO	A	C	G	T
 10	3.0	4.0	0.0	15.0
 11	1.0	4.0	9.0	8.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9SKD9
-CC data_type:DAP-seq
 XX
 //
 AC MA1297.1
@@ -8089,12 +6301,6 @@ PO	A	C	G	T
 12	21.0	22.0	24.0	17.0
 13	18.0	22.0	5.0	39.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9C5T3
-CC data_type:DAP-seq
 XX
 //
 AC MA1298.1
@@ -8115,12 +6321,6 @@ PO	A	C	G	T
 10	132.0	439.0	0.0	23.0
 11	67.0	64.0	274.0	189.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9SUS1
-CC data_type:DAP-seq
 XX
 //
 AC MA1299.1
@@ -8144,12 +6344,6 @@ PO	A	C	G	T
 13	32.0	38.0	32.0	25.0
 14	28.0	42.0	16.0	41.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9SJA8
-CC data_type:DAP-seq
 XX
 //
 AC MA1300.1
@@ -8178,12 +6372,6 @@ PO	A	C	G	T
 18	87.0	79.0	39.0	80.0
 19	78.0	84.0	34.0	89.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9C519
-CC data_type:DAP-seq
 XX
 //
 AC MA1301.1
@@ -8204,12 +6392,6 @@ PO	A	C	G	T
 10	184.0	400.0	0.0	14.0
 11	98.0	67.0	350.0	83.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q8S8P5
-CC data_type:DAP-seq
 XX
 //
 AC MA1302.1
@@ -8230,12 +6412,6 @@ PO	A	C	G	T
 10	36.0	542.0	0.0	22.0
 11	50.0	38.0	419.0	93.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9LP56
-CC data_type:DAP-seq
 XX
 //
 AC MA1303.1
@@ -8258,12 +6434,6 @@ PO	A	C	G	T
 12	182.0	140.0	128.0	149.0
 13	140.0	135.0	67.0	257.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:O04609
-CC data_type:DAP-seq
 XX
 //
 AC MA1304.1
@@ -8285,12 +6455,6 @@ PO	A	C	G	T
 11	93.0	62.0	6.0	12.0
 12	46.0	38.0	58.0	31.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9SJ09
-CC data_type:DAP-seq
 XX
 //
 AC MA1305.1
@@ -8312,12 +6476,6 @@ PO	A	C	G	T
 11	90.0	72.0	48.0	389.0
 12	126.0	65.0	103.0	305.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9SHB5
-CC data_type:DAP-seq
 XX
 //
 AC MA1306.1
@@ -8341,12 +6499,6 @@ PO	A	C	G	T
 13	102.0	70.0	93.0	332.0
 14	144.0	85.0	139.0	229.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9SV15
-CC data_type:DAP-seq
 XX
 //
 AC MA1308.1
@@ -8369,12 +6521,6 @@ PO	A	C	G	T
 12	82.0	45.0	37.0	435.0
 13	99.0	73.0	118.0	309.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9LY00
-CC data_type:DAP-seq
 XX
 //
 AC MA1309.1
@@ -8395,12 +6541,6 @@ PO	A	C	G	T
 10	180.0	398.0	1.0	19.0
 11	106.0	69.0	347.0	76.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9ZQ70
-CC data_type:DAP-seq
 XX
 //
 AC MA1310.1
@@ -8431,12 +6571,6 @@ PO	A	C	G	T
 20	82.0	45.0	38.0	144.0
 21	63.0	48.0	92.0	106.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9XEC3
-CC data_type:DAP-seq
 XX
 //
 AC MA1312.1
@@ -8460,12 +6594,6 @@ PO	A	C	G	T
 13	1.0	33.0	1.0	53.0
 14	34.0	13.0	3.0	38.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9ZSI7
-CC data_type:DAP-seq
 XX
 //
 AC MA1313.1
@@ -8489,12 +6617,6 @@ PO	A	C	G	T
 13	61.0	70.0	81.0	382.0
 14	129.0	78.0	118.0	269.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9STX0
-CC data_type:DAP-seq
 XX
 //
 AC MA1314.1
@@ -8517,12 +6639,6 @@ PO	A	C	G	T
 12	168.0	165.0	142.0	123.0
 13	144.0	157.0	76.0	221.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9SA80
-CC data_type:DAP-seq
 XX
 //
 AC MA1315.1
@@ -8546,12 +6662,6 @@ PO	A	C	G	T
 13	123.0	102.0	103.0	272.0
 14	143.0	116.0	101.0	240.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9FFS3
-CC data_type:DAP-seq
 XX
 //
 AC MA1316.1
@@ -8572,12 +6682,6 @@ PO	A	C	G	T
 10	157.0	408.0	4.0	29.0
 11	128.0	82.0	294.0	94.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q93WV4
-CC data_type:DAP-seq
 XX
 //
 AC MA1317.1
@@ -8600,12 +6704,6 @@ PO	A	C	G	T
 12	116.0	88.0	90.0	274.0
 13	142.0	124.0	87.0	215.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q8VWQ5
-CC data_type:DAP-seq
 XX
 //
 AC MA1318.1
@@ -8628,12 +6726,6 @@ PO	A	C	G	T
 12	43.0	34.0	2.0	521.0
 13	70.0	64.0	89.0	377.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9FLX8
-CC data_type:DAP-seq
 XX
 //
 AC MA1320.1
@@ -8657,12 +6749,6 @@ PO	A	C	G	T
 13	69.0	106.0	18.0	53.0
 14	94.0	44.0	66.0	42.0
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16554053
-CC uniprot_ids:Q9M2Q6
-CC data_type:DAP-seq
 XX
 //
 AC MA1321.1
@@ -8683,12 +6769,6 @@ PO	A	C	G	T
 10	346.0	71.0	10.0	151.0
 11	174.0	163.0	59.0	182.0
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16554053
-CC uniprot_ids:B9DI20
-CC data_type:DAP-seq
 XX
 //
 AC MA1323.1
@@ -8709,12 +6789,6 @@ PO	A	C	G	T
 10	33.0	1.0	6.0	162.0
 11	6.0	81.0	13.0	102.0
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:12504119
-CC uniprot_ids:Q6QPM2
-CC data_type:DAP-seq
 XX
 //
 AC MA1324.1
@@ -8732,12 +6806,6 @@ PO	A	C	G	T
 07	0.0	0.0	0.0	76.0
 08	2.0	73.0	0.0	1.0
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:12504119
-CC uniprot_ids:Q9ZPX0
-CC data_type:DAP-seq
 XX
 //
 AC MA1325.1
@@ -8762,12 +6830,6 @@ PO	A	C	G	T
 14	86.0	124.0	97.0	244.0
 15	99.0	125.0	119.0	208.0
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:12504119
-CC uniprot_ids:Q9M1U2
-CC data_type:DAP-seq
 XX
 //
 AC MA1326.1
@@ -8788,12 +6850,6 @@ PO	A	C	G	T
 10	335.0	19.0	237.0	9.0
 11	51.0	170.0	138.0	241.0
 XX
-CC tax_group:plants
-CC tf_family:PLINC
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q9FRL5
-CC data_type:DAP-seq
 XX
 //
 AC MA1328.1
@@ -8818,12 +6874,6 @@ PO	A	C	G	T
 14	0.0	222.0	6.0	372.0
 15	539.0	13.0	32.0	16.0
 XX
-CC tax_group:plants
-CC tf_family:PLINC
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q8LFD3
-CC data_type:DAP-seq
 XX
 //
 AC MA1330.1
@@ -8848,12 +6898,6 @@ PO	A	C	G	T
 14	167.0	73.0	160.0	200.0
 15	286.0	53.0	95.0	166.0
 XX
-CC tax_group:plants
-CC tf_family:PLINC
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1331.1
@@ -8874,12 +6918,6 @@ PO	A	C	G	T
 10	91.0	88.0	365.0	54.0
 11	191.0	119.0	195.0	93.0
 XX
-CC tax_group:plants
-CC tf_family:BES/BZR
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15681342
-CC uniprot_ids:Q9ZV88
-CC data_type:DAP-seq
 XX
 //
 AC MA1332.1
@@ -8900,12 +6938,6 @@ PO	A	C	G	T
 10	0.0	407.0	1.0	191.0
 11	234.0	0.0	365.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:BES/BZR
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15681342
-CC uniprot_ids:Q94A43
-CC data_type:DAP-seq
 XX
 //
 AC MA1333.1
@@ -8926,12 +6958,6 @@ PO	A	C	G	T
 10	60.0	140.0	338.0	52.0
 11	239.0	91.0	179.0	81.0
 XX
-CC tax_group:plants
-CC tf_family:BES/BZR
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15681342
-CC uniprot_ids:O49404
-CC data_type:DAP-seq
 XX
 //
 AC MA1334.1
@@ -8956,12 +6982,6 @@ PO	A	C	G	T
 14	191.0	96.0	72.0	232.0
 15	169.0	182.0	68.0	172.0
 XX
-CC tax_group:plants
-CC tf_family:Group S
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:O65683
-CC data_type:DAP-seq
 XX
 //
 AC MA1335.1
@@ -8982,12 +7002,6 @@ PO	A	C	G	T
 10	18.0	500.0	37.0	45.0
 11	342.0	62.0	111.0	85.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:Q39162
-CC data_type:DAP-seq
 XX
 //
 AC MA1336.1
@@ -9011,12 +7025,6 @@ PO	A	C	G	T
 13	306.0	52.0	104.0	136.0
 14	156.0	67.0	87.0	288.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:Q39234
-CC data_type:DAP-seq
 XX
 //
 AC MA1337.1
@@ -9041,12 +7049,6 @@ PO	A	C	G	T
 14	124.0	397.0	1.0	6.0
 15	328.0	79.0	71.0	50.0
 XX
-CC tax_group:plants
-CC tf_family:Group S
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:C0Z2L5
-CC data_type:DAP-seq
 XX
 //
 AC MA1339.1
@@ -9068,12 +7070,6 @@ PO	A	C	G	T
 11	3.0	25.0	0.0	0.0
 12	18.0	3.0	1.0	6.0
 XX
-CC tax_group:plants
-CC tf_family:Group S
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:Q9FMC2
-CC data_type:DAP-seq
 XX
 //
 AC MA1340.1
@@ -9098,12 +7094,6 @@ PO	A	C	G	T
 14	129.0	431.0	2.0	12.0
 15	314.0	78.0	113.0	69.0
 XX
-CC tax_group:plants
-CC tf_family:Group S
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:Q9LFU3
-CC data_type:DAP-seq
 XX
 //
 AC MA1341.1
@@ -9128,12 +7118,6 @@ PO	A	C	G	T
 14	138.0	430.0	14.0	16.0
 15	348.0	100.0	81.0	69.0
 XX
-CC tax_group:plants
-CC tf_family:Group S
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:Q9LZP8
-CC data_type:DAP-seq
 XX
 //
 AC MA1343.1
@@ -9157,12 +7141,6 @@ PO	A	C	G	T
 13	187.0	204.0	65.0	143.0
 14	247.0	102.0	76.0	174.0
 XX
-CC tax_group:plants
-CC tf_family:Group I
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:Q8VWG0
-CC data_type:DAP-seq
 XX
 //
 AC MA1344.1
@@ -9187,12 +7165,6 @@ PO	A	C	G	T
 14	89.0	431.0	1.0	27.0
 15	302.0	42.0	118.0	86.0
 XX
-CC tax_group:plants
-CC tf_family:Group B
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:Q9SG86
-CC data_type:DAP-seq
 XX
 //
 AC MA1345.1
@@ -9216,12 +7188,6 @@ PO	A	C	G	T
 13	130.0	77.0	72.0	174.0
 14	122.0	145.0	46.0	140.0
 XX
-CC tax_group:plants
-CC tf_family:Group S
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:Q8RU59
-CC data_type:DAP-seq
 XX
 //
 AC MA1346.1
@@ -9246,12 +7212,6 @@ PO	A	C	G	T
 14	34.0	258.0	98.0	203.0
 15	135.0	184.0	83.0	191.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:E3VNM4
-CC data_type:DAP-seq
 XX
 //
 AC MA0968.2
@@ -9276,12 +7236,6 @@ PO	A	C	G	T
 14	171.0	122.0	82.0	225.0
 15	157.0	191.0	66.0	186.0
 XX
-CC tax_group:plants
-CC tf_family:Group G
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:Q84LG2
-CC data_type:DAP-seq
 XX
 //
 AC MA1348.1
@@ -9302,12 +7256,6 @@ PO	A	C	G	T
 10	567.0	0.0	25.0	0.0
 11	13.0	239.0	76.0	264.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:Q93XM6
-CC data_type:DAP-seq
 XX
 //
 AC MA1349.1
@@ -9332,12 +7280,6 @@ PO	A	C	G	T
 14	33.0	561.0	0.0	0.0
 15	464.0	22.0	94.0	14.0
 XX
-CC tax_group:plants
-CC tf_family:Group G
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:Q501B2
-CC data_type:DAP-seq
 XX
 //
 AC MA1350.1
@@ -9359,12 +7301,6 @@ PO	A	C	G	T
 11	0.0	0.0	58.0	9.0
 12	18.0	49.0	0.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:Group S
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:Q9LW45
-CC data_type:DAP-seq
 XX
 //
 AC MA1352.1
@@ -9395,12 +7331,6 @@ PO	A	C	G	T
 20	290.0	4.0	6.0	7.0
 21	263.0	8.0	28.0	8.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:11278537
-CC uniprot_ids:Q8L7L8
-CC data_type:DAP-seq
 XX
 //
 AC MA1353.1
@@ -9425,12 +7355,6 @@ PO	A	C	G	T
 14	229.0	120.0	73.0	178.0
 15	76.0	82.0	281.0	161.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:F4IEY4
-CC data_type:DAP-seq
 XX
 //
 AC MA1354.1
@@ -9469,12 +7393,6 @@ PO	A	C	G	T
 28	0.0	39.0	1.0	2.0
 29	0.0	32.0	4.0	6.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q700D7
-CC data_type:DAP-seq
 XX
 //
 AC MA1355.1
@@ -9499,12 +7417,6 @@ PO	A	C	G	T
 14	197.0	92.0	11.0	298.0
 15	92.0	121.0	28.0	357.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9JFW5
-CC data_type:DAP-seq
 XX
 //
 AC MA1356.1
@@ -9535,12 +7447,6 @@ PO	A	C	G	T
 20	37.0	43.0	7.0	338.0
 21	337.0	28.0	15.0	45.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9SNB9
-CC data_type:DAP-seq
 XX
 //
 AC MA1357.1
@@ -9561,12 +7467,6 @@ PO	A	C	G	T
 10	146.0	277.0	81.0	91.0
 11	235.0	140.0	49.0	171.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q9C8P8
-CC data_type:DAP-seq
 XX
 //
 AC MA1358.1
@@ -9587,12 +7487,6 @@ PO	A	C	G	T
 10	18.0	105.0	17.0	45.0
 11	79.0	52.0	19.0	35.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q66GR3
-CC data_type:DAP-seq
 XX
 //
 AC MA1361.1
@@ -9619,12 +7513,6 @@ PO	A	C	G	T
 16	29.0	34.0	79.0	59.0
 17	39.0	60.0	34.0	68.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q1PF17
-CC data_type:DAP-seq
 XX
 //
 AC MA1362.1
@@ -9649,12 +7537,6 @@ PO	A	C	G	T
 14	28.0	36.0	0.0	11.0
 15	10.0	10.0	28.0	27.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q9LK48
-CC data_type:DAP-seq
 XX
 //
 AC MA1363.1
@@ -9679,12 +7561,6 @@ PO	A	C	G	T
 14	0.0	0.0	0.0	34.0
 15	0.0	1.0	33.0	0.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q8S3D5
-CC data_type:DAP-seq
 XX
 //
 AC MA1364.1
@@ -9709,12 +7585,6 @@ PO	A	C	G	T
 14	0.0	0.0	110.0	2.0
 15	5.0	24.0	65.0	18.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15448264
-CC uniprot_ids:Q570R7
-CC data_type:DAP-seq
 XX
 //
 AC MA1366.1
@@ -9740,12 +7610,6 @@ PO	A	C	G	T
 15	248.0	41.0	53.0	138.0
 16	226.0	51.0	55.0	148.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:2255908
-CC uniprot_ids:Q9C6K3
-CC data_type:DAP-seq
 XX
 //
 AC MA1367.1
@@ -9769,12 +7633,6 @@ PO	A	C	G	T
 13	177.0	71.0	53.0	155.0
 14	229.0	46.0	35.0	146.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22236699
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1369.1
@@ -9795,12 +7653,6 @@ PO	A	C	G	T
 10	62.0	4.0	488.0	45.0
 11	167.0	291.0	23.0	118.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9M2E8
-CC data_type:DAP-seq
 XX
 //
 AC MA1370.1
@@ -9826,12 +7678,6 @@ PO	A	C	G	T
 15	6.0	44.0	3.0	107.0
 16	31.0	14.0	78.0	37.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24039602
-CC uniprot_ids:Q9ZUL3
-CC data_type:DAP-seq
 XX
 //
 AC MA1371.1
@@ -9858,12 +7704,6 @@ PO	A	C	G	T
 16	309.0	71.0	61.0	150.0
 17	264.0	72.0	61.0	194.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24039602
-CC uniprot_ids:Q8GYC1
-CC data_type:DAP-seq
 XX
 //
 AC MA1372.1
@@ -9884,12 +7724,6 @@ PO	A	C	G	T
 10	30.0	13.0	0.0	557.0
 11	173.0	158.0	133.0	136.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q96289
-CC data_type:DAP-seq
 XX
 //
 AC MA1373.1
@@ -9914,12 +7748,6 @@ PO	A	C	G	T
 14	91.0	0.0	3.0	0.0
 15	75.0	7.0	0.0	12.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24039602
-CC uniprot_ids:Q9SCQ6
-CC data_type:DAP-seq
 XX
 //
 AC MA1374.1
@@ -9947,12 +7775,6 @@ PO	A	C	G	T
 17	267.0	77.0	62.0	179.0
 18	244.0	95.0	108.0	138.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24039602
-CC uniprot_ids:Q8H1F5
-CC data_type:DAP-seq
 XX
 //
 AC MA1375.1
@@ -9973,12 +7795,6 @@ PO	A	C	G	T
 10	339.0	8.0	228.0	23.0
 11	109.0	284.0	35.0	170.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q0WV12
-CC data_type:DAP-seq
 XX
 //
 AC MA1376.1
@@ -10005,12 +7821,6 @@ PO	A	C	G	T
 16	155.0	160.0	128.0	154.0
 17	191.0	76.0	187.0	143.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:24477691
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1377.1
@@ -10039,12 +7849,6 @@ PO	A	C	G	T
 18	80.0	28.0	49.0	38.0
 19	72.0	33.0	54.0	36.0
 XX
-CC tax_group:plants
-CC tf_family:AP2
-CC tf_class:AP2/EREBP
-CC pubmed_ids:11058102
-CC uniprot_ids:Q5YGP8
-CC data_type:DAP-seq
 XX
 //
 AC MA1378.1
@@ -10069,12 +7873,6 @@ PO	A	C	G	T
 14	98.0	14.0	386.0	33.0
 15	131.0	260.0	24.0	116.0
 XX
-CC tax_group:plants
-CC tf_family:AP2
-CC tf_class:AP2/EREBP
-CC pubmed_ids:11058102
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1379.1
@@ -10099,12 +7897,6 @@ PO	A	C	G	T
 14	599.0	0.0	1.0	0.0
 15	268.0	16.0	0.0	316.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:CPP
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9M9H7
-CC data_type:DAP-seq
 XX
 //
 AC MA1380.1
@@ -10129,12 +7921,6 @@ PO	A	C	G	T
 14	425.0	8.0	20.0	144.0
 15	409.0	19.0	12.0	157.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:CPP
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9SL70
-CC data_type:DAP-seq
 XX
 //
 AC MA1381.1
@@ -10159,12 +7945,6 @@ PO	A	C	G	T
 14	59.0	78.0	13.0	52.0
 15	63.0	65.0	16.0	58.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24567191
-CC uniprot_ids:Q9LX86
-CC data_type:DAP-seq
 XX
 //
 AC MA1382.1
@@ -10189,12 +7969,6 @@ PO	A	C	G	T
 14	145.0	212.0	82.0	152.0
 15	135.0	219.0	66.0	171.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY-like_FRS/FRF
-CC tf_class:GCM domain factors
-CC pubmed_ids:18033885
-CC uniprot_ids:Q9SWG3
-CC data_type:DAP-seq
 XX
 //
 AC MA1383.1
@@ -10219,12 +7993,6 @@ PO	A	C	G	T
 14	24.0	55.0	12.0	123.0
 15	46.0	40.0	12.0	116.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9C616
-CC data_type:DAP-seq
 XX
 //
 AC MA1384.1
@@ -10247,12 +8015,6 @@ PO	A	C	G	T
 12	14.0	542.0	5.0	37.0
 13	26.0	273.0	114.0	185.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9SJW0
-CC data_type:DAP-seq
 XX
 //
 AC MA1385.1
@@ -10277,12 +8039,6 @@ PO	A	C	G	T
 14	76.0	83.0	20.0	421.0
 15	130.0	87.0	78.0	305.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1387.1
@@ -10307,12 +8063,6 @@ PO	A	C	G	T
 14	0.0	596.0	0.0	0.0
 15	43.0	250.0	28.0	275.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FX67
-CC data_type:DAP-seq
 XX
 //
 AC MA1388.1
@@ -10330,12 +8080,6 @@ PO	A	C	G	T
 07	124.0	7.0	10.0	459.0
 08	174.0	54.0	204.0	168.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q94A57
-CC data_type:DAP-seq
 XX
 //
 AC MA1389.1
@@ -10360,12 +8104,6 @@ PO	A	C	G	T
 14	317.0	61.0	44.0	178.0
 15	154.0	76.0	101.0	269.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q8GUN5
-CC data_type:DAP-seq
 XX
 //
 AC MA1396.1
@@ -10388,12 +8126,6 @@ PO	A	C	G	T
 12	91.0	162.0	53.0	111.0
 13	99.0	117.0	44.0	157.0
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9SD38
-CC data_type:DAP-seq
 XX
 //
 AC MA1397.1
@@ -10414,12 +8146,6 @@ PO	A	C	G	T
 10	168.0	60.0	235.0	137.0
 11	208.0	72.0	228.0	92.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1400.1
@@ -10443,12 +8169,6 @@ PO	A	C	G	T
 13	161.0	86.0	48.0	304.0
 14	169.0	71.0	86.0	273.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1401.1
@@ -10470,12 +8190,6 @@ PO	A	C	G	T
 11	154.0	100.0	66.0	277.0
 12	297.0	102.0	108.0	90.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:B3H5A8
-CC data_type:DAP-seq
 XX
 //
 AC MA1402.1
@@ -10506,12 +8220,6 @@ PO	A	C	G	T
 20	3.0	2.0	2.0	181.0
 21	50.0	123.0	1.0	14.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:BBR/BPC
-CC pubmed_ids:15722463
-CC uniprot_ids:Q8L999
-CC data_type:DAP-seq
 XX
 //
 AC MA1403.1
@@ -10551,12 +8259,6 @@ PO	A	C	G	T
 29	100.0	2.0	0.0	0.0
 30	5.0	3.0	91.0	3.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:BBR/BPC
-CC pubmed_ids:15722463
-CC uniprot_ids:F4JUI3
-CC data_type:DAP-seq
 XX
 //
 AC MA1404.1
@@ -10590,12 +8292,6 @@ PO	A	C	G	T
 23	47.0	20.0	427.0	45.0
 24	436.0	22.0	43.0	38.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:BBR/BPC
-CC pubmed_ids:15722463
-CC uniprot_ids:Q9SKD0
-CC data_type:DAP-seq
 XX
 //
 AC MA0954.2
@@ -10618,12 +8314,6 @@ PO	A	C	G	T
 12	174.0	57.0	98.0	271.0
 13	128.0	91.0	93.0	288.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:P46897
-CC data_type:DAP-seq
 XX
 //
 AC MA1000.2
@@ -10648,12 +8338,6 @@ PO	A	C	G	T
 14	211.0	204.0	60.0	111.0
 15	123.0	27.0	330.0	106.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q8VY90
-CC data_type:DAP-seq
 XX
 //
 AC MA0586.2
@@ -10674,12 +8358,6 @@ PO	A	C	G	T
 10	164.0	104.0	83.0	232.0
 11	148.0	86.0	104.0	245.0
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:18302343
-CC uniprot_ids:Q8RY95
-CC data_type:DAP-seq
 XX
 //
 AC MA1026.2
@@ -10704,12 +8382,6 @@ PO	A	C	G	T
 14	494.0	1.0	87.0	8.0
 15	97.0	248.0	63.0	182.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q9ZU11
-CC data_type:DAP-seq
 XX
 //
 AC MA0548.2
@@ -10738,12 +8410,6 @@ PO	A	C	G	T
 18	113.0	175.0	185.0	126.0
 19	157.0	77.0	50.0	315.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:12743119
-CC uniprot_ids:Q38847
-CC data_type:DAP-seq
 XX
 //
 AC MA0550.2
@@ -10773,12 +8439,6 @@ PO	A	C	G	T
 19	164.0	152.0	85.0	187.0
 20	96.0	136.0	126.0	230.0
 XX
-CC tax_group:plants
-CC tf_family:BES/BZR
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15681342
-CC uniprot_ids:Q8S307
-CC data_type:ChIP-chip
 XX
 //
 AC MA1059.2
@@ -10800,12 +8460,6 @@ PO	A	C	G	T
 11	546.0	8.0	1.0	43.0
 12	170.0	259.0	19.0	150.0
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16554053
-CC uniprot_ids:Q9S758
-CC data_type:DAP-seq
 XX
 //
 AC MA1405.1
@@ -10825,12 +8479,6 @@ PO	A	C	G	T
 09	530.0	20496.0	78711.0	264.0
 10	2662.0	8331.0	627.0	88380.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:9421523
-CC uniprot_ids:I3NN78
-CC data_type:PBM
 XX
 //
 AC MA1406.1
@@ -10850,12 +8498,6 @@ PO	A	C	G	T
 09	18045.0	3599.0	68409.0	9947.0
 10	12542.0	33825.0	35017.0	18616.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:P92953
-CC data_type:PBM
 XX
 //
 AC MA1408.1
@@ -10875,12 +8517,6 @@ PO	A	C	G	T
 09	66987.0	9932.0	8318.0	14763.0
 10	28881.0	20021.0	24969.0	26129.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:
-CC data_type:PBM
 XX
 //
 AC MA1409.1
@@ -10900,12 +8536,6 @@ PO	A	C	G	T
 09	13926.0	33145.0	46756.0	6173.0
 10	20468.0	11356.0	5511.0	62666.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_ARR-B
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:12610214
-CC uniprot_ids:Q5SML5
-CC data_type:PBM
 XX
 //
 AC MA1410.1
@@ -10925,12 +8555,6 @@ PO	A	C	G	T
 09	16590.0	52087.0	9765.0	21559.0
 10	14072.0	48745.0	17972.0	19211.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21241251
-CC uniprot_ids:
-CC data_type:PBM
 XX
 //
 AC MA1411.1
@@ -10950,12 +8574,6 @@ PO	A	C	G	T
 09	228.0	91222.0	5250.0	3300.0
 10	32821.0	14091.0	33427.0	19661.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15448264
-CC uniprot_ids:
-CC data_type:PBM
 XX
 //
 AC MA1412.1
@@ -10975,12 +8593,6 @@ PO	A	C	G	T
 09	552.0	94487.0	2274.0	2687.0
 10	26626.0	19532.0	32839.0	21003.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15448264
-CC uniprot_ids:
-CC data_type:PBM
 XX
 //
 AC MA1414.1
@@ -11000,12 +8612,6 @@ PO	A	C	G	T
 09	574.0	345.0	121.0	411.0
 10	535.0	293.0	334.0	289.0
 XX
-CC tax_group:plants
-CC tf_family:E2F
-CC tf_class:Fork head/winged helix factors
-CC pubmed_ids:27203113
-CC uniprot_ids:Q9FNY0
-CC data_type:ChIP-seq
 XX
 //
 AC MA1415.1
@@ -11026,12 +8632,6 @@ PO	A	C	G	T
 10	752.0	1063.0	884.0	988.0
 11	2249.0	473.0	441.0	524.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:27111034
-CC uniprot_ids:Q9STM3
-CC data_type:ChIP-seq
 XX
 //
 AC MA1085.2
@@ -11051,12 +8651,6 @@ PO	A	C	G	T
 09	83.0	54.0	46.0	51.0
 10	76.0	48.0	50.0	60.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:27203113
-CC uniprot_ids:Q9SAH7
-CC data_type:ChIP-seq
 XX
 //
 AC MA1416.1
@@ -11080,12 +8674,6 @@ PO	A	C	G	T
 13	7816.0	2212.0	61788.0	3028.0
 14	56980.0	2591.0	12358.0	2915.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16041362
-CC uniprot_ids:
-CC data_type:ChIP-seq
 XX
 //
 AC MA1417.1
@@ -11108,12 +8696,6 @@ PO	A	C	G	T
 12	37.0	282.0	412.0	1307.0
 13	124.0	1672.0	97.0	145.0
 XX
-CC tax_group:plants
-CC tf_family:Group C
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:25215497
-CC uniprot_ids:P12959
-CC data_type:ChIP-seq
 XX
 //
 AC MA1424.1
@@ -11138,12 +8720,6 @@ PO	A	C	G	T
 14	285.0	172.0	293.0	248.0
 15	275.0	330.0	191.0	203.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:31133749
-CC uniprot_ids:O80542
-CC data_type:DAP-seq
 XX
 //
 AC MA1425.1
@@ -11165,12 +8741,6 @@ PO	A	C	G	T
 11	177.0	466.0	177.0	177.0
 12	321.0	226.0	226.0	226.0
 XX
-CC tax_group:plants
-CC tf_family:Group H
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:12023303
-CC uniprot_ids:Q8W191
-CC data_type:PBM
 XX
 //
 AC MA1426.1
@@ -11190,12 +8760,6 @@ PO	A	C	G	T
 09	80.0	610.0	159.0	149.0
 10	271.0	222.0	197.0	309.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:20675570
-CC uniprot_ids:Q94FL6
-CC data_type:PBM
 XX
 //
 AC MA1428.1
@@ -11214,12 +8778,6 @@ PO	A	C	G	T
 08	864.0	1.0	113.0	20.0
 09	32.0	725.0	97.0	145.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:25702611
-CC uniprot_ids:Q9C518
-CC data_type:PBM
 XX
 //
 AC MA1430.1
@@ -11239,12 +8797,6 @@ PO	A	C	G	T
 09	143.0	648.0	13.0	195.0
 10	385.0	405.0	119.0	89.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:12000681
-CC uniprot_ids:Q8LN68
-CC data_type:PBM
 XX
 //
 AC MA0570.2
@@ -11266,12 +8818,6 @@ PO	A	C	G	T
 11	348.0	195.0	234.0	364.0
 12	358.0	213.0	225.0	345.0
 XX
-CC tax_group:plants
-CC tf_family:Group A
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:10636868
-CC uniprot_ids:Q9M7Q5
-CC data_type:ChIP-seq
 XX
 //
 AC MA1706.1
@@ -11291,12 +8837,6 @@ PO	A	C	G	T
 09	147.677	260.756	54.2817	537.285
 10	299.771	201.395	201.395	297.439
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:24464295
-CC uniprot_ids:Q700D9
-CC data_type:PBM
 XX
 //
 AC MA1659.1
@@ -11318,12 +8858,6 @@ PO	A	C	G	T
 11	1460.0	1865.0	928.0	1793.0
 12	1630.0	1901.0	849.0	1666.0
 XX
-CC tax_group:plants
-CC tf_family:Group A
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:25220462
-CC uniprot_ids:Q9M7Q2
-CC data_type:DAP-seq
 XX
 //
 AC MA1660.1
@@ -11357,12 +8891,6 @@ PO	A	C	G	T
 23	380.0	309.0	164.0	343.0
 24	338.0	352.0	177.0	329.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24045019
-CC uniprot_ids:F4IED2
-CC data_type:DAP-seq
 XX
 //
 AC MA1661.1
@@ -11384,12 +8912,6 @@ PO	A	C	G	T
 11	409.0	126.0	138.0	400.0
 12	356.0	124.0	193.0	400.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:21169508
-CC uniprot_ids:A0A1P8ATX4
-CC data_type:DAP-seq
 XX
 //
 AC MA1662.1
@@ -11412,12 +8934,6 @@ PO	A	C	G	T
 12	300.0	188.0	225.0	297.0
 13	274.0	212.0	124.0	400.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:31133749
-CC uniprot_ids:Q94JR1
-CC data_type:DAP-seq
 XX
 //
 AC MA1669.1
@@ -11441,12 +8957,6 @@ PO	A	C	G	T
 13	945.0	389.0	746.0	656.0
 14	817.0	570.0	512.0	837.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:19761621
-CC uniprot_ids:P93835
-CC data_type:DAP-seq
 XX
 //
 AC MA1670.1
@@ -11471,12 +8981,6 @@ PO	A	C	G	T
 14	2984.0	1292.0	1942.0	2234.0
 15	2781.0	1613.0	1517.0	2541.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9SYS6
-CC data_type:DAP-seq
 XX
 //
 AC MA1671.1
@@ -11497,12 +9001,6 @@ PO	A	C	G	T
 10	593.0	1903.0	286.0	617.0
 11	931.0	292.0	1537.0	639.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:25220462
-CC uniprot_ids:Q9CA27
-CC data_type:DAP-seq
 XX
 //
 AC MA1672.1
@@ -11525,12 +9023,6 @@ PO	A	C	G	T
 12	2457.0	1420.0	1653.0	2392.0
 13	2559.0	1516.0	1488.0	2359.0
 XX
-CC tax_group:plants
-CC tf_family:Group G
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:25215497
-CC uniprot_ids:P42775
-CC data_type:PBM
 XX
 //
 AC MA1673.1
@@ -11552,12 +9044,6 @@ PO	A	C	G	T
 11	2258.0	1201.0	671.0	1735.0
 12	1519.0	1189.0	1247.0	1910.0
 XX
-CC tax_group:plants
-CC tf_family:LBD
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:29681137
-CC uniprot_ids:O22131
-CC data_type:DAP-seq
 XX
 //
 AC MA1675.1
@@ -11580,12 +9066,6 @@ PO	A	C	G	T
 12	103.0	75.0	93.0	175.0
 13	148.0	106.0	74.0	118.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24477691
-CC uniprot_ids:O49255
-CC data_type:DAP-seq
 XX
 //
 AC MA1677.1
@@ -11607,12 +9087,6 @@ PO	A	C	G	T
 11	1772.0	1650.0	1053.0	1361.0
 12	1780.0	951.0	1146.0	1959.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q84K00
-CC data_type:DAP-seq
 XX
 //
 AC MA1679.1
@@ -11637,12 +9111,6 @@ PO	A	C	G	T
 14	254.0	137.0	239.0	269.0
 15	236.0	265.0	154.0	244.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:20230648
-CC uniprot_ids:Q8LC30
-CC data_type:DAP-seq
 XX
 //
 AC MA1681.1
@@ -11666,12 +9134,6 @@ PO	A	C	G	T
 13	958.0	357.0	390.0	1445.0
 14	1245.0	392.0	543.0	970.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FNN6
-CC data_type:DAP-seq
 XX
 //
 AC MA1682.1
@@ -11695,12 +9157,6 @@ PO	A	C	G	T
 13	316.0	97.0	62.0	496.0
 14	244.0	154.0	60.0	513.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:CPP
-CC pubmed_ids:25215497
-CC uniprot_ids:Q8L548
-CC data_type:DAP-seq
 XX
 //
 AC MA2005.1
@@ -11721,12 +9177,6 @@ PO	A	C	G	T
 10	777.0	800.0	707.0	981.0
 11	932.0	779.0	611.0	943.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:A4FVP6
-CC data_type:
 XX
 //
 AC MA2006.1
@@ -11760,12 +9210,6 @@ PO	A	C	G	T
 23	767.0	6.0	13.0	136.0
 24	207.0	312.0	143.0	260.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q67Z40
-CC data_type:
 XX
 //
 AC MA1732.1
@@ -11790,12 +9234,6 @@ PO	A	C	G	T
 14	958.106	12.75	10.929	18.215
 15	774.135	51.002	21.858	153.005
 XX
-CC tax_group:plants
-CC tf_family:E2F
-CC tf_class:Fork head/winged helix factors
-CC pubmed_ids:16126853
-CC uniprot_ids:Q9LFQ9
-CC data_type:DAP-seq
 XX
 //
 AC MA2007.1
@@ -11818,12 +9256,6 @@ PO	A	C	G	T
 12	178.0	155.0	60.0	187.0
 13	224.0	115.0	85.0	156.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:9628022
-CC uniprot_ids:Q9LDI5
-CC data_type:DAP-seq
 XX
 //
 AC MA2008.1
@@ -11843,12 +9275,6 @@ PO	A	C	G	T
 09	535.0	372.0	32.0	84.0
 10	140.0	471.0	35.0	377.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9SNW9
-CC data_type:DAP-seq
 XX
 //
 AC MA2009.1
@@ -11882,12 +9308,6 @@ PO	A	C	G	T
 23	232.0	121.0	142.0	315.0
 24	266.0	158.0	119.0	267.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:20935069
-CC uniprot_ids:F4HY61
-CC data_type:
 XX
 //
 AC MA2010.1
@@ -11908,12 +9328,6 @@ PO	A	C	G	T
 10	869.0	1004.0	716.0	1013.0
 11	998.0	1078.0	740.0	786.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:20935069
-CC uniprot_ids:Q9MA17
-CC data_type:DAP-seq
 XX
 //
 AC MA1245.2
@@ -11934,12 +9348,6 @@ PO	A	C	G	T
 10	831.0	73.0	1264.0	327.0
 11	304.0	1165.0	243.0	783.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:P93007
-CC data_type:DAP-seq
 XX
 //
 AC MA1365.2
@@ -11960,12 +9368,6 @@ PO	A	C	G	T
 10	2233.0	631.0	685.0	1880.0
 11	2014.0	822.0	679.0	1914.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FGJ1
-CC data_type:DAP-seq
 XX
 //
 AC MA1327.2
@@ -11985,12 +9387,6 @@ PO	A	C	G	T
 09	646.0	310.0	374.0	1102.0
 10	670.0	397.0	302.0	1063.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q8LFD3
-CC data_type:DAP-seq
 XX
 //
 AC MA0110.3
@@ -12012,12 +9408,6 @@ PO	A	C	G	T
 11	3099.0	1661.0	2309.0	3053.0
 12	3606.0	1561.0	1609.0	3346.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:P46667
-CC data_type:DAP-seq
 XX
 //
 AC MA1393.2
@@ -12038,12 +9428,6 @@ PO	A	C	G	T
 10	814.0	179.0	377.0	500.0
 11	594.0	364.0	305.0	607.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:O22179
-CC data_type:DAP-seq
 XX
 //
 AC MA0974.2
@@ -12065,12 +9449,6 @@ PO	A	C	G	T
 11	430.0	210.0	104.0	413.0
 12	519.0	186.0	130.0	322.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q8LFV3
-CC data_type:DAP-seq
 XX
 //
 AC MA0976.2
@@ -12092,12 +9470,6 @@ PO	A	C	G	T
 11	331.0	1002.0	198.0	369.0
 12	612.0	168.0	757.0	363.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9SUE3
-CC data_type:DAP-seq
 XX
 //
 AC MA1265.2
@@ -12119,12 +9491,6 @@ PO	A	C	G	T
 11	438.0	361.0	181.0	238.0
 12	384.0	330.0	147.0	357.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q6NLD5
-CC data_type:DAP-seq
 XX
 //
 AC MA1233.2
@@ -12149,12 +9515,6 @@ PO	A	C	G	T
 14	1020.0	831.0	545.0	763.0
 15	1024.0	461.0	885.0	789.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9C9I2
-CC data_type:DAP-seq
 XX
 //
 AC MA1227.2
@@ -12179,12 +9539,6 @@ PO	A	C	G	T
 14	2824.0	1225.0	1823.0	2293.0
 15	2512.0	1635.0	1448.0	2570.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q38Q39
-CC data_type:DAP-seq
 XX
 //
 AC MA1238.2
@@ -12207,12 +9561,6 @@ PO	A	C	G	T
 12	621.0	465.0	272.0	552.0
 13	608.0	277.0	494.0	531.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9ZQP3
-CC data_type:DAP-seq
 XX
 //
 AC MA0995.2
@@ -12233,12 +9581,6 @@ PO	A	C	G	T
 10	495.0	533.0	236.0	380.0
 11	484.0	420.0	278.0	462.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9SUK8
-CC data_type:DAP-seq
 XX
 //
 AC MA1005.2
@@ -12259,12 +9601,6 @@ PO	A	C	G	T
 10	658.0	48.0	925.0	252.0
 11	239.0	887.0	194.0	563.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:O80339
-CC data_type:DAP-seq
 XX
 //
 AC MA0992.2
@@ -12286,12 +9622,6 @@ PO	A	C	G	T
 11	253.0	306.0	101.0	363.0
 12	318.0	287.0	113.0	305.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:O80340
-CC data_type:DAP-seq
 XX
 //
 AC MA0565.2
@@ -12311,12 +9641,6 @@ PO	A	C	G	T
 09	1055.0	18.0	28.0	45.0
 10	446.0	125.0	98.0	477.0
 XX
-CC tax_group:plants
-CC tf_family:ABI3
-CC tf_class:B3
-CC pubmed_ids:23314941
-CC uniprot_ids:Q9LW31
-CC data_type:DAP-seq
 XX
 //
 AC MA1368.2
@@ -12340,12 +9664,6 @@ PO	A	C	G	T
 13	63.0	36.0	11.0	536.0
 14	396.0	41.0	63.0	146.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:20717979
-CC uniprot_ids:Q9LU92
-CC data_type:DAP-seq
 XX
 //
 AC MA1398.2
@@ -12366,12 +9684,6 @@ PO	A	C	G	T
 10	943.0	102.0	335.0	437.0
 11	633.0	377.0	174.0	633.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9LVS0
-CC data_type:DAP-seq
 XX
 //
 AC MA1391.2
@@ -12394,12 +9706,6 @@ PO	A	C	G	T
 12	268.0	51.0	61.0	242.0
 13	199.0	135.0	107.0	181.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q8W1W6
-CC data_type:DAP-seq
 XX
 //
 AC MA1394.2
@@ -12421,12 +9727,6 @@ PO	A	C	G	T
 11	411.0	231.0	130.0	294.0
 12	355.0	199.0	184.0	328.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:O23160
-CC data_type:DAP-seq
 XX
 //
 AC MA0980.2
@@ -12448,12 +9748,6 @@ PO	A	C	G	T
 11	933.0	458.0	409.0	768.0
 12	906.0	381.0	545.0	736.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:24477691
-CC uniprot_ids:Q9SW63
-CC data_type:DAP-seq
 XX
 //
 AC MA1062.2
@@ -12482,12 +9776,6 @@ PO	A	C	G	T
 18	246.0	156.0	170.0	255.0
 19	237.0	175.0	140.0	275.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:24477691
-CC uniprot_ids:Q9C9L2
-CC data_type:DAP-seq
 XX
 //
 AC MA1065.2
@@ -12516,12 +9804,6 @@ PO	A	C	G	T
 18	277.0	181.0	215.0	297.0
 19	271.0	222.0	158.0	319.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9LSD5
-CC data_type:DAP-seq
 XX
 //
 AC MA1047.2
@@ -12546,12 +9828,6 @@ PO	A	C	G	T
 14	669.0	1257.0	443.0	743.0
 15	1121.0	530.0	603.0	858.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:25215497
-CC uniprot_ids:Q39163
-CC data_type:DAP-seq
 XX
 //
 AC MA1076.2
@@ -12577,12 +9853,6 @@ PO	A	C	G	T
 15	309.0	305.0	189.0	437.0
 16	350.0	182.0	296.0	412.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:25215497
-CC uniprot_ids:O22176
-CC data_type:DAP-seq
 XX
 //
 AC MA1311.2
@@ -12603,12 +9873,6 @@ PO	A	C	G	T
 10	596.0	254.0	740.0	502.0
 11	694.0	436.0	330.0	632.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q8VWJ2
-CC data_type:DAP-seq
 XX
 //
 AC MA1329.2
@@ -12631,12 +9895,6 @@ PO	A	C	G	T
 12	562.0	402.0	473.0	1035.0
 13	691.0	423.0	370.0	988.0
 XX
-CC tax_group:plants
-CC tf_family:PLINC
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607
-CC uniprot_ids:Q9SB61
-CC data_type:DAP-seq
 XX
 //
 AC MA1685.1
@@ -12661,12 +9919,6 @@ PO	A	C	G	T
 14	6191.0	8527.0	1711.0	3329.0
 15	1672.0	6272.0	6594.0	5220.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:D9HNT7
-CC data_type:DAP-seq
 XX
 //
 AC MA1686.1
@@ -12690,12 +9942,6 @@ PO	A	C	G	T
 13	532.0	518.0	6710.0	646.0
 14	745.0	516.0	875.0	6270.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:D9HNU0
-CC data_type:DAP-seq
 XX
 //
 AC MA1687.1
@@ -12721,12 +9967,6 @@ PO	A	C	G	T
 15	995.0	2579.0	6910.0	601.0
 16	719.0	2592.0	6957.0	817.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:D9HNU1
-CC data_type:DAP-seq
 XX
 //
 AC MA1688.1
@@ -12750,12 +9990,6 @@ PO	A	C	G	T
 13	2328.0	2087.0	1543.0	1874.0
 14	2681.0	1648.0	1781.0	1722.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:K7URZ7
-CC data_type:DAP-seq
 XX
 //
 AC MA1689.1
@@ -12778,12 +10012,6 @@ PO	A	C	G	T
 12	998.0	533.0	549.0	717.0
 13	729.0	603.0	632.0	833.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:A0A060CYJ7
-CC data_type:DAP-seq
 XX
 //
 AC MA1690.1
@@ -12808,12 +10036,6 @@ PO	A	C	G	T
 14	1349.0	2535.0	8454.0	7102.0
 15	1956.0	2345.0	8006.0	7133.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:C0PH36
-CC data_type:DAP-seq
 XX
 //
 AC MA1691.1
@@ -12836,12 +10058,6 @@ PO	A	C	G	T
 12	1645.0	1498.0	2355.0	1332.0
 13	1969.0	1600.0	1667.0	1594.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:D9HNV4
-CC data_type:DAP-seq
 XX
 //
 AC MA1692.1
@@ -12866,12 +10082,6 @@ PO	A	C	G	T
 14	1598.0	1242.0	1396.0	1005.0
 15	1622.0	1206.0	988.0	1425.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:D9HNV6
-CC data_type:DAP-seq
 XX
 //
 AC MA1693.1
@@ -12894,12 +10104,6 @@ PO	A	C	G	T
 12	4406.0	3332.0	3589.0	2923.0
 13	3224.0	3521.0	4418.0	3087.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:A0A060D7X7
-CC data_type:DAP-seq
 XX
 //
 AC MA1694.1
@@ -12923,12 +10127,6 @@ PO	A	C	G	T
 13	1548.0	1161.0	1382.0	931.0
 14	1377.0	1285.0	935.0	1425.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1695.1
@@ -12952,12 +10150,6 @@ PO	A	C	G	T
 13	1087.0	1444.0	2452.0	6267.0
 14	1273.0	6723.0	759.0	2495.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1696.1
@@ -12979,12 +10171,6 @@ PO	A	C	G	T
 11	466.0	1030.0	2258.0	314.0
 12	629.0	517.0	669.0	2253.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:
-CC data_type:DAP-seq
 XX
 //
 AC MA1697.1
@@ -13006,12 +10192,6 @@ PO	A	C	G	T
 11	1927.0	1481.0	1918.0	1340.0
 12	1751.0	1750.0	1555.0	1610.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:D9HNT1
-CC data_type:DAP-seq
 XX
 //
 AC MA1698.1
@@ -13035,12 +10215,6 @@ PO	A	C	G	T
 13	771.0	970.0	1756.0	568.0
 14	798.0	1001.0	735.0	1531.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:24485461
-CC uniprot_ids:D9HNT4
-CC data_type:DAP-seq
 XX
 //
 AC MA1733.1
@@ -13064,12 +10238,6 @@ PO	A	C	G	T
 13	649.416	165.275	31.72	153.589
 14	624.374	78.464	78.464	218.698
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22236699
-CC uniprot_ids:Q8VZ20
-CC data_type:DAP-seq
 XX
 //
 AC MA1734.1
@@ -13095,12 +10263,6 @@ PO	A	C	G	T
 15	290.878	146.299	5.164	557.659
 16	647.16	12.048	0.0	340.792
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:20935069
-CC uniprot_ids:A0JQ66
-CC data_type:DAP-seq
 XX
 //
 AC MA1735.1
@@ -13121,12 +10283,6 @@ PO	A	C	G	T
 10	148.333	143.333	15.0	693.333
 11	230.0	133.333	106.667	530.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q8GYE4
-CC data_type:DAP-seq
 XX
 //
 AC MA1736.1
@@ -13147,12 +10303,6 @@ PO	A	C	G	T
 10	0.0	0.0	0.0	1000.0
 11	288.815	277.129	180.301	253.756
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:27203113
-CC uniprot_ids:Q84K31
-CC data_type:PBM
 XX
 //
 AC MA1737.1
@@ -13173,12 +10323,6 @@ PO	A	C	G	T
 10	299.003	201.779	297.439	201.779
 11	322.918	225.694	225.694	225.694
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:24477691
-CC uniprot_ids:Q9FF65
-CC data_type:PBM
 XX
 //
 AC MA1738.1
@@ -13203,12 +10347,6 @@ PO	A	C	G	T
 14	288.851	527.027	18.581	165.541
 15	263.514	439.189	0.0	297.297
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9CA52
-CC data_type:DAP-seq
 XX
 //
 AC MA1739.1
@@ -13232,12 +10370,6 @@ PO	A	C	G	T
 13	353.434	281.407	132.328	232.831
 14	284.757	247.906	113.903	353.434
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:24261563
-CC uniprot_ids:Q9C690
-CC data_type:DAP-seq
 XX
 //
 AC MA1740.1
@@ -13257,12 +10389,6 @@ PO	A	C	G	T
 09	90.4114	808.94	82.5053	18.1432
 10	212.5	338.255	237.241	212.004
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:12897250
-CC uniprot_ids:Q9CAA9
-CC data_type:PBM
 XX
 //
 AC MA1741.1
@@ -13288,12 +10414,6 @@ PO	A	C	G	T
 15	441.472	135.452	6.689	416.388
 16	792.642	8.361	0.0	198.997
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:20935069
-CC uniprot_ids:Q9SV87
-CC data_type:DAP-seq
 XX
 //
 AC MA1742.1
@@ -13314,12 +10434,6 @@ PO	A	C	G	T
 10	165.829	0.0	499.162	335.008
 11	219.43	237.856	214.405	328.308
 XX
-CC tax_group:plants
-CC tf_family:Group I
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:23942522
-CC uniprot_ids:O22873
-CC data_type:DAP-seq
 XX
 //
 AC MA1743.1
@@ -13344,12 +10458,6 @@ PO	A	C	G	T
 14	202.055	787.671	1.712	8.562
 15	638.699	111.301	133.562	116.438
 XX
-CC tax_group:plants
-CC tf_family:Group S
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:Q9SI15
-CC data_type:DAP-seq
 XX
 //
 AC MA1744.1
@@ -13369,12 +10477,6 @@ PO	A	C	G	T
 09	188.407	77.3705	664.215	70.0077
 10	87.4126	60.3789	387.858	464.35
 XX
-CC tax_group:plants
-CC tf_family:Group I
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:23942522
-CC uniprot_ids:Q9SIG8
-CC data_type:PBM
 XX
 //
 AC MA1745.1
@@ -13396,12 +10498,6 @@ PO	A	C	G	T
 11	138.849	62.3726	597.6	201.178
 12	229.103	312.691	229.103	229.103
 XX
-CC tax_group:plants
-CC tf_family:Group C
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:B9DGI8
-CC data_type:PBM
 XX
 //
 AC MA1746.1
@@ -13422,12 +10518,6 @@ PO	A	C	G	T
 10	4.95	29.703	321.782	643.564
 11	420.792	376.238	59.406	143.564
 XX
-CC tax_group:plants
-CC tf_family:Group I
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:23942522
-CC uniprot_ids:Q9LNE0
-CC data_type:DAP-seq
 XX
 //
 AC MA1747.1
@@ -13451,12 +10541,6 @@ PO	A	C	G	T
 13	0.0	1.724	0.0	998.276
 14	406.897	65.517	103.448	424.138
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9SUB0
-CC data_type:DAP-seq
 XX
 //
 AC MA1748.1
@@ -13475,12 +10559,6 @@ PO	A	C	G	T
 08	526.675	149.394	168.441	155.49
 09	148.467	148.467	130.368	572.699
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:18643985
-CC uniprot_ids:Q9LN86
-CC data_type:PBM
 XX
 //
 AC MA1749.1
@@ -13505,12 +10583,6 @@ PO	A	C	G	T
 14	913.043	0.0	86.957	0.0
 15	695.652	0.0	260.87	43.478
 XX
-CC tax_group:plants
-CC tf_family:E2F
-CC tf_class:Fork head/winged helix factors
-CC pubmed_ids:16126853
-CC uniprot_ids:Q9FV70
-CC data_type:DAP-seq
 XX
 //
 AC MA1750.1
@@ -13535,12 +10607,6 @@ PO	A	C	G	T
 14	958.106	12.75	10.929	18.215
 15	774.135	51.002	21.858	153.005
 XX
-CC tax_group:plants
-CC tf_family:E2F
-CC tf_class:Fork head/winged helix factors
-CC pubmed_ids:16126853
-CC uniprot_ids:Q8LSZ4
-CC data_type:DAP-seq
 XX
 //
 AC MA1751.1
@@ -13561,12 +10627,6 @@ PO	A	C	G	T
 10	148.851	148.851	148.851	553.448
 11	227.416	317.753	227.416	227.416
 XX
-CC tax_group:plants
-CC tf_family:EIL
-CC tf_class:
-CC pubmed_ids:28119721
-CC uniprot_ids:O23116
-CC data_type:DAP-seq
 XX
 //
 AC MA1752.1
@@ -13591,12 +10651,6 @@ PO	A	C	G	T
 14	348.915	198.664	111.853	340.568
 15	337.229	146.912	233.723	282.137
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9FJ90
-CC data_type:DAP-seq
 XX
 //
 AC MA1753.1
@@ -13621,12 +10675,6 @@ PO	A	C	G	T
 14	51.903	856.401	0.0	91.696
 15	482.699	129.758	188.581	198.962
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9FJQ2
-CC data_type:DAP-seq
 XX
 //
 AC MA1754.1
@@ -13657,12 +10705,6 @@ PO	A	C	G	T
 20	241.563	410.302	115.453	232.682
 21	261.101	177.62	323.268	238.011
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q8H0T5
-CC data_type:DAP-seq
 XX
 //
 AC MA1755.1
@@ -13682,12 +10724,6 @@ PO	A	C	G	T
 09	358.685	159.884	300.221	181.21
 10	285.767	176.667	250.462	287.104
 XX
-CC tax_group:plants
-CC tf_family:C4-GATA-related
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:27203113
-CC uniprot_ids:O49743
-CC data_type:PBM
 XX
 //
 AC MA1756.1
@@ -13712,12 +10748,6 @@ PO	A	C	G	T
 14	239.13	413.043	239.13	108.696
 15	478.261	217.391	119.565	184.783
 XX
-CC tax_group:plants
-CC tf_family:GRF
-CC tf_class:CH3
-CC pubmed_ids:22942381
-CC uniprot_ids:Q8S9M3
-CC data_type:DAP-seq
 XX
 //
 AC MA1757.1
@@ -13738,12 +10768,6 @@ PO	A	C	G	T
 10	452.5	15.0	395.0	137.5
 11	175.0	382.5	87.5	355.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:16778018
-CC uniprot_ids:Q9LTK3
-CC data_type:DAP-seq
 XX
 //
 AC MA1758.1
@@ -13768,12 +10792,6 @@ PO	A	C	G	T
 14	774.403	30.369	86.768	108.46
 15	190.889	190.889	422.993	195.228
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Heat shock factors
-CC pubmed_ids:8689565
-CC uniprot_ids:Q9SCW5
-CC data_type:DAP-seq
 XX
 //
 AC MA1759.1
@@ -13802,12 +10820,6 @@ PO	A	C	G	T
 18	195.326	135.225	542.571	126.878
 19	330.551	375.626	160.267	133.556
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Heat shock factors
-CC pubmed_ids:8689565
-CC uniprot_ids:O49403
-CC data_type:DAP-seq
 XX
 //
 AC MA1760.1
@@ -13830,12 +10842,6 @@ PO	A	C	G	T
 12	1000.0	0.0	0.0	0.0
 13	834.286	31.429	54.286	80.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Heat shock factors
-CC pubmed_ids:8689565
-CC uniprot_ids:Q1PDN3
-CC data_type:DAP-seq
 XX
 //
 AC MA1761.1
@@ -13858,12 +10864,6 @@ PO	A	C	G	T
 12	802.513	30.521	62.837	104.129
 13	231.598	188.51	416.517	163.375
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Heat shock factors
-CC pubmed_ids:8689565
-CC uniprot_ids:O22230
-CC data_type:DAP-seq
 XX
 //
 AC MA1762.1
@@ -13887,12 +10887,6 @@ PO	A	C	G	T
 13	353.846	235.897	56.41	353.846
 14	328.205	213.675	109.402	348.718
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9LTV4
-CC data_type:DAP-seq
 XX
 //
 AC MA1764.1
@@ -13915,12 +10909,6 @@ PO	A	C	G	T
 12	148.464	172.355	63.14	616.041
 13	203.072	184.3	87.031	525.597
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q94FU0
-CC data_type:DAP-seq
 XX
 //
 AC MA1765.1
@@ -13944,12 +10932,6 @@ PO	A	C	G	T
 13	296.684	153.578	87.26	462.478
 14	338.569	143.106	101.222	417.103
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:22197883
-CC uniprot_ids:Q9LRU5
-CC data_type:DAP-seq
 XX
 //
 AC MA1766.1
@@ -13974,12 +10956,6 @@ PO	A	C	G	T
 14	315.236	227.671	101.576	355.517
 15	292.469	210.158	98.074	399.299
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9M2D9
-CC data_type:DAP-seq
 XX
 //
 AC MA1767.1
@@ -14000,12 +10976,6 @@ PO	A	C	G	T
 10	309.179	154.589	72.464	463.768
 11	275.362	260.87	96.618	367.15
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q96276
-CC data_type:DAP-seq
 XX
 //
 AC MA1768.1
@@ -14030,12 +11000,6 @@ PO	A	C	G	T
 14	402.357	383.838	45.455	168.35
 15	161.616	612.795	45.455	180.135
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9SCU7
-CC data_type:DAP-seq
 XX
 //
 AC MA1769.1
@@ -14059,12 +11023,6 @@ PO	A	C	G	T
 13	223.932	206.838	54.701	514.53
 14	252.991	218.803	92.308	435.897
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q8GWP0
-CC data_type:DAP-seq
 XX
 //
 AC MA1770.1
@@ -14087,12 +11045,6 @@ PO	A	C	G	T
 12	240.506	227.848	63.291	468.354
 13	244.726	261.603	97.046	396.624
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:F4K6R6
-CC data_type:DAP-seq
 XX
 //
 AC MA1771.1
@@ -14117,12 +11069,6 @@ PO	A	C	G	T
 14	97.826	538.043	21.739	342.391
 15	217.391	135.87	10.87	635.87
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9M0J5
-CC data_type:DAP-seq
 XX
 //
 AC MA1772.1
@@ -14145,12 +11091,6 @@ PO	A	C	G	T
 12	289.157	156.627	24.096	530.12
 13	240.964	168.675	24.096	566.265
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9SPG7
-CC data_type:DAP-seq
 XX
 //
 AC MA1773.1
@@ -14181,12 +11121,6 @@ PO	A	C	G	T
 20	83.183	589.512	19.892	307.414
 21	419.53	90.416	23.508	466.546
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:O49782
-CC data_type:DAP-seq
 XX
 //
 AC MA1774.1
@@ -14215,12 +11149,6 @@ PO	A	C	G	T
 18	307.692	185.52	190.045	316.742
 19	187.783	339.367	133.484	339.367
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q8GYP5
-CC data_type:DAP-seq
 XX
 //
 AC MA1775.1
@@ -14243,12 +11171,6 @@ PO	A	C	G	T
 12	456.081	92.905	184.122	266.892
 13	219.595	326.014	121.622	332.77
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q8VZQ2
-CC data_type:DAP-seq
 XX
 //
 AC MA1776.1
@@ -14279,12 +11201,6 @@ PO	A	C	G	T
 20	287.145	253.756	198.664	260.434
 21	272.12	303.84	150.25	273.79
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9LTW2
-CC data_type:DAP-seq
 XX
 //
 AC MA1777.1
@@ -14308,12 +11224,6 @@ PO	A	C	G	T
 13	324.232	230.375	66.553	378.84
 14	274.744	232.082	116.041	377.133
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9M0Y5
-CC data_type:DAP-seq
 XX
 //
 AC MA1778.1
@@ -14338,12 +11248,6 @@ PO	A	C	G	T
 14	226.891	154.622	168.067	450.42
 15	257.143	196.639	139.496	406.723
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9XHV0
-CC data_type:DAP-seq
 XX
 //
 AC MA1779.1
@@ -14364,12 +11268,6 @@ PO	A	C	G	T
 10	314.421	252.955	191.489	241.135
 11	186.761	557.92	66.194	189.125
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25220462
-CC uniprot_ids:Q9C6U1
-CC data_type:DAP-seq
 XX
 //
 AC MA1780.1
@@ -14389,12 +11287,6 @@ PO	A	C	G	T
 09	700.535	299.465	0.0	0.0
 10	90.909	641.711	64.171	203.209
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:9628022
-CC uniprot_ids:Q9SBF3
-CC data_type:DAP-seq
 XX
 //
 AC MA1781.1
@@ -14423,12 +11315,6 @@ PO	A	C	G	T
 18	269.841	257.496	137.566	335.097
 19	308.642	262.787	137.566	291.005
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9SN78
-CC data_type:DAP-seq
 XX
 //
 AC MA1783.1
@@ -14457,12 +11343,6 @@ PO	A	C	G	T
 18	281.356	66.102	20.339	632.203
 19	462.712	18.644	20.339	498.305
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:O81914
-CC data_type:DAP-seq
 XX
 //
 AC MA1784.1
@@ -14493,12 +11373,6 @@ PO	A	C	G	T
 20	899.123	4.386	4.386	92.105
 21	118.421	535.088	92.105	254.386
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9LQK5
-CC data_type:DAP-seq
 XX
 //
 AC MA1785.1
@@ -14519,12 +11393,6 @@ PO	A	C	G	T
 10	72.391	405.724	57.239	464.646
 11	218.855	119.529	227.273	434.343
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9ZNU2
-CC data_type:DAP-seq
 XX
 //
 AC MA1786.1
@@ -14544,12 +11412,6 @@ PO	A	C	G	T
 09	659.77	28.2725	71.657	240.301
 10	167.485	347.544	240.061	244.91
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:27203113
-CC uniprot_ids:Q9C932
-CC data_type:PBM
 XX
 //
 AC MA1787.1
@@ -14574,12 +11436,6 @@ PO	A	C	G	T
 14	66.667	285.0	45.0	603.333
 15	195.0	136.667	166.667	501.667
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q84TD6
-CC data_type:DAP-seq
 XX
 //
 AC MA1788.1
@@ -14608,12 +11464,6 @@ PO	A	C	G	T
 18	123.348	651.982	101.322	123.348
 19	193.833	92.511	123.348	590.308
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9FRV4
-CC data_type:DAP-seq
 XX
 //
 AC MA1789.1
@@ -14638,12 +11488,6 @@ PO	A	C	G	T
 14	89.226	340.067	65.657	505.051
 15	707.071	84.175	0.0	208.754
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:O49697
-CC data_type:DAP-seq
 XX
 //
 AC MA1790.1
@@ -14668,12 +11512,6 @@ PO	A	C	G	T
 14	80.402	574.539	53.601	291.457
 15	251.256	221.106	3.35	524.288
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:20935069
-CC uniprot_ids:O49459
-CC data_type:DAP-seq
 XX
 //
 AC MA1791.1
@@ -14702,12 +11540,6 @@ PO	A	C	G	T
 18	398.261	175.652	8.696	417.391
 19	846.957	1.739	3.478	147.826
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9FK44
-CC data_type:DAP-seq
 XX
 //
 AC MA1792.1
@@ -14733,12 +11565,6 @@ PO	A	C	G	T
 15	351.119	223.752	0.0	425.129
 16	829.604	1.721	5.164	163.511
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:O04017
-CC data_type:DAP-seq
 XX
 //
 AC MA1793.1
@@ -14758,12 +11584,6 @@ PO	A	C	G	T
 09	245.25	233.289	221.912	299.549
 10	368.215	162.173	158.962	310.65
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:27203113
-CC uniprot_ids:Q84TG2
-CC data_type:PBM
 XX
 //
 AC MA1794.1
@@ -14788,12 +11608,6 @@ PO	A	C	G	T
 14	305.882	122.689	351.261	220.168
 15	346.218	122.689	280.672	250.42
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:RWP-RK
-CC pubmed_ids:23511481
-CC uniprot_ids:Q84TH9
-CC data_type:DAP-seq
 XX
 //
 AC MA1795.1
@@ -14813,12 +11627,6 @@ PO	A	C	G	T
 09	468.198	141.019	160.596	230.187
 10	268.544	245.43	189.239	296.787
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q8H1E4
-CC data_type:PBM
 XX
 //
 AC MA1796.1
@@ -14836,12 +11644,6 @@ PO	A	C	G	T
 07	0.766871	0.766871	997.699	0.766871
 08	272.645	0.905797	182.065	544.384
 XX
-CC tax_group:plants
-CC tf_family:AP2
-CC tf_class:AP2/EREBP
-CC pubmed_ids:26410299
-CC uniprot_ids:Q9SK03
-CC data_type:PBM
 XX
 //
 AC MA1797.1
@@ -14859,12 +11661,6 @@ PO	A	C	G	T
 07	0.453721	0.453721	136.57	862.523
 08	561.721	250.0	0.623441	187.656
 XX
-CC tax_group:plants
-CC tf_family:RAV
-CC tf_class:B3
-CC pubmed_ids:9862967
-CC uniprot_ids:P82280
-CC data_type:PBM
 XX
 //
 AC MA1799.1
@@ -14884,12 +11680,6 @@ PO	A	C	G	T
 09	490.095	163.138	100.947	245.82
 10	298.562	323.429	165.501	212.508
 XX
-CC tax_group:plants
-CC tf_family:SBP
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:16554053
-CC uniprot_ids:Q8S9L0
-CC data_type:PBM
 XX
 //
 AC MA1800.1
@@ -14907,12 +11697,6 @@ PO	A	C	G	T
 07	0.172295	0.172295	241.385	758.27
 08	599.65	125.125	0.24975	274.975
 XX
-CC tax_group:plants
-CC tf_family:RAV
-CC tf_class:B3
-CC pubmed_ids:9862967
-CC uniprot_ids:Q9C6M5
-CC data_type:PBM
 XX
 //
 AC MA1801.1
@@ -14933,12 +11717,6 @@ PO	A	C	G	T
 10	385.892	170.017	176.875	267.216
 11	200.718	200.718	296.922	301.641
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:33139535
-CC uniprot_ids:O81793
-CC data_type:PBM
 XX
 //
 AC MA1802.1
@@ -14958,12 +11736,6 @@ PO	A	C	G	T
 09	90.9602	518.232	70.135	320.673
 10	190.934	334.262	109.063	365.741
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:15364931
-CC uniprot_ids:Q6R0E3
-CC data_type:PBM
 XX
 //
 AC MA1803.1
@@ -14987,12 +11759,6 @@ PO	A	C	G	T
 13	268.765	346.247	101.695	283.293
 14	404.358	220.339	121.065	254.237
 XX
-CC tax_group:plants
-CC tf_family:Group I
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:23942522
-CC uniprot_ids:Q9MA75
-CC data_type:DAP-seq
 XX
 //
 AC MA1804.1
@@ -15012,12 +11778,6 @@ PO	A	C	G	T
 09	253.096	163.003	425.715	158.186
 10	184.07	238.726	171.626	405.579
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9XI33
-CC data_type:PBM
 XX
 //
 AC MA1805.1
@@ -15036,12 +11796,6 @@ PO	A	C	G	T
 08	136.43	193.603	485.806	184.161
 09	204.341	314.124	262.378	219.157
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9SUP6
-CC data_type:PBM
 XX
 //
 AC MA1807.1
@@ -15062,12 +11816,6 @@ PO	A	C	G	T
 10	92.199	171.986	138.298	597.518
 11	225.177	159.574	244.681	370.567
 XX
-CC tax_group:plants
-CC tf_family:PLINC
-CC tf_class:Homeo domain factors
-CC pubmed_ids:21059647
-CC uniprot_ids:Q9FIW9
-CC data_type:DAP-seq
 XX
 //
 AC MA1808.1
@@ -15088,12 +11836,6 @@ PO	A	C	G	T
 10	7096.0	6788.0	6336.0	7613.0
 11	7296.0	6274.0	6535.0	7728.0
 XX
-CC tax_group:plants
-CC tf_family:Group A
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:18365246
-CC uniprot_ids:I1KFN0
-CC data_type:ChIP-seq
 XX
 //
 AC MA1809.1
@@ -15114,12 +11856,6 @@ PO	A	C	G	T
 10	2179.0	1453.0	1704.0	2197.0
 11	1788.0	1676.0	1555.0	2514.0
 XX
-CC tax_group:plants
-CC tf_family:GRF
-CC tf_class:CH3
-CC pubmed_ids:29985961
-CC uniprot_ids:I1KHB3
-CC data_type:ChIP-seq
 XX
 //
 AC MA1810.1
@@ -15143,12 +11879,6 @@ PO	A	C	G	T
 13	46.0	41.0	60.0	42.0
 14	48.0	37.0	46.0	58.0
 XX
-CC tax_group:plants
-CC tf_family:ABI3
-CC tf_class:B3
-CC pubmed_ids:29660015
-CC uniprot_ids:I1KZD3
-CC data_type:ChIP-seq
 XX
 //
 AC MA1811.1
@@ -15169,12 +11899,6 @@ PO	A	C	G	T
 10	4529.0	4702.0	4253.0	4848.0
 11	4885.0	4354.0	4336.0	4757.0
 XX
-CC tax_group:plants
-CC tf_family:Group A
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:18365246
-CC uniprot_ids:K7M309
-CC data_type:ChIP-seq
 XX
 //
 AC MA1812.1
@@ -15199,12 +11923,6 @@ PO	A	C	G	T
 14	59.0	21.0	34.0	42.0
 15	46.0	29.0	26.0	55.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:15101820
-CC uniprot_ids:A0A3Q7EM19
-CC data_type:ChIP-seq
 XX
 //
 AC MA1813.1
@@ -15225,12 +11943,6 @@ PO	A	C	G	T
 10	75.0	99.0	51.0	256.0
 11	149.0	105.0	81.0	146.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:EIL
-CC pubmed_ids:15811366
-CC uniprot_ids:Q76DI3
-CC data_type:ChIP-seq
 XX
 //
 AC MA1814.1
@@ -15255,12 +11967,6 @@ PO	A	C	G	T
 14	1882.0	765.0	670.0	1506.0
 15	1945.0	689.0	680.0	1509.0
 XX
-CC tax_group:plants
-CC tf_family:MIKC
-CC tf_class:MADS box factors
-CC pubmed_ids:18363783
-CC uniprot_ids:Q8S4L4
-CC data_type:ChIP-seq
 XX
 //
 AC MA1815.1
@@ -15283,12 +11989,6 @@ PO	A	C	G	T
 12	19.0	8.0	24.0	14.0
 13	11.0	28.0	12.0	14.0
 XX
-CC tax_group:plants
-CC tf_family:GRF
-CC tf_class:CH3
-CC pubmed_ids:24532604
-CC uniprot_ids:Q6ZIK5
-CC data_type:ChIP-seq
 XX
 //
 AC MA1816.1
@@ -15310,12 +12010,6 @@ PO	A	C	G	T
 11	1359.0	1392.0	1416.0	1293.0
 12	1105.0	1631.0	1539.0	1185.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:7742856
-CC uniprot_ids:A0A1D6EAS7
-CC data_type:ChIP-seq
 XX
 //
 AC MA1817.1
@@ -15338,12 +12032,6 @@ PO	A	C	G	T
 12	2204.0	3064.0	7641.0	1892.0
 13	2006.0	6993.0	3317.0	2485.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:26303437
-CC uniprot_ids:A0A060D1F1
-CC data_type:ChIP-seq
 XX
 //
 AC MA1818.1
@@ -15363,12 +12051,6 @@ PO	A	C	G	T
 09	977.0	5049.0	1720.0	1210.0
 10	920.0	5142.0	1908.0	986.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:24477691
-CC uniprot_ids:C4JBG6
-CC data_type:ChIP-seq
 XX
 //
 AC MA1819.1
@@ -15390,12 +12072,6 @@ PO	A	C	G	T
 11	3768.0	12889.0	5911.0	4805.0
 12	3329.0	13547.0	6580.0	3917.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:24477691
-CC uniprot_ids:A0A1D6ERG6
-CC data_type:ChIP-seq
 XX
 //
 AC MA1820.1
@@ -15418,12 +12094,6 @@ PO	A	C	G	T
 12	2485.0	11929.0	5360.0	2945.0
 13	3014.0	5407.0	11092.0	3206.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:24477691
-CC uniprot_ids:K7TL41
-CC data_type:ChIP-seq
 XX
 //
 AC MA1821.1
@@ -15444,12 +12114,6 @@ PO	A	C	G	T
 10	759.0	1193.0	4405.0	707.0
 11	1110.0	1448.0	3732.0	774.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:24477691
-CC uniprot_ids:A0A1D6I4Y7
-CC data_type:ChIP-seq
 XX
 //
 AC MA1822.1
@@ -15472,12 +12136,6 @@ PO	A	C	G	T
 12	180.0	144.0	261.0	129.0
 13	148.0	180.0	163.0	223.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:A0A1D6HQE4
-CC data_type:ChIP-seq
 XX
 //
 AC MA1823.1
@@ -15499,12 +12157,6 @@ PO	A	C	G	T
 11	429.0	154.0	233.0	171.0
 12	424.0	130.0	261.0	172.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10074718
-CC uniprot_ids:B4FDH4
-CC data_type:ChIP-seq
 XX
 //
 AC MA1824.1
@@ -15526,12 +12178,6 @@ PO	A	C	G	T
 11	912.0	699.0	925.0	720.0
 12	1010.0	563.0	674.0	1009.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:8253077
-CC uniprot_ids:C0PNY4
-CC data_type:ChIP-seq
 XX
 //
 AC MA1825.1
@@ -15552,12 +12198,6 @@ PO	A	C	G	T
 10	364.0	1215.0	302.0	1242.0
 11	755.0	762.0	832.0	774.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:10652136
-CC uniprot_ids:A0A1D6NLI6
-CC data_type:ChIP-seq
 XX
 //
 AC MA1826.1
@@ -15581,12 +12221,6 @@ PO	A	C	G	T
 13	313.0	581.0	433.0	452.0
 14	356.0	472.0	636.0	315.0
 XX
-CC tax_group:plants
-CC tf_family:ARF
-CC tf_class:B3
-CC pubmed_ids:2145628
-CC uniprot_ids:ZmARF5
-CC data_type:ChIP-seq
 XX
 //
 AC MA1827.1
@@ -15607,12 +12241,6 @@ PO	A	C	G	T
 10	69.0	247.0	107.0	180.0
 11	130.0	150.0	139.0	184.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:2902624
-CC uniprot_ids:K7W4V3
-CC data_type:ChIP-seq
 XX
 //
 AC MA1828.1
@@ -15634,12 +12262,6 @@ PO	A	C	G	T
 11	305.0	569.0	550.0	372.0
 12	295.0	492.0	654.0	355.0
 XX
-CC tax_group:plants
-CC tf_family:TCP
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:18816164
-CC uniprot_ids:C0HEC8
-CC data_type:ChIP-seq
 XX
 //
 AC MA1829.1
@@ -15662,12 +12284,6 @@ PO	A	C	G	T
 12	85.0	77.0	48.0	74.0
 13	89.0	63.0	64.0	68.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:31009122
-CC uniprot_ids:A0A1D6LHJ4
-CC data_type:ChIP-seq
 XX
 //
 AC MA1830.1
@@ -15700,12 +12316,6 @@ PO	A	C	G	T
 22	128.0	113.0	146.0	169.0
 23	158.0	75.0	112.0	211.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:24477691
-CC uniprot_ids:A0A060D7H5
-CC data_type:ChIP-seq
 XX
 //
 AC MA1831.1
@@ -15727,12 +12337,6 @@ PO	A	C	G	T
 11	2022.0	2882.0	7673.0	1244.0
 12	3416.0	3467.0	4782.0	2156.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:24477691
-CC uniprot_ids:A0A060D609
-CC data_type:ChIP-seq
 XX
 //
 AC MA1832.1
@@ -15753,12 +12357,6 @@ PO	A	C	G	T
 10	1785.0	11009.0	3546.0	2750.0
 11	1941.0	11352.0	3763.0	2034.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9159183
-CC uniprot_ids:C4J4G2
-CC data_type:ChIP-seq
 XX
 //
 AC MA1833.1
@@ -15784,12 +12382,6 @@ PO	A	C	G	T
 15	2247.0	9179.0	4110.0	3070.0
 16	2100.0	9497.0	4550.0	2459.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9159183
-CC uniprot_ids:B6TYT8
-CC data_type:ChIP-seq
 XX
 //
 AC MA1834.1
@@ -15810,12 +12402,6 @@ PO	A	C	G	T
 10	1361.0	1886.0	1893.0	1462.0
 11	1226.0	2323.0	1777.0	1276.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:24477691
-CC uniprot_ids:A0A1D6L6L0
-CC data_type:ChIP-seq
 XX
 //
 AC MA1835.1
@@ -15838,12 +12424,6 @@ PO	A	C	G	T
 12	137.0	106.0	287.0	132.0
 13	121.0	169.0	132.0	240.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298
-CC uniprot_ids:O49067
-CC data_type:ChIP-seq
 XX
 //
 AC MA2011.1
@@ -15865,12 +12445,6 @@ PO	A	C	G	T
 11	305.0	331.0	93.0	270.0
 12	272.0	308.0	138.0	281.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q9FH94
-CC data_type:
 XX
 //
 AC MA2012.1
@@ -15891,12 +12465,6 @@ PO	A	C	G	T
 10	109.0	108.0	37.0	64.0
 11	106.0	67.0	38.0	107.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480
-CC uniprot_ids:Q1ECI2
-CC data_type:
 XX
 //
 AC MA2013.1
@@ -15921,12 +12489,6 @@ PO	A	C	G	T
 14	293.0	71.0	375.0	166.0
 15	174.0	418.0	92.0	221.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931
-CC uniprot_ids:Q9LY29
-CC data_type:
 XX
 //
 AC MA2014.1
@@ -15950,12 +12512,6 @@ PO	A	C	G	T
 13	803.0	222.0	409.0	442.0
 14	600.0	371.0	456.0	449.0
 XX
-CC tax_group:plants
-CC tf_family:BES/BZR
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21487098
-CC uniprot_ids:Q9FH80
-CC data_type:
 XX
 //
 AC MA2015.1
@@ -15978,12 +12534,6 @@ PO	A	C	G	T
 12	293.0	243.0	232.0	401.0
 13	387.0	259.0	195.0	328.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:beta-Hairpin exposed by an alpha/beta-scaffold
-CC pubmed_ids:24914054
-CC uniprot_ids:Q39013
-CC data_type:
 XX
 //
 AC MA2016.1
@@ -16003,12 +12553,6 @@ PO	A	C	G	T
 09	391.0	398.0	193.0	264.0
 10	500.0	185.0	265.0	296.0
 XX
-CC tax_group:plants
-CC tf_family:GRF
-CC tf_class:C3H zinc finger factors
-CC pubmed_ids:22942381
-CC uniprot_ids:Q9ZQ12
-CC data_type:
 XX
 //
 AC MA2017.1
@@ -16032,12 +12576,6 @@ PO	A	C	G	T
 13	142.0	91.0	139.0	137.0
 14	148.0	102.0	98.0	161.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:22345491
-CC uniprot_ids:Q9SK55
-CC data_type:
 XX
 //
 AC MA2018.1
@@ -16059,12 +12597,6 @@ PO	A	C	G	T
 11	136.0	72.0	48.0	106.0
 12	103.0	103.0	59.0	97.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9M126
-CC data_type:
 XX
 //
 AC MA2019.1
@@ -16086,12 +12618,6 @@ PO	A	C	G	T
 11	1158.0	1761.0	990.0	3751.0
 12	3033.0	1204.0	1541.0	1882.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Heat shock factors
-CC pubmed_ids:27493213
-CC uniprot_ids:O81821
-CC data_type:
 XX
 //
 AC MA2020.1
@@ -16113,12 +12639,6 @@ PO	A	C	G	T
 11	42.0	6.0	30.0	11.0
 12	25.0	8.0	40.0	16.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Heat shock factors
-CC pubmed_ids:8689565
-CC uniprot_ids:Q9C635
-CC data_type:
 XX
 //
 AC MA2021.1
@@ -16141,12 +12661,6 @@ PO	A	C	G	T
 12	295.0	125.0	306.0	329.0
 13	270.0	370.0	148.0	267.0
 XX
-CC tax_group:plants
-CC tf_family:LBD
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:17913740
-CC uniprot_ids:Q9AT61
-CC data_type:
 XX
 //
 AC MA2022.1
@@ -16173,12 +12687,6 @@ PO	A	C	G	T
 16	96.0	463.0	96.0	140.0
 17	159.0	382.0	87.0	167.0
 XX
-CC tax_group:plants
-CC tf_family:LBD
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:17913740
-CC uniprot_ids:Q9FML4
-CC data_type:
 XX
 //
 AC MA2023.1
@@ -16205,12 +12713,6 @@ PO	A	C	G	T
 16	56.0	32.0	34.0	65.0
 17	51.0	39.0	42.0	55.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:30327661
-CC uniprot_ids:Q8GXC2
-CC data_type:
 XX
 //
 AC MA2024.1
@@ -16233,12 +12735,6 @@ PO	A	C	G	T
 12	28.0	65.0	4.0	22.0
 13	33.0	45.0	9.0	32.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:19122102
-CC uniprot_ids:Q6R0A6
-CC data_type:
 XX
 //
 AC MA2025.1
@@ -16262,12 +12758,6 @@ PO	A	C	G	T
 13	205.0	119.0	75.0	134.0
 14	217.0	115.0	68.0	133.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:32246506
-CC uniprot_ids:Q9S9Z2
-CC data_type:
 XX
 //
 AC MA2026.1
@@ -16292,12 +12782,6 @@ PO	A	C	G	T
 14	37.0	24.0	15.0	32.0
 15	31.0	27.0	16.0	34.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9LDE1
-CC data_type:
 XX
 //
 AC MA2027.1
@@ -16319,12 +12803,6 @@ PO	A	C	G	T
 11	260.0	143.0	84.0	186.0
 12	225.0	120.0	121.0	207.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25220462
-CC uniprot_ids:Q9FDW1
-CC data_type:
 XX
 //
 AC MA2028.1
@@ -16349,12 +12827,6 @@ PO	A	C	G	T
 14	56.0	35.0	28.0	69.0
 15	51.0	44.0	30.0	63.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9SPG6
-CC data_type:
 XX
 //
 AC MA2029.1
@@ -16377,12 +12849,6 @@ PO	A	C	G	T
 12	38.0	72.0	21.0	37.0
 13	49.0	42.0	37.0	40.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:F4IRB4
-CC data_type:
 XX
 //
 AC MA2030.1
@@ -16409,12 +12875,6 @@ PO	A	C	G	T
 16	50.0	43.0	12.0	28.0
 17	21.0	78.0	8.0	26.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q24JK1
-CC data_type:
 XX
 //
 AC MA2031.1
@@ -16435,12 +12895,6 @@ PO	A	C	G	T
 10	1314.0	709.0	739.0	1413.0
 11	1276.0	918.0	524.0	1457.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9LZ21
-CC data_type:
 XX
 //
 AC MA2032.1
@@ -16461,12 +12915,6 @@ PO	A	C	G	T
 10	2829.0	372.0	1303.0	439.0
 11	1714.0	1073.0	474.0	1682.0
 XX
-CC tax_group:plants
-CC tf_family:Myb-related
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26597966
-CC uniprot_ids:Q8VWK4
-CC data_type:
 XX
 //
 AC MA2033.1
@@ -16500,12 +12948,6 @@ PO	A	C	G	T
 23	102.0	148.0	48.0	132.0
 24	81.0	182.0	70.0	97.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9ZQ25
-CC data_type:
 XX
 //
 AC MA2034.1
@@ -16526,12 +12968,6 @@ PO	A	C	G	T
 10	571.0	758.0	413.0	840.0
 11	657.0	825.0	443.0	657.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9LSH5
-CC data_type:
 XX
 //
 AC MA2035.1
@@ -16565,12 +13001,6 @@ PO	A	C	G	T
 23	412.0	52.0	68.0	261.0
 24	147.0	339.0	85.0	222.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:20935069
-CC uniprot_ids:Q9M0F8
-CC data_type:
 XX
 //
 AC MA2036.1
@@ -16592,12 +13022,6 @@ PO	A	C	G	T
 11	871.0	1018.0	682.0	676.0
 12	960.0	566.0	616.0	1105.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:20935069
-CC uniprot_ids:O65508
-CC data_type:
 XX
 //
 AC MA2037.1
@@ -16618,12 +13042,6 @@ PO	A	C	G	T
 10	216.0	352.0	145.0	431.0
 11	238.0	415.0	183.0	308.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9LS24
-CC data_type:
 XX
 //
 AC MA2038.1
@@ -16644,12 +13062,6 @@ PO	A	C	G	T
 10	264.0	445.0	246.0	510.0
 11	318.0	509.0	294.0	344.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9FMJ1
-CC data_type:
 XX
 //
 AC MA2039.1
@@ -16672,12 +13084,6 @@ PO	A	C	G	T
 12	393.0	419.0	252.0	335.0
 13	393.0	188.0	449.0	369.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9LJG8
-CC data_type:
 XX
 //
 AC MA2040.1
@@ -16700,12 +13106,6 @@ PO	A	C	G	T
 12	597.0	641.0	377.0	683.0
 13	707.0	289.0	796.0	506.0
 XX
-CC tax_group:plants
-CC tf_family:Trihelix
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:F4K0Q7
-CC data_type:
 XX
 //
 AC MA2041.1
@@ -16731,12 +13131,6 @@ PO	A	C	G	T
 15	390.0	360.0	106.0	292.0
 16	375.0	313.0	153.0	307.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:19122102
-CC uniprot_ids:Q9LNC9
-CC data_type:
 XX
 //
 AC MA2042.1
@@ -16763,12 +13157,6 @@ PO	A	C	G	T
 16	529.0	352.0	213.0	457.0
 17	498.0	411.0	234.0	408.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:26484765
-CC uniprot_ids:Q9SA47
-CC data_type:
 XX
 //
 AC MA2043.1
@@ -16789,12 +13177,6 @@ PO	A	C	G	T
 10	173.0	348.0	171.0	233.0
 11	256.0	259.0	179.0	231.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:O81913
-CC data_type:
 XX
 //
 AC MA2044.1
@@ -16815,12 +13197,6 @@ PO	A	C	G	T
 10	542.0	624.0	413.0	594.0
 11	607.0	686.0	437.0	443.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:20935069
-CC uniprot_ids:Q9FWX2
-CC data_type:
 XX
 //
 AC MA2045.1
@@ -16854,12 +13230,6 @@ PO	A	C	G	T
 23	748.0	19.0	13.0	133.0
 24	217.0	302.0	134.0	260.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9S851
-CC data_type:
 XX
 //
 AC MA2046.1
@@ -16883,12 +13253,6 @@ PO	A	C	G	T
 13	181.0	274.0	112.0	246.0
 14	195.0	133.0	226.0	259.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:22345491
-CC uniprot_ids:Q9ZVP8
-CC data_type:
 XX
 //
 AC MA2047.1
@@ -16909,12 +13273,6 @@ PO	A	C	G	T
 10	450.0	601.0	330.0	606.0
 11	496.0	643.0	438.0	410.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:20935069
-CC uniprot_ids:Q9SL41
-CC data_type:
 XX
 //
 AC MA2048.1
@@ -16937,12 +13295,6 @@ PO	A	C	G	T
 12	364.0	238.0	263.0	539.0
 13	444.0	330.0	250.0	380.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:A4VCM0
-CC data_type:
 XX
 //
 AC MA2049.1
@@ -16964,12 +13316,6 @@ PO	A	C	G	T
 11	1125.0	1249.0	687.0	901.0
 12	1168.0	634.0	812.0	1348.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q949N0
-CC data_type:
 XX
 //
 AC MA2050.1
@@ -16992,12 +13338,6 @@ PO	A	C	G	T
 12	706.0	813.0	562.0	568.0
 13	787.0	453.0	465.0	944.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9LVA1
-CC data_type:
 XX
 //
 AC MA2051.1
@@ -17019,12 +13359,6 @@ PO	A	C	G	T
 11	380.0	286.0	271.0	369.0
 12	396.0	255.0	213.0	442.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:A8MQY1
-CC data_type:
 XX
 //
 AC MA2052.1
@@ -17046,12 +13380,6 @@ PO	A	C	G	T
 11	3267.0	1175.0	1824.0	2318.0
 12	2603.0	1165.0	1611.0	3205.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:C2H2 zinc finger factors
-CC pubmed_ids:24834923
-CC uniprot_ids:O22533
-CC data_type:
 XX
 //
 AC MA2053.1
@@ -17074,12 +13402,6 @@ PO	A	C	G	T
 12	331.0	180.0	205.0	485.0
 13	390.0	297.0	186.0	328.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054
-CC uniprot_ids:Q9FH59
-CC data_type:
 XX
 //
 AC MA0008.3
@@ -17104,12 +13426,6 @@ PO	A	C	G	T
 14	75.0	15.0	29.0	72.0
 15	62.0	24.0	34.0	71.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:8253077
-CC uniprot_ids:Q02283
-CC data_type:
 XX
 //
 AC MA0930.2
@@ -17129,12 +13445,6 @@ PO	A	C	G	T
 09	3106.0	1283.0	1779.0	2424.0
 10	2541.0	1700.0	1589.0	2762.0
 XX
-CC tax_group:plants
-CC tf_family:Group A
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:11005831; 11005831
-CC uniprot_ids:Q9M7Q3
-CC data_type:
 XX
 //
 AC MA0938.2
@@ -17168,12 +13478,6 @@ PO	A	C	G	T
 23	948.0	7.0	14.0	138.0
 24	265.0	357.0	171.0	314.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054; 24914054
-CC uniprot_ids:Q9LS50
-CC data_type:
 XX
 //
 AC MA0964.2
@@ -17195,12 +13499,6 @@ PO	A	C	G	T
 11	149.0	535.0	271.0	433.0
 12	417.0	283.0	255.0	433.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15680330
-CC uniprot_ids:Q9LEZ3
-CC data_type:
 XX
 //
 AC MA0965.2
@@ -17226,12 +13524,6 @@ PO	A	C	G	T
 15	2808.0	2323.0	2010.0	3237.0
 16	2882.0	2214.0	2174.0	3108.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:15680330
-CC uniprot_ids:Q9CAA4
-CC data_type:
 XX
 //
 AC MA0994.2
@@ -17259,12 +13551,6 @@ PO	A	C	G	T
 17	168.0	58.0	354.0	163.0
 18	175.0	93.0	321.0	154.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931; 9756931
-CC uniprot_ids:Q9MAI5
-CC data_type:
 XX
 //
 AC MA1055.2
@@ -17287,12 +13573,6 @@ PO	A	C	G	T
 12	1216.0	736.0	748.0	963.0
 13	1188.0	757.0	657.0	1061.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:SBP
-CC pubmed_ids:24477691; 16554053
-CC uniprot_ids:Q9SMX9
-CC data_type:
 XX
 //
 AC MA1068.2
@@ -17317,12 +13597,6 @@ PO	A	C	G	T
 14	222.0	573.0	136.0	299.0
 15	448.0	216.0	231.0	335.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:10662863; 10662863
-CC uniprot_ids:P43273
-CC data_type:
 XX
 //
 AC MA1069.2
@@ -17347,12 +13621,6 @@ PO	A	C	G	T
 14	389.0	721.0	331.0	462.0
 15	702.0	304.0	385.0	512.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298; 8487298
-CC uniprot_ids:Q39140
-CC data_type:
 XX
 //
 AC MA1070.2
@@ -17377,12 +13645,6 @@ PO	A	C	G	T
 14	358.0	795.0	208.0	398.0
 15	658.0	290.0	321.0	490.0
 XX
-CC tax_group:plants
-CC tf_family:Group D
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:8487298; 8487298
-CC uniprot_ids:Q93ZE2
-CC data_type:
 XX
 //
 AC MA1079.2
@@ -17412,12 +13674,6 @@ PO	A	C	G	T
 19	80.0	40.0	46.0	73.0
 20	80.0	44.0	49.0	66.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049; 11449049
-CC uniprot_ids:O04336
-CC data_type:
 XX
 //
 AC MA1081.2
@@ -17443,12 +13699,6 @@ PO	A	C	G	T
 15	326.0	259.0	181.0	462.0
 16	382.0	212.0	254.0	380.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049; 11449049
-CC uniprot_ids:O22921
-CC data_type:
 XX
 //
 AC MA1083.2
@@ -17472,12 +13722,6 @@ PO	A	C	G	T
 13	731.0	437.0	579.0	807.0
 14	823.0	440.0	497.0	794.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9FL62
-CC data_type:
 XX
 //
 AC MA1087.2
@@ -17502,12 +13746,6 @@ PO	A	C	G	T
 14	708.0	485.0	424.0	577.0
 15	684.0	451.0	314.0	745.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9S763
-CC data_type:
 XX
 //
 AC MA1094.2
@@ -17533,12 +13771,6 @@ PO	A	C	G	T
 15	266.0	175.0	90.0	329.0
 16	293.0	123.0	139.0	305.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q9FL26
-CC data_type:
 XX
 //
 AC MA1163.2
@@ -17562,12 +13794,6 @@ PO	A	C	G	T
 13	531.0	451.0	337.0	794.0
 14	619.0	352.0	309.0	833.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497; 25215497
-CC uniprot_ids:C0SVS4
-CC data_type:
 XX
 //
 AC MA1165.2
@@ -17591,12 +13817,6 @@ PO	A	C	G	T
 13	3235.0	2118.0	1768.0	3474.0
 14	3441.0	1763.0	1741.0	3650.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FX84
-CC data_type:
 XX
 //
 AC MA1178.2
@@ -17619,12 +13839,6 @@ PO	A	C	G	T
 12	1795.0	473.0	582.0	707.0
 13	1266.0	656.0	515.0	1120.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497; 25215497
-CC uniprot_ids:Q9S7G7
-CC data_type:
 XX
 //
 AC MA1210.2
@@ -17647,12 +13861,6 @@ PO	A	C	G	T
 12	1122.0	406.0	761.0	927.0
 13	1120.0	459.0	607.0	1030.0
 XX
-CC tax_group:plants
-CC tf_family:HD-ZIP
-CC tf_class:Homeo domain factors
-CC pubmed_ids:8253077
-CC uniprot_ids:P46604
-CC data_type:
 XX
 //
 AC MA1213.2
@@ -17675,12 +13883,6 @@ PO	A	C	G	T
 12	2341.0	824.0	1964.0	2368.0
 13	2244.0	1209.0	943.0	3101.0
 XX
-CC tax_group:plants
-CC tf_family:PLINC
-CC tf_class:Homeo domain factors
-CC pubmed_ids:11247607; 11247607
-CC uniprot_ids:O64722
-CC data_type:
 XX
 //
 AC MA1219.2
@@ -17704,12 +13906,6 @@ PO	A	C	G	T
 13	733.0	629.0	367.0	717.0
 14	749.0	508.0	526.0	663.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:15319480; 9952441
-CC uniprot_ids:Q9SNE1
-CC data_type:
 XX
 //
 AC MA1231.2
@@ -17733,12 +13929,6 @@ PO	A	C	G	T
 13	214.0	929.0	236.0	754.0
 14	509.0	695.0	348.0	581.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931; 9756931
-CC uniprot_ids:Q8VYM0
-CC data_type:
 XX
 //
 AC MA1272.2
@@ -17758,12 +13948,6 @@ PO	A	C	G	T
 09	263.0	154.0	208.0	461.0
 10	460.0	112.0	195.0	319.0
 XX
-CC tax_group:plants
-CC tf_family:DOF
-CC tf_class:Other C4 zinc finger-type factors
-CC pubmed_ids:10758479
-CC uniprot_ids:Q9ZV33
-CC data_type:
 XX
 //
 AC MA1307.2
@@ -17791,12 +13975,6 @@ PO	A	C	G	T
 17	68.0	44.0	59.0	128.0
 18	67.0	74.0	65.0	93.0
 XX
-CC tax_group:plants
-CC tf_family:WRKY
-CC tf_class:GCM domain factors
-CC pubmed_ids:11449049
-CC uniprot_ids:Q93WT0
-CC data_type:
 XX
 //
 AC MA0577.3
@@ -17817,12 +13995,6 @@ PO	A	C	G	T
 10	237.0	275.0	122.0	316.0
 11	340.0	171.0	226.0	213.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:SBP
-CC pubmed_ids:10524240; 16554053
-CC uniprot_ids:P93015
-CC data_type:
 XX
 //
 AC MA1322.2
@@ -17843,12 +14015,6 @@ PO	A	C	G	T
 10	683.0	396.0	558.0	479.0
 11	664.0	314.0	522.0	616.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:SBP
-CC pubmed_ids:10524240; 16554053
-CC uniprot_ids:Q700W2
-CC data_type:
 XX
 //
 AC MA1338.2
@@ -17875,12 +14041,6 @@ PO	A	C	G	T
 16	775.0	462.0	390.0	802.0
 17	711.0	520.0	359.0	839.0
 XX
-CC tax_group:plants
-CC tf_family:Group A
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:10636868
-CC uniprot_ids:Q9LES3
-CC data_type:
 XX
 //
 AC MA1351.2
@@ -17901,12 +14061,6 @@ PO	A	C	G	T
 10	2879.0	1756.0	1943.0	2883.0
 11	2928.0	1909.0	1879.0	2745.0
 XX
-CC tax_group:plants
-CC tf_family:Group G
-CC tf_class:Basic leucine zipper factors (bZIP)
-CC pubmed_ids:9680995
-CC uniprot_ids:P42776
-CC data_type:
 XX
 //
 AC MA1359.2
@@ -17930,12 +14084,6 @@ PO	A	C	G	T
 13	142.0	75.0	81.0	98.0
 14	95.0	108.0	85.0	108.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q0JXE7
-CC data_type:
 XX
 //
 AC MA1360.2
@@ -17959,12 +14107,6 @@ PO	A	C	G	T
 13	130.0	102.0	92.0	115.0
 14	125.0	110.0	94.0	110.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Basic helix-loop-helix factors (bHLH)
-CC pubmed_ids:21335373
-CC uniprot_ids:Q6NKN9
-CC data_type:
 XX
 //
 AC MA1386.2
@@ -17987,12 +14129,6 @@ PO	A	C	G	T
 12	680.0	378.0	474.0	716.0
 13	684.0	415.0	339.0	810.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q9FPE8
-CC data_type:
 XX
 //
 AC MA1390.2
@@ -18016,12 +14152,6 @@ PO	A	C	G	T
 13	506.0	280.0	249.0	503.0
 14	497.0	237.0	299.0	505.0
 XX
-CC tax_group:plants
-CC tf_family:GARP_G2-like
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497
-CC uniprot_ids:Q8VZS3
-CC data_type:
 XX
 //
 AC MA1392.2
@@ -18042,12 +14172,6 @@ PO	A	C	G	T
 10	407.0	117.0	182.0	313.0
 11	377.0	95.0	156.0	391.0
 XX
-CC tax_group:plants
-CC tf_family:Myb
-CC tf_class:Tryptophan cluster factors
-CC pubmed_ids:25215497; 25215497
-CC uniprot_ids:Q9S7L2
-CC data_type:
 XX
 //
 AC MA1427.2
@@ -18070,12 +14194,6 @@ PO	A	C	G	T
 12	365.0	189.0	230.0	518.0
 13	420.0	303.0	197.0	382.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054; 27203113
-CC uniprot_ids:Q9SRZ8
-CC data_type:
 XX
 //
 AC MA1663.2
@@ -18098,12 +14216,6 @@ PO	A	C	G	T
 12	1308.0	1162.0	556.0	1243.0
 13	1316.0	731.0	742.0	1480.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054; 26617990
-CC uniprot_ids:Q9SQX9
-CC data_type:
 XX
 //
 AC MA1664.2
@@ -18125,12 +14237,6 @@ PO	A	C	G	T
 11	268.0	259.0	364.0	265.0
 12	287.0	397.0	238.0	234.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Heat shock factors
-CC pubmed_ids:27493213; 27493213
-CC uniprot_ids:Q9LUH8
-CC data_type:
 XX
 //
 AC MA1665.2
@@ -18154,12 +14260,6 @@ PO	A	C	G	T
 13	431.0	82.0	181.0	193.0
 14	228.0	131.0	309.0	219.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Heat shock factors
-CC pubmed_ids:24477691; 24477691
-CC uniprot_ids:Q9SCW4
-CC data_type:
 XX
 //
 AC MA1666.2
@@ -18185,12 +14285,6 @@ PO	A	C	G	T
 15	762.0	104.0	174.0	260.0
 16	580.0	186.0	249.0	285.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Heat shock factors
-CC pubmed_ids:8689565
-CC uniprot_ids:Q9T0D3
-CC data_type:
 XX
 //
 AC MA1667.2
@@ -18212,12 +14306,6 @@ PO	A	C	G	T
 11	447.0	269.0	522.0	342.0
 12	362.0	648.0	299.0	271.0
 XX
-CC tax_group:plants
-CC tf_family:
-CC tf_class:Heat shock factors
-CC pubmed_ids:8689565
-CC uniprot_ids:Q9LV52
-CC data_type:
 XX
 //
 AC MA1674.2
@@ -18239,12 +14327,6 @@ PO	A	C	G	T
 11	255.0	275.0	193.0	274.0
 12	260.0	284.0	153.0	300.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24045017; 24045017
-CC uniprot_ids:Q9XIC5
-CC data_type:
 XX
 //
 AC MA1676.2
@@ -18268,12 +14350,6 @@ PO	A	C	G	T
 13	147.0	157.0	72.0	164.0
 14	194.0	76.0	91.0	179.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054; 24914054
-CC uniprot_ids:Q9SCK6
-CC data_type:
 XX
 //
 AC MA1678.2
@@ -18296,12 +14372,6 @@ PO	A	C	G	T
 12	245.0	189.0	142.0	406.0
 13	324.0	201.0	154.0	303.0
 XX
-CC tax_group:plants
-CC tf_family:NAC
-CC tf_class:GCM domain factors
-CC pubmed_ids:24914054; 24914054
-CC uniprot_ids:Q9XIN7
-CC data_type:
 XX
 //
 AC MA1001.3
@@ -18323,11 +14393,5 @@ PO	A	C	G	T
 11	290.0	653.0	144.0	286.0
 12	435.0	126.0	522.0	290.0
 XX
-CC tax_group:plants
-CC tf_family:ERF/DREB
-CC tf_class:AP2/EREBP
-CC pubmed_ids:9756931; 9756931
-CC uniprot_ids:Q9C5I3
-CC data_type:
 XX
 //
