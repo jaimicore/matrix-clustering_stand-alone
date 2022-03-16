@@ -100,7 +100,7 @@ This should print the help to run `compare-matrices-quick` and the exaplanation 
 
 
 
-## :arrow_forward: Qucikstart
+## :arrow_forward: Quickstart
 
 Assuming you are in the root of the repository folder you can run the following examples. The input files are part of the repository, they are found in the folder `data`.
 
@@ -132,6 +132,77 @@ Rscript matrix-clustering.R                         \
   -w 8                                              \
   -r data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab 
 ```
+
+## Input files
+
+### Motifs (Mandatory)
+
+This version of *RSAT matrix-clustering* relies on the R/Bioconductor package `universalmotif` for the motif manipulation steps.
+This is the list of supported TF motif formats:
+
+- cluster-buster
+- cisbp
+- homer
+- jaspar
+- meme
+- transfac
+- uniprobe
+
+In case your motif format is not in this list, please contact me to add it.
+
+
+### Matrix file table (Mandatory)
+
+To avoid long commands when the input are many motif collections, we opted for a simple file format. The input file (`-i`) must be a tab-delimited file providing the following information (in the following order; no header):
+
+1. Motif file path
+2. Collection name: an alias given to the motif file
+3. Motif format: see above for the list of supported format.
+
+Each line in this table should correspond to a different motif file.
+
+If a file path is duplicated it will be considered only once.
+
+If a collection name is duplicated, the program will stop, collection names are needed to create unique motif IDs.
+
+Input motifs may be in different formats.
+
+Example:
+
+```bash
+data/OCT4_datasets/HOMER_OCT4_motifs.homer    HOMER	  homer
+data/OCT4_datasets/MEME_OCT4_motifs.meme      MEME	  meme
+data/OCT4_datasets/RSAT_OCT4_motifs.tf        RSAT	  tf
+```
+
+
+### Reference groups table (Optional)
+
+Users can provide a reference table that will be used to compare it against the resulting clusters (i.e., how good the resulting clusters resemble the reference groupd). When this file is provided the ARI will be calculated.
+
+The reference table (`-r`) must be a tab-delimited file providing the following information (in the following order; no header):
+
+1. Motif ID:
+2. Group
+3. Collection
+
+The motif Ids in this reference table must be the same IDs as in the motif files, if this is not the case the program will stop.
+
+The collection names in the reference table must be the same as those in the matrix file table, if this is not the case the program will stop.
+
+Example: 
+```bash
+MA1404.1	BBR/BPC     JASPAR_plants
+MA1403.1	BBR/BPC     JASPAR_plants
+MA1402.1	BBR/BPC     JASPAR_plants
+MA1197.1	CAMTA       JASPAR_plants
+MA0969.1	CAMTA       JASPAR_plants
+MA0970.1	CAMTA       JASPAR_plants
+MA0975.1	AP2/EREBP   JASPAR_plants
+MA0976.2	AP2/EREBP   JASPAR_plants
+MA1376.1	AP2/EREBP   JASPAR_plants
+```
+
 
 
 
