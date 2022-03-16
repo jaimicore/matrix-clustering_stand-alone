@@ -153,19 +153,19 @@ out.folder.list <- list(tables = file.path(paste0(out.folder, "_tables")),
                         plots  = file.path(paste0(out.folder, "_plots")),
                         trees  = file.path(paste0(out.folder, "_trees")))
 
-output.files.list <- list("Alignment_table"     = file.path(out.folder.list$tables, "alignment_table.tab"),
-                          "Clusters_table"      = file.path(out.folder.list$tables, "clusters.tab"),
-                          "Distance_table"      = file.path(out.folder.list$tables, "distance_table.tab"),
-                          "Motif_compa"         = file.path(out.folder.list$tables, "pairwise_motif_comparison.tab"),
-                          "Cluster_colors"      = file.path(out.folder.list$tables, "cluster_color_map.tab"),
-                          "Motifs_transfac_tmp" = file.path(out.folder.list$motifs, "input_motifs_parsed_id.tf.tmp"),
-                          "Motifs_transfac"     = file.path(out.folder.list$motifs, "input_motifs_parsed_id.tf"),
-                          "Heatmap_clusters"    = file.path(out.folder.list$plots, "Heatmap_clusters.pdf"),
-                          "Heatmap_ARI"         = file.path(out.folder.list$plots, "Heatmap_ARI.pdf"),
-                          "hclust_all"          = file.path(out.folder.list$trees, "tree.RData"),
-                          "JSON_tree_all"       = file.path(out.folder.list$trees, "tree.json"),
-                          "Newick_tree_all"     = file.path(out.folder.list$trees, "tree.newick"),
-                          "Summary_table"       = file.path(out.folder.list$tables, "summary_table.tab"))
+output.files.list <- list("Alignment_table"       = file.path(out.folder.list$tables, "alignment_table.tab"),
+                          "Clusters_table"        = file.path(out.folder.list$tables, "clusters.tab"),
+                          "Distance_table"        = file.path(out.folder.list$tables, "distance_table.tab"),
+                          "Motif_compa"           = file.path(out.folder.list$tables, "pairwise_motif_comparison.tab"),
+                          "Cluster_colors"        = file.path(out.folder.list$tables, "cluster_color_map.tab"),
+                          "Summary_table"         = file.path(out.folder.list$tables, "summary_table.tab"),
+                          "Motifs_transfac_tmp"   = file.path(out.folder.list$motifs, "input_motifs_parsed_id.tf.tmp"),
+                          "Motifs_transfac"       = file.path(out.folder.list$motifs, "input_motifs_parsed_id.tf"),
+                          "Heatmap_clusters"      = file.path(out.folder.list$plots, "Heatmap_clusters.pdf"),
+                          "Clusters_vs_Reference" = file.path(out.folder.list$plots, "Clusters_vs_reference_contingency_table.pdf"),
+                          "hclust_all"            = file.path(out.folder.list$trees, "tree.RData"),
+                          "JSON_tree_all"         = file.path(out.folder.list$trees, "tree.json"),
+                          "Newick_tree_all"       = file.path(out.folder.list$trees, "tree.newick"))
 
 
 results.list <- list(Dist_table         = NULL,
@@ -240,7 +240,7 @@ if (params.list$ref_clusters) {
   reference.clusters.tab <- fread(reference.clusters.tab.file, header = FALSE) %>% 
                               dplyr::rename(ID         = V1,
                                             cluster    = V2,
-                                            collection = V3)
+                                            Collection = V3)
   
   ## Parse the motif ID in the 'Motif Information Table' (remove the numeric suffix) to create Ids with simlar format
   motif.id.parsed <- gsub(x = results.list$Motif_info_tab$id, pattern = "_n\\d+$", replacement = "")
@@ -549,11 +549,12 @@ if (params.list$min_output == FALSE) {
   if (params.list$ref_clusters) {
     
     message("; Drawing Adjusted Rand Index heatmap")
-    heatmap.ari <- draw.heatmap.ari(clusters.tab = clustering.ari$tab)
+    heatmap.ari <- draw.heatmap.clusters.vs.ref(clusters.tab = clustering.ari$tab,
+                                                comment      = paste0("ARI = ", round(clustering.ari$ARI, digits = 2)))
     
-    export.heatmap.ari(ht        = heatmap.ari,
-                       ht.matrix = clustering.ari$tab,
-                       pdf.file  = output.files.list$Heatmap_ARI)
+    export.heatmap.clusters.vs.ref(ht        = heatmap.ari,
+                                   ht.matrix = clustering.ari$tab,
+                                   pdf.file  = output.files.list$Clusters_vs_Reference)
     
   }
   
