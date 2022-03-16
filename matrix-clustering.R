@@ -44,21 +44,21 @@ option_list = list(
               help = "Export heatmap with clusters in PDF. [Default \"%default\"] ", metavar = "logical"), 
   
   make_option(c("--heatmap_color_palette"), type = "character", default = "RdGy", 
-              help = "Cell colors in heatmap. [Default: \"%default\"]. Options: any colorBrewer palette, see colorbrewer2.org", metavar = "character"),
+              help = "Cell colors in clusters heatmap. [Default: \"%default\"]. Options: any colorBrewer palette, see colorbrewer2.org for details", metavar = "character"),
   
   make_option(c("--color_palette_classes"), type = "numeric", default = 11, 
-              help = "Number of classes to create color palette. [Default: \"%default\"]. Options: any colorBrewer palette, see colorbrewer2.org", metavar = "number"),
+              help = "Number of classes to create color palette in clusters heatmap. [Default: \"%default\"]. Options: depends on the selected colorBrewer palette, see colorbrewer2.org for details", metavar = "number"),
   
-  make_option(c("--cor_th"), type = "numeric", default = 0.75, 
-              help = "Number of cores to run in parallel. [Default \"%default\"] ", metavar = "number"),
+  make_option(c("-c", "--cor_th"), type = "numeric", default = 0.75, 
+              help = "Pearson correlation threshold. [Default \"%default\"] ", metavar = "number"),
   
-  make_option(c("--Ncor_th"), type = "numeric", default = 0.55, 
-              help = "Number of cores to run in parallel. [Default \"%default\"] ", metavar = "number"),
+  make_option(c("-n", "--Ncor_th"), type = "numeric", default = 0.55, 
+              help = "Normalized Pearson correlation threshold. [Default \"%default\"] ", metavar = "number"),
   
-  make_option(c("--minimal_output"), type = "logical", default = FALSE, 
+  make_option(c("-m", "--minimal_output"), type = "logical", default = FALSE, 
               help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical"),
   
-  make_option(c("--reference_cluster_annotation"), type = "character", default = NULL, 
+  make_option(c("-r", "--reference_cluster_annotation"), type = "character", default = NULL, 
               help = "User defined cluster annotation tab, when this file is provided, this script will calculate the Adjusted Rand Index (ARI) of the resulting clusters. A tab-delimited file with two columns: 1) Motif ID and 2) Reference group. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "logical")
   
 );
@@ -237,8 +237,10 @@ results.list[["Original_matrix"]] <- data.table(as.data.frame.matrix(distances.o
 if (params.list$ref_clusters) {
   
   message('; Reading user-provided reference clusters table')
-  reference.clusters.tab <- fread(reference.clusters.tab.file)
-  colnames(reference.clusters.tab) <- c("ID", "cluster", "Collection")
+  reference.clusters.tab <- fread(reference.clusters.tab.file, header = FALSE) %>% 
+                              dplyr::rename(ID         = V1,
+                                            cluster    = V2,
+                                            collection = V3)
   
   ## Parse the motif ID in the 'Motif Information Table' (remove the numeric suffix) to create Ids with simlar format
   motif.id.parsed <- gsub(x = results.list$Motif_info_tab$id, pattern = "_n\\d+$", replacement = "")
