@@ -232,7 +232,8 @@ clusters.list.to.df <- function(clusters.list = NULL) {
 
 
 
-draw.heatmap.ari <- function(clusters.tab = NULL) {
+draw.heatmap.clusters.vs.ref <- function(clusters.tab = NULL,
+                                         comment      = "ARI = 0.5") {
   
   ## List of packages to install from CRAN
   required.packages = c("circlize",      
@@ -247,24 +248,18 @@ draw.heatmap.ari <- function(clusters.tab = NULL) {
   ## Convert the actual values into frequencies
   ## This helps to better detect the classes in the heatmap
   clusters.tab.mt <- as.data.frame.matrix(clusters.tab) %>%
-    dplyr::rename(Unkwnon = V1) %>% 
-    as.matrix() %>% 
-    t()
+                        dplyr::rename(Unkwnon = V1) %>% 
+                        as.matrix()
   
-  clusters.tab.perc <- apply(clusters.tab.mt, 1, function(cc){
-    cc.sum <- sum(cc)
-    cc/cc.sum
-  })
+  # clusters.tab.perc <- apply(clusters.tab.mt, 1, function(cc){
+  #   cc.sum <- sum(cc)
+  #   cc/cc.sum
+  # })
+  clusters.tab.perc <- clusters.tab.mt
   # clusters.tab.perc <- clusters.tab.perc[rev(rownames(clusters.tab.perc)),]
   
-  ## Heatmap cell colors, depending in the similarity metric
-  # largest.intersect.size <- max(clusters.tab.mt)
-  # nb.classes.ht <- ifelse(largest.intersect.size >= 100, yes = 100, no = largest.intersect.size) + 1
-  # palette <- rev(colorRampPalette(rev(brewer.pal(9, "Greys")), space = "Lab")(nb.classes.ht))
-  # col_fun <- colorRamp2(seq(0, largest.intersect.size, length.out = nb.classes.ht), palette)
-
-  palette <- rev(colorRampPalette(rev(brewer.pal(9, "PuRd")), space = "Lab")(100))
-  col_fun <- colorRamp2(seq(0, 1, length.out = 100), palette)
+  palette <- rev(colorRampPalette(rev(brewer.pal(9, "PuRd")), space = "Lab")(max(clusters.tab.perc)))
+  col_fun <- colorRamp2(seq(0, max(clusters.tab.perc), length.out = max(clusters.tab.perc)), palette)
   
   
   ## Sidebar annotations
@@ -273,15 +268,15 @@ draw.heatmap.ari <- function(clusters.tab = NULL) {
   colfun.ha   <- colorRamp2(seq(0, max.row.col, length.out = max.row.col + 1 ), palette.ha)
   
   
-  hac = HeatmapAnnotation(df                   = data.frame(Group_size = rowSums(clusters.tab.mt)),
+  hac = HeatmapAnnotation(df                   = data.frame(Group_size = colSums(clusters.tab.mt)),
                           col                  = list(Group_size = colfun.ha),
                           simple_anno_size     = unit(0.5, "cm"),
                           which                = "column",
                           show_legend          = FALSE,
                           show_annotation_name = TRUE,
-                          text                 = anno_text(rowSums(clusters.tab.mt), rot = 0, location = 3, just = "center", gp = gpar(fontsize = 5)))
+                          text                 = anno_text(colSums(clusters.tab.mt), rot = 0, location = 3, just = "center", gp = gpar(fontsize = 5)))
   
-  har = HeatmapAnnotation(df                      = data.frame(Group_size = colSums(clusters.tab.mt)),
+  har = HeatmapAnnotation(df                      = data.frame(Group_size = rowSums(clusters.tab.mt)),
                           col                     = list(Group_size = colfun.ha),
                           simple_anno_size        = unit(0.5, "cm"),
                           which                   = "row",
@@ -290,32 +285,34 @@ draw.heatmap.ari <- function(clusters.tab = NULL) {
                           annotation_legend_param = list(Group_size = list(direction      = "horizontal",
                                                                            legend_width   = unit(4, "cm"),
                                                                            title_position = "topcenter")),
-                          text = anno_text(colSums(clusters.tab.mt), location = -1.5, just = "center", gp = gpar(fontsize = 5)))
+                          text = anno_text(rowSums(clusters.tab.mt), location = -1.5, just = "center", gp = gpar(fontsize = 5)))
   
   ## Draw heatmap
-  ht1 = Heatmap(matrix            = clusters.tab.perc,
-                name              = "Fraction",
-                row_title         = "RSAT matrix-clustering", column_title_side = "top",
-                column_title      = "Reference groups",
-                col               = col_fun,
-                show_row_names    = TRUE,
-                show_column_names = TRUE,
-                cluster_rows      = TRUE,
-                show_row_dend     = FALSE,
-                cluster_columns   = TRUE,
-                show_column_dend  = FALSE,
-                rect_gp           = gpar(col = "white", lwd = 1),
-                column_names_rot  = 65,
-                bottom_annotation = hac,
-                right_annotation  = har, 
+  ht1 = Heatmap(matrix                  = clusters.tab.perc,
+                name                    = "Fraction",
+                row_title               = "RSAT matrix-clustering",
+                column_title            = paste0("Reference groups - ", comment),
+                column_title_side       = "top",
+                col                     = col_fun,
+                show_row_names          = TRUE,
+                show_column_names       = TRUE,
+                cluster_rows            = TRUE,
+                show_row_dend           = FALSE,
+                cluster_columns         = TRUE,
+                show_column_dend        = FALSE,
+                rect_gp                 = gpar(col = "white", lwd = 1),
+                column_names_rot        = 65,
+                bottom_annotation       = hac,
+                right_annotation        = har, 
                 column_names_max_height = max_text_width(colnames(clusters.tab.perc), gp = gpar(fontsize = 10)),
-                row_names_gp      = gpar(fontsize = 13),
-                heatmap_legend_param = list(direction      = "horizontal", 
-                                            legend_width   = unit(4, "cm"),
-                                            title_position = "topcenter"),
+                row_names_gp            = gpar(fontsize = 13),
+                heatmap_legend_param    = list(direction      = "horizontal", 
+                                               legend_width   = unit(4, "cm"),
+                                               title_position = "topcenter"),
                 cell_fun          = function(j, i, x, y, width, height, fill) {
                   if (clusters.tab.perc[i, j] > 0) {
-                    grid.text(sprintf("%.2f", clusters.tab.perc[i, j]), x, y, gp = gpar(fontsize = 5))
+                    # grid.text(sprintf("%.2f", clusters.tab.perc[i, j]), x, y, gp = gpar(fontsize = 5))
+                    grid.text(clusters.tab.perc[i, j], x, y, gp = gpar(fontsize = 5))
                   }
                 })
   
@@ -329,15 +326,15 @@ draw.heatmap.ari <- function(clusters.tab = NULL) {
 
 ## Export a ComplexHeatmap object as a PDF. Precalculates the size to generate
 ## cells with same height and width
-export.heatmap.ari <- function(ht        = NULL,
-                               ht.matrix = NULL,
-                               pdf.file  = NULL) {
+export.heatmap.clusters.vs.ref <- function(ht        = NULL,
+                                           ht.matrix = NULL,
+                                           pdf.file  = NULL) {
   
-  nb.rows.ari.ht <- nrow(ht.matrix)
-  nb.cols.ari.ht <- ncol(ht.matrix)
+  nb.rows.contingecy.cl.vs.ref <- nrow(ht.matrix)
+  nb.cols.contingecy.cl.vs.ref <- ncol(ht.matrix)
   y              <- NULL
   
-  for (nr in c(nb.rows.ari.ht, nb.rows.ari.ht * 2)) {
+  for (nr in c(nb.rows.contingecy.cl.vs.ref, nb.rows.contingecy.cl.vs.ref * 2)) {
     
     heatmap.ari.draw <- draw(ht, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", height = unit(5, "mm") * nr, gap = unit(50, "mm"))
     ht_height        <- sum(component_height(heatmap.ari.draw)) + unit(4, "mm")
@@ -345,14 +342,14 @@ export.heatmap.ari <- function(ht        = NULL,
     y                <- c(y, ht_height)
     dev.off()
   }
-  lm.xy <- lm(y ~ c(nb.rows.ari.ht, nb.rows.ari.ht*2))
+  lm.xy <- lm(y ~ c(nb.rows.contingecy.cl.vs.ref, nb.rows.contingecy.cl.vs.ref * 2))
   
   
-  message("; Exporting ARI heatmap as PDF file: ", pdf.file)
+  message("; Exporting cluster vs Reference contingency table as PDF file: ", pdf.file)
   ht_opt$message = FALSE
   pdf(file   = pdf.file,
       width  = ht_height/3.5,
-      height = as.vector(lm.xy$coefficients[2]) * nb.rows.ari.ht + as.vector(lm.xy$coefficients[1]))
-  draw(ht, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", height = unit(5, "mm") * nb.rows.ari.ht, gap = unit(50, "mm"))
+      height = as.vector(lm.xy$coefficients[2]) * nb.rows.contingecy.cl.vs.ref + as.vector(lm.xy$coefficients[1]))
+  draw(ht, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", height = unit(5, "mm") * nb.rows.contingecy.cl.vs.ref, gap = unit(50, "mm"))
   dev.off()
 }
