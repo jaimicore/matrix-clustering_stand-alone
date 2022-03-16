@@ -170,15 +170,15 @@ Input motifs may be in different formats.
 Example:
 
 ```bash
-data/OCT4_datasets/HOMER_OCT4_motifs.homer    HOMER	  homer
-data/OCT4_datasets/MEME_OCT4_motifs.meme      MEME	  meme
-data/OCT4_datasets/RSAT_OCT4_motifs.tf        RSAT	  tf
+data/OCT4_datasets/HOMER_OCT4_motifs.homer    HOMER_motifs	  homer
+data/OCT4_datasets/MEME_OCT4_motifs.meme      MEME_motifs	  meme
+data/OCT4_datasets/RSAT_OCT4_motifs.tf        RSAT_motifs	  tf
 ```
 
 
 ### Reference groups table (Optional)
 
-Users can provide a reference table that will be used to compare it against the resulting clusters (i.e., how good the resulting clusters resemble the reference groupd). When this file is provided the ARI will be calculated.
+Users can provide a reference table that will be used to compare it against the resulting clusters (i.e., how good the resulting clusters resemble the reference groupes). When this file is provided the ARI will be calculated.
 
 The reference table (`-r`) must be a tab-delimited file providing the following information (in the following order; no header):
 
@@ -186,7 +186,7 @@ The reference table (`-r`) must be a tab-delimited file providing the following 
 2. Group
 3. Collection
 
-The motif Ids in this reference table must be the same IDs as in the motif files, if this is not the case the program will stop.
+The motif IDs in this reference table must be the same IDs as in the motif files, if this is not the case the program will stop.
 
 The collection names in the reference table must be the same as those in the matrix file table, if this is not the case the program will stop.
 
@@ -232,8 +232,23 @@ results
 
 ### Example 1
 
+The analysis produces the file named `alignment_table.tab` which contains one line per motif with its corresponding cluster name, orientation in the alignment, the number of upstream/downstream gaps, the aligned consensus, and the alignment width.
+
+```bash
+cluster	    id	                        name                consensus         rc_consensus      strand  offset_up offset_down aligned_consensus    alignment_width
+
+cluster_01  MEME_MEME_ChIP_1_n1         MEME_ChIP_1         ATGYWAA             TTWRCAT             R   7         10  -------TTWRCAT----------	24
+cluster_01  MEME_MEME_ChIP_15_n15       MEME_ChIP_15        TATGCAAAT           ATTTGCATA           R   6         9   ------ATTTGCATA---------	24
+cluster_01  RSAT_local_words_7nt_m3_n7  local_words_7nt_m3  NNATATGCAAATNN      NNATTTGCATATNN      R   4         6   ----NNATTTGCATATNN------	24
+cluster_01  RSAT_oligos_7nt_mkv5_m1_n1  oligos_7nt_mkv5_m1  NNATGCAAATNN        NNATTTGCATNN        R   4         8   ----NNATTTGCATNN--------	24
+cluster_01  RSAT_local_words_7nt_m2_n6  local_words_7nt_m2  NHATTTGCATAACAAWNN  NNWTTGTTATGCAAATDN  D   4         2   ----NHATTTGCATAACAAWNN--	24
+cluster_01  HOMER_homer_1_n1            homer_1             YWTTNWNATGCAAA      TTTGCATNWNAAWR      R   7         3   -------TTTGCATNWNAAWR---	24
+```
+
 
 ### Example 2
+
+
 
 
 
