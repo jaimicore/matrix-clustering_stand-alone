@@ -133,7 +133,7 @@ Rscript matrix-clustering.R                         \
   -r data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab 
 ```
 
-## Input files
+## :scroll: Input files
 
 ### Motifs (Mandatory)
 
@@ -203,6 +203,37 @@ MA0976.2	AP2/EREBP   JASPAR_plants
 MA1376.1	AP2/EREBP   JASPAR_plants
 ```
 
+
+## :crystal_ball: Example output:
+
+This is the folder structure after running this software:
+
+```bash
+results
+├── *_motifs
+│   └── Two files per motif (direct and reverse orientation) in transfac format, these motifs are already aligned (may contain gaps).
+│
+├── *_plots
+│   ├── Clusters_vs_reference_contingency_table.pdf
+│   └── Heatmap_clusters.pdf
+│   
+├── *_tables
+│   ├── alignment_table.tab
+│   ├── clusters.tab
+│   ├── distance_table.tab
+│   ├── pairwise_motif_comparison.tab
+│   └── summary_table.tab
+│
+└── *_trees
+    ├── tree.json
+    ├── tree.newick
+    └── tree.RData
+```
+
+### Example 1
+
+
+### Example 2
 
 
 
