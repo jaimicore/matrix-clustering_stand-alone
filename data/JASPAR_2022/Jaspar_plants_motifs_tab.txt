@@ -1,1 +1,1 @@
-/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_2022_plants.tf	JASPAR_plants	tf
+data/JASPAR_2022/Jaspar_2022_plants.tf	JASPAR_plants	tf
