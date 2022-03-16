@@ -25,7 +25,7 @@ The graphical output (interactive trees and heatmaps will be added soon).
 
 
 
-## Install required software
+## :computer: Install required software
 
 
 ### Download this repository
@@ -100,7 +100,7 @@ This should print the help to run `compare-matrices-quick` and the exaplanation 
 
 
 
-## Qucikstart
+## :arrow_forward: Qucikstart
 
 Assuming you are in the root of the repository folder you can run the following examples. The input files are part of the repository, they are found in the folder `data`.
 
@@ -135,7 +135,7 @@ Rscript matrix-clustering.R                         \
 
 
 
-## Arguments and Options
+## :wrench: Arguments and Options
 
 
 ### Mandatory arguments
@@ -179,7 +179,7 @@ Rscript matrix-clustering.R                         \
   
   
   
-## Contact + Report issues :collision:
+## :collision: Contact + Report issues 
 
 This repository is maintained by [Jaime A Castro-Mondragon](https://jaimicore.github.io/)
 
@@ -191,7 +191,7 @@ Use this space to report [issues](https://github.com/jaimicore/matrix-clustering
 
 
 
-## To Do/Wishlist :pushpin:
+## :pushpin: To Do/Wishlist
 
 - When calculating the ARI, implement an option to find an optimal threshold thorugh a grid search approach.
 - Generate the interactive `html` output motif trees.
@@ -202,7 +202,7 @@ Use this space to report [issues](https://github.com/jaimicore/matrix-clustering
 
 
 
-## Acknowledgements
+## :tada: Acknowledgements
 
 We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](http://rsat-tagc.univ-mrs.fr/rsat/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs :beetle:.
 
@@ -210,7 +210,7 @@ Special thanks to my colleagues Ieva Rauluseviciute (and her *gently reminders* 
 
 
 
-## How to cite this software?
+## :page_with_curl: How to cite this software?
 
 If you use this software, please cite [its own publication](https://doi.org/10.1093/nar/gkx314) and/or the [latest *RSAT* publication](https://doi.org/10.1093/nar/gky317).
 
