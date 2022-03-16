@@ -198,7 +198,7 @@ calculate.ARI <- function(matrix.clustering.clusters = NULL,
   if (!require("flexclust")) {
     install.packages("flexclust")
   }
-  suppressPackageStartupMessages(library("RJSONIO", character.only = TRUE, quietly = TRUE))
+  suppressPackageStartupMessages(library("flexclust", character.only = TRUE, quietly = TRUE))
   
   
   ## Combine matrix-clustering with reference-cluster tables
