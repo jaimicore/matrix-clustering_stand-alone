@@ -55,7 +55,7 @@ option_list = list(
   make_option(c("-n", "--Ncor_th"), type = "numeric", default = 0.55, 
               help = "Normalized Pearson correlation threshold. [Default \"%default\"] ", metavar = "number"),
   
-  make_option(c("-m", "--minimal_output"), type = "logical", default = FALSE, 
+  make_option(c("-M", "--minimal_output"), type = "logical", default = FALSE, 
               help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical"),
   
   make_option(c("-r", "--reference_cluster_annotation"), type = "character", default = NULL, 
