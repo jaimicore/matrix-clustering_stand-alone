@@ -19,18 +19,6 @@ P0       A     C     G     T
 13   2117.7 293.22 756.58 452.5
 14   2986.5 126.7 238.92 267.88
 XX
-CC  program: Homer
-CC  matching_sequences: 3121
-CC  sequence_coverage: 33.93
-CC  B: 638.0(3.19%)
-CC  P: 1e-1086
-CC  Tstd: 78.0
-CC  Bpos: 178.6
-CC  Bstd: 119.1
-CC  StrandBias: 0.1
-CC  multiplicity: 1.16
-CC  nb_sites: 3620
-CC  matrix.nb: 1
 XX
 //
 AC  homer_2
@@ -54,18 +42,6 @@ P0       A     C     G     T
 13   2667.35 486.02 2453.26 179.37
 14   2661.56 1284.49 1481.22 358.73
 XX
-CC  program: Homer
-CC  matching_sequences: 4223
-CC  sequence_coverage: 45.91
-CC  B: 3822.0(19.08%)
-CC  P: 1e-475
-CC  Tstd: 116.9
-CC  Bpos: 177.4
-CC  Bstd: 117.6
-CC  StrandBias: 0.0
-CC  multiplicity: 1.37
-CC  nb_sites: 5786
-CC  matrix.nb: 9
 XX
 //
 AC  homer_3
@@ -89,18 +65,6 @@ P0       A     C     G     T
 13     414 1841.6 2790.96 2091.43
 14   499.66 3583.28 1841.6 1213.46
 XX
-CC  program: Homer
-CC  matching_sequences: 4696
-CC  sequence_coverage: 51.05
-CC  B: 4743.0(23.68%)
-CC  P: 1e-457
-CC  Tstd: 115.2
-CC  Bpos: 172.9
-CC  Bstd: 115.4
-CC  StrandBias: -0.1
-CC  multiplicity: 1.52
-CC  nb_sites: 7138
-CC  matrix.nb: 11
 XX
 //
 AC  homer_4
@@ -124,18 +88,6 @@ P0       A     C     G     T
 13   82.88 132.61 203.57 98.94
 14   123.8 109.82 138.31 146.08
 XX
-CC  program: Homer
-CC  matching_sequences: 435
-CC  sequence_coverage: 4.73
-CC  B: 73.0(0.36%)
-CC  P: 1e-143
-CC  Tstd: 102.8
-CC  Bpos: 153.2
-CC  Bstd: 90.3
-CC  StrandBias: 0.0
-CC  multiplicity: 1.19
-CC  nb_sites: 518
-CC  matrix.nb: 17
 XX
 //
 AC  homer_5
@@ -159,18 +111,6 @@ P0       A     C     G     T
 13    31.2    96 154.08 198.72
 14    79.2 154.08 246.24  0.48
 XX
-CC  program: Homer
-CC  matching_sequences: 436
-CC  sequence_coverage: 4.74
-CC  B: 195.0(0.97%)
-CC  P: 1e-84
-CC  Tstd: 94.9
-CC  Bpos: 148.6
-CC  Bstd: 110.8
-CC  StrandBias: -0.0
-CC  multiplicity: 1.10
-CC  nb_sites: 480
-CC  matrix.nb: 20
 XX
 //
 AC  homer_6
@@ -194,18 +134,6 @@ P0       A     C     G     T
 13    35.1  7.02 21.06 206.82
 14    0.27  0.27 269.19  0.27
 XX
-CC  program: Homer
-CC  matching_sequences: 270
-CC  sequence_coverage: 2.94
-CC  B: 84.0(0.42%)
-CC  P: 1e-67
-CC  Tstd: 92.2
-CC  Bpos: 176.8
-CC  Bstd: 125.8
-CC  StrandBias: -0.1
-CC  multiplicity: 1.00
-CC  nb_sites: 270
-CC  matrix.nb: 21
 XX
 //
 AC  homer_7
@@ -229,18 +157,6 @@ P0       A     C     G     T
 13   25.02 140.02 12.33  6.62
 14   121.07 31.28 18.95  12.7
 XX
-CC  program: Homer
-CC  matching_sequences: 180
-CC  sequence_coverage: 1.96
-CC  B: 50.0(0.25%)
-CC  P: 1e-47
-CC  Tstd: 130.3
-CC  Bpos: 203.7
-CC  Bstd: 128.0
-CC  StrandBias: 1.3
-CC  multiplicity: 1.02
-CC  nb_sites: 184
-CC  matrix.nb: 24
 XX
 //
 AC  homer_8
@@ -264,18 +180,6 @@ P0       A     C     G     T
 13   26.32 38.25  1.38 87.06
 14   38.25 34.27   2.6 77.88
 XX
-CC  program: Homer
-CC  matching_sequences: 144
-CC  sequence_coverage: 1.57
-CC  B: 24.0(0.12%)
-CC  P: 1e-47
-CC  Tstd: 105.3
-CC  Bpos: 177.0
-CC  Bstd: 114.9
-CC  StrandBias: 0.3
-CC  multiplicity: 1.06
-CC  nb_sites: 153
-CC  matrix.nb: 25
 XX
 //
 AC  homer_9
@@ -299,18 +203,6 @@ P0       A     C     G     T
 13   77.76  0.15 31.75 37.34
 14    27.2 32.34  6.32 81.14
 XX
-CC  program: Homer
-CC  matching_sequences: 141
-CC  sequence_coverage: 1.53
-CC  B: 24.0(0.12%)
-CC  P: 1e-46
-CC  Tstd: 67.5
-CC  Bpos: 168.6
-CC  Bstd: 99.0
-CC  StrandBias: -0.1
-CC  multiplicity: 1.04
-CC  nb_sites: 147
-CC  matrix.nb: 26
 XX
 //
 AC  homer_10
@@ -330,18 +222,6 @@ P0       A     C     G     T
 9    3081.19 10.52 10.52 7413.78
 10   189.29 1987.52 6751.27 1587.92
 XX
-CC  program: Homer
-CC  matching_sequences: 6114
-CC  sequence_coverage: 66.47
-CC  B: 6007.0(29.99%)
-CC  P: 1e-1129
-CC  Tstd: 117.6
-CC  Bpos: 177.6
-CC  Bstd: 119.2
-CC  StrandBias: -0.0
-CC  multiplicity: 1.72
-CC  nb_sites: 10516
-CC  matrix.nb: 31
 XX
 //
 AC  homer_11
@@ -361,18 +241,6 @@ P0       A     C     G     T
 9    2434.33 1767.9  9.26 5044.52
 10    9.26 3174.81 4091.15 1980.78
 XX
-CC  program: Homer
-CC  matching_sequences: 5785
-CC  sequence_coverage: 62.89
-CC  B: 5667.0(28.29%)
-CC  P: 1e-1032
-CC  Tstd: 117.3
-CC  Bpos: 178.4
-CC  Bstd: 120.0
-CC  StrandBias: -0.0
-CC  multiplicity: 1.60
-CC  nb_sites: 9256
-CC  matrix.nb: 32
 XX
 //
 AC  homer_12
@@ -392,18 +260,6 @@ P0       A     C     G     T
 9    5195.52  9.84 4624.8  9.84
 10   3099.6  9.84 6720.72  9.84
 XX
-CC  program: Homer
-CC  matching_sequences: 5623
-CC  sequence_coverage: 61.13
-CC  B: 5505.0(27.48%)
-CC  P: 1e-986
-CC  Tstd: 123.2
-CC  Bpos: 166.8
-CC  Bstd: 113.7
-CC  StrandBias: 0.0
-CC  multiplicity: 1.75
-CC  nb_sites: 9840
-CC  matrix.nb: 33
 XX
 //
 AC  homer_13
@@ -423,18 +279,6 @@ P0       A     C     G     T
 9    2049.83  2.06  2.06  2.06
 10   571.57  2.06  51.4 1430.98
 XX
-CC  program: Homer
-CC  matching_sequences: 1742
-CC  sequence_coverage: 18.94
-CC  B: 528.0(2.64%)
-CC  P: 1e-900
-CC  Tstd: 83.0
-CC  Bpos: 174.9
-CC  Bstd: 111.2
-CC  StrandBias: -0.0
-CC  multiplicity: 1.18
-CC  nb_sites: 2056
-CC  matrix.nb: 34
 XX
 //
 AC  homer_14
@@ -454,18 +298,6 @@ P0       A     C     G     T
 9    3094.94 1224.46 1825.42 1374.7
 10   2591.64 676.08 2681.78 1562.5
 XX
-CC  program: Homer
-CC  matching_sequences: 5253
-CC  sequence_coverage: 57.11
-CC  B: 5141.0(25.67%)
-CC  P: 1e-884
-CC  Tstd: 119.5
-CC  Bpos: 179.8
-CC  Bstd: 120.6
-CC  StrandBias: 0.0
-CC  multiplicity: 1.43
-CC  nb_sites: 7512
-CC  matrix.nb: 35
 XX
 //
 AC  homer_15
@@ -485,18 +317,6 @@ P0       A     C     G     T
 9    59.35 756.74 3773.8 356.11
 10   1038.66 1681.64 1256.28 969.42
 XX
-CC  program: Homer
-CC  matching_sequences: 3637
-CC  sequence_coverage: 39.54
-CC  B: 2709.0(13.52%)
-CC  P: 1e-832
-CC  Tstd: 115.0
-CC  Bpos: 177.0
-CC  Bstd: 117.5
-CC  StrandBias: -0.0
-CC  multiplicity: 1.36
-CC  nb_sites: 4946
-CC  matrix.nb: 36
 XX
 //
 AC  homer_16
@@ -516,18 +336,6 @@ P0       A     C     G     T
 9    3068.88 961.04  4.04  4.04
 10   2144.18 682.42 1207.36  4.04
 XX
-CC  program: Homer
-CC  matching_sequences: 3059
-CC  sequence_coverage: 33.26
-CC  B: 2926.0(14.61%)
-CC  P: 1e-437
-CC  Tstd: 132.3
-CC  Bpos: 175.4
-CC  Bstd: 114.5
-CC  StrandBias: -0.0
-CC  multiplicity: 1.32
-CC  nb_sites: 4038
-CC  matrix.nb: 37
 XX
 //
 AC  homer_17
@@ -547,18 +355,6 @@ P0       A     C     G     T
 9     25.5  25.5  25.5 178.5
 10    25.5  25.5 178.5  25.5
 XX
-CC  program: Homer
-CC  matching_sequences: 228
-CC  sequence_coverage: 2.48
-CC  B: 5.0(0.02%)
-CC  P: 1e-360
-CC  Tstd: 142.5
-CC  Bpos: 147.0
-CC  Bstd: 106.6
-CC  StrandBias: 0.3
-CC  multiplicity: 1.12
-CC  nb_sites: 255
-CC  matrix.nb: 38
 XX
 //
 AC  homer_18
@@ -578,18 +374,6 @@ P0       A     C     G     T
 9    201.6  28.8  28.8  28.8
 10   201.6  28.8  28.8  28.8
 XX
-CC  program: Homer
-CC  matching_sequences: 280
-CC  sequence_coverage: 3.04
-CC  B: 24.0(0.12%)
-CC  P: 1e-279
-CC  Tstd: 135.4
-CC  Bpos: 143.9
-CC  Bstd: 111.9
-CC  StrandBias: -0.3
-CC  multiplicity: 1.03
-CC  nb_sites: 288
-CC  matrix.nb: 39
 XX
 //
 AC  homer_19
@@ -609,18 +393,6 @@ P0       A     C     G     T
 9     0.59 586.24  0.59  0.59
 10   482.75 34.69 36.46  34.1
 XX
-CC  program: Homer
-CC  matching_sequences: 486
-CC  sequence_coverage: 5.28
-CC  B: 167.0(0.83%)
-CC  P: 1e-217
-CC  Tstd: 99.5
-CC  Bpos: 174.3
-CC  Bstd: 111.5
-CC  StrandBias: 0.0
-CC  multiplicity: 1.21
-CC  nb_sites: 588
-CC  matrix.nb: 40
 XX
 //
 
