@@ -475,10 +475,6 @@ tf.empty.row <- function(nb = 1) {
 
 
 
-###############
-###############
-
-
 ## Add a given number of gaps (rows with 0s) to a transfac file containing a single motif
 add.gaps.transfac.motif <- function(tf.file.in  = NULL,
                                     gap.up      = 0,
@@ -599,7 +595,7 @@ reconstruct.transfac.file.vector <- function(AC  = NULL,
 
 
 
-
+## Returns a table with the motifs that need to be modified by adding gaps (empty rows)
 add.gaps.to.indiv.tf.files <- function(motif.folder = NULL,
                                        gap.info     = NULL){
   
@@ -629,23 +625,37 @@ add.gaps.to.indiv.tf.files <- function(motif.folder = NULL,
                                    id     = gsub(basename(transfac.files.r), pattern = "_oriented.+$", replacement = "")))
   
   gap.file.tab <- gap.file.tab %>% 
-    left_join(gap.info, by = "id") %>% 
-    rename(strand = strand.x) %>% 
-    select(file, strand, offset_up, offset_down) %>% 
-    data.table()
+                    left_join(gap.info, by = "id") %>% 
+                    rename(strand = strand.x) %>% 
+                    select(file, strand, offset_up, offset_down) %>% 
+                    data.table()
   
   
   ## Invert the offsets for the motifs in reverse complement
   gap.file.tab.list <- split(gap.file.tab, f = gap.file.tab$strand)
-  tmp.off <- gap.file.tab.list$R$offset_up
+  tmp.off                         <- gap.file.tab.list$R$offset_up
   gap.file.tab.list$R$offset_up   <- gap.file.tab.list$R$offset_down
   gap.file.tab.list$R$offset_down <- tmp.off
   gap.file.tab <- rbindlist(gap.file.tab.list) %>% 
-    data.table()
+                      data.table()
   
   ## Restrict the table to those motifs that need gaps
   gap.file.tab <- gap.file.tab %>% 
-    dplyr::filter(offset_up != 0 & offset_down != 0)
+                    mutate(sum_gaps = offset_up + offset_down) %>% 
+                    dplyr::filter(sum_gaps > 0) %>% 
+                    within(rm(sum_gaps))
   
   return(gap.file.tab)
 }
+
+
+
+
+## Function to read transfac files
+# read.transfac.file <- function(tf.file.in  = NULL) {
+# 
+#   
+# }
+
+
+# read_transfac()
