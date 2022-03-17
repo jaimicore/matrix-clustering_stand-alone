@@ -260,14 +260,15 @@ cluster_04  RSAT_oligos_7nt_mkv5_m3_n3                                      olig
 
 If the option `--export_heatmap TRUE` is indicated the file `Heatmap_clusters.pdf` will be generated. This is a heatmap of `N x N` where N is the number of motifs, each cell represents the motif similarity. The color annotation bar corresponds to the clusters. 
 
-![Clusters heatmap](data/images/Heatmap_clusters.jpeg){width = 300 height = 200}
-
-
+<img src="data/images/Heatmap_clusters.jpeg" width="750px" align="center">
 
 
 
 ### Example 2
 
+When the users provide a reference annotation table (argument `-r` or `--reference_cluster_annotation`) the script will produce a contingency table comparing the resulting clusters and the reference groups, this table is visualized as a heatmap in the file `Clusters_vs_reference_contingency_table.pdf`.
+
+<img src="data/images/Clusters_vs_reference_contingency_table.jpeg" width="700px" align="center">
 
 
 
