@@ -235,15 +235,35 @@ results
 The analysis produces the file named `alignment_table.tab` which contains one line per motif with its corresponding cluster name, orientation in the alignment, the number of upstream/downstream gaps, the aligned consensus, and the alignment width.
 
 ```bash
-cluster	    id	                        name                consensus         rc_consensus      strand  offset_up offset_down aligned_consensus    alignment_width
+cluster	    id	                        name                consensus         rc_consensus                  strand  offset_up offset_down aligned_consensus    alignment_width
 
-cluster_01  MEME_MEME_ChIP_1_n1         MEME_ChIP_1         ATGYWAA             TTWRCAT             R   7         10  -------TTWRCAT----------	24
-cluster_01  MEME_MEME_ChIP_15_n15       MEME_ChIP_15        TATGCAAAT           ATTTGCATA           R   6         9   ------ATTTGCATA---------	24
-cluster_01  RSAT_local_words_7nt_m3_n7  local_words_7nt_m3  NNATATGCAAATNN      NNATTTGCATATNN      R   4         6   ----NNATTTGCATATNN------	24
-cluster_01  RSAT_oligos_7nt_mkv5_m1_n1  oligos_7nt_mkv5_m1  NNATGCAAATNN        NNATTTGCATNN        R   4         8   ----NNATTTGCATNN--------	24
-cluster_01  RSAT_local_words_7nt_m2_n6  local_words_7nt_m2  NHATTTGCATAACAAWNN  NNWTTGTTATGCAAATDN  D   4         2   ----NHATTTGCATAACAAWNN--	24
-cluster_01  HOMER_homer_1_n1            homer_1             YWTTNWNATGCAAA      TTTGCATNWNAAWR      R   7         3   -------TTTGCATNWNAAWR---	24
+cluster_01  RSAT_positions_7nt_m1_n9    positions_7nt_m1    NNATTTGCATATGCAAATNN    NNATTTGCATATGCAAATNN    R       4         0   ----NNATTTGCATATGCAAATNN	24
+cluster_01  MEME_MEME_ChIP_1_n1         MEME_ChIP_1         ATGYWAA                 TTWRCAT                 R       7         10  -------TTWRCAT----------	24
+cluster_01  MEME_MEME_ChIP_15_n15       MEME_ChIP_15        TATGCAAAT               ATTTGCATA               R       6         9   ------ATTTGCATA---------	24
+cluster_01  RSAT_local_words_7nt_m3_n7  local_words_7nt_m3  NNATATGCAAATNN          NNATTTGCATATNN          R       4         6   ----NNATTTGCATATNN------	24
+cluster_01  RSAT_oligos_7nt_mkv5_m1_n1  oligos_7nt_mkv5_m1  NNATGCAAATNN            NNATTTGCATNN            R       4         8   ----NNATTTGCATNN--------	24
+cluster_01  RSAT_local_words_7nt_m2_n6  local_words_7nt_m2  NHATTTGCATAACAAWNN      NNWTTGTTATGCAAATDN      D       4         2   ----NHATTTGCATAACAAWNN--	24
+cluster_01  HOMER_homer_1_n1            homer_1             YWTTNWNATGCAAA          TTTGCATNWNAAWR          R       7         3   -------TTTGCATNWNAAWR---	24
+cluster_01  RSAT_local_words_7nt_m4_n8  local_words_7nt_m4  NNATTGTTATGCATAACAATNN  NNATTGTTATGCATAACAATNN  D       0         2   NNATTGTTATGCATAACAATNN--	24
 ```
+
+
+The file `clusters.tab` contains one line per cluster with the motifs IDs and names. 
+
+```bash
+cluster     id                                                              name
+cluster_01  MEME_MEME_ChIP_3_n3,RSAT_oligos_7nt_mkv5_m4_n4,HOMER_homer_9_n9 MEME_ChIP_3,oligos_7nt_mkv5_m4,homer_9
+cluster_02  HOMER_homer_6_n6,HOMER_homer_16_n16,HOMER_homer_18_n18          homer_6,homer_16,homer_18
+cluster_03  MEME_MEME_ChIP_4_n4,MEME_MEME_ChIP_7_n7                         MEME_ChIP_4,MEME_ChIP_7
+cluster_04  RSAT_oligos_7nt_mkv5_m3_n3                                      oligos_7nt_mkv5_m3
+```
+
+If the option `--export_heatmap TRUE` is indicated the file `Heatmap_clusters.pdf` will be generated. This is a heatmap of `N x N` where N is the number of motifs, each cell represents the motif similarity. The color annotation bar corresponds to the clusters. 
+
+![Clusters heatmap](data/images/Heatmap_clusters.jpeg){width = 300 height = 200}
+
+
+
 
 
 ### Example 2
