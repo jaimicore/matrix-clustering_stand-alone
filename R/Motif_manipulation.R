@@ -650,12 +650,96 @@ add.gaps.to.indiv.tf.files <- function(motif.folder = NULL,
 
 
 
+## Read a transfac file and returns a list containing a count matrix in each element
+concat.matrices <- function(um.object = NULL) {
+  
+  ## Calculate length of input motifs and check they have the same width
+  motifs.length <- purrr::map_dbl(.x = um.object, `[`, .f = ~nchar(.x@consensus))
+  
+  if (length(unique(motifs.length)) != 1) {
+    stop("The input motifs must have the same length before being merged.")
+  }
+  
+  count.matrices <- purrr::map(.x = um.object, `[`, .f = ~.x@motif)
+  
+  return(count.matrices)
+}
 
-## Function to read transfac files
-# read.transfac.file <- function(tf.file.in  = NULL) {
-# 
-#   
-# }
 
 
-# read_transfac()
+
+## Return a merged count matrix
+## count.matrix.list is the output of the function 'concat.matrices'
+reduce.count.matrix.list <- function(count.matrix.list = NULL,
+                                     merge.method      = "sum",
+                                     normalize.counts  = FALSE,
+                                     normalize.factor  = 100) {
+  
+  ## Check that the combine method is supported
+  supported.methods <- c("sum", "average")
+  
+  if (!merge.method %in% supported.methods) {
+    stop("Combine method not recognized. Supported methods: ", paste(supported.methods, collapse = ", "))
+    
+  }
+  
+  
+  
+  ## Merge the count matrix according to the indicated method
+  if (merge.method == "sum") {
+    
+    count.matrix.reduced <- Reduce('+', count.matrix.list)
+    
+  } else if (merge.method == "average") {
+    
+    count.matrix.reduced <- Reduce('+', count.matrix.list) / length(count.matrix.list)
+    
+  }
+  
+  colnames(count.matrix.reduced) <- NULL 
+  count.matrix.reduced          <- round(count.matrix.reduced)
+  
+  
+  ## Normalize the counts to a given factor (number)
+  ## This may be needed because after merging the motifs some columns may not have the same sum
+  if (normalize.counts) {
+    
+    ## Check the normalize factor is a numeric value
+    if (!is.numeric(normalize.factor) |
+        is.null(normalize.factor)    |
+        is.na(normalize.factor)      |
+        normalize.factor < 1 ) {
+      stop("The normalize factor must be a positive round number")
+    }
+    normalize.factor <- round(normalize.factor)
+    
+    
+    ## Normalize the matrix
+    count.matrix.reduced.norm <- round(scale(count.matrix.reduced,
+                                             center = FALSE,
+                                             scale  = colSums(count.matrix.reduced)) * normalize.factor)
+    count.matrix.reduced      <- count.matrix.reduced.norm
+  }
+  
+  return(data.table(count.matrix.reduced))
+}
+
+
+
+## Calculate the IC of each positon of a count matrix
+calculate.col.IC.count.matrix <- function(count.matrix = matrix(rep(c(10,0,0,0), times = 6), nrow = 6)) {
+  
+  ## Convert count -> frequency matrix
+  freq.matrix <- scale(count.matrix,
+                       center = FALSE,
+                       scale  = colSums(count.matrix)) 
+  
+  freq.matrix.log2 <- -log2(freq.matrix)
+  freq.matrix.log2[is.infinite(freq.matrix.log2)] <- 0
+  
+  ## total IC - Sum of p(x) * log2(p(x))
+  ## DNA alphabet = IC 2
+  2 - colSums(Reduce("*", list(freq.matrix, freq.matrix.log2)))
+  
+}
+
