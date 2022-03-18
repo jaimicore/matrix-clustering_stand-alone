@@ -148,10 +148,14 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 ## Initialize output + result lists + create output folders ##
 ##############################################################
 
-out.folder.list <- list(tables = file.path(paste0(out.folder, "_tables")),
-                        motifs = file.path(paste0(out.folder, "_motifs")),
-                        plots  = file.path(paste0(out.folder, "_plots")),
-                        trees  = file.path(paste0(out.folder, "_trees")))
+out.folder.list <- list(tables         = file.path(paste0(out.folder, "_tables")),
+                        plots          = file.path(paste0(out.folder, "_plots")),
+                        trees          = file.path(paste0(out.folder, "_trees")),
+                        motifs         = file.path(paste0(out.folder, "_motifs")),
+                        central_motifs = file.path(paste0(out.folder, "_motifs", "central_motifs")),
+                        root_motifs    = file.path(paste0(out.folder, "_motifs", "root_motifs")),
+                        indiv_motifs   = file.path(paste0(out.folder, "_motifs", "individual_motifs_with_gaps")),
+                        cluster_motifs = file.path(paste0(out.folder, "_motifs", "motifs_sep_by_cluster")))
 
 output.files.list <- list("Alignment_table"       = file.path(out.folder.list$tables, "alignment_table.tab"),
                           "Clusters_table"        = file.path(out.folder.list$tables, "clusters.tab"),
@@ -179,7 +183,7 @@ results.list <- list(Dist_table         = NULL,
                      Reference_clusters = NULL)
 
 ## Create output folders
-no.output <- sapply(sapply(output.files.list, dirname), dir.create, showWarnings = FALSE, recursive = TRUE)
+no.output <- sapply(out.folder.list, dir.create, showWarnings = FALSE, recursive = TRUE)
 
 
 ################################################################
@@ -445,9 +449,19 @@ fwrite(x         = results.list$Clusters_table,
        col.names = TRUE,
        sep       = "\t")
 
-##################
-##Export motifs ##
-##################
+############################################################################################################
+##Export motifs : oriented motifs with gaps + root motifs + motifs separated by clusters + central motifs ##
+############################################################################################################
+
+## Create folders in the 
+# out.folder.list$cluster_motifs
+# purrr::map(.x = all.motifs.um, `[`, .f = ~.x@name)
+
+## Create a table with motif Id AND file name
+## then merge this table with the alignment table
+## This will be used to select the motifs in each cluster and to generate the root motifs
+
+
 
 ## Export motifs (without gaps) as transfac files in D and R orientation
 message("; Exporting individual motif files")
@@ -470,6 +484,8 @@ furrr::future_pwalk(.l = add.gaps.list,
                                                   gap.up      = ..2,
                                                   gap.down    = ..3,
                                                   tf.file.out = ..1))
+
+
 
 
 ## When minimal output mode is not activated exports trees, heatmap, and cluster-color table
@@ -556,6 +572,7 @@ if (params.list$min_output == FALSE) {
                                    ht.matrix = clustering.ari$tab,
                                    pdf.file  = output.files.list$Clusters_vs_Reference)
     
+    file.remove("Rplots.pdf", showWarnings = FALSE)
   }
   
   
