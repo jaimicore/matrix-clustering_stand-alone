@@ -266,8 +266,19 @@ get.motifs.ids.in.clusters <- function(tree                       = NULL,
   
   ## Add a cluster name, add leading zeros in the cluster name
   nb.char.cluster.ids  <- nchar(as.character(length(clusters.list))) ## Number of digits
-  sprint.string        <- paste0("%0", nb.char.cluster.ids, "d")     ## Sprintf options  
-  names(clusters.list) <- paste0("cluster_", sprintf(sprint.string, seq_len(length(clusters.list))))
+  nb.leading.zeros     <- nb.char.cluster.ids - nchar(as.character(seq_len(length(clusters.list))))
+  
+  leading.zeros.to.cat <- sapply(nb.leading.zeros, function(x){
+    
+                              if (x > 0) {
+                                paste0(rep(0, times = x), collapse = "")
+                              } else {
+                                ""
+                              }
+                          })
+  
+  sprint.string        <- paste0(leading.zeros.to.cat, seq_len(length(clusters.list)))
+  names(clusters.list) <- paste0("cluster_", sprint.string)
   
   clusters.list
 }
