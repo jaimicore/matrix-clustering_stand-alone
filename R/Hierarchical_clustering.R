@@ -271,14 +271,14 @@ draw.heatmap.clusters.vs.ref <- function(clusters.tab = NULL,
                           simple_anno_size     = unit(0.5, "cm"),
                           which                = "column",
                           show_legend          = FALSE,
-                          show_annotation_name = TRUE,
+                          show_annotation_name = FALSE,
                           text                 = anno_text(colSums(clusters.tab.mt), rot = 0, location = 3, just = "center", gp = gpar(fontsize = 5)))
   
   har = HeatmapAnnotation(df                      = data.frame(Group_size = rowSums(clusters.tab.mt)),
                           col                     = list(Group_size = colfun.ha),
                           simple_anno_size        = unit(0.5, "cm"),
                           which                   = "row",
-                          show_legend             = TRUE,
+                          show_legend             = FALSE,
                           show_annotation_name    = FALSE,
                           annotation_legend_param = list(Group_size = list(direction      = "horizontal",
                                                                            legend_width   = unit(4, "cm"),
@@ -348,6 +348,6 @@ export.heatmap.clusters.vs.ref <- function(ht        = NULL,
   pdf(file   = pdf.file,
       width  = ht_height/3.5,
       height = as.vector(lm.xy$coefficients[2]) * nb.rows.contingecy.cl.vs.ref + as.vector(lm.xy$coefficients[1]))
-  draw(ht, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", height = unit(5, "mm") * nb.rows.contingecy.cl.vs.ref, gap = unit(50, "mm"))
+  draw(ht, heatmap_legend_side = "bottom", annotation_legend_side = "bottom", show_heatmap_legend = FALSE, height = unit(5, "mm") * nb.rows.contingecy.cl.vs.ref, gap = unit(50, "mm"))
   dev.off()
 }
