@@ -153,10 +153,10 @@ out.folder.list <- list(tables         = file.path(paste0(out.folder, "_tables")
                         plots          = file.path(paste0(out.folder, "_plots")),
                         trees          = file.path(paste0(out.folder, "_trees")),
                         motifs         = file.path(paste0(out.folder, "_motifs")),
-                        central_motifs = file.path(paste0(out.folder, "_motifs", "central_motifs")),
-                        root_motifs    = file.path(paste0(out.folder, "_motifs", "root_motifs")),
-                        indiv_motifs   = file.path(paste0(out.folder, "_motifs", "individual_motifs_with_gaps")),
-                        cluster_motifs = file.path(paste0(out.folder, "_motifs", "motifs_sep_by_cluster")))
+                        central_motifs = file.path(paste0(out.folder, "_motifs"), "central_motifs"),
+                        root_motifs    = file.path(paste0(out.folder, "_motifs"), "root_motifs"),
+                        indiv_motifs   = file.path(paste0(out.folder, "_motifs"), "individual_motifs_with_gaps"),
+                        cluster_motifs = file.path(paste0(out.folder, "_motifs"), "motifs_sep_by_cluster"))
 
 output.files.list <- list("Alignment_table"       = file.path(out.folder.list$tables, "alignment_table.tab"),
                           "Clusters_table"        = file.path(out.folder.list$tables, "clusters.tab"),
@@ -292,7 +292,7 @@ if (params.list[["Nb_motifs"]] > 1) {
   if (params.list$ref_clusters) {
     
     message("; Calculating Adjusted Rand Index (ARI) based on the user-provided reference clusters")
-    clustering.ari <- calculate.ARI(matrix.clustering.clusters = clusters.list.to.df(find.clusters.list$clusters),
+    clustering.ari <- calculate.ARI(matrix.clustering.clusters = clusters.list.to.df(find.clusters.list$clusters, id.pttrn.rm = "_n\\d+$"),
                                     reference.clusters         = results.list$Reference_clusters)
     
     params.list[["ARI"]] <- clustering.ari$ARI
@@ -369,20 +369,26 @@ if (params.list[["Nb_motifs"]] > 1) {
     singleton.clusters.tab.export <- data.table(cluster = names(find.clusters.list$clusters[cl.singleton]),
                                                 id      = unlist(find.clusters.list$clusters[cl.singleton])) %>% 
                                         left_join(results.list$Motif_info_tab, by = "id") %>% 
-                                        mutate(strand            = "D",
-                                               offset_up         = 0,
-                                               offset_down       = 0,
-                                               aligned_consensus = consensus) %>% 
+                                        mutate(strand               = "D",
+                                               offset_up            = 0,
+                                               offset_down          = 0,
+                                               aligned_consensus    = consensus,
+                                               aligned_consensus_rc = rc_consensus) %>% 
                                         within(rm(n, width, IC, nb_sites, id_old)) 
     
     ## Combine groups + singleton clusters
     results.list$Alignment_table <- rbind(alignment.clusters.tab.export, singleton.clusters.tab.export) %>% 
-                                        mutate(alignment_width = nchar(aligned_consensus))
+                                        mutate(width = nchar(aligned_consensus))
     
   } else {
     results.list$Alignment_table <- alignment.clusters.tab.export %>% 
-                                      mutate(alignment_width = nchar(aligned_consensus))
+                                      mutate(width = nchar(aligned_consensus))
   }
+  
+  ## This is the column order of the original version
+  results.list$Alignment_table <- results.list$Alignment_table %>% 
+                                    select("id", "name", "cluster", "strand", "offset_up", "offset_down", "width", "aligned_consensus", "aligned_consensus_rc")
+
 
   
   #########################
