@@ -135,48 +135,56 @@ tree.partition <- function(tree               = NULL,
   ## These indexes are selected to avoid iteration through the entire tree
   false.merge.ind <- which(merge.status.table$Merge == FALSE)
   
-  ## A subset of the merge.status.table table only including those nodes with 
-  ## FALSE in the 'Merge' column
-  non.merged.nodes.tab        <- merge.status.table[false.merge.ind,]
-  non.merged.nodes.tab$Merge1 <- ifelse(non.merged.nodes.tab$Merge1 < 0, yes = 0, no = non.merged.nodes.tab$Merge1)
-  non.merged.nodes.tab$Merge2 <- ifelse(non.merged.nodes.tab$Merge2 < 0, yes = 0, no = non.merged.nodes.tab$Merge2)
+
+  ## This part of the code runs when there is at least one partition in the tree
+  if (length(false.merge.ind) > 0) {
+    
+    ## A subset of the merge.status.table table only including those nodes with 
+    ## FALSE in the 'Merge' column
+    non.merged.nodes.tab        <- merge.status.table[false.merge.ind,]
+    non.merged.nodes.tab$Merge1 <- ifelse(non.merged.nodes.tab$Merge1 < 0, yes = 0, no = non.merged.nodes.tab$Merge1)
+    non.merged.nodes.tab$Merge2 <- ifelse(non.merged.nodes.tab$Merge2 < 0, yes = 0, no = non.merged.nodes.tab$Merge2)
+    
+    ## Obtain the Merge status (1 or 0) of the children of each node previously
+    ## identified with a Merge == FALSE status
+    ## Leaves were marked with 0s in the tree structure
+    non.merged.nodes.tab <- non.merged.nodes.tab %>% 
+                              cbind(data.table(Merge1_child_status = as.numeric(purrr::map_lgl(non.merged.nodes.tab$Merge1, get.merge.status, merge.status = merge.status.table$Merge)),
+                                               Merge2_child_status = as.numeric(purrr::map_lgl(non.merged.nodes.tab$Merge2, get.merge.status, merge.status = merge.status.table$Merge)),
+                                               Ind                 = false.merge.ind))
+    
+    ## Complete the table with the missing nodes (those were partitions do not occur)
+    ## The children status of all missing values are set to FALSE
+    missing.nodes <- nodes.seq[!nodes.seq %in% non.merged.nodes.tab$Ind]
+    missing.ind   <- data.table(Merge1_child_status = rep(0, length(missing.nodes)),
+                                Merge2_child_status = rep(0, length(missing.nodes)),
+                                Ind                 = missing.nodes)
+    
+    ## This is the entire table with the Merging status of all nodes where partitions
+    ## occur, the children of those nodes within a partition are all set to 0.
+    ## The idea is to only focus in those positions in the tree where particion occurs
+    ## assuming that all nodes above those partitions were not be merged (this is way be
+    ## previously ran the updated.parents.node.merge.status function).
+    non.merged.nodes.tab <- bind_rows(non.merged.nodes.tab, missing.ind) %>% 
+                              arrange(Ind) %>% 
+                              distinct() %>% 
+                              select(Merge1_child_status, Merge2_child_status, Ind)
+    
+    
+    merge.status.table <- cbind(merge.status.table, non.merged.nodes.tab) %>% 
+      mutate(Partition1 = Merge1 * Merge1_child_status,
+             Partition2 = Merge2 * Merge2_child_status)
+    
+    ## Returns an array with the entries (nodes or leaves) where the tree is partitioned
+    ## Negative values indicate leaves, therefore these will be clusters of size 1 (a.k.a. singletons)
+    ## Positive values correspond to nodes with two or more elements
+    entries.with.clusters <- unique(c(merge.status.table$Partition1, merge.status.table$Partition2))
+    entries.with.clusters <- sort(entries.with.clusters[entries.with.clusters != 0], decreasing = TRUE)
   
-  
-  ## Obtain the Merge status (1 or 0) of the children of each node previously
-  ## identified with a Merge == FALSE status
-  ## Leaves were marked with 0s in the tree structure
-  non.merged.nodes.tab <- non.merged.nodes.tab %>% 
-                            cbind(data.table(Merge1_child_status = as.numeric(purrr::map_lgl(non.merged.nodes.tab$Merge1, get.merge.status, merge.status = merge.status.table$Merge)),
-                                             Merge2_child_status = as.numeric(purrr::map_lgl(non.merged.nodes.tab$Merge2, get.merge.status, merge.status = merge.status.table$Merge)),
-                                             Ind                 = false.merge.ind))
-  
-  ## Complete the table with the missing nodes (those were partitions do not occur)
-  ## The children status of all missing values are set to FALSE
-  missing.nodes <- nodes.seq[!nodes.seq %in% non.merged.nodes.tab$Ind]
-  missing.ind   <- data.table(Merge1_child_status = rep(0, length(missing.nodes)),
-                              Merge2_child_status = rep(0, length(missing.nodes)),
-                              Ind                 = missing.nodes)
-  
-  ## This is the entire table with the Merging status of all nodes where partitions
-  ## occur, the children of those nodes within a partition are all set to 0.
-  ## The idea is to only focus in those positions in the tree where particion occurs
-  ## assuming that all nodes above those partitions were not be merged (this is way be
-  ## previously ran the updated.parents.node.merge.status function).
-  non.merged.nodes.tab <- bind_rows(non.merged.nodes.tab, missing.ind) %>% 
-    arrange(Ind) %>% 
-    distinct() %>% 
-    select(Merge1_child_status, Merge2_child_status, Ind)
-  
-  
-  merge.status.table <- cbind(merge.status.table, non.merged.nodes.tab) %>% 
-    mutate(Partition1 = Merge1 * Merge1_child_status,
-           Partition2 = Merge2 * Merge2_child_status)
-  
-  ## Returns an array with the entries (nodes or leaves) where the tree is partitioned
-  ## Negative values indicate leaves, therefore these will be clusters of size 1 (a.k.a. singletons)
-  ## Positive values correspond to nodes with two or more elements
-  entries.with.clusters <- unique(c(merge.status.table$Partition1, merge.status.table$Partition2))
-  entries.with.clusters <- sort(entries.with.clusters[entries.with.clusters != 0], decreasing = TRUE)
+  ## When the tree is not partitioned return the number of the last node (i.e., the root)
+  } else {
+    entries.with.clusters <- nb.nodes
+  }
   
   return(entries.with.clusters)
 }
@@ -266,19 +274,8 @@ get.motifs.ids.in.clusters <- function(tree                       = NULL,
   
   ## Add a cluster name, add leading zeros in the cluster name
   nb.char.cluster.ids  <- nchar(as.character(length(clusters.list))) ## Number of digits
-  nb.leading.zeros     <- nb.char.cluster.ids - nchar(as.character(seq_len(length(clusters.list))))
-  
-  leading.zeros.to.cat <- sapply(nb.leading.zeros, function(x){
-    
-                              if (x > 0) {
-                                paste0(rep(0, times = x), collapse = "")
-                              } else {
-                                ""
-                              }
-                          })
-  
-  sprint.string        <- paste0(leading.zeros.to.cat, seq_len(length(clusters.list)))
-  names(clusters.list) <- paste0("cluster_", sprint.string)
+  sprint.string        <- paste0("%0", nb.char.cluster.ids, "d")     ## Sprintf options  
+  names(clusters.list) <- paste0("cluster_", sprintf(sprint.string, seq_len(length(clusters.list))))
   
   clusters.list
 }
