@@ -141,7 +141,7 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 #                     "Ncor"                  = 0.55,
 #                     "nb_workers"            = 8,
 #                     "min_output"            = TRUE,
-#                     "ref_clusters"          = TRUE)
+#                     "ref_clusters"          = FALSE)
 
 
 ##############################################################
@@ -275,6 +275,8 @@ if (params.list[["Nb_motifs"]] > 1) {
   results.list$All_motifs_tree <- hclust.motifs(results.list[["Dist_matrix"]],
                                                 hclust.method = params.list$linkage_method)
   
+  
+  save.image("TEST.Rdata")
   
   ###########################
   ## Find clusters section ##
