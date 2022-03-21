@@ -8,6 +8,7 @@ required.packages = c("dplyr",          ## Data manipulation
                       "furrr",          ## Run functions in parallel
                       "optparse",       ## Read command-line arguments
                       "purrr",          ## Iterations,
+                      "reshape2",       ## Dataframe operations
                       "this.path",      ## Create relative paths
                       "tidyr",          ## Data manipulation
                       "universalmotif") ## Motif manipulation (Bioconductor)
@@ -141,7 +142,7 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 #                     "Ncor"                  = 0.55,
 #                     "nb_workers"            = 8,
 #                     "min_output"            = TRUE,
-#                     "ref_clusters"          = FALSE)
+#                     "ref_clusters"          = TRUE)
 
 
 ##############################################################
@@ -274,9 +275,7 @@ if (params.list[["Nb_motifs"]] > 1) {
   
   results.list$All_motifs_tree <- hclust.motifs(results.list[["Dist_matrix"]],
                                                 hclust.method = params.list$linkage_method)
-  
-  
-  save.image("TEST.Rdata")
+
   
   ###########################
   ## Find clusters section ##
