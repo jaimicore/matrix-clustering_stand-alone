@@ -147,6 +147,8 @@ write.transfac.pased.header <- function(um.object   = NULL,
                                         new.tf.file = NULL,
                                         verbose     = TRUE) {
   
+  file.remove(new.tf.file, showWarnings = FALSE)
+  
   if (verbose) {
     message("; Exporting motifs with updated ID: ", old.tf.file)
   }
@@ -376,21 +378,21 @@ write.motif.file <- function(um.object    = NULL,
 export.one.motif.transfac <- function(un     = NULL,
                                       outdir = NULL,
                                       strand = "D") {
-  
+
   ## Suffix based in strand
   strand.suffix <- switch(strand,
                           "D" = "",
                           "R" = "_rc")
-  
-  
-  ind.motif.file.path.tmp <- file.path(outdir, paste0(un@name, "_oriented", strand.suffix,".tf.tmp")) 
-  ind.motif.file.path     <- file.path(outdir, paste0(un@name, "_oriented", strand.suffix,".tf")) 
-  
+
+
+  ind.motif.file.path.tmp <- file.path(outdir, paste0(un@name, "_oriented", strand.suffix,".tf.tmp"))
+  ind.motif.file.path     <- file.path(outdir, paste0(un@name, "_oriented", strand.suffix,".tf"))
+
   ## Export transfac file with correct header to be read by compare-matrices-quick
   write.transfac.pased.header(old.tf.file = ind.motif.file.path.tmp,
                               new.tf.file = ind.motif.file.path,
                               um.object   = un,
-                              verbose     = FALSE) 
+                              verbose     = FALSE)
 }
 
 
@@ -684,7 +686,6 @@ reduce.count.matrix.list <- function(count.matrix.list = NULL,
   }
   
   
-  
   ## Merge the count matrix according to the indicated method
   if (merge.method == "sum") {
     
@@ -721,7 +722,28 @@ reduce.count.matrix.list <- function(count.matrix.list = NULL,
     count.matrix.reduced      <- count.matrix.reduced.norm
   }
   
-  return(data.table(count.matrix.reduced))
+  count.matrix.reduced <- data.frame(count.matrix.reduced)
+  rownames(count.matrix.reduced) <- c("AA", "CC", "GG", "TT")
+  
+  return(count.matrix.reduced)
+}
+
+
+
+## Reduce all the motifs (count matrices) within a transfac file to a single count matrix
+## applying a method (sum, average)
+create.root.motif <- function(aligned.motif.cluster.file = NULL) {
+  
+  ## Return the count matrices as a list (one element per cluster member)
+  aligned.count.matrices <- concat.matrices(um.object = read_transfac(aligned.motif.cluster.file))
+  
+  
+  ## Reduce the aligned count matrices into a single matrix
+  reduced.count.matrix <- reduce.count.matrix.list(count.matrix.list = aligned.count.matrices,
+                                                   merge.method      = "sum")
+  
+  reduced.count.matrix
+  
 }
 
 
@@ -743,3 +765,72 @@ calculate.col.IC.count.matrix <- function(count.matrix = matrix(rep(c(10,0,0,0),
   
 }
 
+
+
+export.aligned.motifs.per.cluster <- function(indiv.motis.folder    = NULL,
+                                              cluster.motifs.folder = NULL,
+                                              cluster.motif.id.tab  = NULL) {
+  
+  ## This table contains the motif files (D and R) with their respective clusters
+  motif.id.file.tab <- data.table(id     = unique(gsub(list.files(indiv.motis.folder), pattern = "_oriented\\w{,3}.tf$", replacement = "")),
+                                  File_D = file.path(indiv.motis.folder, list.files(indiv.motis.folder, pattern = "_oriented.tf"))) %>% 
+    left_join(cluster.motif.id.tab, by = "id") %>% 
+    mutate(New_File_D = file.path(cluster.motifs.folder, cluster, basename(File_D)))
+  
+  ## Creates a copy of each motif in the cluster in its corresponding folder
+  furrr::future_walk2(.x = motif.id.file.tab$File_D,
+                      .y = motif.id.file.tab$New_File_D,
+                      .f = ~file.copy(from      = .x,
+                                      to        = .y,
+                                      overwrite = TRUE))
+  
+  ## For each cluster, read its motifs and export all together in a single transfac file
+  clusters.motif.files.dir <- unique(dirname(motif.id.file.tab$New_File_D))
+  motif.files <- sapply(clusters.motif.files.dir, function(d) {
+    
+    ## Read all the motif files (transfac format associated to a cluster)
+    clusters.transfac.files.um <- unlist(purrr::map(.x = file.path(d, list.files(d, pattern = "_oriented\\w{,3}.tf")),
+                                                    .f = ~read_transfac(file = .x)))
+    
+    cluster.motifs.file <- file.path(d, paste0(basename(d), ".tf"))
+    
+    ## Export transfac file with correct header to be read by compare-matrices-quick
+    # message("Exporting motifs for ", basename(d), " : ", cluster.motifs.file)
+    write.transfac.pased.header(old.tf.file = paste0(cluster.motifs.file, ".tmp"),
+                                new.tf.file = cluster.motifs.file,
+                                um.object   = clusters.transfac.files.um,
+                                verbose     = FALSE)
+    
+    cluster.motifs.file
+    
+  })
+  
+  names(motif.files) <- NULL
+  return(motif.files)
+}
+
+
+
+export.root.motif <- function(cluster.tf.file = NULL) {
+  
+  ## Combine the count matrices to generate a reduced (root) motif
+  root.motif <- create.root.motif(aligned.motif.cluster.file = cluster.tf.file)
+  
+  ## Assign AC and ID fields as cluster names
+  root.motif.name <- gsub(basename(motifs.files.per.cluster[1]), pattern = "\\.tf$", replacement = "")
+  
+  ## Convert the root motif (a matrix) to the format required in the transfac format
+  root.motif.tf <- as.matrix.data.frame(root.motif) %>%
+    t() %>% 
+    data.table() %>% 
+    dplyr::mutate(LL = 1:n()) %>% 
+    select(LL, AA, CC, GG, TT)
+  
+  ## Reconstruct the transfac file, insert the matrix with gaps
+  ## thj following functiones nneds to be created
+  root.motif.file <- reconstruct.transfac.file.vector(AC  = paste0("AC ", root.motif.name),
+                                                      ID  = paste0("ID ", root.motif.name),
+                                                      MAT = root.motif.tf)
+  
+  return(root.motif.file)
+}
