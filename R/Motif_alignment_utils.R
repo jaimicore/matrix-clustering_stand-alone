@@ -405,23 +405,20 @@ align.motifs.in.cluster <- function(tree       = NULL,
     
     
     ## The gaps are added AFTER the strand orientation
-    # if (abs(new.offset) > 0) {
-      
-      ## Update the gaps
-      subset.update.consensus <- alignment.tab %>% 
+    ## Update the gaps
+    subset.update.consensus <- alignment.tab %>% 
                                     dplyr::filter(id %in% ids.to.update) %>% 
                                     mutate(Update_status = Update_status + 1,
                                            Offset_up     = abs(new.offset) + Offset_up)
       
-      ## Add the gaps
-      subset.update.consensus.char <- gsub(subset.update.consensus$Oriented_consensus, pattern = "-", replacement = "")
-      subset.update.consensus$Oriented_consensus <- purrr::map2_chr(.x = subset.update.consensus.char,
-                                                                    .y = subset.update.consensus$Offset_up,
-                                                                    ~add.gaps.consensus(consensus = .x, offset.up = .y))
+    ## Add the gaps
+    subset.update.consensus.char <- gsub(subset.update.consensus$Oriented_consensus, pattern = "-", replacement = "")
+    subset.update.consensus$Oriented_consensus <- purrr::map2_chr(.x = subset.update.consensus.char,
+                                                                  .y = subset.update.consensus$Offset_up,
+                                                                  ~add.gaps.consensus(consensus = .x, offset.up = .y))
       
-      ## Update the alignment table, keep the most updated entries of each motif id
-      alignment.tab <- update.alignment.table(rbind(alignment.tab, subset.update.consensus))
-    # }
+    ## Update the alignment table, keep the most updated entries of each motif id
+    alignment.tab <- update.alignment.table(rbind(alignment.tab, subset.update.consensus))
     
     
     ## Fill the gaps in the downstream side of all consensuses within this tree level      
@@ -434,14 +431,26 @@ align.motifs.in.cluster <- function(tree       = NULL,
     
   }
   
+
+  ## Add the aligned consensus in RC
+  consensus.rc.list <- list(consensus = alignment.tab$consensus,
+                            gap_up    = alignment.tab$Offset_down,
+                            gap_dw    = alignment.tab$Offset_up)
+  
+  alignment.tab$aligned_consensus_rc <- purrr::pmap_chr(.l = consensus.rc.list,
+                                                        .f = ~add.gaps.consensus(consensus   = ..1,
+                                                                                 offset.up   = ..2,
+                                                                                 offset.down = ..3))
+  
   alignment.tab <- data.frame(alignment.tab) %>%
-                    slice(match(tree$labels[tree$order], id)) # %>%
+                    slice(match(tree$labels[tree$order], id))
+                    # %>%
                     # dplyr::filter(id %in% c(ids.node1, ids.node2))
   
   
-  data.frame(alignment.tab[,c("id", "Oriented_consensus", "Strand")]) %>%
-    slice(match(tree$labels[tree$order], id)) %>%
-    dplyr::filter(id %in% c(ids.node1, ids.node2))
+  # data.frame(alignment.tab[,c("id", "Oriented_consensus", "Strand")]) %>%
+  #   slice(match(tree$labels[tree$order], id)) %>%
+  #   dplyr::filter(id %in% c(ids.node1, ids.node2))
   
   # alignment.tab %>%
   #   slice(match(tree$labels[tree$order], id)) %>%
