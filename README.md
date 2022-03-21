@@ -49,6 +49,7 @@ required.packages = c("dplyr",          ## Data manipulation
                       "optparse",       ## Read command-line arguments
                       "purrr",          ## Iterations
                       "rcartocolor",    ## Cluster colors
+                      "reshape2",       ## Dataframe manipulation
                       "this.path",      ## Create relative paths
                       "tidyr",          ## Data manipulation
                       "dendsort",       ## To draw heatmap
