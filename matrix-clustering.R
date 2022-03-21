@@ -142,7 +142,7 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 #                     "Ncor"                  = 0.55,
 #                     "nb_workers"            = 8,
 #                     "min_output"            = TRUE,
-#                     "ref_clusters"          = TRUE)
+#                     "ref_clusters"          = FALSE)
 
 
 ##############################################################
@@ -329,21 +329,6 @@ if (params.list[["Nb_motifs"]] > 1) {
                                                                            motif.info = results.list$Motif_info_tab,
                                                                            parameters = params.list))
   
-  ###########################
-  ## Debug : do not delete ##
-  ###########################
-  # tree.example <- cl.many.hclust$cluster_001
-  # tree.example <- cl.many.hclust$cluster_02
-  # tree.example <- cl.many.hclust$cluster_03
-  # tree.example <- cl.many.hclust$cluster_04
-  # tree.example <- cl.many.hclust$cluster_05
-  # tree.example <- cl.many.hclust$cluster_06
-  # tic()
-  # aaaa <- align.motifs.in.cluster(tree = tree.example,
-  #                         compa      = results.list$Motif_compa_tab,
-  #                         motif.info = results.list$Motif_info_tab,
-  #                         parameters = params.list)
-  # toc()
   
   ###################################
   ## Parse tables before exporting ##
@@ -456,29 +441,35 @@ fwrite(x         = results.list$Clusters_table,
        col.names = TRUE,
        sep       = "\t")
 
-############################################################################################################
-##Export motifs : oriented motifs with gaps + root motifs + motifs separated by clusters + central motifs ##
-############################################################################################################
 
-## Create folders in the 
-# out.folder.list$cluster_motifs
-# purrr::map(.x = all.motifs.um, `[`, .f = ~.x@name)
+#####################################
+## Export motifs :                 ##
+## 1) Oriented motifs with gaps    ##
+## 2) Motifs separated by clusters ##
+## 3) Root motifs                  ##
+## 4) Central motifs               ##
+#####################################
 
-## Create a table with motif Id AND file name
-## then merge this table with the alignment table
-## This will be used to select the motifs in each cluster and to generate the root motifs
+# out.folder.list <- list(tables         = file.path(paste0(out.folder, "_tables")),
+#                         plots          = file.path(paste0(out.folder, "_plots")),
+#                         trees          = file.path(paste0(out.folder, "_trees")),
+#                         motifs         = file.path(paste0(out.folder, "_motifs")),
+#                         central_motifs = file.path(paste0(out.folder, "_motifs"), "central_motifs"),
+#                         root_motifs    = file.path(paste0(out.folder, "_motifs"), "root_motifs"),
+#                         indiv_motifs   = file.path(paste0(out.folder, "_motifs"), "individual_motifs_with_gaps"),
+#                         cluster_motifs = file.path(paste0(out.folder, "_motifs"), "motifs_sep_by_cluster"))
 
-
-
+###################################################################
+## 1) Oriented motifs with gaps (each motif in a separated file)
 ## Export motifs (without gaps) as transfac files in D and R orientation
 message("; Exporting individual motif files")
 export.indiv.motif.files(un.motifs = all.motifs.um,
-                         outdir    = out.folder.list$motifs)
+                         outdir    = out.folder.list$indiv_motifs)
 
 ## universalmotif does not accepts rows containing only 0s, therefore, the insertion of gaps
 ## must be done directly to the transfac file, instead of using universalmotif functions
 message("; Adding gaps to motif files")
-add.gaps.tab <- add.gaps.to.indiv.tf.files(motif.folder = out.folder.list$motifs,
+add.gaps.tab <- add.gaps.to.indiv.tf.files(motif.folder = out.folder.list$indiv_motifs,
                                            gap.info     = results.list$Alignment_table)
 
 add.gaps.list <- list(File = add.gaps.tab$file,
@@ -491,6 +482,34 @@ furrr::future_pwalk(.l = add.gaps.list,
                                                   gap.up      = ..2,
                                                   gap.down    = ..3,
                                                   tf.file.out = ..1))
+
+
+#################################################################
+## 2) Export motifs separated by clusters one file per cluster
+message("; Exporting motifs separated by clusters: ", out.folder.list$cluster_motifs)
+no.output <- sapply(file.path(out.folder.list$cluster_motifs, unique(results.list$Clusters_table$cluster)), dir.create, recursive = TRUE, showWarnings = FALSE)
+
+motifs.files.per.cluster <- export.aligned.motifs.per.cluster(indiv.motis.folder    = out.folder.list$indiv_motifs,
+                                                              cluster.motif.id.tab  = find.clusters.list$clusters_df,
+                                                              cluster.motifs.folder =  out.folder.list$cluster_motifs)
+
+
+#################################################################
+## 3) Export root motifs, one file per cluster
+
+# data.table(Cluster_motifs = motifs.files.per.cluster) %>% 
+#   mutate(Cluster = basename(dirname(motifs.files.per.cluster)))
+#   mutate(Root_motifs = )
+# 
+# 
+# 
+# export.root.motif(cluster.tf.file = motifs.files.per.cluster[1])
+# 
+# motifs.files.per.cluster
+# 
+# ## Print the vector as a text file
+# file.remove(tf.file.out, showWarnings = FALSE)
+# writeLines(root.motif.file, con = root.motif.file)
 
 
 
