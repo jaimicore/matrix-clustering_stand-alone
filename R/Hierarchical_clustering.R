@@ -190,6 +190,7 @@ motif.comparison <- function(transfac.file     = NULL,
 }
 
 
+
 ## Calculate the Adjusted-Rand-Index by comparing the RSAT matrix-clustering and 
 ## a user provided reference clusters
 calculate.ARI <- function(matrix.clustering.clusters = NULL,
@@ -220,14 +221,16 @@ calculate.ARI <- function(matrix.clustering.clusters = NULL,
 
 
 ## A small function to convert a list with vectors to a dataframe
-clusters.list.to.df <- function(clusters.list = NULL) {
+clusters.list.to.df <- function(clusters.list = NULL,
+                                id.pttrn.rm   = "") {
   
-    melt(clusters.list) %>% 
-      dplyr::rename(id      = value,
-                    cluster = L1) %>% 
-      data.table() %>% 
-      dplyr::mutate(id = gsub(x = id, pattern = "_n\\d+$", replacement = ""))
+    # "_n\\d+$"
   
+    reshape2::melt(clusters.list) %>% 
+        dplyr::rename(id      = value,
+                      cluster = L1) %>% 
+        data.table() %>% 
+        dplyr::mutate(id = gsub(x = id, pattern = id.pttrn.rm, replacement = ""))
 }
 
 
@@ -250,13 +253,8 @@ draw.heatmap.clusters.vs.ref <- function(clusters.tab = NULL,
   clusters.tab.mt <- as.data.frame.matrix(clusters.tab) %>%
                         dplyr::rename(Unkwnon = V1) %>% 
                         as.matrix()
-  
-  # clusters.tab.perc <- apply(clusters.tab.mt, 1, function(cc){
-  #   cc.sum <- sum(cc)
-  #   cc/cc.sum
-  # })
   clusters.tab.perc <- clusters.tab.mt
-  # clusters.tab.perc <- clusters.tab.perc[rev(rownames(clusters.tab.perc)),]
+
   
   palette <- rev(colorRampPalette(rev(brewer.pal(9, "PuRd")), space = "Lab")(max(clusters.tab.perc)))
   col_fun <- colorRamp2(seq(0, max(clusters.tab.perc), length.out = max(clusters.tab.perc)), palette)
