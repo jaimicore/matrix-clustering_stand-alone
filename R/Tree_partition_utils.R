@@ -203,9 +203,9 @@ find.motif.clusters <- function(tree             = NULL,
   
   ## A list containing the motif IDs associated to each label
   motif.IDs.per.tree.level <- lapply(motif.at.tree.level, function(x){
-    tree$labels[x]
-  })
-  
+                                tree$labels[x]
+                              })
+                              
   
   ## Obtain the comparison entries among the motifs within each node in the tree
   ## Each node is stored as a dataframe nested in a list 
@@ -240,8 +240,11 @@ find.motif.clusters <- function(tree             = NULL,
                                               clusters.leaves.nodes.ind = entries.with.clusters,
                                               motif.ids.per.node        = motif.IDs.per.tree.level)
   
+  clusters.df <- clusters.list.to.df(clusters.list)
+  
   
   return(list(clusters            = clusters.list,
+              clusters_df         = clusters.df,
               agglomeration.stats = nodes.merge.status.tab,
               compa.per.node      = comparisons.per.node))
 }
