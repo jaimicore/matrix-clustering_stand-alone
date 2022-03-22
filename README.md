@@ -212,7 +212,15 @@ This is the folder structure after running this software:
 ```bash
 results
 ├── *_motifs
-│   └── Two files per motif (direct and reverse orientation) in transfac format, these motifs are already aligned (may contain gaps).
+│   ├── individual_motifs_with_gaps
+│       └── Two files per motif (direct and reverse orientation) in transfac format, these motifs are already aligned (may contain gaps).
+│   ├── motifs_sep_by_cluster   (each folder contains the motifs belonging to a cluster)
+│       └── Cluster_01
+│       └── Cluster_02
+│       └── ...
+│       └── Cluster_N
+│   └── root_motifs
+│       └── Root_motifs.tf  (also referred as archetype motifs)
 │
 ├── *_plots
 │   ├── Clusters_vs_reference_contingency_table.pdf
