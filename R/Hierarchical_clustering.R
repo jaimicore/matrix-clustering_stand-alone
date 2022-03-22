@@ -67,10 +67,6 @@ hclust.motifs <- function(dist.matrix, hclust.method = "average"){
 ####################################################
 convert.hclust.to.newick <- function(tree){
   
-  ## Require ape (CRNA package) if it is required
-  if (!require("ape")) {
-    install.packages("ape")
-  }
   suppressPackageStartupMessages(library("ape", character.only = TRUE, quietly = TRUE))
   message("; Converting hclust object to newick tree")
   
@@ -91,9 +87,6 @@ convert.hclust.to.newick <- function(tree){
 ## with the lines ready to print a JSON file
 convert.hclust.to.JSON <- function(tree){
   
-  if (!require("RJSONIO")) {
-    install.packages("RJSONIO")
-  }
   suppressPackageStartupMessages(library("RJSONIO", character.only = TRUE, quietly = TRUE))
   
   message("; Converting hclust object to a JSON tree")
