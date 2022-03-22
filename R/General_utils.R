@@ -219,11 +219,7 @@ cluster.centroid.id <- function(compa.tab = cluster.compa.entries) {
 ## Colors are generated using the 'Safe' palette from rcartcolors
 cluster.color.map <- function(cluster.tab = NULL,
                               seed        = 130290) {
-  
-  ## Require ape (CRNA package) if it is required
-  if (!require("rcartocolor")) {
-    install.packages("rcartocolor")
-  }
+
   suppressPackageStartupMessages(library("rcartocolor", character.only = TRUE, quietly = TRUE))
   message("; Generating cluster-color table")
   
