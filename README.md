@@ -345,7 +345,7 @@ Use this space to report [issues](https://github.com/jaimicore/matrix-clustering
 - When calculating the ARI, implement an option to find an optimal threshold thorugh a grid search approach.
 - Generate the interactive `html` output motif trees.
 - Implement the option to annotate clusters.
-- Export root motifs.
+- Trim root motifs
 - Detect the central motif within each cluster.
 - Export motif collection intersection stats.
 
