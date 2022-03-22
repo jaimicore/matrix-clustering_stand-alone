@@ -142,27 +142,27 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
 ## The transfac file header exported by universalmotif::write_transfac is not correctly
 ## recognized by compare-matrices-quick (it only accepts transfac files) so the fields
 ## have to be renamed to be read by compare-matrices quick
-write.transfac.pased.header <- function(um.object   = NULL,
+write.transfac.parsed.header <- function(um.object   = NULL,
                                         old.tf.file = NULL,
                                         new.tf.file = NULL,
                                         verbose     = TRUE) {
   
-  file.remove(new.tf.file, showWarnings = FALSE)
+  suppressWarnings(file.remove(new.tf.file, showWarnings = FALSE))
   
   if (verbose) {
     message("; Exporting motifs with updated ID: ", old.tf.file)
   }
-  universalmotif::write_transfac(motifs    = um.object,
-                                 file      = old.tf.file,
-                                 overwrite = TRUE)
+  suppressMessages(universalmotif::write_transfac(motifs    = um.object,
+                                                  file      = old.tf.file,
+                                                  overwrite = TRUE))
   
   ## compare-matrices-quick expects the fields AC and ID (instead of ID and NA exported from universalmotif) 
   transfac.lines <- readLines(old.tf.file)
   transfac.lines <- gsub(transfac.lines, pattern = "^ID ", replacement = "AC ")
   transfac.lines <- gsub(transfac.lines, pattern = "^NA ", replacement = "ID ")
-  writeLines(text = transfac.lines,
-             con  = new.tf.file)
-  file.remove(old.tf.file)
+  suppressMessages(writeLines(text = transfac.lines,
+                              con  = new.tf.file))
+  suppressWarnings(file.remove(old.tf.file, showWarnings = FALSE))
   
 }
 
@@ -361,10 +361,10 @@ write.motif.file <- function(um.object    = NULL,
                          overwrite = TRUE)
     
   } else if (motif.format %in% c("tf", "transfac")) {
-    write.transfac.pased.header(old.tf.file = paste0(outfile.name, ".tmp"),
-                                new.tf.file = outfile.name,
-                                um.object   = um.object,
-                                verbose     = FALSE) 
+    write.transfac.parsed.header(old.tf.file = paste0(outfile.name, ".tmp"),
+                                 new.tf.file = outfile.name,
+                                 um.object   = um.object,
+                                 verbose     = FALSE) 
   } else {
     stop("; ", motif.format, " exporting function has not yet been implemented.")
   }
@@ -389,10 +389,10 @@ export.one.motif.transfac <- function(un     = NULL,
   ind.motif.file.path     <- file.path(outdir, paste0(un@name, "_oriented", strand.suffix,".tf"))
 
   ## Export transfac file with correct header to be read by compare-matrices-quick
-  write.transfac.pased.header(old.tf.file = ind.motif.file.path.tmp,
-                              new.tf.file = ind.motif.file.path,
-                              um.object   = un,
-                              verbose     = FALSE)
+  write.transfac.parsed.header(old.tf.file = ind.motif.file.path.tmp,
+                               new.tf.file = ind.motif.file.path,
+                               um.object   = un,
+                               verbose     = FALSE)
 }
 
 
@@ -540,7 +540,7 @@ add.gaps.transfac.motif <- function(tf.file.in  = NULL,
   
   ## Print the vector as a text file
   dir.create(dirname(tf.file.out), recursive = TRUE, showWarnings = FALSE)
-  file.remove(tf.file.out)
+  suppressMessages(file.remove(tf.file.out))
   writeLines(motif.w.gaps.text, con = tf.file.out)
   
 }
@@ -734,16 +734,23 @@ reduce.count.matrix.list <- function(count.matrix.list = NULL,
 ## applying a method (sum, average)
 create.root.motif <- function(aligned.motif.cluster.file = NULL) {
   
+  ## If there is only one motif in the transfac file, the universalmotif object
+  ## needs to be converted into a list
+  aligned.motifs.um <- universalmotif::read_transfac(file = aligned.motif.cluster.file)
+
+  if (length(aligned.motifs.um) == 1) {
+    aligned.motifs.um <- list(aligned.motifs.um)
+  }
+  
   ## Return the count matrices as a list (one element per cluster member)
-  aligned.count.matrices <- concat.matrices(um.object = read_transfac(aligned.motif.cluster.file))
+  aligned.count.matrices <- concat.matrices(um.object = aligned.motifs.um)
   
   
   ## Reduce the aligned count matrices into a single matrix
   reduced.count.matrix <- reduce.count.matrix.list(count.matrix.list = aligned.count.matrices,
                                                    merge.method      = "sum")
   
-  reduced.count.matrix
-  
+  return(reduced.count.matrix)  
 }
 
 
@@ -796,10 +803,10 @@ export.aligned.motifs.per.cluster <- function(indiv.motis.folder    = NULL,
     
     ## Export transfac file with correct header to be read by compare-matrices-quick
     # message("Exporting motifs for ", basename(d), " : ", cluster.motifs.file)
-    write.transfac.pased.header(old.tf.file = paste0(cluster.motifs.file, ".tmp"),
-                                new.tf.file = cluster.motifs.file,
-                                um.object   = clusters.transfac.files.um,
-                                verbose     = FALSE)
+    write.transfac.parsed.header(old.tf.file = paste0(cluster.motifs.file, ".tmp"),
+                                 new.tf.file = cluster.motifs.file,
+                                 um.object   = clusters.transfac.files.um,
+                                 verbose     = FALSE)
     
     cluster.motifs.file
     
@@ -811,13 +818,16 @@ export.aligned.motifs.per.cluster <- function(indiv.motis.folder    = NULL,
 
 
 
+## The input of this function is a transfac file with all motifs are aligned (may
+## contain gaps) and all of them have the same width
+## and are aligned
 export.root.motif <- function(cluster.tf.file = NULL) {
   
   ## Combine the count matrices to generate a reduced (root) motif
   root.motif <- create.root.motif(aligned.motif.cluster.file = cluster.tf.file)
   
   ## Assign AC and ID fields as cluster names
-  root.motif.name <- gsub(basename(motifs.files.per.cluster[1]), pattern = "\\.tf$", replacement = "")
+  root.motif.name <- gsub(basename(cluster.tf.file), pattern = "\\.tf$", replacement = "")
   
   ## Convert the root motif (a matrix) to the format required in the transfac format
   root.motif.tf <- as.matrix.data.frame(root.motif) %>%
@@ -826,11 +836,9 @@ export.root.motif <- function(cluster.tf.file = NULL) {
     dplyr::mutate(LL = 1:n()) %>% 
     select(LL, AA, CC, GG, TT)
   
-  ## Reconstruct the transfac file, insert the matrix with gaps
-  ## thj following functiones nneds to be created
+  ## Reconstruct a transfac file with the minimal fields
   root.motif.file <- reconstruct.transfac.file.vector(AC  = paste0("AC ", root.motif.name),
                                                       ID  = paste0("ID ", root.motif.name),
                                                       MAT = root.motif.tf)
-  
   return(root.motif.file)
 }
