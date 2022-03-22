@@ -166,6 +166,7 @@ output.files.list <- list("Alignment_table"       = file.path(out.folder.list$ta
                           "Summary_table"         = file.path(out.folder.list$tables, "summary_table.tab"),
                           "Motifs_transfac_tmp"   = file.path(out.folder.list$motifs, "input_motifs_parsed_id.tf.tmp"),
                           "Motifs_transfac"       = file.path(out.folder.list$motifs, "input_motifs_parsed_id.tf"),
+                          "Root_motifs"           = file.path(out.folder.list$root_motifs, "Root_motifs.tf"),
                           "Heatmap_clusters"      = file.path(out.folder.list$plots, "Heatmap_clusters.pdf"),
                           "Clusters_vs_Reference" = file.path(out.folder.list$plots, "Clusters_vs_reference_contingency_table.pdf"),
                           "hclust_all"            = file.path(out.folder.list$trees, "tree.RData"),
@@ -208,9 +209,9 @@ all.motifs.um                <- unlist(purrr::map(motif.info.and.motifs, `[[`, "
 
 
 ## Export transfac file with correct header to be read by compare-matrices-quick
-write.transfac.pased.header(old.tf.file = output.files.list$Motifs_transfac_tmp,
-                            new.tf.file = output.files.list$Motifs_transfac,
-                            um.object   = all.motifs.um) 
+write.transfac.parsed.header(old.tf.file = output.files.list$Motifs_transfac_tmp,
+                             new.tf.file = output.files.list$Motifs_transfac,
+                             um.object   = all.motifs.um) 
 
 params.list[["Nb_motifs"]]      <- nrow(results.list$Motif_info_tab)
 params.list[["Nb_collections"]] <- length(matrix.file.list$Motif_file)
@@ -276,7 +277,6 @@ if (params.list[["Nb_motifs"]] > 1) {
   results.list$All_motifs_tree <- hclust.motifs(results.list[["Dist_matrix"]],
                                                 hclust.method = params.list$linkage_method)
 
-  
   ###########################
   ## Find clusters section ##
   ###########################
@@ -284,7 +284,6 @@ if (params.list[["Nb_motifs"]] > 1) {
   find.clusters.list <- find.motif.clusters(tree             = results.list$All_motifs_tree,
                                             comparison.table = results.list$Motif_compa_tab,
                                             parameters       = params.list)
-  
   
   ###################################
   ## Calculate Adjusted Rand Index ##
@@ -496,20 +495,15 @@ motifs.files.per.cluster <- export.aligned.motifs.per.cluster(indiv.motis.folder
 
 #################################################################
 ## 3) Export root motifs, one file per cluster
+message("; Exporting root motifs: ", output.files.list$Root_motifs)
+root.motifs.tf.vector <- furrr::future_map(.x = sort(motifs.files.per.cluster),
+                                           .f = ~export.root.motif(cluster.tf.file = .x))
+root.motifs.tf.vector <- unlist(root.motifs.tf.vector)
 
-# data.table(Cluster_motifs = motifs.files.per.cluster) %>% 
-#   mutate(Cluster = basename(dirname(motifs.files.per.cluster)))
-#   mutate(Root_motifs = )
-# 
-# 
-# 
-# export.root.motif(cluster.tf.file = motifs.files.per.cluster[1])
-# 
-# motifs.files.per.cluster
-# 
-# ## Print the vector as a text file
-# file.remove(tf.file.out, showWarnings = FALSE)
-# writeLines(root.motif.file, con = root.motif.file)
+
+## Print the vector as a text file
+suppressWarnings(file.remove(output.files.list$Root_motifs, showWarnings = FALSE))
+suppressMessages(writeLines(root.motifs.tf.vector, con = output.files.list$Root_motifs))
 
 
 
@@ -598,7 +592,7 @@ if (params.list$min_output == FALSE) {
                                    ht.matrix = clustering.ari$tab,
                                    pdf.file  = output.files.list$Clusters_vs_Reference)
     
-    file.remove("Rplots.pdf", showWarnings = FALSE)
+    suppressMessages(file.remove("Rplots.pdf", showWarnings = FALSE))
   }
   
   
@@ -610,5 +604,9 @@ if (params.list$min_output == FALSE) {
   ##########################
   unlink(out.folder.list$plots, recursive = TRUE)
   unlink(out.folder.list$trees, recursive = TRUE)
+  unlink(out.folder.list$central_motifs, recursive = TRUE)
+  unlink(out.folder.list$root_motifs, recursive = TRUE)
+  unlink(out.folder.list$cluster_motifs, recursive = TRUE)
+  suppressMessages(file.remove(output.files.list$Motifs_transfac, showWarnings = FALSE))
 }
 message("; End of program")
