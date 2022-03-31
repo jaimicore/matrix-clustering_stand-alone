@@ -25,6 +25,14 @@ The graphical output (interactive trees and heatmaps will be added soon).
 
 
 
+## :wrench: Changes relative to the original version
+
+- We added a new functionality to calculte how well the resulting clusters are similar to a user provided annotation (see **Example 2**) for more details. This functionality could be used to select the parameters (thresholds in `cor` and `Ncor`) that maximizes a user-provided annotation.
+
+- Default threshold are different: `cor = 0.75` and `Ncor = 0.55`. To decide if a node in the hierarchical tree will be merged or split, we compute the average `cor` and `Ncor` of all the pairwise comparisons for all the motifs in a particualr node. We realized that the original version didn't considered all the pairwise comparisons, we corrected this problem, but now the default thresholds are too permissive, so they have to be increased to obtain good results.
+
+
+
 ## :computer: Install required software
 
 
@@ -356,8 +364,6 @@ Use this space to report [issues](https://github.com/jaimicore/matrix-clustering
 We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](http://rsat-tagc.univ-mrs.fr/rsat/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs :beetle:.
 
 Special thanks to my colleagues Ieva Rauluseviciute (and her *gently reminders* :unamused: that pushed me to write this stand-alone version) and Vipin Kumar (both from [Anthony Mathelier's lab](https://mathelierlab.com/)) for testing this software, the discussions, ideas, and their suggestions of `R` libraries that make this script faster than the original version.
-
-
 
 ## :page_with_curl: How to cite this software?
 
