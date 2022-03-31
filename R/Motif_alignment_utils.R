@@ -50,7 +50,7 @@ hclust.cluster.ids <- function(ids        = NULL,
   if (length(ids) > 1) {
     
     ## Get the entries associated to the motifs in the cluster
-    cluster.compa.entries <- motif.comparison.entries(id    = ids,
+    cluster.compa.entries <- motif.comparison.entries(ids   = ids,
                                                       compa = compa,
                                                       full  = TRUE,
                                                       self  = TRUE)
