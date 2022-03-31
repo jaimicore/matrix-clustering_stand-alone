@@ -19,14 +19,14 @@ nodes.summary.stats <- function(comparison.list = NULL,
   
   ## For each node, create a summary statistics
   stats.summary.per.node <- data.table(cor  = purrr::map(purrr::map(comparison.list, 1), fun.apply, na.rm = TRUE),
-                                       Ncor = purrr::map(purrr::map(comparison.list, 2), fun.apply, na.rm = TRUE))
+                                       Ncor = purrr::map(purrr::map(comparison.list, 2), fun.apply, na.rm = TRUE),
+                                       w    = purrr::map(purrr::map(comparison.list, 3), fun.apply, na.rm = TRUE))
   
   
   ## Evaluate the correlation values in each node, return a TRUE/FALSE value depending
   ## whether the motifs in the node satisfy the threshold(s)
   stats.summary.per.node <- stats.summary.per.node %>% 
-                              mutate(Merge = ifelse(cor  >= parameters$cor & 
-                                                    Ncor >= parameters$Ncor,
+                              mutate(Merge = ifelse((cor  >= parameters$cor & Ncor >= parameters$Ncor) & w >= parameters$w,
                                                     yes = TRUE,
                                                     no  = FALSE))
   
@@ -205,21 +205,21 @@ find.motif.clusters <- function(tree             = NULL,
   motif.IDs.per.tree.level <- lapply(motif.at.tree.level, function(x){
                                 tree$labels[x]
                               })
-                              
-  
+
+  motif.ids.ind <- index.compa.table(comparison.table = comparison.table)
+
   ## Obtain the comparison entries among the motifs within each node in the tree
   ## Each node is stored as a dataframe nested in a list 
   ##
   ## NOTE: depending in the number of motifs, this function may be very slow
   plan(multisession, workers = parameters$nb_workers)
-  comparisons.per.node <- furrr::future_map(.x = motif.IDs.per.tree.level, motif.comparison.entries, compa = comparison.table, full = FALSE, self = FALSE)
-  
-  # for(i in 1:length(motif.IDs.per.tree.level)){
-  #   message(i)
-  #   a <- NULL
-  #   a <- motif.comparison.entries(ids = as.vector(motif.IDs.per.tree.level[[1390]]), compa = comparison.table, full = FALSE, self = FALSE)
-  # }
-  
+  comparisons.per.node <- furrr::future_map(.x = motif.IDs.per.tree.level, 
+                                            .f = ~motif.comparison.entries(compa    = comparison.table,
+                                                                           ids      = .x,
+                                                                           hash.ind = motif.ids.ind,
+                                                                           full     = FALSE,
+                                                                           self     = FALSE))
+
   ## Return the Merge status of each node in the tree
   ## FALSE correspond to the nodes where the tree will be partitioned
   message(";     Calculating similarity among elements within each node")
