@@ -11,6 +11,7 @@ build.distance.matrix <- function(compa.table = NULL,
   
   dist.table <- NULL
   distances.objects <- list()
+  compa.table <- data.table(compa.table)
   
   ## Extract metric values
   metric.values <- compa.table[, ..metric]
@@ -166,8 +167,9 @@ motif.comparison <- function(transfac.file     = NULL,
     
     ## Rename and select relevant columns
     motif.comparison.tab <- motif.comparison.tab %>% 
-      dplyr::rename(id1 = '#id1') %>% 
-      select(id1, id2, cor, Ncor, strand, offset)
+                              dplyr::rename(id1 = '#id1') %>% 
+                              select(id1, id2, cor, Ncor, strand, offset, w) %>% 
+                              data.table()
     
     ## Check that the comparison table table contains the required metric and threshold columns
     required.columns <- c("cor", "Ncor")
