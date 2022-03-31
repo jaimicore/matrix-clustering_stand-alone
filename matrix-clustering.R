@@ -56,6 +56,9 @@ option_list = list(
   make_option(c("-n", "--Ncor_th"), type = "numeric", default = 0.55, 
               help = "Normalized Pearson correlation threshold. [Default \"%default\"] ", metavar = "number"),
   
+  make_option(c("-W", "--w_th"), type = "numeric", default = 5,
+              help = "Minimum number of aligned positions between a pair of motifs. [Default \"%default\"] ", metavar = "number"),
+
   make_option(c("-M", "--minimal_output"), type = "logical", default = FALSE, 
               help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical"),
   
@@ -94,7 +97,7 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "heatmap_color_palette" = opt$heatmap_color_palette,
                     "comparison_metric"     = opt$comparison_metric,
                     "linkage_method"        = opt$linkage_method,
-                    # "w"                   = min.w,
+                    "w"                     = opt$w_th,
                     "cor"                   = as.numeric(opt$cor_th),
                     "Ncor"                  = as.numeric(opt$Ncor_th),
                     "nb_workers"            = as.numeric(opt$number_of_workers),
@@ -122,7 +125,7 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 ###########
 ## Example:
 
-# Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8 
+# Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8
 # matrix.file.table <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/OCT4_datasets/OCT4_motif_table.txt"
 # out.folder        <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/results/Oct4_example/Oct4_example"
 
@@ -137,7 +140,7 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 #                     "heatmap_color_palette" = NULL,
 #                     "comparison_metric"     = "Ncor",
 #                     "linkage_method"        = "average",
-#                     # "w"                   = min.w,
+#                     "w"                     = 5,
 #                     "cor"                   = 0.75,
 #                     "Ncor"                  = 0.55,
 #                     "nb_workers"            = 8,
@@ -313,7 +316,14 @@ if (params.list[["Nb_motifs"]] > 1) {
   #############################
   
   ## Compute hierarchical clustering of each cluster
-  cl.hclust.results <- lapply(find.clusters.list$clusters, hclust.cluster.ids, compa = results.list$Motif_compa_tab, parameters = params.list)
+  cl.hclust.results <- purrr::map(.x = find.clusters.list$clusters,
+                                  .f = ~hclust.cluster.ids(ids        = .x,
+                                                           compa      = results.list$Motif_compa_tab,
+                                                           parameters = params.list))
+  
+  hclust.cluster.ids(ids        = find.clusters.list$clusters$cluster_01,
+                     compa      = results.list$Motif_compa_tab,
+                     parameters = params.list)
   
   ## Extract the hclust objects within the nested list
   cl.many.hclust <- purrr::map(cl.hclust.results[cl.many], `[[`, "hclust")
@@ -608,5 +618,6 @@ if (params.list$min_output == FALSE) {
   unlink(out.folder.list$root_motifs, recursive = TRUE)
   unlink(out.folder.list$cluster_motifs, recursive = TRUE)
   suppressMessages(file.remove(output.files.list$Motifs_transfac, showWarnings = FALSE))
+  
 }
 message("; End of program")
