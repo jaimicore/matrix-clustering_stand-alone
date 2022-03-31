@@ -82,60 +82,127 @@ leaves.per.node <- function(tree = NULL) {
 
 ## Given a vector of motif IDs, return all entries in the comparison table (compa)
 ## with those motifs, removing repeated entries
-motif.comparison.entries <- function(ids   = NULL,
-                                     compa = NULL,
-                                     full  = TRUE,
-                                     self  = FALSE) {
-  
+##
+## The argument 'hash.ind' must be a list where each element is a vector with the
+## indexes of a motif in the comparison table
+# motif.comparison.entries <- function(ids      = NULL,
+#                                      compa    = NULL,
+#                                      hash.ind = NULL,
+#                                      full     = TRUE,
+#                                      self     = FALSE) {
+#   
+#   ids               <- as.vector(unlist(ids))
+#   comparison.subset <- compa
+#   
+#   
+#   if (!all(ids %in% names(hash.ind))) {
+#     
+#     ids.indexes.all      <- sort(as.vector(unlist(hash.ind[ids])))
+#     ids.indexes.selected <- ids.indexes.all[duplicated(ids.indexes.all)]
+#     
+#     comparison.subset <- comparison.subset[ids.indexes.selected] %>% 
+#                             dplyr::mutate(Nb_compa = 1:n())
+#     
+#   } else {
+#     comparison.subset <- comparison.subset %>% 
+#                           dplyr::mutate(Nb_compa = 1:n())
+#   }
+#   
+#   
+#   ## Remove diagonal (motif compared to itself is always cor/Ncor = 1)
+#   # if (self == FALSE) {
+#   #   comparison.subset <- comparison.subset %>%
+#   #     dplyr::filter(id2 != id1)
+#   # }
+#   
+#   
+#   ## Select relevant motifs + create comparison pair IDs
+#   # comparison.subset <- comparison.subset %>%   
+#   #   dplyr::filter(id1 %in% ids) %>% 
+#   #   dplyr::filter(id2 %in% ids) %>% 
+#   #   # dplyr::filter(id2 %in% ids & id1 %in% ids) %>%  ## Select table entries associated with the input motif IDs
+#   #   dplyr::mutate(Nb_compa = 1:n())
+#   
+#   
+#   ## Not full returns only the first instance of each comparison pair ID 
+#   if (full == FALSE) {
+#     comparison.subset <- comparison.subset  %>% 
+#       group_by(Nb_compa) %>% 
+#       # arrange(Compa_ID) %>% 
+#       slice(1) %>%                                  ## To avoid lines with redundant information, take only the first time a comparison identifier appears
+#       select(cor, Ncor, Nb_compa)
+#   }
+#   
+#   
+#   comparison.subset %>% 
+#     ungroup()
+# }
+motif.comparison.entries <- function(ids      = NULL,
+                                     compa    = NULL,
+                                     hash.ind = NULL,
+                                     full     = TRUE,
+                                     self     = FALSE) {
+
   ids               <- as.vector(unlist(ids))
   comparison.subset <- compa
-  
-  
-  ## Calls Rcpp method
-  # comparison.subset <- MotifCompaEntry(compa_df = comparison.subset,
-  #                                      ids      = ids)
-  # comparison.subset <- data.table(comparison.subset)
-  
-  # sourceCpp("/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix_clustering/RSAT_matrix_clustering_tidyR/matrix-clustering/TFBMclust_revised/Utils.cpp")
-  # ids <- motif.IDs.per.tree.level[[355]]
-  # a <- getIndexes(id_col = comparison.subset$id1,
-  #                 query_ids = motif.IDs.per.tree.level[[355]])
-  # 
-  # b <- getIndexes(id_col = comparison.subset$id2,
-  #                 query_ids = motif.IDs.per.tree.level[[355]])
-  # 
-  # save.image("Test_compa_Rcpp.Rdata")
-  # an <- GetIntersection(a, b)
-  
-  
+
+
+
   ## Remove diagonal (motif compared to itself is always cor/Ncor = 1)
   if (self == FALSE) {
     comparison.subset <- comparison.subset %>%
-                            dplyr::filter(id2 != id1)
+                            dplyr::filter(id1 != id2)
   }
-  
-  
+
+
   ## Select relevant motifs + create comparison pair IDs
-  comparison.subset <- comparison.subset %>%   
-                          dplyr::filter(id1 %in% ids) %>% 
-                          dplyr::filter(id2 %in% ids) %>% 
+  comparison.subset <- comparison.subset %>%
+                          ungroup() %>% 
+                          dplyr::filter(id1 %in% ids) %>%
+                          dplyr::filter(id2 %in% ids) %>%
                           # dplyr::filter(id2 %in% ids & id1 %in% ids) %>%  ## Select table entries associated with the input motif IDs
-                          dplyr::mutate(Nb_compa = 1:n())
-  
-  ## Not full returns only the first instance of each comparison pair ID 
+                          dplyr::mutate(Nb_compa = 1:n()) %>% 
+                          group_by(Nb_compa) %>% 
+                          mutate(Compa_ID = paste(sort(c(id1, id2)), collapse = ",")) %>% 
+                          ungroup()
+
+  ## Not full returns only the first instance of each comparison pair ID
   if (full == FALSE) {
-    comparison.subset <- comparison.subset  %>% 
-                            group_by(Nb_compa) %>% 
-                            # arrange(Compa_ID) %>% 
-                            slice(1) %>%                                  ## To avoid lines with redundant information, take only the first time a comparison identifier appears
-                            select(cor, Ncor, Nb_compa)
+    comparison.subset <- comparison.subset  %>%
+                            group_by(Compa_ID) %>%
+                            slice(1) %>%                ## To avoid lines with redundant information, take only the first time a comparison identifier appears
+                            ungroup() %>% 
+                            select(cor, Ncor, w)
+                            
   }
-  
-  
-  comparison.subset %>% 
-      ungroup()
+
+  comparison.subset %>%
+      ungroup() 
 
   # return(comparison.subset)
+}
+
+
+## Return the indexes of each motif ID in the comparison table
+index.compa.table <- function(comparison.table = NULL) {
+  
+  ## Code taken from: https://stackoverflow.com/questions/22993637/efficient-r-code-for-finding-indices-associated-with-unique-values-in-vector
+  id1.index <- as.data.table(comparison.table$id1)[, list(list(.I)), by = comparison.table$id1]
+  setattr(id1.index$V1, 'names', id1.index$comparison.table)
+  id1.index <- id1.index$V1
+  
+  id2.index <- as.data.table(comparison.table$id2)[, list(list(.I)), by = comparison.table$id2]
+  setattr(id2.index$V1, 'names', id2.index$comparison.table)
+  id2.index <- id2.index$V1
+  
+
+  index.hash <- Map(c, id1.index, id2.index)
+  
+  index.hash <- lapply(index.hash, function(x){
+                  sort(unique(x))
+                })
+  
+  return(index.hash)
 }
 
 
