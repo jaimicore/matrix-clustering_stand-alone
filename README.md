@@ -13,6 +13,8 @@ As in the original version of *RSAT matrix-clustering*, there is no limit in the
 
 Originally, *RSAT matrix-clustering* was planned to be part of the [*RSAT* suite](http://www.rsat.eu/) for motif analysis, we decided to create a portable stand-alone version that can be ran without installing the whole *RSAT* environment and that can be easily integrated within pipelines.
 
+&nbsp;
+&nbsp;
 
 
 ## Before starting
@@ -23,7 +25,7 @@ If you want to run the original version with all the graphical output, you can d
 
 The graphical output (interactive trees and heatmaps will be added soon).
 
-
+&nbsp;
 
 ## :wrench: Changes relative to the original version
 
@@ -31,7 +33,8 @@ The graphical output (interactive trees and heatmaps will be added soon).
 
 - Default threshold are different: `cor = 0.75` and `Ncor = 0.55`. To decide if a node in the hierarchical tree will be merged or split, we compute the average `cor` and `Ncor` of all the pairwise comparisons for all the motifs in a particualr node. We realized that the original version didn't considered all the pairwise comparisons, we corrected this problem, but now the default thresholds are too permissive, so they have to be increased to obtain good results.
 
-
+&nbsp;
+&nbsp;
 
 ## :computer: Install required software
 
@@ -42,6 +45,8 @@ The graphical output (interactive trees and heatmaps will be added soon).
 git clone https://github.com/jaimicore/matrix-clustering_stand-alone.git
 cd matrix-clustering_stand-alone
 ```
+
+&nbsp;
 
 ### R libraries
 
@@ -86,6 +91,8 @@ BiocManager::install("circlize")
 BiocManager::install("ComplexHeatmap")
 ```
 
+&nbsp;
+
 ### Compile C dependencies
 
 The motif comparison step is ran by `compare-matrices-quick`, a fast version of `RSAT compare-matrices` implemented in C (with less options but very fast).
@@ -107,7 +114,8 @@ The makefile contains the commands to compile the `compare-matrices-quick.c` scr
 
 This should print the help to run `compare-matrices-quick` and the exaplanation of the parameters, but don't worry you don't have to read it, this script will be called within the `R` scripts.
 
-
+&nbsp;
+&nbsp;
 
 ## :arrow_forward: Quickstart
 
@@ -126,6 +134,8 @@ Rscript matrix-clustering.R                          \
   -w 8                              
 ```
 
+&nbsp;
+
 ### Example 2
 
 We cluster the [*JASPAR 2022 plants*](https://jaspar.genereg.net/matrix-clusters/plants/) motif collection (656 motifs), we compare the resulting clusters detected by *RSAT matrix-clustering* against a user-provided reference annotation (in this case the Transcription Factor classes). We calculated the *Adjusted Rand Index* (ARI), a single-value metric (ranging from -1 to +1) indicating the proportion of consistent pairs between two classifications, in this example the ARI measures the proportion of motif pairs that are consistently classified between *RSAT matrix-clustering* results and the reference TF classes. We consider that a motif pair is consistently classified when the two motifs either belong to the same class and are co-clustered, or belong to different families and are not co-clustered.
@@ -141,6 +151,9 @@ Rscript matrix-clustering.R                         \
   -w 8                                              \
   -r data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab 
 ```
+
+&nbsp;
+&nbsp;
 
 ## :scroll: Input files
 
@@ -159,6 +172,7 @@ This is the list of supported TF motif formats:
 
 In case your motif format is not in this list, please contact me to add it.
 
+&nbsp;
 
 ### Matrix file table (Mandatory)
 
@@ -184,6 +198,7 @@ data/OCT4_datasets/MEME_OCT4_motifs.meme      MEME_motifs	  meme
 data/OCT4_datasets/RSAT_OCT4_motifs.tf        RSAT_motifs	  tf
 ```
 
+&nbsp;
 
 ### Reference groups table (Optional)
 
@@ -212,6 +227,8 @@ MA0976.2	AP2/EREBP   JASPAR_plants
 MA1376.1	AP2/EREBP   JASPAR_plants
 ```
 
+&nbsp;
+&nbsp;
 
 ## :crystal_ball: Example output:
 
@@ -249,6 +266,8 @@ results
     └── tree.RData
 ```
 
+&nbsp;
+
 ### Example 1
 
 The analysis produces the file named `alignment_table.tab` which contains one line per motif with its corresponding cluster name, orientation in the alignment, the number of upstream/downstream gaps, the aligned consensus, and the alignment width.
@@ -281,7 +300,7 @@ If the option `--export_heatmap TRUE` is indicated the file `Heatmap_clusters.pd
 
 <img src="data/images/Heatmap_clusters.jpeg" width="750px" align="center">
 
-
+&nbsp;
 
 ### Example 2
 
@@ -289,7 +308,8 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 
 <img src="data/images/Clusters_vs_reference_contingency_table.jpeg" width="700px" align="center">
 
-
+&nbsp;
+&nbsp;
 
 
 ## :wrench: Arguments and Options
@@ -334,7 +354,9 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 - `--heatmap_color_palette` : Cell colors in clusters heatmap. Default: `RdGy`. [Options: any colorBrewer palette, see colorbrewer2.org for details ].
 - `--color_palette_classes` : Number of classes to create color palette in clusters heatmap. Default: `11`. [Options: depends on the selected colorBrewer palette, see colorbrewer2.org for details ].
   
-  
+ 
+ &nbsp;
+ &nbsp;
   
 ## :collision: Contact + Report issues 
 
@@ -347,6 +369,8 @@ Twitter: [@jaimicore](https://twitter.com/jaimicore)
 Use this space to report [issues](https://github.com/jaimicore/matrix-clustering_stand-alone/issues) related to this repository.
 
 
+&nbsp;
+&nbsp;
 
 ## :pushpin: To Do/Wishlist
 
@@ -357,13 +381,64 @@ Use this space to report [issues](https://github.com/jaimicore/matrix-clustering
 - Detect the central motif within each cluster.
 - Export motif collection intersection stats.
 
+&nbsp;
+&nbsp;
 
+## :bangbang: Extra
+
+This repository also contains the script `convert-matrix` which is a simplified version of the `RSAT convert-matrix` tool, for motif manipulation and format conversion.
+
+For the moment this scripts has three main functions:
+
+1. Motif format conversion, see above for the supported formats.
+2. Export reverse-complement of the input motifs
+3. Trimm motifs (remove columns with low information content).
+
+
+Simple motif conversion from `transfac` to `meme` format.
+```bash
+Rscript convert-matrix.R                    \
+  -i data/OCT4_datasets/RSAT_OCT4_motifs.tf \
+  --from tf --to jaspar                     \
+  --output_file results/convert-matrix_examples/RSAT_OCT4_motifs.jaspar
+```
+
+
+Simple motif conversion from `transfac` to `meme` format with reverse-complement motifs.
+The file with the reverse-complement motifs has the suffix `_rc` in its name.
+In this example:
+  - Output: `results/convert-matrix_examples/RSAT_OCT4_motifs.jaspar`
+  - Output (RC) : `results/convert-matrix_examples/RSAT_OCT4_motifs_rc.jaspar`
+```
+Rscript convert-matrix.R                    \
+  -i data/OCT4_datasets/RSAT_OCT4_motifs.tf \
+  --from tf --to jaspar                     \
+  --rc TRUE                                 \
+  --output_file results/convert-matrix_examples/RSAT_OCT4_motifs.jaspar
+```
+
+
+Simple motif conversion from `transfac` to `meme` format after motif trimming.
+```
+Rscript convert-matrix.R                    \
+  -i data/OCT4_datasets/RSAT_OCT4_motifs.tf \
+  --from tf --to jaspar                     \
+  --trimm TRUE --IC_threshold 0.25          \
+  --rc TRUE                                 \
+  --output_file results/convert-matrix_examples/RSAT_OCT4_motifs_trimmed.jaspar
+```
+
+&nbsp;
+&nbsp;
 
 ## :tada: Acknowledgements
 
 We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](http://rsat-tagc.univ-mrs.fr/rsat/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs :beetle:.
 
 Special thanks to my colleagues Ieva Rauluseviciute (and her *gently reminders* :unamused: that pushed me to write this stand-alone version) and Vipin Kumar (both from [Anthony Mathelier's lab](https://mathelierlab.com/)) for testing this software, the discussions, ideas, and their suggestions of `R` libraries that make this script faster than the original version.
+
+&nbsp;
+&nbsp;
 
 ## :page_with_curl: How to cite this software?
 
