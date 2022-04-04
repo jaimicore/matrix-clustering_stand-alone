@@ -428,6 +428,11 @@ Rscript convert-matrix.R                    \
   --output_file results/convert-matrix_examples/RSAT_OCT4_motifs_trimmed.jaspar
 ```
 
+
+In this figure we show the advantages of using a window-based approach to trim the motifs instead of using a single value.
+<img src="data/images/Trim_motifs_example.png" width="700px" align="center">
+
+
 &nbsp;
 &nbsp;
 
