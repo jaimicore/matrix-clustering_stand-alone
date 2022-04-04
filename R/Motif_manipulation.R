@@ -22,6 +22,29 @@ set.um.nb.sites <- function(um       = NULL,
 }
 
 
+## Reset the 'Motif' field of universalmotif object
+set.um.motif <- function(um        = NULL,
+                         new.count = NULL) {
+  
+  ## As the motif is modified, the universalmotif object needs to be updated
+  new.motif <- create_motif(input = new.count, type =  um@type)
+  
+  ## Rename it
+  new.motif@name    <- um@name
+  new.motif@altname <- um@altname
+  
+  return(new.motif)
+}
+
+
+## Subset the count matrix columns, this is applied when the motifs are trimmed
+subset.matrix <- function(m   = NULL,
+                          min = NULL,
+                          max = NULL) {
+  m[, min:max]
+}
+
+
 
 ## Count the number of sites in an input motif, in case there are columns with different
 ## numbers, the smallest number will be considered 
@@ -773,6 +796,47 @@ calculate.col.IC.count.matrix <- function(count.matrix = matrix(rep(c(10,0,0,0),
 }
 
 
+## Given a numeric vector representing the IC at each position of a TF binding motif
+## return the start and end of the motif after trimming the flanks with low IC (th argument)
+## in a window of +/- k positions (this allows to remove IC spikes)
+motif.trimming <- function(IC.vector = NULL, 
+                           th        = 0.25,
+                           k         = 1) {
+  
+  flank_size        <- length(IC.vector)
+  pos.high.IC       <- which(IC.vector >= th)
+  pos.binarized.IC  <- IC.vector >= th
+  checked_positions <- data.frame()
+  
+  for (i in seq_along(pos.high.IC)) {
+    
+    pos.to.check <- pos.high.IC[i] + seq(-k,k)
+    pos.to.check <- pos.to.check[pos.to.check >= 1]
+    pos.to.check <- pos.to.check[pos.to.check <= flank_size] ## Selecting the positions in our range only
+    pos.to.check <- pos.to.check[pos.to.check != pos.high.IC[i]]
+    
+    decision.sum          <- sum(pos.binarized.IC[pos.to.check])
+    desicion.sum.fraction <- decision.sum/(2*k)
+    
+    # message("; Position ", pos.high.IC[i], " - Sum: ", decision.sum, " - Fraction: ", desicion.sum.fraction)
+    
+    position_sum_fraction <- cbind(pos.high.IC[i], decision.sum, desicion.sum.fraction)
+    checked_positions     <- rbind(checked_positions, position_sum_fraction)
+    
+  }
+  
+  # print(checked_positions)
+  passed_thr_pos <- checked_positions[which(checked_positions$desicion.sum.fraction >= 0.5), ]
+  min.trim.idx   <- min(passed_thr_pos$V1)
+  max.trim.idx   <- max(passed_thr_pos$V1)
+  IC_trimmed     <- IC.vector[min.trim.idx:max.trim.idx]
+  # print(min.trim.idx)
+  # print(max.trim.idx)
+  
+  return(data.table(min = min.trim.idx,
+                    max = max.trim.idx))
+}
+
 
 export.aligned.motifs.per.cluster <- function(indiv.motis.folder    = NULL,
                                               cluster.motifs.folder = NULL,
@@ -841,4 +905,47 @@ export.root.motif <- function(cluster.tf.file = NULL) {
                                                       ID  = paste0("ID ", root.motif.name),
                                                       MAT = root.motif.tf)
   return(root.motif.file)
+}
+
+
+## Trimm the input universalmotif object using as reference an IC threshold
+## This method also considers the window (+/- k) surrounding a given position to remove 
+## spikes in the IC.
+trim.motifs.window <- function(um           = NULL,
+                               ic.threshold = 0.25,
+                               window.k     = 1) {
+  
+  message("; Trimming motifs. IC threshold: ", ic.threshold, " in +/- ", window.k, " positions")
+  
+  ## Get the count matrices within the Universalmotif object
+  ## Then obtain the Ic content per column in each count matrix
+  count.matrices.list    <- purrr::map(um, `[`, "motif")
+  count.matrices.list.ic <- purrr::map(count.matrices.list, calculate.col.IC.count.matrix)
+  count.matrices.list.ic <- lapply(count.matrices.list.ic, as.vector)
+  
+  
+  ## Calculate positions thtat should be kept after trimming motifs
+  trim.positions <- purrr::map_df(.x = count.matrices.list.ic,
+                                  .f = ~motif.trimming(IC.vector = .x,
+                                                       th        = ic.threshold,
+                                                       k         = 1))
+  
+  positions.trimm.list <- list(count_matrices = count.matrices.list,
+                               from           = trim.positions$min,
+                               to             = trim.positions$max)
+  
+  
+  ## Subset the motif using the previously calculated positions
+  count.matrices.trimmed.list <- purrr::pmap(.l = positions.trimm.list,
+                                             .f = ~subset.matrix(m   = ..1,
+                                                                 min = ..2,
+                                                                 max = ..3))
+  
+  
+  count.matrices.trimmed.um <- purrr::map2(.x = motifs.um,
+                                           .y = count.matrices.trimmed.list,
+                                           .f = ~set.um.motif(um        = .x,
+                                                              new.count = .y))
+  
+  return(count.matrices.trimmed.um)
 }
