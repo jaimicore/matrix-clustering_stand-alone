@@ -3,8 +3,9 @@
 #############################
 
 ## List of packages to install from CRAN
-required.packages = c("furrr",          ## Run functions in parallel
-                      "optparse",
+required.packages = c("data.table",
+                      "furrr",          ## Run functions in parallel
+                      "optparse",       ## Read arguments from commmand-line
                       "this.path",      ## Create relative paths
                       "universalmotif") ## Motif manipulation (Bioconductor)
 
@@ -30,13 +31,19 @@ option_list = list(
               help = "Folder to save the results (Mandatory)", metavar = "character"),
   
   make_option(c("--from"), type = "character", default = NULL, 
-              help = "Format of matrices in --matrix_file (Mandatory).", metavar = "character"),
+              help = "Format of matrices in --matrix_file (Mandatory). Options: cluster-buster, cisbp, homer, jaspar, meme, tf, transfac, uniprobe].", metavar = "character"),
   
   make_option(c("--to"), type = "character", default = "transfac", 
               help = "Output format of motifs. [Default: \"%default\" . Options: cluster-buster, cisbp, homer, jaspar, meme, tf, transfac, uniprobe]", metavar = "character"),
   
   make_option(c("--rc"), type = "logical", default = FALSE, 
-              help = "Return the reverse-complement of the input motifs. [Default \"%default\"] ", metavar = "logical")
+              help = "Return the reverse-complement of the input motifs. [Default \"%default\"] ", metavar = "logical"),
+  
+  make_option(c("-t", "--trimm"), type = "logical", default = FALSE,
+              help = "Trim the motif flanks. [Default \"%default\"] ", metavar = "logical"),
+  
+  make_option(c("--IC_threshold"), type = "numeric", default = 0.25, 
+              help = "IC threshold to trimm the motfis. [Default \"%default\"] ", metavar = "number")
   
   );
 
@@ -51,18 +58,28 @@ tf.matrix.file.out <- opt$output_file
 format.in          <- opt$from
 format.out         <- opt$to
 rc.flag            <- opt$rc
+trimm.flag         <- opt$trimm
+trimm.ic           <- as.numeric(opt$IC_threshold)
+
 
 ## Mandatory input
 if (!file.exists(tf.matrix.file.in)) {
-  stop("Mandatory input file not found: ", tf.matrix.file.in)
+  stop("Mandatory input file not found: --matrix_file")
 }
 
 if (is.null(tf.matrix.file.out)) {
-  stop("Missing mandatory parameter: ", tf.matrix.file.out)
+  stop("Missing mandatory parameter: --output_file")
 }
 
 if (is.null(format.in)) {
-  stop("Missing mandatory parameter: ", format.in)
+  stop("Missing mandatory parameter: --from")
+}
+
+## Skip the trimming step when the IC threshold is not correct
+## For example, if it is a character or numeric values out of the IC range (0-2)
+if (trimm.ic < 0 | is.character(trimm.ic) | is.na(trimm.ic) | trimm.ic > 2) {
+  warning("; Incorrect value in --IC_threshold argument. The value must be a number > 0 and < 2. The trimming step will not be applied.")
+  trimm.flag <- FALSE
 }
 
 
@@ -76,6 +93,8 @@ if (is.null(format.in)) {
 # format.in          <- "tf"
 # format.out         <- "cluster-buster"
 # rc.flag            <- TRUE
+# trimm.flag         <- TRUE
+# trimm.ic           <- 0.25
 
 ## Format in/out test
 fit <- check.supported.formats(motif.format = format.in)
@@ -85,8 +104,19 @@ fot <- check.supported.formats(motif.format = format.out)
 #####################
 ## Read motif file ##
 #####################
-motifs.uo <- read.motif.file(motif.file   = tf.matrix.file.in,
+motifs.um <- read.motif.file(motif.file   = tf.matrix.file.in,
                              motif.format = format.in)
+
+
+##################
+## Trimm motifs ##
+##################
+if (trimm.flag) {
+  
+  motifs.um <- trim.motifs.window(um           = motifs.um,
+                                  ic.threshold = trimm.ic,
+                                  window.k     = 1)
+}
 
 
 ##################
@@ -94,7 +124,7 @@ motifs.uo <- read.motif.file(motif.file   = tf.matrix.file.in,
 ##################
 if (rc.flag) {
   message("; Generating reverse-complement")
-  motifs.uo.rc <- universalmotif::motif_rc(motifs.uo)
+  motifs.um.rc <- universalmotif::motif_rc(motifs.um)
   
   ## Add the suffix '_rc' before the file format
   ## Example: 'RSAT_OCT4_motifs.tf' becomes 'RSAT_OCT4_motifs_rc.tf' 
@@ -102,16 +132,18 @@ if (rc.flag) {
 }
 
 
+
+
 #######################
 ## Export motif file ##
 #######################
-write.motif.file(um.object    = motifs.uo,
+write.motif.file(um.object    = motifs.um,
                  motif.format = format.out,
                  outfile.name = tf.matrix.file.out)
 
 if (rc.flag) {
   message("; Exporting reverse-complement motifs in ", format.out, " format: ", tf.matrix.file.out.rc)
-  write.motif.file(um.object    = motifs.uo.rc,
+  write.motif.file(um.object    = motifs.um.rc,
                    motif.format = format.out,
                    outfile.name = tf.matrix.file.out.rc)
 }
