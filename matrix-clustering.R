@@ -485,8 +485,6 @@ add.gaps.list <- list(File = as.vector(add.gaps.tab$file),
                       Up   = add.gaps.tab$offset_up,
                       Down = add.gaps.tab$offset_down)
 
-save.image("TEST_image.Rdata")
-
 plan(multisession, workers = params.list$nb_workers)
 furrr::future_pwalk(.l = add.gaps.list,
                     .f = ~add.gaps.transfac.motif(tf.file.in  = ..1,
