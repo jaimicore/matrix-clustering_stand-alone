@@ -481,9 +481,11 @@ message("; Adding gaps to motif files")
 add.gaps.tab <- add.gaps.to.indiv.tf.files(motif.folder = out.folder.list$indiv_motifs,
                                            gap.info     = results.list$Alignment_table)
 
-add.gaps.list <- list(File = add.gaps.tab$file,
+add.gaps.list <- list(File = as.vector(add.gaps.tab$file),
                       Up   = add.gaps.tab$offset_up,
                       Down = add.gaps.tab$offset_down)
+
+save.image("TEST_image.Rdata")
 
 plan(multisession, workers = params.list$nb_workers)
 furrr::future_pwalk(.l = add.gaps.list,
