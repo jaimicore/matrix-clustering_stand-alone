@@ -845,6 +845,7 @@ export.aligned.motifs.per.cluster <- function(indiv.motis.folder    = NULL,
 
 					    
   dir.create(indiv.motis.folder, showWarnings = FALSE, recursive = TRUE)
+  dir.create(cluster.motifs.folder, showWarnings = FALSE, recursive = TRUE)
   
   ## This table contains the motif files (D and R) with their respective clusters
   motif.id.file.tab <- data.table(id     = unique(gsub(list.files(indiv.motis.folder), pattern = "_oriented\\w{,3}.tf$", replacement = "")),
