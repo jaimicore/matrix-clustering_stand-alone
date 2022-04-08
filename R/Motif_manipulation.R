@@ -915,10 +915,10 @@ trim.motifs.window <- function(um           = NULL,
                                ic.threshold = 0.25,
                                window.k     = 1) {
   
-  message("; Trimming motifs. IC threshold: ", ic.threshold, " in +/- ", window.k, " positions")
-  
+  message("; Trimming motifs. IC threshold: ", ic.threshold, " in +/- ", window.k, " positions") 
+
   if (length(um) == 1) {
-    um    <- list(um)
+    um <- list(um)
   }
   
   ## Get the count matrices within the Universalmotif object
@@ -926,8 +926,8 @@ trim.motifs.window <- function(um           = NULL,
   count.matrices.list    <- purrr::map(um, `[`, "motif")
   count.matrices.list.ic <- purrr::map(count.matrices.list, calculate.col.IC.count.matrix)
   count.matrices.list.ic <- lapply(count.matrices.list.ic, as.vector)
-  
-  
+
+
   ## Calculate positions thtat should be kept after trimming motifs
   trim.positions <- purrr::map_df(.x = count.matrices.list.ic,
                                   .f = ~motif.trimming(IC.vector = .x,
@@ -944,9 +944,8 @@ trim.motifs.window <- function(um           = NULL,
                                              .f = ~subset.matrix(m   = ..1,
                                                                  min = ..2,
                                                                  max = ..3))
-  
-  
-  count.matrices.trimmed.um <- purrr::map2(.x = motifs.um,
+
+  count.matrices.trimmed.um <- purrr::map2(.x = um,
                                            .y = count.matrices.trimmed.list,
                                            .f = ~set.um.motif(um        = .x,
                                                               new.count = .y))
