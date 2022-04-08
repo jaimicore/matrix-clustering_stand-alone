@@ -33,7 +33,9 @@ fill.alignment.downstream <- function(alignment.table = NULL,
   
   consensus.ids.subset.tab$Oriented_consensus <- consensus.filled.downstream
   consensus.ids.subset.tab$Offset_down        <- gaps.down
-  
+
+  consensus.ids.subset.tab <- data.table(consensus.ids.subset.tab)
+
   return(consensus.ids.subset.tab)
   
 }
@@ -276,15 +278,13 @@ align.motifs.in.cluster <- function(tree       = NULL,
     tree$labels[x]
   })
   
-  message("; Aqui: A")
 
   ## A list where each element is a dataframe with the comparison entries among
   ## the nodes at each level of the input hierarchical tree
   plan(multisession, workers = parameters$nb_workers)
   comparisons.per.tree.node <- furrr::future_map(motif.IDs.per.tree.level, motif.comparison.entries, compa = compa, full = TRUE, self = FALSE)
   # compaaaa <- furrr::future_map(comparisons.per.tree.node, ~closest.or.farthest.motifs.ids(compa.tab = .x, metric = parameters$comparison_metric, closest = TRUE))
-  
-  message("; Aqui: B")
+ 
   
   ## A table with the paired motif comparison among the closest motifs in each
   ## tree node, following the agglomeration order
@@ -293,7 +293,6 @@ align.motifs.in.cluster <- function(tree       = NULL,
   best.comparison.pair.in.tree.nodes <- ids.per.node.w.best.compa.list$closest_comparison 
   ids.per.tree.node                  <- ids.per.node.w.best.compa.list$motif.id.per.node 
   
-  message("; Aqui: C")
   
   ## Initialize alignment table
   ## All motif are in 'D' strand with 0 gaps at both sides
@@ -307,14 +306,12 @@ align.motifs.in.cluster <- function(tree       = NULL,
                                   N                  = 1:n(),
                                   Update_status      = 0)
   
-  message("; Aqui: D")
   
   ## This list contains N entries (N = agglomeration steps in a tree)
   ## Each entry contains the motifs IDs at each merging step (node1 and node2)
   motif.ids.per.node.list <- leaves.at.x.node(tree          = tree,
                                               ids.per.level = ids.per.tree.node)
-  
-  message("; Aqui: E")
+
   
   # which(sapply(motif.at.tree.level, length) > 60)
   # tree$merge   View(tree$merge )  #380 190  96  48  24  12
@@ -325,7 +322,7 @@ align.motifs.in.cluster <- function(tree       = NULL,
   # for (l in 1:nn) {
   for (l in seq_len(nrow(best.comparison.pair.in.tree.nodes))) {
     
-    message("; Aligning cluster, node ", l)
+    #message("; Aligning cluster, node ", l)
     
     ## Paired Comparison information
     l.id1    <- as.vector(unlist(best.comparison.pair.in.tree.nodes[l, "id1"]))
@@ -394,8 +391,6 @@ align.motifs.in.cluster <- function(tree       = NULL,
       id1.align.info <- subset(alignment.tab, id == l.id1)
       id2.align.info <- subset(alignment.tab, id == l.id2)
     }
-    
-    message("; Aqui: F")
 
     
     ## Update offset: as this alignment is progressive (hierarchical) offset values
@@ -418,8 +413,7 @@ align.motifs.in.cluster <- function(tree       = NULL,
                                     dplyr::filter(id %in% ids.to.update) %>% 
                                     mutate(Update_status = Update_status + 1,
                                            Offset_up     = abs(new.offset) + Offset_up)
-    
-    message("; Aqui: G")
+
       
     ## Add the gaps
     subset.update.consensus.char <- gsub(subset.update.consensus$Oriented_consensus, pattern = "-", replacement = "")
@@ -428,17 +422,19 @@ align.motifs.in.cluster <- function(tree       = NULL,
                                                                   ~add.gaps.consensus(consensus = .x, offset.up = .y))
       
     ## Update the alignment table, keep the most updated entries of each motif id
-    alignment.tab <- update.alignment.table(rbind(alignment.tab, subset.update.consensus))
+    alignment.tab <- update.alignment.table(rbind(alignment.tab, subset.update.consensus)) %>%
+    		        data.table()
     
     
     ## Fill the gaps in the downstream side of all consensuses within this tree level      
     subset.update.consensus.down <- fill.alignment.downstream(alignment.table = alignment.tab,
                                                               ids.subset      = c(ids.node1, ids.node2))
-    
+
+
     ## Update the alignment table, keep the most updated entries of each motif id
-    alignment.tab <- update.alignment.table(rbind(alignment.tab,
-                                                  subset.update.consensus.down))
-    
+    alignment.tab <- update.alignment.table(tab = data.table(rbind(alignment.tab,
+                                                                   subset.update.consensus.down))) %>%
+    		        data.table()
   }
   
 
