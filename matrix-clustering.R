@@ -410,7 +410,7 @@ if (params.list[["Nb_motifs"]] > 1) {
 summary.clustering.tab <- data.table(Nb_motifs         = params.list$Nb_motifs,
                                      Nb_collections    = params.list$Nb_collections,
                                      Nb_clusters       = params.list$Nb_clusters,
-                                     Thresholds        = paste0("Ncor = ", params.list$Ncor, "; cor = ", params.list$cor),
+                                     Thresholds        = paste0("Ncor = ", params.list$Ncor, "; cor = ", params.list$cor, "; w = ", params.list$w),
                                      Linkage_method    = params.list$linkage_method,
                                      Similarity_metric = params.list$comparison_metric)
 
