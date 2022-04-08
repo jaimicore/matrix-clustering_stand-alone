@@ -917,6 +917,10 @@ trim.motifs.window <- function(um           = NULL,
   
   message("; Trimming motifs. IC threshold: ", ic.threshold, " in +/- ", window.k, " positions")
   
+  if (length(um) == 1) {
+    um    <- list(um)
+  }
+  
   ## Get the count matrices within the Universalmotif object
   ## Then obtain the Ic content per column in each count matrix
   count.matrices.list    <- purrr::map(um, `[`, "motif")
