@@ -166,11 +166,12 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
 ## recognized by compare-matrices-quick (it only accepts transfac files) so the fields
 ## have to be renamed to be read by compare-matrices quick
 write.transfac.parsed.header <- function(um.object   = NULL,
-                                        old.tf.file = NULL,
-                                        new.tf.file = NULL,
-                                        verbose     = TRUE) {
-  
+                                         old.tf.file = NULL,
+                                         new.tf.file = NULL,
+                                         verbose     = TRUE) {
+
   suppressWarnings(file.remove(new.tf.file, showWarnings = FALSE))
+  dir.create(dirname(new.tf.file), recursive = TRUE, showWarnings = TRUE)
   
   if (verbose) {
     message("; Exporting motifs with updated ID: ", old.tf.file)
@@ -841,6 +842,9 @@ motif.trimming <- function(IC.vector = NULL,
 export.aligned.motifs.per.cluster <- function(indiv.motis.folder    = NULL,
                                               cluster.motifs.folder = NULL,
                                               cluster.motif.id.tab  = NULL) {
+
+					    
+  dir.create(indiv.motis.folder, showWarnings = FALSE, recursive = TRUE)
   
   ## This table contains the motif files (D and R) with their respective clusters
   motif.id.file.tab <- data.table(id     = unique(gsub(list.files(indiv.motis.folder), pattern = "_oriented\\w{,3}.tf$", replacement = "")),
@@ -857,7 +861,7 @@ export.aligned.motifs.per.cluster <- function(indiv.motis.folder    = NULL,
   
   ## For each cluster, read its motifs and export all together in a single transfac file
   clusters.motif.files.dir <- unique(dirname(motif.id.file.tab$New_File_D))
-  motif.files <- sapply(clusters.motif.files.dir, function(d) {
+  motif.files <- sapply(clusters.motifs.folder, function(d) {
     
     ## Read all the motif files (transfac format associated to a cluster)
     clusters.transfac.files.um <- unlist(purrr::map(.x = file.path(d, list.files(d, pattern = "_oriented\\w{,3}.tf")),
