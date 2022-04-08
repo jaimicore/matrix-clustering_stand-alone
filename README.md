@@ -429,8 +429,11 @@ Rscript convert-matrix.R                    \
 ```
 
 
-In this figure we show the advantages of using a window-based approach to trim the motifs instead of using a single value.
-<img src="data/images/Trim_motifs_example.png" width="700px" align="center">
+In this figure we show the advantages of using a window-based approach to trim the motifs instead of using a single value, we use as example the [IRF7 motif from JASPAR](https://jaspar.genereg.net/matrix/MA0772.1/).
+
+&nbsp;
+
+<img src="data/images/Trim_motifs_example.png" width="500px" align="center">
 
 
 &nbsp;
