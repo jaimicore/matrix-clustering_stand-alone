@@ -862,7 +862,7 @@ export.aligned.motifs.per.cluster <- function(indiv.motis.folder    = NULL,
   
   ## For each cluster, read its motifs and export all together in a single transfac file
   clusters.motif.files.dir <- unique(dirname(motif.id.file.tab$New_File_D))
-  motif.files <- sapply(clusters.motifs.folder, function(d) {
+  motif.files <- sapply(cluster.motifs.folder, function(d) {
     
     ## Read all the motif files (transfac format associated to a cluster)
     clusters.transfac.files.um <- unlist(purrr::map(.x = file.path(d, list.files(d, pattern = "_oriented\\w{,3}.tf")),
