@@ -450,10 +450,10 @@ Special thanks to my colleagues Ieva Rauluseviciute (and her *gently reminders* 
 
 ## :page_with_curl: How to cite this software?
 
-If you use this software, please cite [its own publication](https://doi.org/10.1093/nar/gkx314) and/or the [latest *RSAT* publication](https://doi.org/10.1093/nar/gky317).
+If you use this software, please cite [its own publication](https://doi.org/10.1093/nar/gkx314) and/or the [latest *RSAT* publication](https://doi.org/10.1093/nar/gkac312).
 
 ```
 Castro-Mondragon JA, Jaeger S, Thieffry D, Thomas-Chollier M, and van Helden J. 2017. RSAT matrix-clustering: dynamic exploration and redundancy reduction of transcription factor binding motif collections. Nucleic Acids Research
 
-Nguyen NTT, Contreras-Moreira B, et al. 2018. RSAT 2018: regulatory sequence analysis tools 20th anniversary. Nucleic Acids Research
+Santana-Garcia W, Castro-Mondragon JA, et al. 2022. RSAT 2022: regulatory sequence analysis tools. Nucleic Acids Research
 ```
