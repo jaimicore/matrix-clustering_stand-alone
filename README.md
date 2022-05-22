@@ -69,7 +69,7 @@ required.packages = c("dplyr",          ## Data manipulation
                       "RColorBrewer",   ## Heatmap cell colors
                       "ape",            ## Export hclust tree in newick format
                       "RJSONIO",        ## Export hclust tree in JSON format
-                      "flexclust")       ## Calculate adjusted rand index
+                      "flexclust")      ## Calculate adjusted rand index
 
 
 for (lib in required.packages) {
@@ -140,7 +140,7 @@ Rscript matrix-clustering.R                          \
 
 We cluster the [*JASPAR 2022 plants*](https://jaspar.genereg.net/matrix-clusters/plants/) motif collection (656 motifs), we compare the resulting clusters detected by *RSAT matrix-clustering* against a user-provided reference annotation (in this case the Transcription Factor classes). We calculated the *Adjusted Rand Index* (ARI), a single-value metric (ranging from -1 to +1) indicating the proportion of consistent pairs between two classifications, in this example the ARI measures the proportion of motif pairs that are consistently classified between *RSAT matrix-clustering* results and the reference TF classes. We consider that a motif pair is consistently classified when the two motifs either belong to the same class and are co-clustered, or belong to different families and are not co-clustered.
 
-The calculatio of ARI is a new functionality of *RSAT matrix-clustering*, in this example, using default paramters we obtained `ARI = 0.38`, changing parameters may increase/decrease the resulting ARI.
+The calculation of ARI is a new functionality of *RSAT matrix-clustering*, in this example, using default paramters we obtained `ARI = 0.38`, changing parameters may increase/decrease the resulting ARI.
 
 :hourglass_flowing_sand: Running time: ~5 minutes
 
