@@ -69,6 +69,7 @@ required.packages = c("dplyr",          ## Data manipulation
                       "RColorBrewer",   ## Heatmap cell colors
                       "ape",            ## Export hclust tree in newick format
                       "RJSONIO",        ## Export hclust tree in JSON format
+                      "circlize",       ## Required to draw heatmaps
                       "flexclust")      ## Calculate adjusted rand index
 
 
@@ -87,7 +88,6 @@ if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install("universalmotif")
-BiocManager::install("circlize")
 BiocManager::install("ComplexHeatmap")
 ```
 
