@@ -126,8 +126,8 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 ## Example:
 
 # Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8
-# matrix.file.table <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/OCT4_datasets/OCT4_motif_table.txt"
-# out.folder        <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/results/Oct4_example/Oct4_example"
+# matrix.file.table <- "data/OCT4_datasets/OCT4_motif_table.txt"
+# out.folder        <- "results/Oct4_example/Oct4_example"
 
 # Rscript matrix-clustering.R -i data/JASPAR_2022/Jaspar_plants_motifs_tab.txt -o results/Jaspar_plants/Jaspar_plants --number_of_workers 8 --reference_cluster_annotation data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab
 # matrix.file.table           <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_plants_motifs_tab.txt"
@@ -499,15 +499,15 @@ message("; Exporting motifs separated by clusters: ", out.folder.list$cluster_mo
 no.output <- sapply(file.path(out.folder.list$cluster_motifs, unique(results.list$Clusters_table$cluster)), dir.create, recursive = TRUE, showWarnings = FALSE)
 
 motifs.files.per.cluster <- export.aligned.motifs.per.cluster(indiv.motis.folder    = out.folder.list$indiv_motifs,
-                                                              cluster.motif.id.tab  = find.clusters.list$clusters_df,
-                                                              cluster.motifs.folder =  out.folder.list$cluster_motifs)
+                                                              cluster.motifs.folder = out.folder.list$cluster_motifs,
+                                                              cluster.motif.id.tab  = find.clusters.list$clusters_df)
 
 
 #################################################################
 ## 3) Export root motifs, one file per cluster
 message("; Exporting root motifs: ", output.files.list$Root_motifs)
-root.motifs.tf.vector <- furrr::future_map(.x = sort(motifs.files.per.cluster),
-                                           .f = ~export.root.motif(cluster.tf.file = .x))
+root.motifs.tf.vector <- purrr::map(.x = sort(motifs.files.per.cluster),
+                                    .f = ~export.root.motif(cluster.tf.file = .x))
 root.motifs.tf.vector <- unlist(root.motifs.tf.vector)
 
 
