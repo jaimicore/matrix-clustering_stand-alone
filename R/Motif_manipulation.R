@@ -171,7 +171,7 @@ write.transfac.parsed.header <- function(um.object   = NULL,
                                          verbose     = TRUE) {
 
   suppressWarnings(file.remove(new.tf.file, showWarnings = FALSE))
-  dir.create(dirname(new.tf.file), recursive = TRUE, showWarnings = TRUE)
+  suppressWarnings(dir.create(dirname(new.tf.file), recursive = TRUE, showWarnings = FALSE))
   
   if (verbose) {
     message("; Exporting motifs with updated ID: ", old.tf.file)
@@ -850,8 +850,8 @@ export.aligned.motifs.per.cluster <- function(indiv.motis.folder    = NULL,
   ## This table contains the motif files (D and R) with their respective clusters
   motif.id.file.tab <- data.table(id     = unique(gsub(list.files(indiv.motis.folder), pattern = "_oriented\\w{,3}.tf$", replacement = "")),
                                   File_D = file.path(indiv.motis.folder, list.files(indiv.motis.folder, pattern = "_oriented.tf"))) %>% 
-    left_join(cluster.motif.id.tab, by = "id") %>% 
-    mutate(New_File_D = file.path(cluster.motifs.folder, cluster, basename(File_D)))
+                          left_join(cluster.motif.id.tab, by = "id") %>% 
+                          mutate(New_File_D = file.path(cluster.motifs.folder, cluster, basename(File_D)))
   
   ## Creates a copy of each motif in the cluster in its corresponding folder
   furrr::future_walk2(.x = motif.id.file.tab$File_D,
@@ -861,8 +861,8 @@ export.aligned.motifs.per.cluster <- function(indiv.motis.folder    = NULL,
                                       overwrite = TRUE))
   
   ## For each cluster, read its motifs and export all together in a single transfac file
-  clusters.motif.files.dir <- unique(dirname(motif.id.file.tab$New_File_D))
-  motif.files <- sapply(cluster.motifs.folder, function(d) {
+  clusters.motif.files.dir <- sort(unique(dirname(motif.id.file.tab$New_File_D)))
+  motif.files <- sapply(clusters.motif.files.dir, function(d) {
     
     ## Read all the motif files (transfac format associated to a cluster)
     clusters.transfac.files.um <- unlist(purrr::map(.x = file.path(d, list.files(d, pattern = "_oriented\\w{,3}.tf")),
@@ -900,10 +900,10 @@ export.root.motif <- function(cluster.tf.file = NULL) {
   
   ## Convert the root motif (a matrix) to the format required in the transfac format
   root.motif.tf <- as.matrix.data.frame(root.motif) %>%
-    t() %>% 
-    data.table() %>% 
-    dplyr::mutate(LL = 1:n()) %>% 
-    select(LL, AA, CC, GG, TT)
+                    t() %>% 
+                    data.table() %>% 
+                    dplyr::mutate(LL = 1:n()) %>% 
+                    select(LL, AA, CC, GG, TT)
   
   ## Reconstruct a transfac file with the minimal fields
   root.motif.file <- reconstruct.transfac.file.vector(AC  = paste0("AC ", root.motif.name),
