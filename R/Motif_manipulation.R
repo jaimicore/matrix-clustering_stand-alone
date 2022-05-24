@@ -186,7 +186,7 @@ write.transfac.parsed.header <- function(um.object   = NULL,
   transfac.lines <- gsub(transfac.lines, pattern = "^NA ", replacement = "ID ")
   suppressMessages(writeLines(text = transfac.lines,
                               con  = new.tf.file))
-  suppressWarnings(file.remove(old.tf.file, showWarnings = FALSE))
+  invisible(suppressWarnings(file.remove(old.tf.file, showWarnings = FALSE)))
   
 }
 
