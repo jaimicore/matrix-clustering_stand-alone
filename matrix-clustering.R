@@ -508,13 +508,14 @@ motifs.files.per.cluster <- export.aligned.motifs.per.cluster(indiv.motis.folder
 message("; Exporting root motifs: ", output.files.list$Root_motifs)
 root.motifs.tf.vector <- purrr::map(.x = sort(motifs.files.per.cluster),
                                     .f = ~export.root.motif(cluster.tf.file = .x))
-root.motifs.tf.vector <- unlist(root.motifs.tf.vector)
 
+suppressMessages(
+  root.motifs.tf.vector <- unlist(root.motifs.tf.vector)
+)
 
 ## Print the vector as a text file
-suppressWarnings(file.remove(output.files.list$Root_motifs, showWarnings = FALSE))
+invisible(suppressWarnings(file.remove(output.files.list$Root_motifs, showWarnings = FALSE, recursive = TRUE)))
 suppressMessages(writeLines(root.motifs.tf.vector, con = output.files.list$Root_motifs))
-
 
 
 
@@ -583,9 +584,11 @@ if (params.list$min_output == FALSE) {
                                               color.classes = params.list$heatmap_color_classes)
     
     message("; Exporting heatmap as PDF file: ", output.files.list$Heatmap_clusters)
-    pdf(file = output.files.list$Heatmap_clusters, width = 15, height = 17)
-    draw(heatmap.w.clusters)
-    dev.off()
+    suppressMessages(
+      pdf(file = output.files.list$Heatmap_clusters, width = 15, height = 17),
+      draw(heatmap.w.clusters),
+      dev.off()
+    )
   }
   
   
@@ -602,7 +605,7 @@ if (params.list$min_output == FALSE) {
                                    ht.matrix = clustering.ari$tab,
                                    pdf.file  = output.files.list$Clusters_vs_Reference)
     
-    suppressMessages(file.remove("Rplots.pdf", showWarnings = FALSE))
+    invisible(suppressWarnings(file.remove("Rplots.pdf", showWarnings = FALSE)))
   }
   
   
@@ -612,12 +615,13 @@ if (params.list$min_output == FALSE) {
   ##########################
   ## Delete empty folders ##
   ##########################
-  unlink(out.folder.list$plots, recursive = TRUE)
-  unlink(out.folder.list$trees, recursive = TRUE)
-  unlink(out.folder.list$central_motifs, recursive = TRUE)
-  unlink(out.folder.list$root_motifs, recursive = TRUE)
-  unlink(out.folder.list$cluster_motifs, recursive = TRUE)
-  suppressMessages(file.remove(output.files.list$Motifs_transfac, showWarnings = FALSE))
-  
+  suppressWarnings(
+  unlink(out.folder.list$plots, recursive = TRUE),
+  unlink(out.folder.list$trees, recursive = TRUE),
+  unlink(out.folder.list$central_motifs, recursive = TRUE),
+  unlink(out.folder.list$root_motifs, recursive = TRUE),
+  unlink(out.folder.list$cluster_motifs, recursive = TRUE),
+  invisible(file.remove(output.files.list$Motifs_transfac, showWarnings = FALSE))
+  )
 }
 message("; End of program")
