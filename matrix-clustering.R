@@ -615,13 +615,12 @@ if (params.list$min_output == FALSE) {
   ##########################
   ## Delete empty folders ##
   ##########################
-  suppressWarnings(
-  unlink(out.folder.list$plots, recursive = TRUE),
-  unlink(out.folder.list$trees, recursive = TRUE),
-  unlink(out.folder.list$central_motifs, recursive = TRUE),
-  unlink(out.folder.list$root_motifs, recursive = TRUE),
-  unlink(out.folder.list$cluster_motifs, recursive = TRUE),
+  suppressWarnings(unlink(out.folder.list$plots, recursive = TRUE))
+  suppressWarnings(unlink(out.folder.list$trees, recursive = TRUE))
+  suppressWarnings(unlink(out.folder.list$central_motifs, recursive = TRUE))
+  suppressWarnings(unlink(out.folder.list$root_motifs, recursive = TRUE))
+  suppressWarnings(unlink(out.folder.list$cluster_motifs, recursive = TRUE))
   invisible(file.remove(output.files.list$Motifs_transfac, showWarnings = FALSE))
-  )
+
 }
 message("; End of program")
