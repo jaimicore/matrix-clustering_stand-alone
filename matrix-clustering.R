@@ -423,7 +423,7 @@ if (params.list$ref_clusters) {
   summary.clustering.tab <- cbind(summary.clustering.tab, ri.dt)
 }
 
-message("; Exporting parameters + summary table:", output.files.list$Summary_table)
+message("; Exporting parameters + summary table: ", output.files.list$Summary_table)
 fwrite(x         = summary.clustering.tab,
        file      = output.files.list$Summary_table,
        row.names = FALSE,
@@ -435,7 +435,7 @@ fwrite(x         = summary.clustering.tab,
 #############################################################################################
 ## Export the alignment + clusters table + motif files: these files are the minimal output ##
 #############################################################################################
-message("; Exporting alignment table:", output.files.list$Alignment_table)
+message("; Exporting alignment table: ", output.files.list$Alignment_table)
 fwrite(x         = results.list$Alignment_table,
        file      = output.files.list$Alignment_table,
        row.names = FALSE,
@@ -443,7 +443,7 @@ fwrite(x         = results.list$Alignment_table,
        sep       = "\t")
 
 
-message("; Exporting clusters table:", output.files.list$Clusters_table)
+message("; Exporting clusters table: ", output.files.list$Clusters_table)
 fwrite(x         = results.list$Clusters_table,
        file      = output.files.list$Clusters_table,
        row.names = FALSE,
@@ -549,7 +549,7 @@ if (params.list$min_output == FALSE) {
   ###############################
   ## Export the distance table ##
   ###############################
-  message("; Exporting distance table:", output.files.list$Distance_table)
+  message("; Exporting distance table: ", output.files.list$Distance_table)
   fwrite(x         = results.list[["Dist_table"]],
          file      = output.files.list$Distance_table,
          row.names = TRUE,
@@ -562,7 +562,7 @@ if (params.list$min_output == FALSE) {
   ###########################
   results.list$Cluster_color <- cluster.color.map(cluster.tab = results.list$Clusters_table)
   cl.col                     <- results.list$Cluster_color
-  message("; Exporting cluster-color table:", output.files.list$Distance_table)
+  message("; Exporting cluster-color table: ", output.files.list$Distance_table)
   fwrite(x         = cl.col,
          file      = output.files.list$Distance_table,
          row.names = FALSE,
