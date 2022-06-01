@@ -621,6 +621,8 @@ if (params.list$min_output == FALSE) {
   suppressWarnings(unlink(out.folder.list$root_motifs, recursive = TRUE))
   suppressWarnings(unlink(out.folder.list$cluster_motifs, recursive = TRUE))
   invisible(suppressWarnings(file.remove(output.files.list$Motifs_transfac, showWarnings = FALSE)))
+  invisible(suppressWarnings(file.remove(output.files.list$Motif_compa, showWarnings = FALSE)))
+  invisible(suppressWarnings(file.remove(output.files.list$Summary_table, showWarnings = FALSE)))
 
 }
 message("; End of program")
