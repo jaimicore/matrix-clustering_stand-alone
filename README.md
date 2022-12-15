@@ -362,7 +362,8 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 
 This repository is maintained by [Jaime A Castro-Mondragon](https://jaimicore.github.io/)
 
-:e-mail: j.a.c.mondragon@ncmm.uio.no
+:e-mail: j.a.castro.mondragon@gmail.com
+:e-mail: jacmondragon@nykode.com
 
 Twitter: [@jaimicore](https://twitter.com/jaimicore)
 
