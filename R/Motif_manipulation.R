@@ -124,9 +124,11 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   
   ## This step is required when there are cases of motifs with empty columns, for some reason
   ## this generates an NA within the Universalmotif object and crashes the script
+  #message("; Trimming motifs")
   motif.collection <- universalmotif::trim_motifs(motif.collection, min.ic = 0.0001)
   
   ## Generate the reverse-complement version of the input motif collection
+  #message("; Reverse-complement motifs")
   motif.collection.rc <- universalmotif::motif_rc(motif.collection)
   
   ## In cases when there is only 1 motif in the motif collection, save the universalmotif
@@ -136,16 +138,34 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
     motif.collection.rc <- list(motif.collection.rc)
   }
   
+  
   ## Returns a motif information data.table
-  motif.info.dt <- data.table(id_old       = purrr::map_chr(motif.collection, `[`, "name"),
-                              name         = purrr::map_chr(motif.collection, `[`, "altname"),
-                              rc_consensus = purrr::map_chr(motif.collection.rc, `[`, "consensus"),
-                              consensus    = purrr::map_chr(motif.collection, `[`, "consensus"),
-                              nb_sites     = round(purrr::map_dbl(motif.collection, `[`, "nsites")),
-                              IC           = purrr::map_dbl(motif.collection, `[`, "icscore")) %>% 
-                       dplyr::mutate(width = nchar(consensus),
-                                     n     = 1:n()) %>% 
-                       dplyr::mutate(id = paste0(collection.name, "_", id_old, "_n", n))
+  if (motif.format == "homer") {
+    
+    motif.info.dt <- data.table(id_old       = purrr::map_chr(motif.collection, `[`, "name"),
+                                name         = purrr::map_chr(motif.collection, `[`, "name"),
+                                rc_consensus = purrr::map_chr(motif.collection.rc, `[`, "consensus"),
+                                consensus    = purrr::map_chr(motif.collection, `[`, "consensus"),
+                                nb_sites     = round(purrr::map_dbl(motif.collection, `[`, "nsites")),
+                                IC           = purrr::map_dbl(motif.collection, `[`, "icscore")) %>% 
+      dplyr::mutate(width = nchar(consensus),
+                    n     = 1:n()) %>% 
+      dplyr::mutate(id = paste0(collection.name, "_", id_old, "_n", n))
+    
+  } else {
+    
+    motif.info.dt <- data.table(id_old       = purrr::map_chr(motif.collection, `[`, "name"),
+                                name         = purrr::map_chr(motif.collection, `[`, "altname"),
+                                rc_consensus = purrr::map_chr(motif.collection.rc, `[`, "consensus"),
+                                consensus    = purrr::map_chr(motif.collection, `[`, "consensus"),
+                                nb_sites     = round(purrr::map_dbl(motif.collection, `[`, "nsites")),
+                                IC           = purrr::map_dbl(motif.collection, `[`, "icscore")) %>% 
+      dplyr::mutate(width = nchar(consensus),
+                    n     = 1:n()) %>% 
+      dplyr::mutate(id = paste0(collection.name, "_", id_old, "_n", n))
+    
+  }
+
   
   
   ## Change the motif IDs, this is required to map the collection of origin of each
@@ -462,19 +482,20 @@ export.indiv.motif.files <- function(un.motifs = NULL,
 
 ## Check whether the input file is indeed a transfac file
 is.transfac.file <- function(AC  = NULL,
-                             ID  = NULL,
+                             #ID  = NULL,
                              P0  = NULL,
                              SEP = NULL) {
   
   ## Minimal fields
   ## AC (beginning of a matrix), ID, P0 (Position 0, before the count matrix), SEP (end of matrix)
   AC  <- length(AC)
-  ID  <- length(ID)
+  #ID  <- length(ID)
   P0  <- length(P0)
   SEP <- length(SEP)
   
   
-  if (!all(AC, ID, P0, SEP)) {
+  #if (!all(AC, ID, P0, SEP)) {
+  if (!all(AC, P0, SEP)) {
     
     stop("Incorrect transfac file format. Verify the following fields are present in your motif file: AC, ID, P0, //")
     
@@ -514,6 +535,7 @@ add.gaps.transfac.motif <- function(tf.file.in  = NULL,
   ## Read transfac file
   tf.lines <- readLines(tf.file.in)
   
+  
   ## Save the important lines
   ac.line  <- which(grepl(x = tf.lines, pattern = "^\\s*AC"))
   id.line  <- which(grepl(x = tf.lines, pattern = "^\\s*ID"))
@@ -522,7 +544,7 @@ add.gaps.transfac.motif <- function(tf.file.in  = NULL,
   
   ## Verify the input motif has the minimal transfac fields
   istf <- is.transfac.file(AC  = ac.line,
-                           ID  = id.line,
+                           #ID  = id.line,
                            P0  = p0.line,
                            SEP = sep.line)
   
