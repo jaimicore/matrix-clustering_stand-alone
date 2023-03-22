@@ -584,11 +584,9 @@ if (params.list$min_output == FALSE) {
                                               color.classes = params.list$heatmap_color_classes)
     
     message("; Exporting heatmap as PDF file: ", output.files.list$Heatmap_clusters)
-    suppressMessages(
-      pdf(file = output.files.list$Heatmap_clusters, width = 15, height = 17),
-      draw(heatmap.w.clusters),
-      dev.off()
-    )
+    pdf(file = output.files.list$Heatmap_clusters, width = 15, height = 17)
+    draw(heatmap.w.clusters)
+    dev.off()
   }
   
   
