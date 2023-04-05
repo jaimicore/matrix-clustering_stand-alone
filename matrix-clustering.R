@@ -1,8 +1,8 @@
-#############################
-## Load required libraries ##
-#############################
+# ----------------------- #
+# Load required libraries #
+# ----------------------- #
 
-## List of packages to install from CRAN
+# List of packages to install from CRAN
 required.packages = c("dplyr",          ## Data manipulation
                       "data.table",     ## Read long matrices in a quick way
                       "furrr",          ## Run functions in parallel
@@ -18,9 +18,9 @@ for (lib in required.packages) {
 }
 
 
-####################
-## Read arguments ##
-####################
+# -------------- #
+# Read arguments #
+# -------------- #
 option_list = list(
   
   make_option(c("-i", "--matrix_file_table"), type = "character", default = NULL, 
@@ -43,6 +43,9 @@ option_list = list(
   
   make_option(c("--export_heatmap"), type = "logical", default = FALSE, 
               help = "Export heatmap with clusters in PDF. [Default \"%default\"] ", metavar = "logical"), 
+
+  make_option(c("--radial_tree"), type = "logical", default = FALSE, 
+              help = "Radial representation of all motifs aligned. In this alignment the thresholds are ignored, however the clusters are detected and highlighted in the radial tree [Default \"%default\"] ", metavar = "logical"), 
   
   make_option(c("--heatmap_color_palette"), type = "character", default = "RdGy", 
               help = "Cell colors in clusters heatmap. [Default: \"%default\"]. Options: any colorBrewer palette, see colorbrewer2.org for details", metavar = "character"),
@@ -102,12 +105,13 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "Ncor"                  = as.numeric(opt$Ncor_th),
                     "nb_workers"            = as.numeric(opt$number_of_workers),
                     "min_output"            = opt$minimal_output,
-                    "ref_clusters"          = reference.clusters.flag)
+                    "ref_clusters"          = reference.clusters.flag,
+                    "radial_tree"           = opt$radial_tree)
 
 
-###############################
-## Source here the functions ##
-###############################
+# ------------------------- #
+# Source here the functions #
+# ------------------------- #
 
 ## 'here' is set to the path where matrix-clustering.R is located, then the libraries
 ## are sourced relative to where 'here' was set
@@ -120,9 +124,9 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 
 
 
-###########
-## Debug ##
-###########
+# ----- #
+# Debug #
+# ----- #
 ## Example:
 
 # Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8
@@ -133,7 +137,7 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 # matrix.file.table           <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_plants_motifs_tab.txt"
 # out.folder                  <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/results/Jaspar_plants/Jaspar_plants"
 # reference.clusters.tab.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab"
-# 
+
 # params.list <- list("export_newick"         = 0,
 #                     "export_heatmap"        = 0,
 #                     "heatmap_color_classes" = NULL,
@@ -145,12 +149,13 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 #                     "Ncor"                  = 0.55,
 #                     "nb_workers"            = 8,
 #                     "min_output"            = TRUE,
-#                     "ref_clusters"          = FALSE)
+#                     "ref_clusters"          = FALSE,
+#                     "radial_tree"           = TRUE)
 
 
-##############################################################
-## Initialize output + result lists + create output folders ##
-##############################################################
+# -------------------------------------------------------- #
+# Initialize output + result lists + create output folders #
+# -------------------------------------------------------- #
 
 out.folder.list <- list(tables         = file.path(paste0(out.folder, "_tables")),
                         plots          = file.path(paste0(out.folder, "_plots")),
@@ -191,11 +196,10 @@ results.list <- list(Dist_table         = NULL,
 no.output <- sapply(out.folder.list, dir.create, showWarnings = FALSE, recursive = TRUE)
 
 
-################################################################
-## Pre-process motif files + Generate motif description table ##
-################################################################
+# ---------------------------------------------------------- #
+# Pre-process motif files + Generate motif description table #
+# ---------------------------------------------------------- #
 
-## Note: for the moment it only runs with one collection, but this should be adapted to run with many
 matrix.file.list <- check.status.motif.table(matrix.file.table = matrix.file.table)
 
 ## Returns the motif description table and the motifs (as a universalmotif object)
@@ -221,16 +225,16 @@ params.list[["Nb_collections"]] <- length(matrix.file.list$Motif_file)
 message("; Analysis with ", params.list[["Nb_motifs"]], " motifs in ", params.list[["Nb_collections"]], " collections")
 
 
-#################################
-## Read motif comparison table ##
-#################################
+# --------------------------- #
+# Read motif comparison table #
+# --------------------------- #
 results.list$Motif_compa_tab <- motif.comparison(transfac.file     = output.files.list$Motifs_transfac,
                                                  output.compa.file = output.files.list$Motif_compa)
 
 
-#######################################################################
-## Convert distance table into a distance matrix, required by hclust ##
-#######################################################################
+# ----------------------------------------------------------------- #
+# Convert distance table into a distance matrix, required by hclust #
+# ----------------------------------------------------------------- #
 message('; Converting correlation values to distances')
 distances.objects <- build.distance.matrix(compa.table = results.list$Motif_compa_tab,
                                            metric      = params.list$comparison_metric)
@@ -240,9 +244,9 @@ results.list[["Dist_matrix"]]     <- distances.objects$matrix
 results.list[["Original_matrix"]] <- data.table(as.data.frame.matrix(distances.objects$original))
 
 
-############################################
-## Optional: read reference cluster table ##
-############################################
+# -------------------------------------- #
+# Optional: read reference cluster table #
+# -------------------------------------- #
 if (params.list$ref_clusters) {
   
   message('; Reading user-provided reference clusters table')
@@ -270,9 +274,9 @@ if (params.list$ref_clusters) {
 }
 
 
-##############################################
-## Compute the hierarchical clustering tree ##
-##############################################
+# ---------------------------------------- #
+# Compute the hierarchical clustering tree #
+# ---------------------------------------- #
 
 ## Hierarchical clustering can only be applied with > 1 elements
 if (params.list[["Nb_motifs"]] > 1) {
@@ -280,17 +284,35 @@ if (params.list[["Nb_motifs"]] > 1) {
   results.list$All_motifs_tree <- hclust.motifs(results.list[["Dist_matrix"]],
                                                 hclust.method = params.list$linkage_method)
 
-  ###########################
-  ## Find clusters section ##
-  ###########################
+  # --------------------- #
+  # Find clusters section #
+  # --------------------- #
+
+  # When the --radial_tree option is indicated the find.motif.clusters function launched two times.
+  # 1. Detect the clusters as normal
+  # 2. Set the w, cor, and Ncor thresholds to their minimum value, this will result in all motifs grouped and aligned in a single cluster
+  if (params.list[["radial_tree"]]) {
+    
+    message("; Force the alignment of all motifs in a single cluster (--radial_tree option)")
+    params.list.radial <- params.list
+    params.list.radial$w    <- 0
+    params.list.radial$cor  <- -1  
+    params.list.radial$Ncor <- -1  
+    
+    find.clusters.list.radial <- find.motif.clusters(tree      = results.list$All_motifs_tree,
+                                                     comparison.table = results.list$Motif_compa_tab,
+                                                     parameters       = params.list.radial)
+    
+  }
+  
   message("; Finding clusters")
   find.clusters.list <- find.motif.clusters(tree             = results.list$All_motifs_tree,
                                             comparison.table = results.list$Motif_compa_tab,
                                             parameters       = params.list)
   
-  ###################################
-  ## Calculate Adjusted Rand Index ##
-  ###################################
+  # ----------------------------- #
+  # Calculate Adjusted Rand Index #
+  # ----------------------------- #
   if (params.list$ref_clusters) {
     
     message("; Calculating Adjusted Rand Index (ARI) based on the user-provided reference clusters")
@@ -311,9 +333,9 @@ if (params.list[["Nb_motifs"]] > 1) {
   message("; Number of clusters: ", params.list[["Nb_clusters"]])
   
   
-  #############################
-  ## Motif alignment section ##
-  #############################
+  # ----------------------- #
+  # Motif alignment section #
+  # ----------------------- #
   
   ## Compute hierarchical clustering of each cluster
   cl.hclust.results <- purrr::map(.x = find.clusters.list$clusters,
@@ -339,9 +361,9 @@ if (params.list[["Nb_motifs"]] > 1) {
                                                                            parameters = params.list))
   
   
-  ###################################
-  ## Parse tables before exporting ##
-  ###################################
+  # ----------------------------- #
+  # Parse tables before exporting #
+  # ----------------------------- #
   
   ## Prepare tables to export
   message("; Combining aligned clusters tables")
@@ -385,9 +407,9 @@ if (params.list[["Nb_motifs"]] > 1) {
 
 
   
-  #########################
-  ## Clusters - ID table ##
-  #########################
+  # ------------------- #
+  # Clusters - ID table #
+  # ------------------- #
   results.list$Clusters_table <- results.list$Alignment_table %>% 
                                   group_by(cluster) %>% 
                                   summarise(id      = paste(id, collapse = ","),
@@ -400,13 +422,13 @@ if (params.list[["Nb_motifs"]] > 1) {
 
 
 
-############################
-## Export results section ##
-############################
+# ---------------------- #
+# Export results section #
+# ---------------------- #
 
-##########################
-## Export summary table ##
-##########################
+# -------------------- #
+# Export summary table #
+# -------------------- #
 summary.clustering.tab <- data.table(Nb_motifs         = params.list$Nb_motifs,
                                      Nb_collections    = params.list$Nb_collections,
                                      Nb_clusters       = params.list$Nb_clusters,
@@ -432,9 +454,9 @@ fwrite(x         = summary.clustering.tab,
 
 
 
-#############################################################################################
-## Export the alignment + clusters table + motif files: these files are the minimal output ##
-#############################################################################################
+# --------------------------------------------------------------------------------------- #
+# Export the alignment + clusters table + motif files: these files are the minimal output #
+# --------------------------------------------------------------------------------------- #
 message("; Exporting alignment table: ", output.files.list$Alignment_table)
 fwrite(x         = results.list$Alignment_table,
        file      = output.files.list$Alignment_table,
@@ -451,13 +473,13 @@ fwrite(x         = results.list$Clusters_table,
        sep       = "\t")
 
 
-#####################################
-## Export motifs :                 ##
-## 1) Oriented motifs with gaps    ##
-## 2) Motifs separated by clusters ##
-## 3) Root motifs                  ##
-## 4) Central motifs               ##
-#####################################
+# ------------------------------- #
+# Export motifs :                 #
+# 1) Oriented motifs with gaps    #
+# 2) Motifs separated by clusters #
+# 3) Root motifs                  #
+# 4) Central motifs               #
+# ------------------------------- #
 
 # out.folder.list <- list(tables         = file.path(paste0(out.folder, "_tables")),
 #                         plots          = file.path(paste0(out.folder, "_plots")),
@@ -522,9 +544,9 @@ suppressMessages(writeLines(root.motifs.tf.vector, con = output.files.list$Root_
 ## When minimal output mode is not activated exports trees, heatmap, and cluster-color table
 if (params.list$min_output == FALSE) {
   
-  ######################################
-  ## Export the tree as a newick file ##
-  ######################################
+  # -------------------------------- #
+  # Export the tree as a newick file #
+  # -------------------------------- #
   if (params.list$export_newick == 1) {
     message("; Exporting tree as a newick file", output.files.list$Newick_tree_all)
     newick.tree <- convert.hclust.to.newick(results.list$All_motifs_tree)
@@ -532,9 +554,9 @@ if (params.list$min_output == FALSE) {
   }
   
   
-  #################################################
-  ## Export the tree as a json file and as RData ##
-  #################################################
+  # ------------------------------------------- #
+  # Export the tree as a json file and as RData #
+  # ------------------------------------------- #
   
   ## NOTE: JSON tree must be exported
   JSON.tree <- convert.hclust.to.JSON(results.list$All_motifs_tree)
@@ -546,9 +568,9 @@ if (params.list$min_output == FALSE) {
   save(tree.rdata, file = output.files.list$hclust_all)
   
   
-  ###############################
-  ## Export the distance table ##
-  ###############################
+  # ------------------------- #
+  # Export the distance table #
+  # ------------------------- #
   message("; Exporting distance table: ", output.files.list$Distance_table)
   fwrite(x         = results.list[["Dist_table"]],
          file      = output.files.list$Distance_table,
@@ -557,9 +579,9 @@ if (params.list$min_output == FALSE) {
          sep       = "\t")
   
   
-  ###########################
-  ## Cluster - Color table ##
-  ###########################
+  # --------------------- #
+  # Cluster - Color table #
+  # --------------------- #
   results.list$Cluster_color <- cluster.color.map(cluster.tab = results.list$Clusters_table)
   cl.col                     <- results.list$Cluster_color
   message("; Exporting cluster-color table: ", output.files.list$Distance_table)
@@ -570,9 +592,9 @@ if (params.list$min_output == FALSE) {
          sep       = "\t")
   
   
-  ###########################
-  ## Draw clusters heatmap ##
-  ###########################
+  # --------------------- #
+  # Draw clusters heatmap #
+  # --------------------- #
   if (params.list$export_heatmap == 1) {
     
     message("; Drawing cluster heatmap")
@@ -590,9 +612,9 @@ if (params.list$min_output == FALSE) {
   }
   
   
-  #############################
-  ## Draw Rand Index heatmap ##
-  #############################
+  # ----------------------- #
+  # Draw Rand Index heatmap #
+  # ----------------------- #
   if (params.list$ref_clusters) {
     
     message("; Drawing Adjusted Rand Index heatmap")
@@ -610,9 +632,9 @@ if (params.list$min_output == FALSE) {
 ## Remove these folder when --minimal_output mode is activated
 } else {
   
-  ##########################
-  ## Delete empty folders ##
-  ##########################
+  # -------------------- #
+  # Delete empty folders #
+  # -------------------- #
   suppressWarnings(unlink(out.folder.list$plots, recursive = TRUE))
   suppressWarnings(unlink(out.folder.list$trees, recursive = TRUE))
   suppressWarnings(unlink(out.folder.list$central_motifs, recursive = TRUE))
