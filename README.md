@@ -348,6 +348,11 @@ When the users provide a reference annotation table (argument `-r` or `--referen
     1. Motif ID
     2. Reference group
 
+
+### Radial trees (under development)
+
+- `--radial_tree`: When this option is activated. All the motifs are forced to be aligned in a single cluster. **Note : ** this option is under development.
+
 ### Others
 
 - `-w` or `--number_of_workers` : Number of cores to run in parallel. Default: `2`. [Options: depends in your machine].
