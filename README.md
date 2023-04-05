@@ -351,7 +351,7 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 
 ### Radial trees (under development)
 
-- `--radial_tree`: When this option is activated. All the motifs are forced to be aligned in a single cluster. **Note** : this option is under development. Example coming soon.
+- `--radial_tree`: When this option is activated all the motifs are forced to be aligned in a single cluster. **Note** : this option is under development. Example coming soon.
 
 ### Others
 
