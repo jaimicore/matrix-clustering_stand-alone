@@ -31,7 +31,7 @@ The graphical output (interactive trees and heatmaps will be added soon).
 
 - We added a new functionality to calculte how well the resulting clusters are similar to a user provided annotation (see **Example 2**) for more details. This functionality could be used to select the parameters (thresholds in `cor` and `Ncor`) that maximizes a user-provided annotation.
 
-- Default threshold are different: `cor = 0.75` and `Ncor = 0.55`. To decide if a node in the hierarchical tree will be merged or split, we compute the average `cor` and `Ncor` of all the pairwise comparisons for all the motifs in a particualr node. We realized that the original version didn't considered all the pairwise comparisons, we corrected this problem, but now the default thresholds are too permissive, so they have to be increased to obtain good results.
+- Default threshold are different: `cor = 0.75` and `Ncor = 0.55`. To decide if a node in the hierarchical tree will be merged or split, we compute the average `cor` and `Ncor` of all the pairwise comparisons for all the motifs in a particualr node. We realized that the original version didn't considered all the pairwise comparisons, we corrected this problem, but now the original default thresholds are too permissive, so we updated them to obtain good results.
 
 &nbsp;
 &nbsp;
@@ -347,6 +347,11 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 
     1. Motif ID
     2. Reference group
+
+
+### Radial trees (under development)
+
+- `--radial_tree`: When this option is activated all the motifs are forced to be aligned in a single cluster. **Note** : this option is under development. Example coming soon.
 
 ### Others
 
