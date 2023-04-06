@@ -288,6 +288,12 @@ if (params.list[["Nb_motifs"]] > 1) {
   # Find clusters section #
   # --------------------- #
 
+  message("; Finding clusters")
+  find.clusters.list <- find.motif.clusters(tree             = results.list$All_motifs_tree,
+                                            comparison.table = results.list$Motif_compa_tab,
+                                            parameters       = params.list)
+ 
+  
   # When the --radial_tree option is indicated the find.motif.clusters function launched two times.
   # 1. Detect the clusters as normal
   # 2. Set the w, cor, and Ncor thresholds to their minimum value, this will result in all motifs grouped and aligned in a single cluster
@@ -303,12 +309,15 @@ if (params.list[["Nb_motifs"]] > 1) {
                                                      comparison.table = results.list$Motif_compa_tab,
                                                      parameters       = params.list.radial)
     
+    # Update list
+    find.clusters.list$clusters    <- find.clusters.list.radial$clusters
+    find.clusters.list$clusters_df <- find.clusters.list.radial$clusters_df
+    
+    # Generate this file: /home/jaime/Downloads/RADIAL_consensus9/matrix-clustering_tables/node_to_cluster.tab
+    # save.image("Debug_radial.Rdata")
   }
   
-  message("; Finding clusters")
-  find.clusters.list <- find.motif.clusters(tree             = results.list$All_motifs_tree,
-                                            comparison.table = results.list$Motif_compa_tab,
-                                            parameters       = params.list)
+
   
   # ----------------------------- #
   # Calculate Adjusted Rand Index #
@@ -562,6 +571,7 @@ if (params.list$min_output == FALSE) {
   JSON.tree <- convert.hclust.to.JSON(results.list$All_motifs_tree)
   message("; Exporting tree as a JSON file: ", output.files.list$JSON_tree_all)
   writeLines(JSON.tree, con = output.files.list$JSON_tree_all)
+  
   
   message("; Exporting hclust object as a RData file: ", output.files.list$hclust_all)
   tree.rdata <- results.list$All_motifs_tree
