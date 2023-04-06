@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" src="--d3--"></script>
+    <style type="text/css">
+
+path.arc {
+  cursor: move;
+  fill: #fff;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node {
+  font-size: 2px;
+  pointer-events: all;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+
+.legend {
+	border-radius:5px;       
+      	text-align: center;
+	margin: 3px 5px 5px 5px;
+	width: 130px;
+	height: 20px;
+	padding: 4px;
+	cursor: pointer;
+	border-radius:5px;
+        color: #ffffff;
+        background:#cc0000;
+	display: inline-block;
+	position:relative;
+	float:left;
+}
+
+.legend:active {
+	position:relative;
+	top:2px;
+}
+
+
+.color-box{
+	width: 5px;
+	height: 5px;
+	padding:7px;
+	border-radius:5px;
+	color: #ffffff;
+	display: block;
+	margin: 0.5px;
+}
+
+
+.non_validated{
+	width: 5px;
+	height: 5px;
+	text-align: center;
+  	font-size: 20px;
+	padding:7px;
+	display: block;
+}
+
+
+.barplot{
+	width: 400px;
+	height: 300px;
+	display: inline-block;
+	float: left;
+	position: relative;
+	clear:both;
+}
+
+
+.color-legend {
+  position: relative;
+}
+
+
+#cluster_1 {
+    display: inline-block;
+    	   position:relative;
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="cluster_1" style='display: inline-block;float:left;position:absolute;'>
+      <div id="footer" style='display: inline-block;float:left;position:absolute;'>
+
+      </div>
+    </div>
+    <script type="text/javascript">
+
+// Add the buttons to change the orientation
+d3.select("#cluster_1").append("text")
+	.attr("x", 700)             
+	.attr("y", 0)   
+      .attr("font-size", "5px") 
+	.attr("class", "legend")     
+	.on("click", function(){
+		// change the orientation
+		d3.select("#cluster_1").selectAll("image")
+		.attr("xlink:href", function(d) { return d.children ? "" : d.image; }) 
+	})
+	.text("Direct");  
+
+
+d3.select("#cluster_1").append("text")
+	.attr("x", 1000)             
+	.attr("y", 0)   
+      .attr("font-size", "20px") 
+	.attr("class", "legend")     
+	.on("click", function(){
+		// change the orientation
+		d3.select("#cluster_1").selectAll("image")
+		.attr("xlink:href", function(d) { return d.children ? "" : d.image_rc; }) 
+	})
+	.text("Reverse") ; 
+
+var w = --radial_w--,
+    h = --radial_h--,
+    rx = w / 4,
+    ry = h / 4,
+    m0,
+    rotate = 0;
+
+var cluster = d3.layout.cluster()
+    .size([360, --radium--])
+    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 1); })
+    .sort(null);
+
+var diagonal = d3.svg.diagonal.radial()
+    .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
+
+var svg = d3.select("#cluster_1").append("svg")
+    .style("width", w + "px")
+    .style("height", w + "px")
+    .call(d3.behavior.zoom().on("zoom", function () {
+        svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+    }))
+    .append("g")   ;
+
+var vis = svg.append("svg:svg")
+    .attr("width", w)
+    .attr("height", w)
+  .append("svg:g")
+    .attr("transform", "translate(" + rx + "," + ry + ")");
+
+
+//	vis.append("svg:path")
+//    	.attr("class", "arc")
+//	.attr("d", d3.svg.arc().innerRadius(ry - 120).outerRadius(ry).startAngle(0).endAngle(2 * Math.PI))
+//	.on("mousedown", mousedown);
+
+d3.json("--json_file--", function(json) {
+  var nodes = cluster.nodes(json);
+
+  var link = vis.selectAll("path.link")
+      .data(cluster.links(nodes))
+    .enter().append("svg:path")
+      .attr("class", "link")
+      .style("stroke", function(d) { return d.target.branch_color; })
+      .attr("d", diagonal);
+
+  var node = vis.selectAll("g.node")
+      .data(nodes)
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+
+  node.append("circle")
+      .attr("r", 2.5);
+
+  node.append("svg:a")
+      .attr("xlink:href", function(d) { return d.link_ext; })
+      .attr("target", "_blank")
+      .append("text")
+      .text(function(d) { return d.children ? "" :  d.name; })
+      .attr("fill", function(d) { return d.color; })
+      .style("font-size", "7px")
+      .attr("font-family", "Arial")
+      .attr("dx", function(d) { return d.x < 180 ? 10 : -10; })
+      .attr("dy", ".31em")
+      .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+      .attr("transform", function(d) { return d.x < 180 ? null : "rotate(180)"; })
+      ;
+      	
+  node.append("image")
+		.attr("xlink:href", function(d) { return d.children ? "" : d.image; }) 
+		.attr("width", function(d) { return (d.size + 2)  * 5; })
+		.attr("height", --h_motif--)
+		.attr("x", --x_displ--)    
+		.attr("y", --y-displ--) 
+		.attr("cursor", "default") 
+		.attr("preserveAspectRatio", "none");	
+});
+
+d3.select(window)
+    .on("mousemove", mousemove)
+    .on("mouseup", mouseup);
+
+function mouse(e) {
+  return [e.pageX - rx, e.pageY - ry];
+}
+
+function mousedown() {
+  m0 = mouse(d3.event);
+  d3.event.preventDefault();
+}
+
+function mousemove() {
+  if (m0) {
+    var m1 = mouse(d3.event),
+        dm = Math.atan2(cross(m0, m1), dot(m0, m1)) * 180 / Math.PI,
+        tx = "translate3d(0," + (ry - rx) + "px,0)rotate3d(0,0,0," + dm + "deg)translate3d(0," + (rx - ry) + "px,0)";
+    svg
+        .style("-moz-transform", tx)
+        .style("-ms-transform", tx)
+        .style("-webkit-transform", tx);
+  }
+}
+
+function mouseup() {
+  if (m0) {
+    var m1 = mouse(d3.event),
+        dm = Math.atan2(cross(m0, m1), dot(m0, m1)) * 180 / Math.PI,
+        tx = "rotate3d(0,0,0,0deg)";
+
+    rotate += dm;
+    if (rotate > 360) rotate -= 360;
+    else if (rotate < 0) rotate += 360;
+    m0 = null;
+
+    svg
+        .style("-moz-transform", tx)
+        .style("-ms-transform", tx)
+        .style("-webkit-transform", tx);
+
+    vis
+        .attr("transform", "translate(" + rx + "," + ry + ")rotate(" + rotate + ")")
+      .selectAll("g.node text")
+        .attr("dx", function(d) { return (d.x + rotate) % 360 < 180 ? 8 : -8; })
+        .attr("text-anchor", function(d) { return (d.x + rotate) % 360 < 180 ? "start" : "end"; })
+        .attr("transform", function(d) { return (d.x + rotate) % 360 < 180 ? null : "rotate(180)"; });
+  }
+}
+
+function cross(a, b) {
+  return a[0] * b[1] - a[1] * b[0];
+}
+
+function dot(a, b) {
+  return a[0] * b[0] + a[1] * b[1];
+}
+
+    </script>
+  </body>
+</html>
