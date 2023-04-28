@@ -979,3 +979,48 @@ trim.motifs.window <- function(um           = NULL,
   
   return(count.matrices.trimmed.um)
 }
+
+
+export.one.logo <- function(um.motif = NULL,
+                            logofile = NULL) {
+  
+  # Format conversion
+  motif <- convert_type(um.motif, "PPM")
+  motif <- motif["motif"]
+  
+  motif.gg <- ggplot() +
+    geom_logo(motif, method = 'bits', stack_width = 1) +
+    theme_logo() +
+    scale_x_continuous(expand = c(0, 0)) +
+    scale_y_continuous(limits = c(0,2), expand = c(0, 0))
+  
+  ggsave(filename = logofile, plot = motif.gg, bg = "white", width = 10, height = 5)
+}
+
+
+export.logos <- function(um        = NULL,
+                         outfolder = NULL) {
+  
+  # The logos must be exported in both orientations
+  # The logo name is: motif_ID.jpeg and motif_ID_RC.jpeg
+  
+  # ------------------------- #
+  # Logos Forward orientation #
+  # ------------------------- #
+  logos.F.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), ".jpeg"))
+  
+  purrr::walk2(.x = logos.F.name,
+               .y = um,
+               .f = ~export.one.logo(um.motif = .y,
+                                     logofile = .x))
+
+  # ------------------------- #
+  # Logos Reverse orientation #
+  # ------------------------- #
+  logos.R.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), "_rc.jpeg"))
+  
+  purrr::walk2(.x = logos.R.name,
+               .y = universalmotif::motif_rc(um),
+               .f = ~export.one.logo(um.motif = .y,
+                                     logofile = .x))
+}
