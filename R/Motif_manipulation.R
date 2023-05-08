@@ -693,6 +693,9 @@ add.gaps.to.indiv.tf.files <- function(motif.folder = NULL,
                     dplyr::filter(sum_gaps > 0) %>% 
                     within(rm(sum_gaps))
   
+  
+  gap.file.tab$file_rc = gsub(gap.file.tab$file, pattern = "_oriented\\.tf", replacement = "_oriented_rc\\.tf")
+  
   return(gap.file.tab)
 }
 
@@ -999,7 +1002,10 @@ export.one.logo <- function(um.motif = NULL,
 
 
 export.logos <- function(um        = NULL,
-                         outfolder = NULL) {
+                         outfolder = NULL,
+                         rev_tag   = FALSE) {
+  
+  rtag = ifelse(rev_tag, yes = "_rc", no = "")
   
   # The logos must be exported in both orientations
   # The logo name is: motif_ID.jpeg and motif_ID_RC.jpeg
@@ -1007,7 +1013,7 @@ export.logos <- function(um        = NULL,
   # ------------------------- #
   # Logos Forward orientation #
   # ------------------------- #
-  logos.F.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), ".jpeg"))
+  logos.F.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), rtag, ".jpeg"))
   
   purrr::walk2(.x = logos.F.name,
                .y = um,
@@ -1017,10 +1023,10 @@ export.logos <- function(um        = NULL,
   # ------------------------- #
   # Logos Reverse orientation #
   # ------------------------- #
-  logos.R.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), "_rc.jpeg"))
-  
-  purrr::walk2(.x = logos.R.name,
-               .y = universalmotif::motif_rc(um),
-               .f = ~export.one.logo(um.motif = .y,
-                                     logofile = .x))
+  # logos.R.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), "_rc.jpeg"))
+  # 
+  # purrr::walk2(.x = logos.R.name,
+  #              .y = universalmotif::motif_rc(um),
+  #              .f = ~export.one.logo(um.motif = .y,
+  #                                    logofile = .x))
 }

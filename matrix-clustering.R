@@ -140,19 +140,19 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 # out.folder                  <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/results/Jaspar_plants/Jaspar_plants"
 # reference.clusters.tab.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab"
 
-# params.list <- list("export_newick"         = 0,
-#                     "export_heatmap"        = 0,
-#                     "heatmap_color_classes" = NULL,
-#                     "heatmap_color_palette" = NULL,
-#                     "comparison_metric"     = "Ncor",
-#                     "linkage_method"        = "average",
-#                     "w"                     = 5,
-#                     "cor"                   = 0.75,
-#                     "Ncor"                  = 0.55,
-#                     "nb_workers"            = 8,
-#                     "min_output"            = TRUE,
-#                     "ref_clusters"          = FALSE,
-#                     "radial_tree"           = TRUE)
+params.list <- list("export_newick"         = 0,
+                    "export_heatmap"        = 0,
+                    "heatmap_color_classes" = NULL,
+                    "heatmap_color_palette" = NULL,
+                    "comparison_metric"     = "Ncor",
+                    "linkage_method"        = "average",
+                    "w"                     = 5,
+                    "cor"                   = 0.75,
+                    "Ncor"                  = 0.55,
+                    "nb_workers"            = 8,
+                    "min_output"            = TRUE,
+                    "ref_clusters"          = FALSE,
+                    "radial_tree"           = TRUE)
 
 
 # -------------------------------------------------------- #
@@ -494,19 +494,11 @@ fwrite(x         = results.list$Clusters_table,
 # 4) Central motifs               #
 # ------------------------------- #
 
-# out.folder.list <- list(tables         = file.path(paste0(out.folder, "_tables")),
-#                         plots          = file.path(paste0(out.folder, "_plots")),
-#                         trees          = file.path(paste0(out.folder, "_trees")),
-#                         motifs         = file.path(paste0(out.folder, "_motifs")),
-#                         central_motifs = file.path(paste0(out.folder, "_motifs"), "central_motifs"),
-#                         root_motifs    = file.path(paste0(out.folder, "_motifs"), "root_motifs"),
-#                         indiv_motifs   = file.path(paste0(out.folder, "_motifs"), "individual_motifs_with_gaps"),
-#                         cluster_motifs = file.path(paste0(out.folder, "_motifs"), "motifs_sep_by_cluster"))
 
 ###################################################################
 ## 1) Oriented motifs with gaps (each motif in a separated file)
 ## Export motifs (without gaps) as transfac files in D and R orientation
-message("; Exporting individual motif files")
+message("; Exporting individual motif files in", out.folder.list$indiv_motifs)
 export.indiv.motif.files(un.motifs = all.motifs.um,
                          outdir    = out.folder.list$indiv_motifs)
 
@@ -527,16 +519,19 @@ furrr::future_pwalk(.l = add.gaps.list,
                                                   gap.down    = ..3,
                                                   tf.file.out = ..1))
 
+
 # --------------------------------------- #
 # Aligned motifs as UniversalMotif object #
 # --------------------------------------- #
-# aligned.motif.files <- add.gaps.tab$file[grepl(add.gaps.tab$file, pattern = "oriented\\.tf")]
-# aligned.motifs.um <- purrr::map(.x = as.vector(aligned.motif.files),
-#                                 .f = ~read.motif.file(motif.file   = .x,
-#                                                       motif.format = "tf"))
-# # Aqui
+aligned.motif.files <- add.gaps.tab$file[grepl(add.gaps.tab$file, pattern = "oriented\\.tf")]
+aligned.motifs.um <- purrr::map(.x = as.vector(aligned.motif.files),
+                                .f = ~read.motif.file(motif.file   = .x,
+                                                      motif.format = "tf"))
 
-# Separate files in F and R, run the function twice
+aligned.motif.rc.files <- add.gaps.tab$file[grepl(add.gaps.tab$file, pattern = "oriented_rc\\.tf")]
+aligned.motifs.rc.um <- purrr::map(.x = as.vector(aligned.motif.rc.files),
+                                .f = ~read.motif.file(motif.file   = .x,
+                                                      motif.format = "tf"))
 
 
 #################################################################
@@ -657,13 +652,14 @@ if (params.list$min_output == FALSE) {
   # ------------ #
   # Export logos #
   # ------------ #
+  message("; Exporting logos in ", out.folder.list["aligned_logos"])
+  export.logos(um        = aligned.motifs.um,
+               outfolder = out.folder.list["aligned_logos"],
+               rev_tag   = FALSE)
   
-  # export.logos(um        = aligned.motifs.um,
-  #              outfolder = out.folder.list["aligned_logos"])
-
-  #Aqui
-  # Run this function separated in F and R
-  # 
+  export.logos(um        = aligned.motifs.rc.um,
+               outfolder = out.folder.list["aligned_logos"],
+               rev_tag   = TRUE)
   
   
 ## Remove these folder when --minimal_output mode is activated
