@@ -39,7 +39,8 @@ find.next.levels.in.tree <- function(x          = NULL,
 ## node (e.g. node 4):
 ##   leaves.for.node.4 <- as.numeric(unlist(strsplit(tree.nodes[4], split=" ")))
 ##
-leaves.per.node <- function(tree = NULL) {
+leaves.per.node <- function(tree   = NULL,
+                            labels = FALSE) {
   
   merge.table <- tree$merge
   leave.lists <- list()
@@ -75,6 +76,11 @@ leaves.per.node <- function(tree = NULL) {
   } else{
     leave.lists <- list(as.numeric(unlist(strsplit(leave.lists[[1]], " "))))
   }
+  
+  if (labels) {
+    leave.lists <- lapply(leave.lists, function(x){ tree$labels[x] })
+  }
+  
   return(leave.lists)
 }
 
@@ -428,6 +434,7 @@ draw.heatmap.motifs <- function(dist.table    = NULL,
 }
 
 
+
 ########################################################
 ## As the JSON tree order is not the same as the hclust tree
 ## the JSON tree must be explored in order to rename the branches
@@ -571,14 +578,3 @@ identify.JSON.tree.branches <- function(htree,
   # JSON.clusters.table$node <- cluster
   return(JSON.clusters.table)
 }
-
-
-# identify.JSON.tree.branches(htree             = results.list$All_motifs_tree,
-#                             description.table = results.list$Motif_info_tab)
-
-
-
-
-  # htree             <- results.list$All_motifs_tree
-  # description.table <- results.list$Motif_info_tab
-  # description.table$n <- 1:nrow(description.table)
