@@ -282,3 +282,155 @@ get.motifs.ids.in.clusters <- function(tree                       = NULL,
   
   clusters.list
 }
+
+
+# This functions returns a dataframe associating each tree node with its corresponding cluster
+# Nodes no associated to a cluster are indicated with 0
+treenode2cluster <- function(cluster_results = NULL,
+                             tree            = NULL) {
+  
+  # Find all the nodes that each leave passes until it reaches the tree's root
+  chained.levels <- purrr::map(.x = 1:nrow(tree$merge),
+                               .f = ~find.node.parents(x          = .x,
+                                                       tree.merge = tree$merge))
+  
+  # Initialize counters and flags
+  node.to.cluster       <- data.frame()
+  cluster.counter       <- 0
+  clusters              <- cluster_results$clusters
+  alignment.flag        <- cluster_results$agglomeration.stats$Merge
+  node.to.cluster.table <- data.frame()
+  nnodes                <- nrow(tree$merge)
+  
+  # Fill the node.to.cluster dataframe
+  # This dataframe contains the node number where each cluster is located
+  x <- lapply(clusters, function(cl) {
+    
+    counter <- 0
+    cluster.counter <<- cluster.counter + 1
+    
+    # Identify the nodes in the tree containing a given cluster
+    node.with.cluster <- lapply(leaves.per.node(tree, labels = TRUE), function(l) {
+      
+      counter <<- counter + 1
+      
+      ## Detect the nodes with the same number of motifs
+      ## than the cluster
+      if (length(l) >= length(cl)) {
+        
+        ## When all the elements of the cluster are found on the leave
+        ## return the number of node (counter)
+        if (all(cl %in% l)) {
+          counter
+        }
+      }
+    })
+    ## Select the first node (the smallest number) where the cluster's members are contained
+    selected.node <- min(as.numeric(unlist(node.with.cluster)))
+    
+    ## Look for all the nodes pointing to the selected node
+    all.nodes <- lapply(chained.levels, function(levels) {
+      if (is.element(selected.node, levels)) {
+        levels
+      }
+    })
+    
+    all.nodes[sapply(all.nodes, function(x) length(all.nodes) == 0)] <- NA
+    all.nodes <- sort(unique(unlist(all.nodes)))
+    
+    ## Concatenate all the nodes, sort and remove repetitions
+    # all.nodes <- unique(sort(unlist(sapply(all.nodes, function(x) {
+    #   chained.levels[[x]]}))))
+    
+    all.nodes <- paste(all.nodes, collapse = ",")
+    all.leaves <- paste(sort(leaves.per.node(tree)[[selected.node]]), collapse = ",")
+    node.alignment.status <- alignment.flag[selected.node]
+    node.to.cluster <<- rbind(node.to.cluster, data.frame(selected.node, cluster.counter, all.nodes, all.leaves, node.alignment.status))
+    
+  })
+  rm(x)
+  
+  # Get the leaves (motifs) found on each node containing an entire cluster
+  cluster.leaves.in.node <- sapply(as.vector(node.to.cluster$all.leaves), function(l) {
+    as.numeric(unlist(strsplit(l, ",")))
+  })
+  names(cluster.leaves.in.node) <- NULL
+  
+  # Find the motif number that appear in more than one cluster
+  # This number will be used to identify nodes containing two clusters (e.g., two singletons)
+  # These nodes are processed in another step below
+  repeated.leaves <- as.vector(which(table(unlist(cluster.leaves.in.node)) > 1))
+  
+  
+  # r <- 2
+  th <-  sapply(repeated.leaves, function(r) {
+    
+    # For each repeated number find the clusters where it appears
+    co <- 0
+    repetition.flag <- 0
+    repeated.clusters <- sapply(cluster.leaves.in.node, function(x) {
+      
+      co <<- co + 1
+      if (r %in% x) {
+        co
+      }
+    })
+    
+    # This variable contains the cluster numbers where a nodes is repeated 
+    repeated.clusters <- unlist(repeated.clusters)
+    
+    cou <- 0
+    find.flag <- 0
+    sapply(repeated.clusters, function(x) {
+      # Debug: x <- 7
+      
+      # Alignment status of the nodes containing the repeated numbers
+      status.alignment.clusters <- node.to.cluster[repeated.clusters,]$node.alignment.status
+      
+      cou <<- cou + 1
+      
+      # Check the status and update the clusters associated to each node with a repeated cluster
+      # In this way we ensure each node with an alignment status = TRUE is associated to only one cluster
+      if (cou == 1) {
+        
+        if (status.alignment.clusters[cou] ==  1) {
+          NA
+        } else {
+          cluster.leaves.in.node[[x]] <<- r
+        }
+        
+      } else {
+        cluster.leaves.in.node[[x]][cluster.leaves.in.node[[x]] == r] <<- NA
+      }
+    })
+  })
+  rm(th)
+  
+  
+  # Update the 'node.to.cluster' dataframe
+  cluster.leaves.in.node <- lapply(cluster.leaves.in.node, function(x) x[!is.na(x)])
+  cluster.leaves.in.node <- sapply(cluster.leaves.in.node, paste, collapse = ",")
+  node.to.cluster$all.leaves <- cluster.leaves.in.node
+  node.to.cluster$all.nodes <- as.vector(node.to.cluster$all.nodes)
+  node.to.cluster[which(node.to.cluster$node.alignment.status == 0),]$all.nodes <- 0
+  
+  
+  # Each node has its associated cluster
+  # Nodes no associated to a cluster are indicated with 0
+  # n <- node.to.cluster$all.nodes[1]
+  th <- sapply(node.to.cluster$all.nodes, function(n) {
+    
+    nodes <- as.numeric(unlist(strsplit(n, ",")))
+    cluster <- node.to.cluster[which(node.to.cluster$all.nodes == n), "cluster.counter"]
+    node.to.cluster.table <<- rbind(node.to.cluster.table, data.frame(nodes, cluster))
+  })
+  rm(th)
+  node.to.cluster.table <- unique(node.to.cluster.table)
+  
+  all.nodes.in.tree <- 0:nnodes
+  nodes.in.clusters <- unique(sort(node.to.cluster.table$nodes))
+  missing.nodes <- setdiff(all.nodes.in.tree, nodes.in.clusters)
+  node.to.cluster.table <- rbind(node.to.cluster.table, data.frame(nodes = missing.nodes, cluster = 0))
+  
+  return(node.to.cluster.table)
+}
