@@ -152,7 +152,7 @@ params.list <- list("export_newick"         = 0,
                     "nb_workers"            = 8,
                     "min_output"            = TRUE,
                     "ref_clusters"          = FALSE,
-                    "radial_tree"           = TRUE)
+                    "radial_tree"           = FALSE) #
 
 
 # -------------------------------------------------------- #
@@ -194,7 +194,8 @@ results.list <- list(Dist_table         = NULL,
                      Motif_info_tab     = NULL,
                      Motif_compa_tab    = NULL,
                      Reference_clusters = NULL,
-                     Aligned_motifs_um  = NULL)
+                     Aligned_motifs_um  = NULL,
+                     JSON_branch_nb     = NULL)
 
 ## Create output folders
 no.output <- sapply(out.folder.list, dir.create, showWarnings = FALSE, recursive = TRUE)
@@ -298,7 +299,7 @@ if (params.list[["Nb_motifs"]] > 1) {
                                             parameters       = params.list)
  
   
-  # When the --radial_tree option is indicated the find.motif.clusters function launched two times.
+  # When the --radial_tree option is indicated the find.motif.clusters function is launched two times.
   # 1. Detect the clusters as normal
   # 2. Set the w, cor, and Ncor thresholds to their minimum value, this will result in all motifs grouped and aligned in a single cluster
   if (params.list[["radial_tree"]]) {
@@ -314,11 +315,17 @@ if (params.list[["Nb_motifs"]] > 1) {
                                                      parameters       = params.list.radial)
     
     # Update list
+    # Note sure if this need to be updated, to check
+    # Aqui
     find.clusters.list$clusters    <- find.clusters.list.radial$clusters
     find.clusters.list$clusters_df <- find.clusters.list.radial$clusters_df
     
     # Generate this file: /home/jaime/Downloads/RADIAL_consensus9/matrix-clustering_tables/node_to_cluster.tab
     # save.image("Debug_radial.Rdata")
+    
+    results.list$JSON_branch_nb <- identify.JSON.tree.branches(htree             = results.list$All_motifs_tree,
+                                                               description.table = results.list$Motif_info_tab)
+    
   }
   
 
@@ -530,8 +537,8 @@ aligned.motifs.um <- purrr::map(.x = as.vector(aligned.motif.files),
 
 aligned.motif.rc.files <- add.gaps.tab$file[grepl(add.gaps.tab$file, pattern = "oriented_rc\\.tf")]
 aligned.motifs.rc.um <- purrr::map(.x = as.vector(aligned.motif.rc.files),
-                                .f = ~read.motif.file(motif.file   = .x,
-                                                      motif.format = "tf"))
+                                   .f = ~read.motif.file(motif.file   = .x,
+                                                         motif.format = "tf"))
 
 
 #################################################################
@@ -550,9 +557,7 @@ message("; Exporting root motifs: ", output.files.list$Root_motifs)
 root.motifs.tf.vector <- purrr::map(.x = sort(motifs.files.per.cluster),
                                     .f = ~export.root.motif(cluster.tf.file = .x))
 
-suppressMessages(
-  root.motifs.tf.vector <- unlist(root.motifs.tf.vector)
-)
+suppressMessages(root.motifs.tf.vector <- unlist(root.motifs.tf.vector))
 
 ## Print the vector as a text file
 invisible(suppressWarnings(file.remove(output.files.list$Root_motifs, showWarnings = FALSE, recursive = TRUE)))
@@ -661,7 +666,11 @@ if (params.list$min_output == FALSE) {
                outfolder = out.folder.list["aligned_logos"],
                rev_tag   = TRUE)
   
-  
+  # Add the columns with the path to the logos
+  results.list$Motif_info_tab$Logo    <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, ".jpeg"))
+  results.list$Motif_info_tab$Logo_RC <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, "_rc.jpeg"))
+
+
 ## Remove these folder when --minimal_output mode is activated
 } else {
   
@@ -681,22 +690,45 @@ if (params.list$min_output == FALSE) {
 message("; End of program")
 
 
-
-
-# To do: export logos
-
-
 # Requirements
 #
-# 1. Generate logos F and R
-# 2. Matrix description table
-# 3. levels_JSON_".$cluster."_table.tab
-# 4. node_to_cluster.tab
-# 5. $main::outfile{prefix}."_trees/tree_".$cluster.".json";
-# 6. my ($linkage_order_info_file) = &OpenInputFile($main::outfile{prefix}."_clusters_information/".$cluster."/levels_JSON_".$cluster."_table_linkage_order.tab");
+# Ready 1. Matrix description table
+# 2. levels_JSON_".$cluster."_table.tab
+# 3. node_to_cluster.tab
+# 4. $main::outfile{prefix}."_trees/tree_".$cluster.".json";
+# 5. my ($linkage_order_info_file) = &OpenInputFile($main::outfile{prefix}."_clusters_information/".$cluster."/levels_JSON_".$cluster."_table_linkage_order.tab");
 
 
-#' 
+# Note 1: perl variable $mat_desc in the original code corresponds to results.list$Motif_info_tab
+#
+# Note 2: perl variable @levels_JSON is created from this line: push(@levels_JSON, $spl[2]); 
+#         LVL_JSON corresponds to results.list$JSON_branch_nb
+#
+# Note 3: perl variable $node_to_cluster corresponds to 
+
+
+
+# Add_attributes_to_JSON_radial_tree <- function() {
+# 
+#   # Aqui: needs to be done
+# 
+#   #  ## Open a file with the attributes of the nodes of each cluster (IC, width, number of motifs, etc)
+#   #  my $cluster_nodes_ic_info = &OpenOutputFile($main::outfile{prefix}."_clusters_information/".$cluster."_attributes_table.tab");
+#   #  print $cluster_nodes_ic_info join("\t", "#cluster", "node_ID", "child_1", "child_2", "IC", "IC_child_1", "IC_child_2", "Sites", "Sites_child_1", "Sites_child_2"), "\n";
+# 
+# 
+#   #
+#   levels.JSON <- results.list$JSON_branch_nb$node
+#   
+# $node_to_cluster
+#   treenode2cluster(cluster_results = find.clusters.list,
+#                    tree            = results.list$All_motifs_tree)
+#   
+# 
+# }
+
+
+
 #' ################################################################
 #' ## Add attributes to JSON file, links to pictures and other
 #' ## attributes
@@ -753,7 +785,12 @@ message("; End of program")
 #'   }
 #'   close(LVL_JSON);
 #'   
-#'   
+#'
+
+
+
+# Aqui
+
 #'   ## Node to clusters
 #'   my ($node_to_cluster) = &OpenInputFile($main::outfile{prefix}."_tables/node_to_cluster.tab");
 #'   while(<$node_to_cluster>) {
