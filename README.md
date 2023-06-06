@@ -53,24 +53,26 @@ cd matrix-clustering_stand-alone
 The following R/Bioconductor packages are required to run *RSAT matrix-clustering*, you can install them within `R` using the following commands
 
 ```R
-##############################################################
-## List of R packages requires in the 'minimal_output' mode ##
-##############################################################
-required.packages = c("dplyr",          ## Data manipulation
-                      "data.table",     ## Read long matrices in a quick way
-                      "furrr",          ## Run functions in parallel
-                      "optparse",       ## Read command-line arguments
-                      "purrr",          ## Iterations
-                      "rcartocolor",    ## Cluster colors
-                      "reshape2",       ## Dataframe manipulation
-                      "this.path",      ## Create relative paths
-                      "tidyr",          ## Data manipulation
-                      "dendsort",       ## To draw heatmap
-                      "RColorBrewer",   ## Heatmap cell colors
-                      "ape",            ## Export hclust tree in newick format
-                      "RJSONIO",        ## Export hclust tree in JSON format
-                      "circlize",       ## Required to draw heatmaps
-                      "flexclust")      ## Calculate adjusted rand index
+# --------------------------- #
+# List of required R packages #
+# --------------------------- #
+required.packages = c("dplyr",          # Data manipulation
+                      "data.table",     # Read long matrices in a quick way
+                      "furrr",          # Run functions in parallel
+                      "optparse",       # Read command-line arguments
+                      "purrr",          # Iterations
+                      "rcartocolor",    # Cluster colors
+                      "reshape2",       # Dataframe manipulation
+                      "this.path",      # Create relative paths
+                      "tidyr",          # Data manipulation
+                      "dendsort",       # To draw heatmap
+                      "ggplot2",
+                      "ggseqlogo",      # Draw logos
+                      "RColorBrewer",   # Heatmap cell colors
+                      "ape",            # Export hclust tree in newick format
+                      "RJSONIO",        # Export hclust tree in JSON format
+                      "circlize",       # Required to draw heatmaps
+                      "flexclust")      # Calculate adjusted rand index
 
 
 for (lib in required.packages) {
