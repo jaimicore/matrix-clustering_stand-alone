@@ -432,5 +432,29 @@ treenode2cluster <- function(cluster_results = NULL,
   missing.nodes <- setdiff(all.nodes.in.tree, nodes.in.clusters)
   node.to.cluster.table <- rbind(node.to.cluster.table, data.frame(nodes = missing.nodes, cluster = 0))
   
-  return(node.to.cluster.table)
+  
+  node2cluster_dfs = list(node2cluster_simple   = node.to.cluster.table,
+                          node2cluster_detailed = node.to.cluster)
+  return(node2cluster_dfs)
+}
+
+
+# This functions returns a dataframe with the motif IDs (column 1) and 
+# with the cluster number they belong to (column 2)
+treeleaf2cluster <- function(node2cluster_tab = NULL,
+                             tree             = NULL) {
+  
+  leaf.to.cluster.table <- data.frame()
+  nleaves <- nrow(tree$merge) + 1
+  th <- sapply(node2cluster_tab$all.leaves, function(n) {
+    
+    leaves <- as.numeric(unlist(strsplit(n, ",")))
+    leaves <- lapply(leaves, function(x) {
+      as.vector(results.list$Motif_info_tab[x, "id"])
+    })
+    leaves <- as.vector(unlist(leaves))
+    cluster <- node2cluster_tab[which(node2cluster_tab$all.leaves == n), "cluster.counter"]
+    leaf.to.cluster.table <<- rbind(leaf.to.cluster.table, data.frame(leaves, cluster))
+    
+  })
 }
