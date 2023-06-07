@@ -76,17 +76,17 @@ opt_parser = OptionParser(option_list = option_list);
 opt = parse_args(opt_parser);
 
 
-## Output file prefix
+# Output file prefix
 out.folder        <- opt$output_folder
 matrix.file.table <- opt$matrix_file_table
 
-## Mandatory input
+# Mandatory input
 if (!file.exists(matrix.file.table)) {
   stop("Mandatory input file not found: ", matrix.file.table)
 }
 
 
-## In case of a reference clustering file is provided
+# In case of a reference clustering file is provided
 reference.clusters.flag     <- FALSE
 reference.clusters.tab.file <- opt$reference_cluster_annotation
 if (!is.null(reference.clusters.tab.file)) {
@@ -115,20 +115,19 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
 # Source here the functions #
 # ------------------------- #
 
-## 'here' is set to the path where matrix-clustering.R is located, then the libraries
-## are sourced relative to where 'here' was set
+# 'here' is set to the path where matrix-clustering.R is located, then the libraries
+# are sourced relative to where 'here' was set
 source(this.path::here(.. = 0, "R", "General_utils.R"))
 source(this.path::here(.. = 0, "R", "Hierarchical_clustering.R"))
 source(this.path::here(.. = 0, "R", "Motif_alignment_utils.R"))
 source(this.path::here(.. = 0, "R", "Motif_manipulation.R"))
 source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
-# sourceCpp(file.path(params.list$clustering_lib_path, "Utils.cpp"))
 
-# D3 files
+# -------- #
+# D3 files #
+# -------- #
 d3.radial.tree.template <- this.path::here(.. = 0, "html", "templates", "Radial_tree_template.html")
 d3.min.lib              <- this.path::here(.. = 0, "html", "js", "D3_min.js")
-
-
 
 
 # ----- #
@@ -243,9 +242,9 @@ results.list$Motif_compa_tab <- motif.comparison(transfac.file     = output.file
                                                  output.compa.file = output.files.list$Motif_compa)
 
 
-# ----------------------------------------------------------------- #
-# Convert distance table into a distance matrix, required by hclust #
-# ----------------------------------------------------------------- #
+# --------------------------------------------- #
+# Convert distance table into a distance matrix #
+# --------------------------------------------- #
 message('; Converting correlation values to distances')
 distances.objects <- build.distance.matrix(compa.table = results.list$Motif_compa_tab,
                                            metric      = params.list$comparison_metric)
@@ -304,10 +303,11 @@ if (params.list[["Nb_motifs"]] > 1) {
                                             comparison.table = results.list$Motif_compa_tab,
                                             parameters       = params.list)
  
+  # Seguir debug desde aqui 07-06-2023
   
   # When the --radial_tree option is indicated the find.motif.clusters function is launched two times.
-  # 1. Detect the clusters as normal
-  # 2. Set the w, cor, and Ncor thresholds to their minimum value, this will result in all motifs grouped and aligned in a single cluster
+  # 1st: Detect the clusters with the user-defined w, cor, and Ncor thresholds
+  # 2nd: Set the w, cor, and Ncor thresholds to their minimum value, this will result in all motifs grouped and aligned in a single cluster
   if (params.list[["radial_tree"]]) {
     
     message("; Force the alignment of all motifs in a single cluster (--radial_tree option)")
@@ -719,8 +719,15 @@ message("; End of program")
 
 # motif.info.list <- results.list$Motif_info_tab %>% purrr::transpose()
 # names(motif.info.list) <- results.list$Motif_info_tab$id
+
+# motif.description.tab <- results.list$Motif_info_tab
 # 
-# Add_attributes_to_JSON_radial_tree <- function() {
+# 
+# Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL) {
+#   
+#   # Convert description table into a list
+#   motif.info.list <- motif.description.tab %>% purrr::transpose()
+#   names(motif.info.list) <- motif.description.tab$id
 # 
 #   #  ## Open a file with the attributes of the nodes of each cluster (IC, width, number of motifs, etc)
 #   #  my $cluster_nodes_ic_info = &OpenOutputFile($main::outfile{prefix}."_clusters_information/".$cluster."_attributes_table.tab");
@@ -740,21 +747,21 @@ message("; End of program")
 #   treeleaf2cluster(node2cluster_tab = node2cluster$node2cluster_detailed,
 #                    tree             = results.list$All_motifs_tree)
 # 
-#   
+# 
 #   # Read JSON file, it is stored as an array where each element corresponds to a line
 #   JSON.lines <- readLines(output.files.list$JSON_tree_all)
 #   cluster.tree <- "cluster_01"
 #   tree.branch <- 0
 # 
-#   
+# 
 #   line.counter <- 0
 #   JSON.lines.parsed <- JSON.lines
 #   for (jl in JSON.lines) {
-#     
+# 
 #     # Initialize
 #     json.flag <- 0
 #     line.counter <- line.counter + 1
-#     
+# 
 #     # ------------------------------------ #
 #     # Find the line indicating a tree leaf #
 #     # Update tree leaves                   #
@@ -763,67 +770,67 @@ message("; End of program")
 #       tree.label <- gsub(pattern = '"label":\\s*"(.+)",', replacement = "\\1", x = jl)
 #       tree.label <- gsub(pattern = "\\s", replacement = "", x = tree.label)
 #       tree.label
-#       
+# 
 #       json.flag <- 1
 #       add.this  <- NULL
-#       
+# 
 #       ## Define the URL of the logo files, relative to the location of the json file
 #       align.logo.link.relpath.F <- motif.info.list[[tree.label]]$Logo
 #       align.logo.link.relpath.R <- motif.info.list[[tree.label]]$Logo_RC
-#       
+# 
 #       ### Create the line that will be added to JSON file
 #       image.F.line      <- paste0('\n "image" : "', align.logo.link.relpath.F, '"')
 #       image.R.line      <- paste0(',\n "image_rc" : "', align.logo.link.relpath.R, '"')
 #       url.line          <- paste0(',\n "url" : "', '', '"')
 #       ic.line           <- paste0(',\n "ic" : "', motif.info.list[[tree.label]]$IC, '"')
-#       size.line         <- paste0(',\n "size" : "', motif.info.list[[tree.label]]$width, '"')   
-#       branch.color.line <- paste0(',\n "branch_color" : "', '#ffffff', '"')   
-#   
+#       size.line         <- paste0(',\n "size" : "', motif.info.list[[tree.label]]$width, '"')
+#       branch.color.line <- paste0(',\n "branch_color" : "', '#ffffff', '"')
+# 
 #       add.this <- paste0(image.F.line,
 #                          image.R.line,
 #                          url.line,
 #                          ic.line,
 #                          size.line,
 #                          branch.color.line)
-#       
+# 
 #       # This needs to be completed
 #       # if (ID_link_flag) {
-#       # 
+#       #
 #       #   link.ext.line <- paste0(',\n "link_ext" : "', '', '"')
 #       #   color.line    <- paste0(',\n "color" : "', '', '"')
-#       # 
+#       #
 #       #   add.this <- paste0(add.this,
 #       #                      link.ext.line,
 #       #                      color.line)
 #       # }
-#       
+# 
 #       JSON.lines.parsed <- append(JSON.lines.parsed, add.this, after  = line.counter)
 #     }
-#     
+# 
 #     # -------------------------------------- #
 #     # Find the line indicating a tree branch #
 #     # Update tree branches                   #
 #     # -------------------------------------- #
 #     if (grepl(pattern = '"children":', jl)) {
-#       
+# 
 #       # Update variables
 #       tree.branch     <- tree.branch + 1
 #       add.branch.line <- ""
-#       
+# 
 #       if (tree.branch > 1) {
-#         
+# 
 #         # Check this 'folder' variable
 #         folder <- levels.JSON[tree.branch - 2]
-#         
+# 
 #         # Check this node_to_cluster_hash variable
 #         # Check that nodes without clusters have a different color
 #         add.branch.line <- paste0(' "branch_color" : "', '$node_to_cluster_hash{$folder}{color}', '",\n')
-#         
+# 
 #         JSON.lines.parsed <- append(JSON.lines.parsed, add.branch.line, after  = line.counter)
 #       }
 #     } # end of children grepl if
 #   } # End for loop
-#   
+# 
 #   # Export JSON file with annotations
 #   message("; Exporting JSON file with annotations: ", output.files.list$JSON_radial_annotated)
 #   writeLines(JSON.lines.parsed, con = output.files.list$JSON_radial_annotated)
@@ -1157,132 +1164,17 @@ message("; End of program")
 
 
 
-json.file   <- output.files.list$JSON_radial_annotated
-d3.template <- d3.radial.tree.template
-d3.outfile  <- output.files.list$D3_radial_tree
-motif.info  <- results.list$Motif_info_tab
-d3.lib      <- d3.lib
+# json.file   <- output.files.list$JSON_radial_annotated
+# d3.template <- d3.radial.tree.template
+# d3.outfile  <- output.files.list$D3_radial_tree
+# motif.info  <- results.list$Motif_info_tab
+# d3.lib      <- d3.min.lib
 
-create.html.radial.tree <- function(json.file   = NULL,
-                                    d3.template = NULL,
-                                    d3.outfile  = NULL,
-                                    motif.info  = NULL,
-                                    d3.lib      = NULL) {
-
-  
-  # Read D3 template as an array an iterate over it
-  d3.lines <- readLines(d3.template)
-  d3.lines.updated <- d3.lines
-  d3.line.counter  <- 0
-  nb.motifs        <- nrow(motif.info)
-
-  for (d3l in d3.lines) {
-    
-    d3.line.counter <- d3.line.counter + 1
-    
-    # Update tree width
-    if (grepl(pattern = "--radial_w--", x = d3l)) {
-      
-      # Width is determined by number of motifs
-      radial.w <- ifelse(nb.motifs > 200, yes = 2500, no = 2000)
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radial_w--", x = d3l, replacement = radial.w)
-    }
-    
-
-    # Update tree height
-    if (grepl(pattern = "--radial_h--", x = d3l)) {
-      
-      # Width is determined by number of motifs
-      radial.h <- ifelse(nb.motifs > 200, yes = 2500, no = 2000)
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radial_h--", x = d3l, replacement = radial.h)
-    }
-
-    # Insert JSON updated file
-    if (grepl(pattern = "--json_file--", x = d3l)) {
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--json_file--", x = d3l, replacement = json.file)
-    }
-    
-
-    # Set the tree radium according to the number of motifs
-    # NOTE: the following radius were obtained empirically
-    if (grepl(pattern = "--radium--", x = d3l)) {
-      
-      tree.radium <- 0
-      
-      if (nb.motifs <= 30) {
-        tree.radium = 17
-      } else if (nb.motifs > 30 & nb.motifs <= 50) {
-        tree.radium = 200
-      } else if (nb.motifs > 50 & nb.motifs <= 100) {
-        tree.radium = 250
-      } else if (nb.motifs > 100 & nb.motifs <= 150) {
-        tree.radium = 275
-      } else if (nb.motifs >= 150 & nb.motifs <= 200) {
-        tree.radium = 300
-      } else if (nb.motifs >= 200) {
-        tree.radium = 450;
-      }
-      
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radium--", x = d3l, replacement = tree.radium)
-    }
-
-
-    # Set the motif logo height according to the number of motifs
-    if (grepl(pattern = "--h_motif--", x = d3l)) {
-
-      logo.height = 10
-      
-      if (nb.motifs <= 30) {
-        logo.height <- 30
-      } else if (nb.motifs > 30 & nb.motifs < 100) {
-        logo.height <- 20
-      } else if (nb.motifs >= 100 & nb.motifs < 500) {
-        logo.height <- 10
-      } else if (nb.motifs >= 500) {
-        logo.height <- 5
-      }
-
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--h_motif--", x = d3l, replacement = logo.height);
-    }
-
-
-    # Set displacement (x axis) of the logos according to the number of motifs
-    if (grepl(pattern = "--x_displ--", x = d3l)) {
-      
-      x.displacement = 75
-      
-      if (nb.motifs <= 30) {
-        x.displacement <- 75
-      } else if (nb.motifs > 30 & nb.motifs <= 100) {
-        x.displacement <- 70
-      } else if (nb.motifs > 100 & nb.motifs < 500) {
-        x.displacement <- 55
-      } else if (nb.motifs >= 500) {
-        x.displacement <- 50
-      }
-      
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--x_displ--", x = d3l, replacement = x.displacement);
-    }
-
-
-    # Set displacement (y axis) of the logos according to the number of motifs
-    if (grepl(pattern = "--y-displ--", x = d3l)) {
-      
-      #y.displacement <- (logo.height/2) + 3;
-      y.displacement <- "0"
-      
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--y_displ--", x = d3l, replacement = y.displacement);
-    }
-
-
-    # Set displacement (y axis) of the logos according to the number of motifs
-    if (grepl(pattern = "--d3--", x = d3l)) {
-      
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--y_displ--", x = d3l, replacement = d3.lib);
-    }
-  }
-
-  # Export JSON file with annotations
-  message("; Exporting D3 Radial tree file: ", d3.outfile)
-  writeLines(d3.lines.updated, con = d3.outfile)
-}
+# ------------------------- #
+# Fill the D3 html template #
+# ------------------------- #
+# create.html.radial.tree(json.file   = output.files.list$JSON_radial_annotated,
+#                         d3.template = d3.radial.tree.template,
+#                         d3.outfile  = output.files.list$D3_radial_tree,
+#                         motif.info  = results.list$Motif_info_tab,
+#                         d3.lib      = d3.min.lib)
