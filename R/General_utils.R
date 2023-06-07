@@ -578,3 +578,129 @@ identify.JSON.tree.branches <- function(htree,
   # JSON.clusters.table$node <- cluster
   return(JSON.clusters.table)
 }
+
+
+
+create.html.radial.tree <- function(json.file   = NULL,
+                                    d3.template = NULL,
+                                    d3.outfile  = NULL,
+                                    motif.info  = NULL,
+                                    d3.lib      = NULL) {
+  
+  
+  # Read D3 template as an array an iterate over it
+  d3.lines <- readLines(d3.template)
+  d3.lines.updated <- d3.lines
+  d3.line.counter  <- 0
+  nb.motifs        <- nrow(motif.info)
+  
+  for (d3l in d3.lines) {
+    
+    d3.line.counter <- d3.line.counter + 1
+    
+    # Update tree width
+    if (grepl(pattern = "--radial_w--", x = d3l)) {
+      
+      # Width is determined by number of motifs
+      radial.w <- ifelse(nb.motifs > 200, yes = 2500, no = 2000)
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radial_w--", x = d3l, replacement = radial.w)
+    }
+    
+    
+    # Update tree height
+    if (grepl(pattern = "--radial_h--", x = d3l)) {
+      
+      # Width is determined by number of motifs
+      radial.h <- ifelse(nb.motifs > 200, yes = 2500, no = 2000)
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radial_h--", x = d3l, replacement = radial.h)
+    }
+    
+    # Insert JSON updated file
+    if (grepl(pattern = "--json_file--", x = d3l)) {
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--json_file--", x = d3l, replacement = json.file)
+    }
+    
+    
+    # Set the tree radium according to the number of motifs
+    # NOTE: the following radius were obtained empirically
+    if (grepl(pattern = "--radium--", x = d3l)) {
+      
+      tree.radium <- 0
+      
+      if (nb.motifs <= 30) {
+        tree.radium = 17
+      } else if (nb.motifs > 30 & nb.motifs <= 50) {
+        tree.radium = 200
+      } else if (nb.motifs > 50 & nb.motifs <= 100) {
+        tree.radium = 250
+      } else if (nb.motifs > 100 & nb.motifs <= 150) {
+        tree.radium = 275
+      } else if (nb.motifs >= 150 & nb.motifs <= 200) {
+        tree.radium = 300
+      } else if (nb.motifs >= 200) {
+        tree.radium = 450;
+      }
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radium--", x = d3l, replacement = tree.radium)
+    }
+    
+    
+    # Set the motif logo height according to the number of motifs
+    if (grepl(pattern = "--h_motif--", x = d3l)) {
+      
+      logo.height = 10
+      
+      if (nb.motifs <= 30) {
+        logo.height <- 30
+      } else if (nb.motifs > 30 & nb.motifs < 100) {
+        logo.height <- 20
+      } else if (nb.motifs >= 100 & nb.motifs < 500) {
+        logo.height <- 10
+      } else if (nb.motifs >= 500) {
+        logo.height <- 5
+      }
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--h_motif--", x = d3l, replacement = logo.height);
+    }
+    
+    
+    # Set displacement (x axis) of the logos according to the number of motifs
+    if (grepl(pattern = "--x_displ--", x = d3l)) {
+      
+      x.displacement = 75
+      
+      if (nb.motifs <= 30) {
+        x.displacement <- 75
+      } else if (nb.motifs > 30 & nb.motifs <= 100) {
+        x.displacement <- 70
+      } else if (nb.motifs > 100 & nb.motifs < 500) {
+        x.displacement <- 55
+      } else if (nb.motifs >= 500) {
+        x.displacement <- 50
+      }
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--x_displ--", x = d3l, replacement = x.displacement);
+    }
+    
+    
+    # Set displacement (y axis) of the logos according to the number of motifs
+    if (grepl(pattern = "--y-displ--", x = d3l)) {
+      
+      #y.displacement <- (logo.height/2) + 3;
+      y.displacement <- "0"
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--y_displ--", x = d3l, replacement = y.displacement);
+    }
+    
+    
+    # Set displacement (y axis) of the logos according to the number of motifs
+    if (grepl(pattern = "--d3--", x = d3l)) {
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--y_displ--", x = d3l, replacement = d3.lib);
+    }
+  }
+  
+  # Export JSON file with annotations
+  message("; Exporting D3 Radial tree file: ", d3.outfile)
+  writeLines(d3.lines.updated, con = d3.outfile)
+}
