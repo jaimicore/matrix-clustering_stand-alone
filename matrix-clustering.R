@@ -124,6 +124,11 @@ source(this.path::here(.. = 0, "R", "Motif_manipulation.R"))
 source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 # sourceCpp(file.path(params.list$clustering_lib_path, "Utils.cpp"))
 
+# D3 files
+d3.radial.tree.template <- this.path::here(.. = 0, "html", "templates", "Radial_tree_template.html")
+d3.min.lib              <- this.path::here(.. = 0, "html", "js", "D3_min.js")
+
+
 
 
 # ----- #
@@ -140,19 +145,19 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 # out.folder                  <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/results/Jaspar_plants/Jaspar_plants"
 # reference.clusters.tab.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab"
 
-params.list <- list("export_newick"         = 0,
-                    "export_heatmap"        = 0,
-                    "heatmap_color_classes" = NULL,
-                    "heatmap_color_palette" = NULL,
-                    "comparison_metric"     = "Ncor",
-                    "linkage_method"        = "average",
-                    "w"                     = 5,
-                    "cor"                   = 0.75,
-                    "Ncor"                  = 0.55,
-                    "nb_workers"            = 8,
-                    "min_output"            = TRUE,
-                    "ref_clusters"          = FALSE,
-                    "radial_tree"           = FALSE) #
+# params.list <- list("export_newick"         = 0,
+#                     "export_heatmap"        = 0,
+#                     "heatmap_color_classes" = NULL,
+#                     "heatmap_color_palette" = NULL,
+#                     "comparison_metric"     = "Ncor",
+#                     "linkage_method"        = "average",
+#                     "w"                     = 5,
+#                     "cor"                   = 0.75,
+#                     "Ncor"                  = 0.55,
+#                     "nb_workers"            = 8,
+#                     "min_output"            = FALSE,
+#                     "ref_clusters"          = FALSE,
+#                     "radial_tree"           = TRUE) #
 
 
 # -------------------------------------------------------- #
@@ -182,8 +187,9 @@ output.files.list <- list("Alignment_table"       = file.path(out.folder.list$ta
                           "Clusters_vs_Reference" = file.path(out.folder.list$plots, "Clusters_vs_reference_contingency_table.pdf"),
                           "hclust_all"            = file.path(out.folder.list$trees, "tree.RData"),
                           "JSON_tree_all"         = file.path(out.folder.list$trees, "tree.json"),
-                          "Newick_tree_all"       = file.path(out.folder.list$trees, "tree.newick"))
-
+                          "Newick_tree_all"       = file.path(out.folder.list$trees, "tree.newick"),
+                          "JSON_radial_annotated" = file.path(out.folder.list$trees, "Annotated_tree_cluster_01.json"),
+                          "D3_radial_tree"        = file.path(out.folder, "d3_radial_tree.html"))
 
 results.list <- list(Dist_table         = NULL,
                      Dist_matrix        = NULL,
@@ -317,8 +323,8 @@ if (params.list[["Nb_motifs"]] > 1) {
     # Update list
     # Note sure if this need to be updated, to check
     # Aqui
-    find.clusters.list$clusters    <- find.clusters.list.radial$clusters
-    find.clusters.list$clusters_df <- find.clusters.list.radial$clusters_df
+    # find.clusters.list$clusters    <- find.clusters.list.radial$clusters
+    # find.clusters.list$clusters_df <- find.clusters.list.radial$clusters_df
     
     # Generate this file: /home/jaime/Downloads/RADIAL_consensus9/matrix-clustering_tables/node_to_cluster.tab
     # save.image("Debug_radial.Rdata")
@@ -604,9 +610,10 @@ if (params.list$min_output == FALSE) {
          sep       = "\t")
   
   
-  # --------------------- #
-  # Cluster - Color table #
-  # --------------------- #
+  # -------------------------- #
+  # Cluster - Hexa-Color table #
+  # -------------------------- #
+  
   results.list$Cluster_color <- cluster.color.map(cluster.tab = results.list$Clusters_table)
   cl.col                     <- results.list$Cluster_color
   message("; Exporting cluster-color table: ", output.files.list$Distance_table)
@@ -704,13 +711,16 @@ message("; End of program")
 # Note 2: perl variable @levels_JSON is created from this line: push(@levels_JSON, $spl[2]); 
 #         LVL_JSON corresponds to results.list$JSON_branch_nb
 #
-# Note 3: perl variable $node_to_cluster corresponds to 
+# Note 3: perl variable $node_to_cluster corresponds to the output of the function treenode2cluster
+#
+# Note 4:
 
+# Aqui
 
-
-# Add_attributes_to_JSON_radial_tree <- function() {
+# motif.info.list <- results.list$Motif_info_tab %>% purrr::transpose()
+# names(motif.info.list) <- results.list$Motif_info_tab$id
 # 
-#   # Aqui: needs to be done
+# Add_attributes_to_JSON_radial_tree <- function() {
 # 
 #   #  ## Open a file with the attributes of the nodes of each cluster (IC, width, number of motifs, etc)
 #   #  my $cluster_nodes_ic_info = &OpenOutputFile($main::outfile{prefix}."_clusters_information/".$cluster."_attributes_table.tab");
@@ -719,14 +729,106 @@ message("; End of program")
 # 
 #   #
 #   levels.JSON <- results.list$JSON_branch_nb$node
+# 
+#   # Nodes to cluster table
+#   node2cluster <- treenode2cluster(cluster_results = find.clusters.list,
+#                                    tree            = results.list$All_motifs_tree)
+# 
+#   cluster.color.map(cluster.tab = results.list$Clusters_table)
+# 
+# 
+#   treeleaf2cluster(node2cluster_tab = node2cluster$node2cluster_detailed,
+#                    tree             = results.list$All_motifs_tree)
+# 
 #   
-# $node_to_cluster
-#   treenode2cluster(cluster_results = find.clusters.list,
-#                    tree            = results.list$All_motifs_tree)
+#   # Read JSON file, it is stored as an array where each element corresponds to a line
+#   JSON.lines <- readLines(output.files.list$JSON_tree_all)
+#   cluster.tree <- "cluster_01"
+#   tree.branch <- 0
+# 
 #   
+#   line.counter <- 0
+#   JSON.lines.parsed <- JSON.lines
+#   for (jl in JSON.lines) {
+#     
+#     # Initialize
+#     json.flag <- 0
+#     line.counter <- line.counter + 1
+#     
+#     # ------------------------------------ #
+#     # Find the line indicating a tree leaf #
+#     # Update tree leaves                   #
+#     # ------------------------------------ #
+#     if (grepl(pattern = '"label":\\s+(.+)",', jl)) {
+#       tree.label <- gsub(pattern = '"label":\\s*"(.+)",', replacement = "\\1", x = jl)
+#       tree.label <- gsub(pattern = "\\s", replacement = "", x = tree.label)
+#       tree.label
+#       
+#       json.flag <- 1
+#       add.this  <- NULL
+#       
+#       ## Define the URL of the logo files, relative to the location of the json file
+#       align.logo.link.relpath.F <- motif.info.list[[tree.label]]$Logo
+#       align.logo.link.relpath.R <- motif.info.list[[tree.label]]$Logo_RC
+#       
+#       ### Create the line that will be added to JSON file
+#       image.F.line      <- paste0('\n "image" : "', align.logo.link.relpath.F, '"')
+#       image.R.line      <- paste0(',\n "image_rc" : "', align.logo.link.relpath.R, '"')
+#       url.line          <- paste0(',\n "url" : "', '', '"')
+#       ic.line           <- paste0(',\n "ic" : "', motif.info.list[[tree.label]]$IC, '"')
+#       size.line         <- paste0(',\n "size" : "', motif.info.list[[tree.label]]$width, '"')   
+#       branch.color.line <- paste0(',\n "branch_color" : "', '#ffffff', '"')   
+#   
+#       add.this <- paste0(image.F.line,
+#                          image.R.line,
+#                          url.line,
+#                          ic.line,
+#                          size.line,
+#                          branch.color.line)
+#       
+#       # This needs to be completed
+#       # if (ID_link_flag) {
+#       # 
+#       #   link.ext.line <- paste0(',\n "link_ext" : "', '', '"')
+#       #   color.line    <- paste0(',\n "color" : "', '', '"')
+#       # 
+#       #   add.this <- paste0(add.this,
+#       #                      link.ext.line,
+#       #                      color.line)
+#       # }
+#       
+#       JSON.lines.parsed <- append(JSON.lines.parsed, add.this, after  = line.counter)
+#     }
+#     
+#     # -------------------------------------- #
+#     # Find the line indicating a tree branch #
+#     # Update tree branches                   #
+#     # -------------------------------------- #
+#     if (grepl(pattern = '"children":', jl)) {
+#       
+#       # Update variables
+#       tree.branch     <- tree.branch + 1
+#       add.branch.line <- ""
+#       
+#       if (tree.branch > 1) {
+#         
+#         # Check this 'folder' variable
+#         folder <- levels.JSON[tree.branch - 2]
+#         
+#         # Check this node_to_cluster_hash variable
+#         # Check that nodes without clusters have a different color
+#         add.branch.line <- paste0(' "branch_color" : "', '$node_to_cluster_hash{$folder}{color}', '",\n')
+#         
+#         JSON.lines.parsed <- append(JSON.lines.parsed, add.branch.line, after  = line.counter)
+#       }
+#     } # end of children grepl if
+#   } # End for loop
+#   
+#   # Export JSON file with annotations
+#   message("; Exporting JSON file with annotations: ", output.files.list$JSON_radial_annotated)
+#   writeLines(JSON.lines.parsed, con = output.files.list$JSON_radial_annotated)
 # 
 # }
-
 
 
 #' ################################################################
@@ -786,11 +888,6 @@ message("; End of program")
 #'   close(LVL_JSON);
 #'   
 #'
-
-
-
-# Aqui
-
 #'   ## Node to clusters
 #'   my ($node_to_cluster) = &OpenInputFile($main::outfile{prefix}."_tables/node_to_cluster.tab");
 #'   while(<$node_to_cluster>) {
@@ -806,6 +903,7 @@ message("; End of program")
 #'     }
 #'   }
 #'   close($node_to_cluster);
+#'   
 #'   
 #'   ## Leaf to clusters
 #'   my ($leaf_to_cluster) = &OpenInputFile($main::outfile{prefix}."_tables/leaf_to_cluster.tab");
@@ -831,58 +929,59 @@ message("; End of program")
 #'   my $cluster_width = 0;
 #'   my $JSON = $main::outfile{prefix}."_trees/tree_".$cluster.".json";
 #'   &RSAT::message::TimeWarn("JSON file", $JSON, $cluster ) if ($main::verbose >= 2);
-#'   open(JSON, $JSON) || &RSAT::error::FatalError($JSON, "Cannot open the JSON file");
-#'   while(<JSON>) {
-#'     chomp;
-#'     $Flag = 0;
-#'     $line = $_;
-#'     
-#'     ################################################################
-#'     ## Search the pattern separating the matrices names (tree leaves)
-#'     if ($line =~ /\s*\"label\":\s*\"(.+)\",/) {
-#' 	  $Flag = 1;
-#' 	  $Add_this = "";
-#' 	  $M1 = $1;
-#' 	  
-#' 	  ## Define te URL of the logo file, relative to the location of the json file
-#' 	  my $aligned_logo_link = &RSAT::util::RelativePath($main::outfile{summary}, $alignment_info{$M1}{logo});
-#' 	  $aligned_logo_link =~ s/^\.\.\///g;
-#' 	  
-#' 	  my $aligned_logo_url = $aligned_logo_link.".png";
-#' 	  
-#' 	  ## Define te URL of the logo file, relative to the location of the json file
-#' 	  my $aligned_rc_logo_link = &RSAT::util::RelativePath($main::outfile{summary}, $alignment_info{$M1}{logo_rc});
-#' 	  $aligned_rc_logo_link =~ s/^\.\.\///g;
-#' 	  my $aligned_rc_logo_url = $aligned_logo_link.".png";
-#' 	  
-#' 	  ### Create the line that will be added to JSON file
-#' 	  $Add_this .= "\n \"image\" : \"${aligned_logo_link}\"";
-#' 	  $Add_this .= ",\n \"image_rc\" : \"${aligned_rc_logo_link}\"";
-#' 	  $Add_this .= ",\n \"url\" : \"${aligned_logo_link}\"";
-#' 	  
-#' 	  foreach my $field (@supported_label_fields) {
-#' 	    if ($label_fields_to_return{$field}) {
-#' 	      if ($field eq "ic"){
-#' 	        $Add_this .= ",\n \"".$field."\" : \"".$matrix_info{$M1}{$field}."\"";
-#' 	      } else {
-#' 	        $Add_this .= ",\n \"".$field."\" : \"".$matrix_info{$M1}{$field}."\"";
-#' 	      }
-#' 	    }
-#' 	  }
-#' 	  $Add_this .= ",\n \"ic\" : \"".$matrix_info{$M1}{ic}."\"";
-#' 	  $Add_this .= ",\n \"size\" : ".$matrix_info{$M1}{width};
-#' 	  $Add_this .= ",\n \"title\" : \"".$motifs_ID_unique{$M1}."\"";
-#' 	  $Add_this .= ",\n \"consensus_rc\" : \"".$matrix_info{$M1}{consensus_rc}."\"";
-#' 	  $Add_this .= ",\n \"branch_color\" : \"".$leaf_to_cluster_hash{$M1}{color}."\"";
-#' 	  
-#' 	  if ($ID_link_flag == 1){
-#' 	    
-#' 	    $Add_this .= ",\n \"link_ext\" : \"".$ID_link_hash{$M1}{link}."\"";
-#' 	    $Add_this .= ",\n \"color\" : \"".$ID_link_hash{$M1}{color}."\"";
-#' 	  }
-#' 	  }
 #'   
-#'   
+#   open(JSON, $JSON) || &RSAT::error::FatalError($JSON, "Cannot open the JSON file");
+#   while(<JSON>) {
+#     chomp;
+#     $Flag = 0;
+#     $line = $_;
+# 
+#     ################################################################
+#     ## Search the pattern separating the matrices names (tree leaves)
+#     if ($line =~ /\s*\"label\":\s*\"(.+)\",/) {
+# 	  $Flag = 1;
+# 	  $Add_this = "";
+# 	  $M1 = $1;
+# 
+# 	  ## Define te URL of the logo file, relative to the location of the json file
+# 	  my $aligned_logo_link = &RSAT::util::RelativePath($main::outfile{summary}, $alignment_info{$M1}{logo});
+# 	  $aligned_logo_link =~ s/^\.\.\///g;
+# 
+# 	  my $aligned_logo_url = $aligned_logo_link.".png";
+# 
+# 	  ## Define te URL of the logo file, relative to the location of the json file
+# 	  my $aligned_rc_logo_link = &RSAT::util::RelativePath($main::outfile{summary}, $alignment_info{$M1}{logo_rc});
+# 	  $aligned_rc_logo_link =~ s/^\.\.\///g;
+# 	  my $aligned_rc_logo_url = $aligned_logo_link.".png";
+# 
+# 	  ### Create the line that will be added to JSON file
+# 	  $Add_this .= "\n \"image\" : \"${aligned_logo_link}\"";
+# 	  $Add_this .= ",\n \"image_rc\" : \"${aligned_rc_logo_link}\"";
+# 	  $Add_this .= ",\n \"url\" : \"${aligned_logo_link}\"";
+# 
+# 	  foreach my $field (@supported_label_fields) {
+# 	    if ($label_fields_to_return{$field}) {
+# 	      if ($field eq "ic"){
+# 	        $Add_this .= ",\n \"".$field."\" : \"".$matrix_info{$M1}{$field}."\"";
+# 	      } else {
+# 	        $Add_this .= ",\n \"".$field."\" : \"".$matrix_info{$M1}{$field}."\"";
+# 	      }
+# 	    }
+# 	  }
+# 	  $Add_this .= ",\n \"ic\" : \"".$matrix_info{$M1}{ic}."\"";
+# 	  $Add_this .= ",\n \"size\" : ".$matrix_info{$M1}{width};
+# 	  $Add_this .= ",\n \"title\" : \"".$motifs_ID_unique{$M1}."\"";
+# 	  $Add_this .= ",\n \"consensus_rc\" : \"".$matrix_info{$M1}{consensus_rc}."\"";
+# 	  $Add_this .= ",\n \"branch_color\" : \"".$leaf_to_cluster_hash{$M1}{color}."\"";
+# 
+# 	  if ($ID_link_flag == 1){
+# 
+# 	    $Add_this .= ",\n \"link_ext\" : \"".$ID_link_hash{$M1}{link}."\"";
+# 	    $Add_this .= ",\n \"color\" : \"".$ID_link_hash{$M1}{color}."\"";
+# 	  }
+# 	  }
+#' 
+#' 
 #'   ################################################################
 #'   ## Add the consensus to the json file to be displayed in the tree (tree nodes)
 #'   my $IC_info_line = "";
@@ -894,15 +993,15 @@ message("; End of program")
 #' 	  $children++;
 #' 	  $Add = "";
 #' 	  if ($children > 1) {
-#' 	      
+#' 
 #' 	      $folder = $levels_JSON[$children-2];
-#' 	      
+#' 
 #'           if (exists($merged_consensuses_files{$cluster}{$folder})) {
-#' 		  
-#' 		  
+#' 
+#' 
 #' 		  if (scalar(@{$cluster_nodes{$cluster}}) > 1){
 #' 		      my ($linkage_order_info_file) = &OpenInputFile($main::outfile{prefix}."_clusters_information/".$cluster."/levels_JSON_".$cluster."_table_linkage_order.tab");
-#' 		      
+#' 
 #' 		      while(<$linkage_order_info_file>) {
 #' 			  chomp;
 #' 			  next if /^;/;
@@ -910,13 +1009,13 @@ message("; End of program")
 #' 			  my $merge_ID = $spl[0];
 #' 			  my $child_1 = $spl[1];
 #' 			  my $child_2 = $spl[2];
-#' 			  $linkage_order_info{$merge_ID}{child_1} = $child_1;  
-#' 			  $linkage_order_info{$merge_ID}{child_2} = $child_2;  
+#' 			  $linkage_order_info{$merge_ID}{child_1} = $child_1;
+#' 			  $linkage_order_info{$merge_ID}{child_2} = $child_2;
 #' 		      }
 #' 		      close $linkage_order_info_file;
-#' 		      
+#' 
 #' 		  }
-#' 		  
+#' 
 #' 		  ## Calculate IC of branch motif
 #' 		  my @branch_motifs = &RSAT::MatrixReader::readFromFile($merged_consensuses_files{$cluster}{$folder}{tf_file}, "tf");
 #' 		  my $rounded_ic = 0;
@@ -927,7 +1026,7 @@ message("; End of program")
 #' 		  my $calc_child_1_nb_sites = 0;
 #' 		  my $calc_child_2_nb_sites = 0;
 #' 		  foreach my $matrix (@branch_motifs) {
-#' 		      
+#' 
 #' 		      ## Calculates the IC of the matrix
 #' 		      $matrix->calcInformation();
 #' 		      $matrix->toString(col_width=>(1+4),
@@ -951,7 +1050,7 @@ message("; End of program")
 #'                          ## Calculate IC of child 1
 #' 		         @read_motifs = &RSAT::MatrixReader::readFromFile($merged_consensuses_files{$cluster}{$linkage_order_info{$folder}{child_1}}{tf_file}, "tf");
 #'                          foreach my $matrix (@read_motifs) {
-#' 		    		    
+#' 
 #' 			    ## Calculates the IC of the matrix
 #' 			    $matrix->calcInformation();
 #' 			    $matrix->toString(col_width=>(1+4),
@@ -974,7 +1073,7 @@ message("; End of program")
 #'                          ## Calculate IC of child 2
 #' 		         @read_motifs = &RSAT::MatrixReader::readFromFile($merged_consensuses_files{$cluster}{$linkage_order_info{$folder}{child_2}}{tf_file}, "tf");
 #'                          foreach my $matrix (@read_motifs) {
-#' 		    		    
+#' 
 #' 			    ## Calculates the IC of the matrix
 #' 			    $matrix->calcInformation();
 #' 			    $matrix->toString(col_width=>(1+4),
@@ -997,7 +1096,7 @@ message("; End of program")
 #'                       $linkage_order_info{$folder}{child_1_nbsites} = $child_1_nb_sites;
 #'                       $linkage_order_info{$folder}{child_2_nbsites} = $child_2_nb_sites;
 #'   }
-#'  
+#' 
 #' 		      my $branch = $folder;
 #' 		      $branch =~ s/\D+//g;
 #' 		      my $consensus_link = &RSAT::util::RelativePath($main::outfile{summary}, $merged_consensuses_files{$cluster}{$folder}{logo});
@@ -1010,13 +1109,13 @@ message("; End of program")
 #'   $Add .= " \"name\" : \"".$merged_consensuses_files{$cluster}{$folder}{motif_name}."\",\n";
 #'   $Add .= " \"image\" : \"".&RSAT::util::RelativePath($main::outfile{summary}, $merged_consensuses_files{$cluster}{$folder}{logo})."\",\n";
 #'   $Add .= " \"image_rc\" : \"".&RSAT::util::RelativePath($main::outfile{summary}, $merged_consensuses_files{$cluster}{$folder}{logo_RC})."\",\n";
-#'   
+#' 
 #'   if ($radial_tree_flag == 1){
 #'     $Add .= " \"branch_color\" : \"".$node_to_cluster_hash{$folder}{color}."\",\n";
 #'   }
-#'   
-#'   
-#'   
+#' 
+#' 
+#' 
 #'   } else {
 #'     if ($radial_tree_flag == 1){
 #'       $Add .= " \"branch_color\" : \"".$node_to_cluster_hash{$folder}{color}."\",\n";
@@ -1025,11 +1124,11 @@ message("; End of program")
 #' push(@Parsed_JSON, $Add."\n");
 #' 
 #' if (scalar(@{$cluster_nodes{$cluster}}) > 1){
-#'   
+#' 
 #'   my $line_to_print = $cluster."\t".$folder."\t".$linkage_order_info{$folder}{child_1}."\t".$linkage_order_info{$folder}{child_2}."\t".$linkage_order_info{$folder}{ic}."\t".$linkage_order_info{$folder}{child_1_ic}."\t".$linkage_order_info{$folder}{child_2_ic}."\t".$linkage_order_info{$folder}{sites}."\t".$linkage_order_info{$folder}{child_1_nbsites}."\t".$linkage_order_info{$folder}{child_2_nbsites}."\n";
-#'   
+#' 
 #'   $line_to_print =~ s/node_//gi;
-#'   
+#' 
 #'   print $cluster_nodes_ic_info $line_to_print;
 #' }
 #'   }
@@ -1055,3 +1154,135 @@ message("; End of program")
 #' 
 #' return();
 #' }
+
+
+
+json.file   <- output.files.list$JSON_radial_annotated
+d3.template <- d3.radial.tree.template
+d3.outfile  <- output.files.list$D3_radial_tree
+motif.info  <- results.list$Motif_info_tab
+d3.lib      <- d3.lib
+
+create.html.radial.tree <- function(json.file   = NULL,
+                                    d3.template = NULL,
+                                    d3.outfile  = NULL,
+                                    motif.info  = NULL,
+                                    d3.lib      = NULL) {
+
+  
+  # Read D3 template as an array an iterate over it
+  d3.lines <- readLines(d3.template)
+  d3.lines.updated <- d3.lines
+  d3.line.counter  <- 0
+  nb.motifs        <- nrow(motif.info)
+
+  for (d3l in d3.lines) {
+    
+    d3.line.counter <- d3.line.counter + 1
+    
+    # Update tree width
+    if (grepl(pattern = "--radial_w--", x = d3l)) {
+      
+      # Width is determined by number of motifs
+      radial.w <- ifelse(nb.motifs > 200, yes = 2500, no = 2000)
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radial_w--", x = d3l, replacement = radial.w)
+    }
+    
+
+    # Update tree height
+    if (grepl(pattern = "--radial_h--", x = d3l)) {
+      
+      # Width is determined by number of motifs
+      radial.h <- ifelse(nb.motifs > 200, yes = 2500, no = 2000)
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radial_h--", x = d3l, replacement = radial.h)
+    }
+
+    # Insert JSON updated file
+    if (grepl(pattern = "--json_file--", x = d3l)) {
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--json_file--", x = d3l, replacement = json.file)
+    }
+    
+
+    # Set the tree radium according to the number of motifs
+    # NOTE: the following radius were obtained empirically
+    if (grepl(pattern = "--radium--", x = d3l)) {
+      
+      tree.radium <- 0
+      
+      if (nb.motifs <= 30) {
+        tree.radium = 17
+      } else if (nb.motifs > 30 & nb.motifs <= 50) {
+        tree.radium = 200
+      } else if (nb.motifs > 50 & nb.motifs <= 100) {
+        tree.radium = 250
+      } else if (nb.motifs > 100 & nb.motifs <= 150) {
+        tree.radium = 275
+      } else if (nb.motifs >= 150 & nb.motifs <= 200) {
+        tree.radium = 300
+      } else if (nb.motifs >= 200) {
+        tree.radium = 450;
+      }
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radium--", x = d3l, replacement = tree.radium)
+    }
+
+
+    # Set the motif logo height according to the number of motifs
+    if (grepl(pattern = "--h_motif--", x = d3l)) {
+
+      logo.height = 10
+      
+      if (nb.motifs <= 30) {
+        logo.height <- 30
+      } else if (nb.motifs > 30 & nb.motifs < 100) {
+        logo.height <- 20
+      } else if (nb.motifs >= 100 & nb.motifs < 500) {
+        logo.height <- 10
+      } else if (nb.motifs >= 500) {
+        logo.height <- 5
+      }
+
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--h_motif--", x = d3l, replacement = logo.height);
+    }
+
+
+    # Set displacement (x axis) of the logos according to the number of motifs
+    if (grepl(pattern = "--x_displ--", x = d3l)) {
+      
+      x.displacement = 75
+      
+      if (nb.motifs <= 30) {
+        x.displacement <- 75
+      } else if (nb.motifs > 30 & nb.motifs <= 100) {
+        x.displacement <- 70
+      } else if (nb.motifs > 100 & nb.motifs < 500) {
+        x.displacement <- 55
+      } else if (nb.motifs >= 500) {
+        x.displacement <- 50
+      }
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--x_displ--", x = d3l, replacement = x.displacement);
+    }
+
+
+    # Set displacement (y axis) of the logos according to the number of motifs
+    if (grepl(pattern = "--y-displ--", x = d3l)) {
+      
+      #y.displacement <- (logo.height/2) + 3;
+      y.displacement <- "0"
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--y_displ--", x = d3l, replacement = y.displacement);
+    }
+
+
+    # Set displacement (y axis) of the logos according to the number of motifs
+    if (grepl(pattern = "--d3--", x = d3l)) {
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--y_displ--", x = d3l, replacement = d3.lib);
+    }
+  }
+
+  # Export JSON file with annotations
+  message("; Exporting D3 Radial tree file: ", d3.outfile)
+  writeLines(d3.lines.updated, con = d3.outfile)
+}
