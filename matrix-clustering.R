@@ -143,7 +143,7 @@ d3.min.lib              <- this.path::here(.. = 0, "html", "js", "D3_min.js")
 # matrix.file.table           <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_plants_motifs_tab.txt"
 # out.folder                  <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/results/Jaspar_plants/Jaspar_plants"
 # reference.clusters.tab.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab"
-
+# 
 # params.list <- list("export_newick"         = 0,
 #                     "export_heatmap"        = 0,
 #                     "heatmap_color_classes" = NULL,
@@ -326,12 +326,6 @@ if (params.list[["Nb_motifs"]] > 1) {
                                                      comparison.table = results.list$Motif_compa_tab,
                                                      parameters       = params.list.radial)
     
-    # Update list
-    # Note sure if this need to be updated, to check
-    # Aqui
-    # find.clusters.list$clusters    <- find.clusters.list.radial$clusters
-    # find.clusters.list$clusters_df <- find.clusters.list.radial$clusters_df
-  
     results.list$JSON_branch_nb <- identify.JSON.tree.branches(htree             = results.list$All_motifs_tree,
                                                                description.table = results.list$Motif_info_tab)
   }
@@ -352,41 +346,88 @@ if (params.list[["Nb_motifs"]] > 1) {
   }
 
   
-  ## Identify singletons and clusters with many motifs
+  # ------------------------------------- #
+  # Clusters and alignment in radial tree #
+  # ------------------------------------- #
   if (params.list[["radial_tree"]]) {
     
     cluster.sizes                <- purrr::map_dbl(find.clusters.list.radial$clusters, length)
-    cl.singleton                 <- names(cluster.sizes[cluster.sizes == 1])
-    cl.many                      <- names(cluster.sizes[cluster.sizes > 1])
-    singleton.flag               <- as.logical(length(cl.singleton))
-    params.list[["Nb_clusters"]] <- length(find.clusters.list.radial$clusters)
+    cl.singleton                 <- 0
+    cl.many                      <- 1
+    singleton.flag               <- FALSE
+    params.list[["Nb_clusters"]] <- 1
+    message("; Number of clusters: ", params.list[["Nb_clusters"]])
     
-  } else {
+    r.cl.hclust.results <- hclust.cluster.ids(ids        = find.clusters.list.radial$clusters$cluster_1,
+                                            compa      = results.list$Motif_compa_tab,
+                                            parameters = params.list)
+
+    # ----------------------- #
+    # Motif alignment section #
+    # ----------------------- #
     
+    ## Extract the hclust objects within the nested list
+    r.cl.many.hclust <- r.cl.hclust.results$hclust
+    
+    ## Align motifs within each cluster (with 2 or more motifs, singletons are treated separately)
+    ## This function is ran in parallel using furrr::future_map , see https://furrr.futureverse.org/
+    plan(multisession, workers = params.list$nb_workers)
+    message("; Motif alignment step")
+    r.aligment.clusters.tab <- align.motifs.in.cluster(tree       = r.cl.many.hclust,
+                                                       compa      = results.list$Motif_compa_tab,
+                                                       motif.info = results.list$Motif_info_tab,
+                                                       parameters = params.list.radial)
+    
+    r.aligment.clusters.tab <- list(r.aligment.clusters.tab)
+
+    # ----------------------------- #
+    # Parse tables before exporting #
+    # ----------------------------- #
+    
+    ## Prepare tables to export
+    message("; Combining aligned clusters tables")
+    
+    ## Groups
+    ## Add cluster name, rename columns and remove unnecessary columns
+    r.alignment.clusters.tab.export <-  rbindlist(r.aligment.clusters.tab, idcol = "cluster") %>% 
+                                            within(rm(N, Update_status)) %>% 
+                                            dplyr::rename(strand            = Strand,
+                                                          offset_up         = Offset_up,
+                                                          offset_down       = Offset_down,
+                                                          aligned_consensus = Oriented_consensus)
+
+    results.list$Alignment_radial_table <- r.alignment.clusters.tab.export %>% 
+                                            mutate(width = nchar(aligned_consensus)) 
+
+    ## This is the column order of the original version
+    results.list$Alignment_radial_table <- results.list$Alignment_radial_table %>% 
+      select("id", "name", "cluster", "strand", "offset_up", "offset_down", "width", "aligned_consensus", "aligned_consensus_rc")
+
+    results.list$Clusters_table <- results.list$Alignment_radial_table %>% 
+                                    group_by(cluster) %>% 
+                                    summarise(id      = paste(id, collapse = ","),
+                                              name    = paste(name, collapse = ","),
+                                              .groups = "drop")    
+  } 
+
+  
+  
+  
+  # --------------------------------------- #
+  # Clusters and alignments in motif forest #
+  # --------------------------------------- #
+  {
     cluster.sizes                <- purrr::map_dbl(find.clusters.list$clusters, length)
     cl.singleton                 <- names(cluster.sizes[cluster.sizes == 1])
     cl.many                      <- names(cluster.sizes[cluster.sizes > 1])
     singleton.flag               <- as.logical(length(cl.singleton))
     params.list[["Nb_clusters"]] <- length(find.clusters.list$clusters)
+    message("; Number of clusters: ", params.list[["Nb_clusters"]])
     
-  }
-  message("; Number of clusters: ", params.list[["Nb_clusters"]])
   
-  
-  # ----------------------- #
-  # Motif alignment section #
-  # ----------------------- #
-  
-  if (params.list[["radial_tree"]]) {
-    
-    cl.hclust.results <- hclust.cluster.ids(ids      = find.clusters.list.radial$clusters$cluster_1,
-                                            compa      = results.list$Motif_compa_tab,
-                                            parameters = params.list)
-    
-    ## Extract the hclust objects within the nested list
-    cl.many.hclust <- cl.hclust.results$hclust
-    
-  } else {
+    # ----------------------- #
+    # Motif alignment section #
+    # ----------------------- #
     
     ## Compute hierarchical clustering of each cluster
     cl.hclust.results <- purrr::map(.x = find.clusters.list$clusters,
@@ -395,85 +436,73 @@ if (params.list[["Nb_motifs"]] > 1) {
                                                              parameters = params.list))
     ## Extract the hclust objects within the nested list
     cl.many.hclust <- purrr::map(cl.hclust.results[cl.many], `[[`, "hclust")
-    
-  }
   
-  
-  ## Align motifs within each cluster (with 2 or more motifs, singletons are treated separately)
-  ## This function is ran in parallel using furrr::future_map , see https://furrr.futureverse.org/
-  plan(multisession, workers = params.list$nb_workers)
-  message("; Motif alignment step")
-  if (params.list[["radial_tree"]]) {
-    
-    aligment.clusters.tab <- align.motifs.in.cluster(tree       = cl.many.hclust,
-                                                     compa      = results.list$Motif_compa_tab,
-                                                     motif.info = results.list$Motif_info_tab,
-                                                     parameters = params.list.radial)
-    
-  } else {
-    
+    ## Align motifs within each cluster (with 2 or more motifs, singletons are treated separately)
+    ## This function is ran in parallel using furrr::future_map , see https://furrr.futureverse.org/
+    plan(multisession, workers = params.list$nb_workers)
+    message("; Motif alignment step") 
     aligment.clusters.tab <- furrr::future_map(.x = cl.many.hclust,
                                                .f = ~align.motifs.in.cluster(tree       = .x,
                                                                              compa      = results.list$Motif_compa_tab,
                                                                              motif.info = results.list$Motif_info_tab,
                                                                              parameters = params.list))
-  }
-
-
-  # ----------------------------- #
-  # Parse tables before exporting #
-  # ----------------------------- #
-  
-  ## Prepare tables to export
-  message("; Combining aligned clusters tables")
-  
-  ## Groups
-  ## Add cluster name, rename columns and remove unnecessary columns
-  alignment.clusters.tab.export <-  rbindlist(aligment.clusters.tab, idcol = "cluster") %>% 
-                                      within(rm(N, Update_status)) %>% 
-                                      dplyr::rename(strand            = Strand,
-                                                    offset_up         = Offset_up,
-                                                    offset_down       = Offset_down,
-                                                    aligned_consensus = Oriented_consensus)
-  
-  
-  ## Singleton section
-  ## This if only applied when there is at least one singleton
-  if (singleton.flag) {
-   
-    singleton.clusters.tab.export <- data.table(cluster = names(find.clusters.list$clusters[cl.singleton]),
-                                                id      = unlist(find.clusters.list$clusters[cl.singleton])) %>% 
-                                        left_join(results.list$Motif_info_tab, by = "id") %>% 
-                                        mutate(strand               = "D",
-                                               offset_up            = 0,
-                                               offset_down          = 0,
-                                               aligned_consensus    = consensus,
-                                               aligned_consensus_rc = rc_consensus) %>% 
-                                        within(rm(n, width, IC, nb_sites, id_old)) 
     
-    ## Combine groups + singleton clusters
-    results.list$Alignment_table <- rbind(alignment.clusters.tab.export, singleton.clusters.tab.export) %>% 
-                                        mutate(width = nchar(aligned_consensus))
+    # ----------------------------- #
+    # Parse tables before exporting #
+    # ----------------------------- #
     
-  } else {
-    results.list$Alignment_table <- alignment.clusters.tab.export %>% 
-                                      mutate(width = nchar(aligned_consensus))
+    ## Prepare tables to export
+    message("; Combining aligned clusters tables")
+    
+    ## Groups
+    ## Add cluster name, rename columns and remove unnecessary columns
+    alignment.clusters.tab.export <-  rbindlist(aligment.clusters.tab, idcol = "cluster") %>% 
+      within(rm(N, Update_status)) %>% 
+      dplyr::rename(strand            = Strand,
+                    offset_up         = Offset_up,
+                    offset_down       = Offset_down,
+                    aligned_consensus = Oriented_consensus)
+
+    ## Singleton section
+    ## This if only applied when there is at least one singleton
+    if (singleton.flag) {
+      
+      singleton.clusters.tab.export <- data.table(cluster = names(find.clusters.list$clusters[cl.singleton]),
+                                                  id      = unlist(find.clusters.list$clusters[cl.singleton])) %>% 
+        left_join(results.list$Motif_info_tab, by = "id") %>% 
+        mutate(strand               = "D",
+               offset_up            = 0,
+               offset_down          = 0,
+               aligned_consensus    = consensus,
+               aligned_consensus_rc = rc_consensus) %>% 
+        within(rm(n, width, IC, nb_sites, id_old)) 
+      
+      ## Combine groups + singleton clusters
+      results.list$Alignment_table <- rbind(alignment.clusters.tab.export, singleton.clusters.tab.export) %>% 
+        mutate(width = nchar(aligned_consensus))
+      
+    } else {
+      results.list$Alignment_table <- alignment.clusters.tab.export %>% 
+        mutate(width = nchar(aligned_consensus))
+    }
+    
+    ## This is the column order of the original version
+    results.list$Alignment_table <- results.list$Alignment_table %>% 
+                                      select("id", "name", "cluster", "strand", "offset_up", "offset_down", "width", "aligned_consensus", "aligned_consensus_rc")
+
+    # ------------------- #
+    # Clusters - ID table #
+    # ------------------- #
+    
+    # At this point this variable contains 1 cluster when radial tree option is actiaved
+    results.list$Clusters_table <- results.list$Alignment_table %>% 
+      group_by(cluster) %>% 
+      summarise(id      = paste(id, collapse = ","),
+                name    = paste(name, collapse = ","),
+                .groups = "drop")    
   }
   
-  ## This is the column order of the original version
-  results.list$Alignment_table <- results.list$Alignment_table %>% 
-                                    select("id", "name", "cluster", "strand", "offset_up", "offset_down", "width", "aligned_consensus", "aligned_consensus_rc")
-
-
   
-  # ------------------- #
-  # Clusters - ID table #
-  # ------------------- #
-  results.list$Clusters_table <- results.list$Alignment_table %>% 
-                                  group_by(cluster) %>% 
-                                  summarise(id      = paste(id, collapse = ","),
-                                            name    = paste(name, collapse = ","),
-                                            .groups = "drop")
   
 } else {
   stop("The clustering analysis required at least 2 motifs.")
@@ -827,8 +856,8 @@ message("; End of program")
 # --------------------------------- #
 # Update JSON file with annotations #
 # --------------------------------- #
-
-# Aqui
+# 
+# # Aqui
 # motif.description.tab <- results.list$Motif_info_tab
 # levels.json.tab       <- results.list$JSON_branch_nb
 # color.map             <- cl.col
@@ -877,7 +906,7 @@ message("; End of program")
 #   # Convert description table into a list
 #   motif.info.list <- motif.description.tab %>% purrr::transpose()
 #   names(motif.info.list) <- motif.description.tab$id
-#   
+# 
 #   # Same motif width for all logos
 #   motif.logo.size <- max(motif.description.tab$width)
 # 
@@ -900,7 +929,7 @@ message("; End of program")
 #   line.counter      <- 0
 #   JSON.lines.parsed <- JSON.lines
 #   for (jl in JSON.lines) {
-#     
+# 
 #     # ll <- 454
 #     # jl <- JSON.lines[ll]
 #     # line.counter <- ll
@@ -914,18 +943,18 @@ message("; End of program")
 #     # Update tree leaves                   #
 #     # ------------------------------------ #
 #     if (grepl(pattern = '"label":\\s+(.+)",', jl)) {
-#       
+# 
 #       print(line.counter)
-#       
+# 
 #       tree.label <- gsub(pattern = '"label":\\s*"(.+)",', replacement = "\\1", x = jl)
 #       tree.label <- gsub(pattern = "\\s", replacement = "", x = tree.label)
 #       tree.label
 # 
 #       json.flag <- 1
 #       add.this  <- ""
-#       
-#  
-#       
+# 
+# 
+# 
 # 
 #       ## Define the URL of the logo files, relative to the location of the json file
 #       align.logo.link.relpath.F <- this.path::as.rel.path(relative.to = results.main.dir,
@@ -942,8 +971,8 @@ message("; End of program")
 #       name.line         <- paste0(',\n "name" : "', motif.info.list[[tree.label]]$name, '"')
 #       branch.color.line <- paste0(',\n "branch_color" : "', as.vector(subset(leaf2cluster, leaves == tree.label)$color), '"')
 # 
-#       
-#       
+# 
+# 
 #       add.this <- paste0(image.F.line,
 #                          image.R.line,
 #                          url.line,
@@ -972,20 +1001,20 @@ message("; End of program")
 #     # Update tree branches                   #
 #     # -------------------------------------- #
 #     # if (grepl(pattern = '"children":', jl)) {
-#     # 
+#     #
 #     #   # Update variables
 #     #   tree.branch     <- tree.branch + 1
 #     #   add.branch.line <- ""
-#     # 
+#     #
 #     #   if (tree.branch > 1) {
-#     # 
+#     #
 #     #     # Check this 'folder' variable
 #     #     folder <- levels.JSON[tree.branch - 2]
-#     # 
+#     #
 #     #     # Check this node_to_cluster_hash variable
 #     #     # Check that nodes without clusters have a different color
 #     #     add.branch.line <- paste0('\n "branch_color" : "', '#ccc;', '",\n')
-#     # 
+#     #
 #     #     #JSON.lines.parsed <- append(JSON.lines.parsed, add.branch.line, after = line.counter)
 #     #     JSON.lines[line.counter] <- paste0(jl, add.branch.line)
 #     #   }
@@ -995,9 +1024,9 @@ message("; End of program")
 #   # Export JSON file with annotations
 #   message("; Exporting JSON file with annotations: ", json.wa.file)
 #   writeLines(JSON.lines.parsed, con = json.wa.file)
-#   
+# 
 #   writeLines(JSON.lines, con = json.wa.file)
-#   
+# 
 # }
 
 
@@ -1328,8 +1357,7 @@ message("; End of program")
 
 # To do:
 #
-# 1. Fix issue of exporting logos Example: Homer_8
-# 2. Verify that all aligned logos have the same width
-# 3. Verify Branch annotation conditional
-# 4. Verify leave color
+# 1. Verify that all aligned logos have the same width
+# 2. Verify Branch annotation conditional
+# 3. Verify leave color
 
