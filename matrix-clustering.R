@@ -353,11 +353,23 @@ if (params.list[["Nb_motifs"]] > 1) {
 
   
   ## Identify singletons and clusters with many motifs
-  cluster.sizes                <- purrr::map_dbl(find.clusters.list$clusters, length)
-  cl.singleton                 <- names(cluster.sizes[cluster.sizes == 1])
-  cl.many                      <- names(cluster.sizes[cluster.sizes > 1])
-  singleton.flag               <- as.logical(length(cl.singleton))
-  params.list[["Nb_clusters"]] <- length(find.clusters.list$clusters)
+  if (params.list[["radial_tree"]]) {
+    
+    cluster.sizes                <- purrr::map_dbl(find.clusters.list.radial$clusters, length)
+    cl.singleton                 <- names(cluster.sizes[cluster.sizes == 1])
+    cl.many                      <- names(cluster.sizes[cluster.sizes > 1])
+    singleton.flag               <- as.logical(length(cl.singleton))
+    params.list[["Nb_clusters"]] <- length(find.clusters.list.radial$clusters)
+    
+  } else {
+    
+    cluster.sizes                <- purrr::map_dbl(find.clusters.list$clusters, length)
+    cl.singleton                 <- names(cluster.sizes[cluster.sizes == 1])
+    cl.many                      <- names(cluster.sizes[cluster.sizes > 1])
+    singleton.flag               <- as.logical(length(cl.singleton))
+    params.list[["Nb_clusters"]] <- length(find.clusters.list$clusters)
+    
+  }
   message("; Number of clusters: ", params.list[["Nb_clusters"]])
   
   
@@ -365,30 +377,49 @@ if (params.list[["Nb_motifs"]] > 1) {
   # Motif alignment section #
   # ----------------------- #
   
-  ## Compute hierarchical clustering of each cluster
-  cl.hclust.results <- purrr::map(.x = find.clusters.list$clusters,
-                                  .f = ~hclust.cluster.ids(ids        = .x,
-                                                           compa      = results.list$Motif_compa_tab,
-                                                           parameters = params.list))
+  if (params.list[["radial_tree"]]) {
+    
+    cl.hclust.results <- hclust.cluster.ids(ids      = find.clusters.list.radial$clusters$cluster_1,
+                                            compa      = results.list$Motif_compa_tab,
+                                            parameters = params.list)
+    
+    ## Extract the hclust objects within the nested list
+    cl.many.hclust <- cl.hclust.results$hclust
+    
+  } else {
+    
+    ## Compute hierarchical clustering of each cluster
+    cl.hclust.results <- purrr::map(.x = find.clusters.list$clusters,
+                                    .f = ~hclust.cluster.ids(ids        = .x,
+                                                             compa      = results.list$Motif_compa_tab,
+                                                             parameters = params.list))
+    ## Extract the hclust objects within the nested list
+    cl.many.hclust <- purrr::map(cl.hclust.results[cl.many], `[[`, "hclust")
+    
+  }
   
-  hclust.cluster.ids(ids        = find.clusters.list$clusters$cluster_01,
-                     compa      = results.list$Motif_compa_tab,
-                     parameters = params.list)
-  
-  ## Extract the hclust objects within the nested list
-  cl.many.hclust <- purrr::map(cl.hclust.results[cl.many], `[[`, "hclust")
   
   ## Align motifs within each cluster (with 2 or more motifs, singletons are treated separately)
   ## This function is ran in parallel using furrr::future_map , see https://furrr.futureverse.org/
   plan(multisession, workers = params.list$nb_workers)
   message("; Motif alignment step")
-  aligment.clusters.tab <- furrr::future_map(.x = cl.many.hclust,
-                                             .f = ~align.motifs.in.cluster(tree       = .x,
-                                                                           compa      = results.list$Motif_compa_tab,
-                                                                           motif.info = results.list$Motif_info_tab,
-                                                                           parameters = params.list))
-  
-  
+  if (params.list[["radial_tree"]]) {
+    
+    aligment.clusters.tab <- align.motifs.in.cluster(tree       = cl.many.hclust,
+                                                     compa      = results.list$Motif_compa_tab,
+                                                     motif.info = results.list$Motif_info_tab,
+                                                     parameters = params.list.radial)
+    
+  } else {
+    
+    aligment.clusters.tab <- furrr::future_map(.x = cl.many.hclust,
+                                               .f = ~align.motifs.in.cluster(tree       = .x,
+                                                                             compa      = results.list$Motif_compa_tab,
+                                                                             motif.info = results.list$Motif_info_tab,
+                                                                             parameters = params.list))
+  }
+
+
   # ----------------------------- #
   # Parse tables before exporting #
   # ----------------------------- #
