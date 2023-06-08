@@ -188,7 +188,7 @@ output.files.list <- list("Alignment_table"       = file.path(out.folder.list$ta
                           "JSON_tree_all"         = file.path(out.folder.list$trees, "tree.json"),
                           "Newick_tree_all"       = file.path(out.folder.list$trees, "tree.newick"),
                           "JSON_radial_annotated" = file.path(out.folder.list$trees, "Annotated_tree_cluster_01.json"),
-                          "D3_radial_tree"        = file.path(out.folder, "d3_radial_tree.html"))
+                          "D3_radial_tree"        = file.path("d3_radial_tree.html"))
 
 results.list <- list(Dist_table         = NULL,
                      Dist_matrix        = NULL,
@@ -303,7 +303,6 @@ if (params.list[["Nb_motifs"]] > 1) {
                                             comparison.table = results.list$Motif_compa_tab,
                                             parameters       = params.list)
  
-  # Seguir debug desde aqui 07-06-2023
   
   # When the --radial_tree option is indicated the find.motif.clusters function is launched two times.
   # 1st: Detect the clusters with the user-defined w, cor, and Ncor thresholds
@@ -325,15 +324,11 @@ if (params.list[["Nb_motifs"]] > 1) {
     # Aqui
     # find.clusters.list$clusters    <- find.clusters.list.radial$clusters
     # find.clusters.list$clusters_df <- find.clusters.list.radial$clusters_df
-    
-    # Generate this file: /home/jaime/Downloads/RADIAL_consensus9/matrix-clustering_tables/node_to_cluster.tab
-    # save.image("Debug_radial.Rdata")
-    
+  
     results.list$JSON_branch_nb <- identify.JSON.tree.branches(htree             = results.list$All_motifs_tree,
                                                                description.table = results.list$Motif_info_tab)
-    
   }
-  
+  # save.image("Debug_radial.Rdata")
 
   
   # ----------------------------- #
@@ -706,6 +701,7 @@ message("; End of program")
 # 5. my ($linkage_order_info_file) = &OpenInputFile($main::outfile{prefix}."_clusters_information/".$cluster."/levels_JSON_".$cluster."_table_linkage_order.tab");
 
 
+
 # Note 1: perl variable $mat_desc in the original code corresponds to results.list$Motif_info_tab
 #
 # Note 2: perl variable @levels_JSON is created from this line: push(@levels_JSON, $spl[2]); 
@@ -715,46 +711,90 @@ message("; End of program")
 #
 # Note 4:
 
-# Aqui
+
 
 # motif.info.list <- results.list$Motif_info_tab %>% purrr::transpose()
 # names(motif.info.list) <- results.list$Motif_info_tab$id
 
+
+
+
+# 
+# 
+# # --------------------------------- #
+# # Update JSON file with annotations #
+# # --------------------------------- #
+# 
+# # Aqui
 # motif.description.tab <- results.list$Motif_info_tab
+# levels.json.tab       <- results.list$JSON_branch_nb
+# color.map             <- cl.col
+# htree                 <- results.list$All_motifs_tree
+# json.woa.file         <- output.files.list$JSON_tree_all
+# json.wa.file          <- output.files.list$JSON_radial_annotated
+# 
+# Add_attributes_to_JSON_radial_tree(motif.description.tab = results.list$Motif_info_tab,
+#                                    levels.json.tab       = results.list$JSON_branch_nb,
+#                                    color.map             = cl.col,
+#                                    htree                 = results.list$All_motifs_tree,
+#                                    json.woa.file         = output.files.list$JSON_tree_all,
+#                                    json.wa.file          = output.files.list$JSON_radial_annotated)
 # 
 # 
-# Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL) {
-#   
+# 
+# # ------------------------- #
+# # Fill the D3 html template #
+# # ------------------------- #
+# 
+# json.file   <- output.files.list$JSON_radial_annotated
+# d3.template <- d3.radial.tree.template
+# d3.outfile  <- output.files.list$D3_radial_tree
+# motif.info  <- results.list$Motif_info_tab
+# d3.lib      <- d3.min.lib
+# 
+# create.html.radial.tree(json.file   = output.files.list$JSON_radial_annotated,
+#                         d3.template = d3.radial.tree.template,
+#                         d3.outfile  = output.files.list$D3_radial_tree,
+#                         motif.info  = results.list$Motif_info_tab,
+#                         d3.lib      = d3.min.lib)
+# 
+# 
+# 
+# 
+# Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
+#                                                levels.json.tab       = NULL,
+#                                                color.map             = NULL,
+#                                                htree                 = NULL,
+#                                                json.woa.file         = NULL,
+#                                                json.wa.file          = NULL)  {
+# 
 #   # Convert description table into a list
 #   motif.info.list <- motif.description.tab %>% purrr::transpose()
 #   names(motif.info.list) <- motif.description.tab$id
 # 
+#   # Aqui : borrar ? 
 #   #  ## Open a file with the attributes of the nodes of each cluster (IC, width, number of motifs, etc)
 #   #  my $cluster_nodes_ic_info = &OpenOutputFile($main::outfile{prefix}."_clusters_information/".$cluster."_attributes_table.tab");
 #   #  print $cluster_nodes_ic_info join("\t", "#cluster", "node_ID", "child_1", "child_2", "IC", "IC_child_1", "IC_child_2", "Sites", "Sites_child_1", "Sites_child_2"), "\n";
 # 
 # 
-#   #
-#   levels.JSON <- results.list$JSON_branch_nb$node
+#   # This array has the branch number of the hclust tree mapped in the JSON tree
+#   levels.JSON <- levels.json.tab$node
 # 
-#   # Nodes to cluster table
+#   # Nodes (tree branches) to cluster association table
 #   node2cluster <- treenode2cluster(cluster_results = find.clusters.list,
-#                                    tree            = results.list$All_motifs_tree)
+#                                    tree            = htree)
 # 
-#   cluster.color.map(cluster.tab = results.list$Clusters_table)
-# 
-# 
-#   treeleaf2cluster(node2cluster_tab = node2cluster$node2cluster_detailed,
-#                    tree             = results.list$All_motifs_tree)
+#   # Motifs (tree leaves) to cluster association table
+#   leaf2cluster <- treeleaf2cluster(node2cluster_tab = node2cluster$node2cluster_detailed,
+#                                    tree             = htree)
 # 
 # 
 #   # Read JSON file, it is stored as an array where each element corresponds to a line
-#   JSON.lines <- readLines(output.files.list$JSON_tree_all)
-#   cluster.tree <- "cluster_01"
-#   tree.branch <- 0
-# 
-# 
-#   line.counter <- 0
+#   JSON.lines        <- readLines(json.woa.file)
+#   cluster.tree      <- "cluster_01"
+#   tree.branch       <- 0
+#   line.counter      <- 0
 #   JSON.lines.parsed <- JSON.lines
 #   for (jl in JSON.lines) {
 # 
@@ -832,8 +872,8 @@ message("; End of program")
 #   } # End for loop
 # 
 #   # Export JSON file with annotations
-#   message("; Exporting JSON file with annotations: ", output.files.list$JSON_radial_annotated)
-#   writeLines(JSON.lines.parsed, con = output.files.list$JSON_radial_annotated)
+#   message("; Exporting JSON file with annotations: ", json.wa.file)
+#   writeLines(JSON.lines.parsed, con = json.wa.file)
 # 
 # }
 
@@ -1164,17 +1204,3 @@ message("; End of program")
 
 
 
-# json.file   <- output.files.list$JSON_radial_annotated
-# d3.template <- d3.radial.tree.template
-# d3.outfile  <- output.files.list$D3_radial_tree
-# motif.info  <- results.list$Motif_info_tab
-# d3.lib      <- d3.min.lib
-
-# ------------------------- #
-# Fill the D3 html template #
-# ------------------------- #
-# create.html.radial.tree(json.file   = output.files.list$JSON_radial_annotated,
-#                         d3.template = d3.radial.tree.template,
-#                         d3.outfile  = output.files.list$D3_radial_tree,
-#                         motif.info  = results.list$Motif_info_tab,
-#                         d3.lib      = d3.min.lib)
