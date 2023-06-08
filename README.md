@@ -19,7 +19,7 @@ Originally, *RSAT matrix-clustering* was planned to be part of the [*RSAT* suite
 
 ## Before starting
 
-If you want to run the original version with all the graphical output, you can do it thorugh [*RSAT* website](http://rsat-tagc.univ-mrs.fr/rsat/matrix-clustering_form.cgi) or alternatively, installing *RSAT* locally and run the command line version of *matrix-clustering*.
+If you want to run the original version with all the graphical output, you can do it through the [*RSAT* website](http://rsat-tagc.univ-mrs.fr/rsat/matrix-clustering_form.cgi) or alternatively, installing *RSAT* locally and run the command line version of *matrix-clustering*.
 
 :warning: This repository is under active development, so we expect many changes as long as you see this line.
 
