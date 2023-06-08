@@ -457,4 +457,5 @@ treeleaf2cluster <- function(node2cluster_tab = NULL,
     leaf.to.cluster.table <<- rbind(leaf.to.cluster.table, data.frame(leaves, cluster))
     
   })
+  return(leaf.to.cluster.table)
 }
