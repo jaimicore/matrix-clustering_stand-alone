@@ -457,5 +457,10 @@ treeleaf2cluster <- function(node2cluster_tab = NULL,
     leaf.to.cluster.table <<- rbind(leaf.to.cluster.table, data.frame(leaves, cluster))
     
   })
+  
+  nb.char.cluster.ids  <- nchar(as.character(length(leaf.to.cluster.table$cluster))) ## Number of digits
+  sprint.string        <- paste0("%0", nb.char.cluster.ids, "d")     ## Sprintf options  
+  leaf.to.cluster.table$cluster <- paste0("cluster_", sprintf(sprint.string, leaf.to.cluster.table$cluster))
+  
   return(leaf.to.cluster.table)
 }
