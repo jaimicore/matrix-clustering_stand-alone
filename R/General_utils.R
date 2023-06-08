@@ -445,11 +445,11 @@ identify.JSON.tree.branches <- function(htree,
   
   # htree             <- results.list$All_motifs_tree
   # description.table <- results.list$Motif_info_tab
-  # description.table$n <- 1:nrow(description.table)
   
-  ## Change the labels for the numbers in the description table
+  # Change the labels for the numbers in the description table
   htree$labels <- NULL
-  htree$labels <- as.vector(description.table$n)
+  htree$labels <- seq_len(nrow(description.table))
+  description.table$n <- htree$labels
   
   ## Erase the (',')
   jsonTree <- convert.hclust.to.JSON(htree)
@@ -488,7 +488,7 @@ identify.JSON.tree.branches <- function(htree,
     sapply(symbol[j]:length(copy.Json.vector) ,function(i) {
       
       ## Here the code search for the [] in order to identify the
-      ## subgroups and then can re-name them similarly to the hclust object
+      ## subgroups and then can rename them similarly to the hclust object
       if (copy.Json.vector[i] == "[") {
         up.count <<- up.count + 1
         
@@ -496,6 +496,7 @@ identify.JSON.tree.branches <- function(htree,
         if (up.count == 1) {
           up.pos <<- i
         }
+        
       } else if (copy.Json.vector[i] == "]") {
         down.count <<- down.count + 1
       }
@@ -506,6 +507,7 @@ identify.JSON.tree.branches <- function(htree,
         cond.counter <<- cond.counter + 1
         
         if (cond.counter == 1) {
+          
           ## Position down
           down.pos <- i
           temp      <- NULL
@@ -514,7 +516,6 @@ identify.JSON.tree.branches <- function(htree,
           numb      <- as.integer(unlist((strsplit(paste(temp, collapse = ""), "\\|"))))
           numb      <- numb[which(numb != "NA")]
           id.from.n <- paste(sort(subset(description.table, n %in% numb)$id), collapse = ",")
-          # col2 <<- append(col2, paste(get.id(numb), collapse = ","))
           col2 <<- append(col2, id.from.n)
         }
       }
@@ -525,6 +526,7 @@ identify.JSON.tree.branches <- function(htree,
   JSON.clusters.table <- data.frame(col1)
   JSON.clusters.table$cluster <- col2
   colnames(JSON.clusters.table) <- c("level", "cluster")
+  # View(JSON.clusters.table)
   
   # Until this part works well
   leaves.in.tree.ids <- leaves.per.node(results.list$All_motifs_tree)
@@ -537,45 +539,6 @@ identify.JSON.tree.branches <- function(htree,
   JSON.clusters.table <- merge(x = JSON.clusters.table, y = df, by = "cluster") |> 
           select("level", "cluster", "node")
 
-  # cluster <- NULL
-  # # x <- 3
-  # # y <- 11
-  # sapply(1:nrow(JSON.clusters.table), function(x){
-  #   
-  #   ## Save the Ids corresponding to each branch of the JSON tree
-  #   leaves.JSON <- unlist(strsplit(JSON.clusters.table[x,2], ","))
-  #   
-  #   sapply(1:nrow(htree$merge), function(y) {
-  #     
-  #     cond.counter <<- 0
-  #     ## Save the Ids corresponding to each branch of the hclust tree
-  #     leaves.merge <- NULL
-  #     leaves.merge <- sort(leaves.per.node(htree)[[y]])
-  #     
-  #     print(x)
-  #     print(y)
-  #     if (length(leaves.JSON) == length(leaves.merge)) {
-  #       
-  #       rr <- sort(subset(description.table, n %in% leaves.merge)$id)[1]
-  #       print(rr)
-  #       print("_________________")
-  #       
-  #       
-  #       
-  #       if (rr == sort(leaves.JSON)[1]) {
-  #       # if(sort(get.id(leaves.merge))[1] == sort(leaves.JSON)[1]){
-  #     
-  #         cond.counter <<- cond.counter + 1
-  #         
-  #         if (cond.counter == 1) {
-  #           cluster <<- append(cluster, paste("node_", y, sep = ""))
-  #         }
-  #       }
-  #     }
-  #   })
-  # })
-  # 
-  # JSON.clusters.table$node <- cluster
   return(JSON.clusters.table)
 }
 
