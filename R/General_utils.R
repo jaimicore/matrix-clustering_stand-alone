@@ -548,8 +548,8 @@ create.html.radial.tree <- function(json.file   = NULL,
                                     d3.template = NULL,
                                     d3.outfile  = NULL,
                                     motif.info  = NULL,
-                                    d3.lib      = NULL) {
-  
+                                    d3.lib      = NULL,
+                                    outdir      = NULL) {
   
   # Read D3 template as an array an iterate over it
   d3.lines <- readLines(d3.template)
@@ -580,7 +580,11 @@ create.html.radial.tree <- function(json.file   = NULL,
     
     # Insert JSON updated file
     if (grepl(pattern = "--json_file--", x = d3l)) {
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--json_file--", x = d3l, replacement = json.file)
+      
+      json.rel.path <- this.path::as.rel.path(relative.to = results.main.dir,
+                                              path = json.file)
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--json_file--", x = d3l, replacement = json.rel.path)
     }
     
     
@@ -650,20 +654,42 @@ create.html.radial.tree <- function(json.file   = NULL,
     if (grepl(pattern = "--y-displ--", x = d3l)) {
       
       #y.displacement <- (logo.height/2) + 3;
-      y.displacement <- "0"
+      y.displacement <- 0
       
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--y_displ--", x = d3l, replacement = y.displacement);
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--y-displ--", x = d3l, replacement = y.displacement);
     }
     
     
     # Set displacement (y axis) of the logos according to the number of motifs
     if (grepl(pattern = "--d3--", x = d3l)) {
       
-      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--y_displ--", x = d3l, replacement = d3.lib);
+      # Create a copy of the D3 library in the results folder
+      d3.path <- cp.d3.lib(d3     = d3.lib,
+                           folder = outdir)
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--d3--", x = d3l, replacement = d3.path);
     }
   }
   
   # Export JSON file with annotations
   message("; Exporting D3 Radial tree file: ", d3.outfile)
   writeLines(d3.lines.updated, con = d3.outfile)
+}
+
+
+cp.d3.lib <- function(d3     = NULL,
+                      folder = NULL) {
+  
+  message("; Creating a copy of D3 library")
+  file.copy(from = dirname(d3),
+            to   = folder,
+            recursive = TRUE)
+  
+  new.d3           <- this.path::here(.. = 1, file.path(folder, "js", basename(d3)))
+  results.main.dir <- this.path::here(.. = 1, folder)
+  
+  d3.radial.js <- this.path::as.rel.path(relative.to = results.main.dir,
+                                         path = new.d3)
+  
+  return(d3.radial.js)
 }
