@@ -163,6 +163,13 @@ d3.min.lib              <- this.path::here(.. = 0, "html", "js", "D3_min.js")
 # Initialize output + result lists + create output folders #
 # -------------------------------------------------------- #
 
+# Absolute path to result's main folder
+# This path will be used to compute relative path required in the output html files
+# 
+# Example: this.path::as.rel.path(relative.to = results.main.dir, path = new.d3)
+results.main.dir <- this.path::here(.. = 0, dirname(out.folder))
+
+
 out.folder.list <- list(tables         = file.path(paste0(out.folder, "_tables")),
                         plots          = file.path(paste0(out.folder, "_plots")),
                         trees          = file.path(paste0(out.folder, "_trees")),
@@ -188,7 +195,7 @@ output.files.list <- list("Alignment_table"       = file.path(out.folder.list$ta
                           "JSON_tree_all"         = file.path(out.folder.list$trees, "tree.json"),
                           "Newick_tree_all"       = file.path(out.folder.list$trees, "tree.newick"),
                           "JSON_radial_annotated" = file.path(out.folder.list$trees, "Annotated_tree_cluster_01.json"),
-                          "D3_radial_tree"        = file.path("d3_radial_tree.html"))
+                          "D3_radial_tree"        = paste0(results.main.dir, "_D3_radial_tree.html"))
 
 results.list <- list(Dist_table         = NULL,
                      Dist_matrix        = NULL,
@@ -717,28 +724,95 @@ message("; End of program")
 # names(motif.info.list) <- results.list$Motif_info_tab$id
 
 
+# [1] 13
+# [1] 16
+# [1] 21
+# [1] 36
+# [1] 41
+# [1] 46
+# [1] 51
+# [1] 54
+# [1] 67
+# [1] 70
+# [1] 81
+# [1] 84
+# [1] 89
+# [1] 102
+# [1] 107
+# [1] 114
+# [1] 117
+# [1] 122
+# [1] 133
+# [1] 136
+# [1] 145
+# [1] 148
+# [1] 161
+# [1] 164
+# [1] 169
+# [1] 200
+# [1] 203
+# [1] 208
+# [1] 215
+# [1] 218
+# [1] 225
+# [1] 234
+# [1] 237
+# [1] 242
+# [1] 249
+# [1] 256
+# [1] 259
+# [1] 274
+# [1] 279
+# [1] 282
+# [1] 295
+# [1] 302
+# [1] 307
+# [1] 310
+# [1] 317
+# [1] 326
+# [1] 329
+# [1] 340
+# [1] 343
+# [1] 348
+# [1] 357
+# [1] 366
+# [1] 371
+# [1] 376
+# [1] 379
+# [1] 388
+# [1] 399
+# [1] 404
+# [1] 407
+# [1] 420
+# [1] 423
+# [1] 428
+# [1] 439
+# [1] 444
+# [1] 447
+# [1] 454
 
 
-# 
-# 
-# # --------------------------------- #
-# # Update JSON file with annotations #
-# # --------------------------------- #
-# 
-# # Aqui
+
+# --------------------------------- #
+# Update JSON file with annotations #
+# --------------------------------- #
+
+# Aqui
 # motif.description.tab <- results.list$Motif_info_tab
 # levels.json.tab       <- results.list$JSON_branch_nb
 # color.map             <- cl.col
 # htree                 <- results.list$All_motifs_tree
 # json.woa.file         <- output.files.list$JSON_tree_all
 # json.wa.file          <- output.files.list$JSON_radial_annotated
+# alignent.width        <- max(results.list$Alignment_table$width)
 # 
 # Add_attributes_to_JSON_radial_tree(motif.description.tab = results.list$Motif_info_tab,
 #                                    levels.json.tab       = results.list$JSON_branch_nb,
 #                                    color.map             = cl.col,
 #                                    htree                 = results.list$All_motifs_tree,
 #                                    json.woa.file         = output.files.list$JSON_tree_all,
-#                                    json.wa.file          = output.files.list$JSON_radial_annotated)
+#                                    json.wa.file          = output.files.list$JSON_radial_annotated,
+#                                    alignent.width        = max(results.list$Alignment_table$width))
 # 
 # 
 # 
@@ -751,14 +825,14 @@ message("; End of program")
 # d3.outfile  <- output.files.list$D3_radial_tree
 # motif.info  <- results.list$Motif_info_tab
 # d3.lib      <- d3.min.lib
+# outdir      <- dirname(out.folder)
 # 
 # create.html.radial.tree(json.file   = output.files.list$JSON_radial_annotated,
 #                         d3.template = d3.radial.tree.template,
 #                         d3.outfile  = output.files.list$D3_radial_tree,
 #                         motif.info  = results.list$Motif_info_tab,
-#                         d3.lib      = d3.min.lib)
-# 
-# 
+#                         d3.lib      = d3.min.lib,
+#                         outdir      = dirname(out.folder))
 # 
 # 
 # Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
@@ -766,17 +840,15 @@ message("; End of program")
 #                                                color.map             = NULL,
 #                                                htree                 = NULL,
 #                                                json.woa.file         = NULL,
-#                                                json.wa.file          = NULL)  {
+#                                                json.wa.file          = NULL,
+#                                                alignent.width        = NULL)  {
 # 
 #   # Convert description table into a list
 #   motif.info.list <- motif.description.tab %>% purrr::transpose()
 #   names(motif.info.list) <- motif.description.tab$id
-# 
-#   # Aqui : borrar ? 
-#   #  ## Open a file with the attributes of the nodes of each cluster (IC, width, number of motifs, etc)
-#   #  my $cluster_nodes_ic_info = &OpenOutputFile($main::outfile{prefix}."_clusters_information/".$cluster."_attributes_table.tab");
-#   #  print $cluster_nodes_ic_info join("\t", "#cluster", "node_ID", "child_1", "child_2", "IC", "IC_child_1", "IC_child_2", "Sites", "Sites_child_1", "Sites_child_2"), "\n";
-# 
+#   
+#   # Same motif width for all logos
+#   motif.logo.size <- max(motif.description.tab$width)
 # 
 #   # This array has the branch number of the hclust tree mapped in the JSON tree
 #   levels.JSON <- levels.json.tab$node
@@ -788,7 +860,7 @@ message("; End of program")
 #   # Motifs (tree leaves) to cluster association table
 #   leaf2cluster <- treeleaf2cluster(node2cluster_tab = node2cluster$node2cluster_detailed,
 #                                    tree             = htree)
-# 
+#   leaf2cluster <- merge(leaf2cluster, color.map)
 # 
 #   # Read JSON file, it is stored as an array where each element corresponds to a line
 #   JSON.lines        <- readLines(json.woa.file)
@@ -797,6 +869,10 @@ message("; End of program")
 #   line.counter      <- 0
 #   JSON.lines.parsed <- JSON.lines
 #   for (jl in JSON.lines) {
+#     
+#     # ll <- 454
+#     # jl <- JSON.lines[ll]
+#     # line.counter <- ll
 # 
 #     # Initialize
 #     json.flag <- 0
@@ -807,30 +883,42 @@ message("; End of program")
 #     # Update tree leaves                   #
 #     # ------------------------------------ #
 #     if (grepl(pattern = '"label":\\s+(.+)",', jl)) {
+#       
+#       print(line.counter)
+#       
 #       tree.label <- gsub(pattern = '"label":\\s*"(.+)",', replacement = "\\1", x = jl)
 #       tree.label <- gsub(pattern = "\\s", replacement = "", x = tree.label)
 #       tree.label
 # 
 #       json.flag <- 1
-#       add.this  <- NULL
+#       add.this  <- ""
+#       
+#  
+#       
 # 
 #       ## Define the URL of the logo files, relative to the location of the json file
-#       align.logo.link.relpath.F <- motif.info.list[[tree.label]]$Logo
-#       align.logo.link.relpath.R <- motif.info.list[[tree.label]]$Logo_RC
+#       align.logo.link.relpath.F <- this.path::as.rel.path(relative.to = results.main.dir,
+#                                                           path        = this.path::here(motif.info.list[[tree.label]]$Logo))
+#       align.logo.link.relpath.R <- this.path::as.rel.path(relative.to = results.main.dir,
+#                                                           path        = this.path::here(motif.info.list[[tree.label]]$Logo_RC))
 # 
 #       ### Create the line that will be added to JSON file
-#       image.F.line      <- paste0('\n "image" : "', align.logo.link.relpath.F, '"')
+#       image.F.line      <- paste0('"image" : "', align.logo.link.relpath.F, '"')
 #       image.R.line      <- paste0(',\n "image_rc" : "', align.logo.link.relpath.R, '"')
 #       url.line          <- paste0(',\n "url" : "', '', '"')
-#       ic.line           <- paste0(',\n "ic" : "', motif.info.list[[tree.label]]$IC, '"')
-#       size.line         <- paste0(',\n "size" : "', motif.info.list[[tree.label]]$width, '"')
-#       branch.color.line <- paste0(',\n "branch_color" : "', '#ffffff', '"')
+#       ic.line           <- paste0(',\n "ic" : "', round(motif.info.list[[tree.label]]$IC, digits = 3), '"')
+#       size.line         <- paste0(',\n "size" : ', alignent.width)
+#       name.line         <- paste0(',\n "name" : "', motif.info.list[[tree.label]]$name, '"')
+#       branch.color.line <- paste0(',\n "branch_color" : "', as.vector(subset(leaf2cluster, leaves == tree.label)$color), '"')
 # 
+#       
+#       
 #       add.this <- paste0(image.F.line,
 #                          image.R.line,
 #                          url.line,
 #                          ic.line,
 #                          size.line,
+#                          name.line,
 #                          branch.color.line)
 # 
 #       # This needs to be completed
@@ -844,37 +932,41 @@ message("; End of program")
 #       #                      color.line)
 #       # }
 # 
-#       JSON.lines.parsed <- append(JSON.lines.parsed, add.this, after  = line.counter)
+#       JSON.lines[line.counter] <- paste0(jl, add.this)
+#       #JSON.lines.parsed <- append(JSON.lines.parsed, add.this, after = line.counter)
 #     }
 # 
 #     # -------------------------------------- #
 #     # Find the line indicating a tree branch #
 #     # Update tree branches                   #
 #     # -------------------------------------- #
-#     if (grepl(pattern = '"children":', jl)) {
-# 
-#       # Update variables
-#       tree.branch     <- tree.branch + 1
-#       add.branch.line <- ""
-# 
-#       if (tree.branch > 1) {
-# 
-#         # Check this 'folder' variable
-#         folder <- levels.JSON[tree.branch - 2]
-# 
-#         # Check this node_to_cluster_hash variable
-#         # Check that nodes without clusters have a different color
-#         add.branch.line <- paste0(' "branch_color" : "', '$node_to_cluster_hash{$folder}{color}', '",\n')
-# 
-#         JSON.lines.parsed <- append(JSON.lines.parsed, add.branch.line, after  = line.counter)
-#       }
-#     } # end of children grepl if
+#     # if (grepl(pattern = '"children":', jl)) {
+#     # 
+#     #   # Update variables
+#     #   tree.branch     <- tree.branch + 1
+#     #   add.branch.line <- ""
+#     # 
+#     #   if (tree.branch > 1) {
+#     # 
+#     #     # Check this 'folder' variable
+#     #     folder <- levels.JSON[tree.branch - 2]
+#     # 
+#     #     # Check this node_to_cluster_hash variable
+#     #     # Check that nodes without clusters have a different color
+#     #     add.branch.line <- paste0('\n "branch_color" : "', '#ccc;', '",\n')
+#     # 
+#     #     #JSON.lines.parsed <- append(JSON.lines.parsed, add.branch.line, after = line.counter)
+#     #     JSON.lines[line.counter] <- paste0(jl, add.branch.line)
+#     #   }
+#     # } # end of children grepl if
 #   } # End for loop
 # 
 #   # Export JSON file with annotations
 #   message("; Exporting JSON file with annotations: ", json.wa.file)
 #   writeLines(JSON.lines.parsed, con = json.wa.file)
-# 
+#   
+#   writeLines(JSON.lines, con = json.wa.file)
+#   
 # }
 
 
@@ -1203,4 +1295,10 @@ message("; End of program")
 #' }
 
 
+# To do:
+#
+# 1. Fix issue of exporting logos Example: Homer_8
+# 2. Verify that all aligned logos have the same width
+# 3. Verify Branch annotation conditional
+# 4. Verify leave color
 
