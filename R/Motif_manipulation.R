@@ -1013,7 +1013,7 @@ export.logos <- function(um        = NULL,
   # ------------------------- #
   # Logos Forward orientation #
   # ------------------------- #
-  logos.F.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), rtag, ".jpeg"))
+  logos.F.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), rtag, ".png"))
   
   purrr::walk2(.x = logos.F.name,
                .y = um,
