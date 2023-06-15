@@ -83,66 +83,36 @@ convert.hclust.to.newick <- function(tree){
 
 
 
-#####################################################
-## Convert the hclust object to a character object
-## with the lines ready to print a JSON file
-convert.hclust.to.JSON <- function(tree){
+# -----------------------------------------------
+# Convert the hclust object to a character object
+# with the lines ready to print a JSON file
+# Adapted from: https://gist.github.com/guoruijiao/cb82e79587b8b5a0f423
+convert.hclust.to.JSON <- function(hc){
+
+  suppressPackageStartupMessages(library("rjson", character.only = TRUE, quietly = TRUE))
   
-  suppressPackageStartupMessages(library("RJSONIO", character.only = TRUE, quietly = TRUE))
+  labels <- hc$labels
+  merge  <- data.frame(hc$merge)
   
-  message("; Converting hclust object to a JSON tree")
-  
-  #######################################################
-  ## Extract the tree from an hclust object
-  createLeafNode <- function(hclust, i) {
-    list(label = hclust$labels[[i]],
-         order = hclust$order[[i]])
-  }
-  
-  ########################################################
-  ## Convert an hclust tree into a JSON format tree
-  hclustToTree <- function(hclust) {
-    if (length(hclust$merge) == 0)
-      return(NULL)
-    merges <- list()
-    for (index in 1:nrow(hclust$merge)) {
-      left <- hclust$merge[index, 1]
-      right <- hclust$merge[index, 2]
-      if (left < 0)
-        left <- createLeafNode(hclust, -left)
-      else
-        left <- merges[[left]]
-      if (right < 0)
-        right <- createLeafNode(hclust, -right)
-      else
-        right <- merges[[right]]
-      if (left$order > right$order) {
-        tmp <- left
-        left <- right
-        right <- tmp
-      }
-      merges[[index]] <- list(
-        children = list(
-          left,
-          right
-        ),
-        order = left$order
-      )
+  for (i in (1:nrow(merge))) {
+
+    if (merge[i,1] < 0 & merge[i,2] < 0) {
+      eval(parse(text = paste0("node_", i, "<-list(node=\"node_", i, "\", children=list(list(label=labels[-merge[i,1]]),list(label=labels[-merge[i,2]])))")))
+    } else if (merge[i,1] > 0 & merge[i,2] < 0) {
+      eval(parse(text = paste0("node_", i, "<-list(node=\"node_", i, "\", children=list(node_", merge[i,1], ", list(label=labels[-merge[i,2]])))")))
+    } else if (merge[i,1] < 0 & merge[i,2] > 0) {
+      eval(parse(text = paste0("node_", i, "<-list(node=\"node_", i, "\", children=list(list(label=labels[-merge[i,1]]), node_", merge[i,2],"))")))
+    } else if (merge[i,1] > 0 & merge[i,2] > 0) {
+      eval(parse(text = paste0("node_", i, "<-list(node=\"node_", i, "\", children=list(node_",merge[i,1] , ", node_" , merge[i,2]," ))")))
     }
-    return(merges[nrow(hclust$merge)])
   }
   
-  ### Creates and parse the json string
-  halfway.tree <- hclustToTree(tree)
-  jsonTree <- toJSON(halfway.tree)
+  eval(parse(text = paste0("JSON<-toJSON(node_",nrow(merge), ",  indent=1)")))
+
+  # Add this text, if it nos added the JSON file is not read by D3
+  JSON <- paste("{\n\"name\": \"\",\n\"children\":[", JSON, "]}", sep = "")
   
-  
-  ## Fix some little technical issues for JSON compatibility with the tree display javascript
-  jsonTree <- gsub("\\],", "\\]", jsonTree, perl = TRUE)
-  jsonTree <- paste("{\n\"name\": \"\",\n\"children\":", jsonTree, "}", sep = "")
-  jsonTree <- gsub("\n\"order\":\\s+\\d+", "", jsonTree, perl = TRUE)
-  
-  return(jsonTree)
+  return(JSON)
 }
 
 
