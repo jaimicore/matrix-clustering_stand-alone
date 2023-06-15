@@ -997,7 +997,7 @@ export.one.logo <- function(um.motif = NULL,
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(limits = c(0,2), expand = c(0, 0))
   
-  ggsave(filename = logofile, plot = motif.gg, bg = "white", width = 10, height = 5)
+  ggsave(filename = logofile, plot = motif.gg, bg = "white", width = 13, height = 10, dpi = 900)
 }
 
 
