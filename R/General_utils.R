@@ -91,58 +91,6 @@ leaves.per.node <- function(tree   = NULL,
 ##
 ## The argument 'hash.ind' must be a list where each element is a vector with the
 ## indexes of a motif in the comparison table
-# motif.comparison.entries <- function(ids      = NULL,
-#                                      compa    = NULL,
-#                                      hash.ind = NULL,
-#                                      full     = TRUE,
-#                                      self     = FALSE) {
-#   
-#   ids               <- as.vector(unlist(ids))
-#   comparison.subset <- compa
-#   
-#   
-#   if (!all(ids %in% names(hash.ind))) {
-#     
-#     ids.indexes.all      <- sort(as.vector(unlist(hash.ind[ids])))
-#     ids.indexes.selected <- ids.indexes.all[duplicated(ids.indexes.all)]
-#     
-#     comparison.subset <- comparison.subset[ids.indexes.selected] %>% 
-#                             dplyr::mutate(Nb_compa = 1:n())
-#     
-#   } else {
-#     comparison.subset <- comparison.subset %>% 
-#                           dplyr::mutate(Nb_compa = 1:n())
-#   }
-#   
-#   
-#   ## Remove diagonal (motif compared to itself is always cor/Ncor = 1)
-#   # if (self == FALSE) {
-#   #   comparison.subset <- comparison.subset %>%
-#   #     dplyr::filter(id2 != id1)
-#   # }
-#   
-#   
-#   ## Select relevant motifs + create comparison pair IDs
-#   # comparison.subset <- comparison.subset %>%   
-#   #   dplyr::filter(id1 %in% ids) %>% 
-#   #   dplyr::filter(id2 %in% ids) %>% 
-#   #   # dplyr::filter(id2 %in% ids & id1 %in% ids) %>%  ## Select table entries associated with the input motif IDs
-#   #   dplyr::mutate(Nb_compa = 1:n())
-#   
-#   
-#   ## Not full returns only the first instance of each comparison pair ID 
-#   if (full == FALSE) {
-#     comparison.subset <- comparison.subset  %>% 
-#       group_by(Nb_compa) %>% 
-#       # arrange(Compa_ID) %>% 
-#       slice(1) %>%                                  ## To avoid lines with redundant information, take only the first time a comparison identifier appears
-#       select(cor, Ncor, Nb_compa)
-#   }
-#   
-#   
-#   comparison.subset %>% 
-#     ungroup()
-# }
 motif.comparison.entries <- function(ids      = NULL,
                                      compa    = NULL,
                                      hash.ind = NULL,
@@ -435,115 +383,6 @@ draw.heatmap.motifs <- function(dist.table    = NULL,
 
 
 
-########################################################
-## As the JSON tree order is not the same as the hclust tree
-## the JSON tree must be explored in order to rename the branches
-## and thus can assign a name which will be used to add the
-## branch consensuses (in the perl code)
-identify.JSON.tree.branches <- function(htree,
-                                        description.table) {
-  
-  # htree             <- results.list$All_motifs_tree
-  # description.table <- results.list$Motif_info_tab
-  
-  # Change the labels for the numbers in the description table
-  htree$labels <- NULL
-  htree$labels <- seq_len(nrow(description.table))
-  description.table$n <- htree$labels
-  
-  ## Erase the (',')
-  jsonTree <- convert.hclust.to.JSON(htree)
-  jsonTree <- gsub("\\],", "\\]", jsonTree, perl = TRUE)
-  jsonTree <- gsub("\n\"order\":\\s+\\d+", "", jsonTree, perl = TRUE)
-  
-  ## Save just the numbers on each branch of the tree
-  copy.Json <- jsonTree
-  copy.Json <- gsub("[^ \\d+ \\[ \\]  \\.]", "", copy.Json, perl = TRUE)
-  copy.Json <- gsub("(\\d+)", "|\\1", copy.Json, perl = TRUE)
-  
-  ## Convert the string in a vector, save those positions with
-  ## either a number, "[" or "]"
-  copy.Json.vector <- unlist(strsplit(copy.Json, " "))
-  copy.Json.vector <- copy.Json.vector[2:length(copy.Json.vector)]
-  copy.Json.vector <- copy.Json.vector[which(copy.Json.vector != "")]
-  
-  ## Saves the positions with a "[", except the first one,
-  ## they will be used to find the subgroups within the tree
-  symbol.counter <- length(which(copy.Json.vector == "["))
-  symbol <- which(copy.Json.vector == "[")[2:symbol.counter]
-  
-  
-  ## A dataframe will be created using this variables (col1 and col2)
-  ## They are created outside the loops and are treated as global variables
-  col1 <- NULL
-  col2 <- NULL
-  up.pos <- 1
-  sapply(1:(symbol.counter - 1), function(j) {
-    
-    ## Counter of condition (i == j)
-    cond.counter <<- 0
-    col1 <<- append(col1, j)
-    up.count <- 0
-    down.count <- 0
-    sapply(symbol[j]:length(copy.Json.vector) ,function(i) {
-      
-      ## Here the code search for the [] in order to identify the
-      ## subgroups and then can rename them similarly to the hclust object
-      if (copy.Json.vector[i] == "[") {
-        up.count <<- up.count + 1
-        
-        ## Positions up
-        if (up.count == 1) {
-          up.pos <<- i
-        }
-        
-      } else if (copy.Json.vector[i] == "]") {
-        down.count <<- down.count + 1
-      }
-      
-      ## Condition
-      if (up.count == down.count) {
-        
-        cond.counter <<- cond.counter + 1
-        
-        if (cond.counter == 1) {
-          
-          ## Position down
-          down.pos <- i
-          temp      <- NULL
-          temp      <- gsub("[^\\d+ \\|]", "" ,copy.Json.vector[up.pos:down.pos], perl = TRUE)
-          numb      <- NULL
-          numb      <- as.integer(unlist((strsplit(paste(temp, collapse = ""), "\\|"))))
-          numb      <- numb[which(numb != "NA")]
-          id.from.n <- paste(sort(subset(description.table, n %in% numb)$id), collapse = ",")
-          col2 <<- append(col2, id.from.n)
-        }
-      }
-    })
-  })
-  
-  ## Create the dataframe and rename the columns
-  JSON.clusters.table <- data.frame(col1)
-  JSON.clusters.table$cluster <- col2
-  colnames(JSON.clusters.table) <- c("level", "cluster")
-  # View(JSON.clusters.table)
-  
-  # Until this part works well
-  leaves.in.tree.ids <- leaves.per.node(results.list$All_motifs_tree)
-  leaves.in.tree.ids.string <- sapply(leaves.in.tree.ids, function(x){
-    paste(sort(subset(description.table, n %in% x)$id), collapse = ",")
-  })
-  df <- data.table(cluster = leaves.in.tree.ids.string) |> mutate(node = 1:length(leaves.in.tree.ids.string))
-
-  
-  JSON.clusters.table <- merge(x = JSON.clusters.table, y = df, by = "cluster") |> 
-          select("level", "cluster", "node")
-
-  return(JSON.clusters.table)
-}
-
-
-
 create.html.radial.tree <- function(json.file   = NULL,
                                     d3.template = NULL,
                                     d3.outfile  = NULL,
@@ -693,3 +532,152 @@ cp.d3.lib <- function(d3     = NULL,
   
   return(d3.radial.js)
 }
+
+
+Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
+                                               color.map             = NULL,
+                                               htree                 = NULL,
+                                               json.woa.file         = NULL,
+                                               json.wa.file          = NULL,
+                                               alignent.width        = NULL)  {
+  
+  # Convert description table into a list
+  motif.info.list <- motif.description.tab %>% purrr::transpose()
+  names(motif.info.list) <- motif.description.tab$id
+  
+  # Same motif width for all logos
+  motif.logo.size <- max(motif.description.tab$width)
+  
+  # Nodes (tree branches) to cluster association table
+  node2cluster <- treenode2cluster(cluster_results = find.clusters.list,
+                                   tree            = htree)
+  
+  # Motifs (tree leaves) to cluster association table
+  leaf2cluster <- stack(clusters) |> 
+    rename("Motif"   = "values",
+           "cluster" = "ind") |> 
+    data.table()
+  leaf2cluster <- merge(leaf2cluster, color.map)
+  
+  # Read JSON file, it is stored as an array where each element corresponds to a line
+  JSON.lines        <- readLines(json.woa.file)
+  cluster.tree      <- "cluster_01"
+  tree.branch       <- 0
+  line.counter      <- 0
+  tree.node         <- ""
+  JSON.lines.parsed <- JSON.lines
+  for (jl in JSON.lines) {
+    
+    # ll <- 7  # Node
+    # ll <- 5  # Branch
+    # ll <- 13 # LEave
+    # jl <- JSON.lines[ll]
+    # line.counter <- ll
+    
+    # Initialize
+    json.flag <- 0
+    line.counter <- line.counter + 1
+    
+    # ------------------------------------ #
+    # Find the line indicating a tree leaf #
+    # Update tree leaves                   #
+    # ------------------------------------ #
+    if (grepl(pattern = '"label":\\s*"(.+)"', jl)) {
+      
+      tree.label <- gsub(pattern = '"label":\\s*"(.+)"', replacement = "\\1", x = jl)
+      tree.label <- gsub(pattern = "\\s+", replacement = "", x = tree.label)
+      tree.label
+      
+      json.flag <- 1
+      add.this  <- ""
+      
+      
+      ## Define the URL of the logo files, relative to the location of the json file
+      align.logo.link.relpath.F <- this.path::as.rel.path(relative.to = results.main.dir,
+                                                          path        = this.path::here(motif.info.list[[tree.label]]$Logo))
+      align.logo.link.relpath.R <- this.path::as.rel.path(relative.to = results.main.dir,
+                                                          path        = this.path::here(motif.info.list[[tree.label]]$Logo_RC))
+      
+      ### Create the line that will be added to JSON file
+      image.F.line      <- paste0(',\n "image" : "', align.logo.link.relpath.F, '"')
+      image.R.line      <- paste0(',\n "image_rc" : "', align.logo.link.relpath.R, '"')
+      url.line          <- paste0(',\n "url" : "', align.logo.link.relpath.F, '"')
+      ic.line           <- paste0(',\n "ic" : ', round(motif.info.list[[tree.label]]$IC, digits = 3))
+      size.line         <- paste0(',\n "size" : ', alignent.width)
+      name.line         <- paste0(',\n "name" : "', motif.info.list[[tree.label]]$name, '"')
+      link.ext.line     <- paste0(',\n "link_ext" : "', '', '"')
+      branch.color.line <- paste0(',\n "branch_color" : "', as.vector(subset(leaf2cluster, Motif == tree.label)$color), '"')
+      
+      
+      
+      add.this <- paste0(image.F.line,
+                         image.R.line,
+                         url.line,
+                         ic.line,
+                         size.line,
+                         name.line,
+                         link.ext.line,
+                         branch.color.line)
+      
+      # This needs to be completed
+      # if (ID_link_flag) {
+      #
+      #   link.ext.line <- paste0(',\n "link_ext" : "', '', '"')
+      #   color.line    <- paste0(',\n "color" : "', '', '"')
+      #
+      #   add.this <- paste0(add.this,
+      #                      link.ext.line,
+      #                      color.line)
+      # }
+      
+      JSON.lines[line.counter] <- paste0(jl, add.this)
+    }
+    
+    # -------------------------------------- #
+    # Find the line indicating a tree branch #
+    # Update tree branches                   #
+    # -------------------------------------- #
+    if (grepl(pattern = '"node"\\s*:', jl)) {
+      tree.node <- gsub(pattern = '"node":"(node_\\d+)",', replacement = "\\1", x = jl)
+      tree.node <- gsub(pattern = "\\s+", replacement = "", x = tree.node)
+    }
+    
+    if (grepl(pattern = '"children"\\s*:', jl)) {
+      
+      # Update variables
+      tree.branch     <- tree.branch + 1
+      add.branch.line <- ""
+      
+      if (tree.branch > 1) {
+        
+        tree.label <- gsub(pattern = '"label":\\s*"(.+)"', replacement = "\\1", x = jl)
+        tree.label <- gsub(pattern = "\\s+", replacement = "", x = tree.label)
+        
+        # Check this node_to_cluster_hash variable
+        # Check that nodes without clusters have a different color
+        branch.color <- '#ccc;'
+        
+        
+        node.cluster <- as.vector(subset(node2cluster, node == tree.node)$cluster)
+        #print(tree.node)
+        print(node.cluster)
+        #print(line.counter)
+        if (grepl(pattern = 'node_\\d+', x = tree.node)) {
+          branch.color <- as.vector(subset(leaf2cluster, cluster == node.cluster)$color)
+        }
+        
+        
+        add.branch.line <- paste0('"branch_color" : "', branch.color, '",\n')
+        
+        #JSON.lines.parsed <- append(JSON.lines.parsed, add.branch.line, after = line.counter)
+        JSON.lines[line.counter] <- paste0(add.branch.line, jl)
+      }
+    } # end of children grepl if
+  } # End for loop
+  
+  # Export JSON file with annotations
+  message("; Exporting JSON file with annotations: ", json.wa.file)
+  writeLines(JSON.lines, con = json.wa.file)
+  
+}
+
