@@ -127,7 +127,7 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 # D3 files #
 # -------- #
 d3.radial.tree.template <- this.path::here(.. = 0, "html", "templates", "Radial_tree_template.html")
-d3.min.lib              <- this.path::here(.. = 0, "html", "js", "D3_min.js")
+d3.min.lib              <- this.path::here(.. = 0, "html", "js", "d3.v3.min.js")
 
 
 # ----- #
@@ -326,8 +326,8 @@ if (params.list[["Nb_motifs"]] > 1) {
                                                      comparison.table = results.list$Motif_compa_tab,
                                                      parameters       = params.list.radial)
     
-    results.list$JSON_branch_nb <- identify.JSON.tree.branches(htree             = results.list$All_motifs_tree,
-                                                               description.table = results.list$Motif_info_tab)
+    # results.list$JSON_branch_nb <- identify.JSON.tree.branches(htree             = results.list$All_motifs_tree,
+    #                                                            description.table = results.list$Motif_info_tab)
   }
   # save.image("Debug_radial.Rdata")
 
@@ -570,9 +570,8 @@ fwrite(x         = results.list$Clusters_table,
 # ------------------------------- #
 
 
-###################################################################
-## 1) Oriented motifs with gaps (each motif in a separated file)
-## Export motifs (without gaps) as transfac files in D and R orientation
+# -------------------------------------------------------------------------
+# 1) Export motifs (without gaps) as transfac files in D and R orientation
 message("; Exporting individual motif files in", out.folder.list$indiv_motifs)
 export.indiv.motif.files(un.motifs = all.motifs.um,
                          outdir    = out.folder.list$indiv_motifs)
@@ -580,8 +579,17 @@ export.indiv.motif.files(un.motifs = all.motifs.um,
 ## universalmotif does not accepts rows containing only 0s, therefore, the insertion of gaps
 ## must be done directly to the transfac file, instead of using universalmotif functions
 message("; Adding gaps to motif files")
+
+# When the radial_tree option is active, all motifs are aligned in a single cluster
+# The number of gaps was calculated in the 'Alignment_radial_table'
+if (params.list[["radial_tree"]]) {
+  align.tab <- results.list$Alignment_radial_table
+} else {
+  align.tab <- results.list$Alignment_table
+}
+
 add.gaps.tab <- add.gaps.to.indiv.tf.files(motif.folder = out.folder.list$indiv_motifs,
-                                           gap.info     = results.list$Alignment_table)
+                                           gap.info     = align.tab)
 
 add.gaps.list <- list(File = as.vector(add.gaps.tab$file),
                       Up   = add.gaps.tab$offset_up,
@@ -649,9 +657,7 @@ if (params.list$min_output == FALSE) {
   # ------------------------------------------- #
   # Export the tree as a json file and as RData #
   # ------------------------------------------- #
-  
-  ## NOTE: JSON tree must be exported
-  JSON.tree <- convert.hclust.to.JSON(results.list$All_motifs_tree)
+  JSON.tree <- convert.hclust.to.JSON(hc = results.list$All_motifs_tree)
   message("; Exporting tree as a JSON file: ", output.files.list$JSON_tree_all)
   writeLines(JSON.tree, con = output.files.list$JSON_tree_all)
   
@@ -736,8 +742,8 @@ if (params.list$min_output == FALSE) {
                rev_tag   = TRUE)
   
   # Add the columns with the path to the logos
-  results.list$Motif_info_tab$Logo    <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, ".jpeg"))
-  results.list$Motif_info_tab$Logo_RC <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, "_rc.jpeg"))
+  results.list$Motif_info_tab$Logo    <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, ".png"))
+  results.list$Motif_info_tab$Logo_RC <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, "_rc.png"))
 
 
 ## Remove these folder when --minimal_output mode is activated
@@ -759,115 +765,21 @@ if (params.list$min_output == FALSE) {
 message("; End of program")
 
 
-# Requirements
-#
-# Ready 1. Matrix description table
-# 2. levels_JSON_".$cluster."_table.tab
-# 3. node_to_cluster.tab
-# 4. $main::outfile{prefix}."_trees/tree_".$cluster.".json";
-# 5. my ($linkage_order_info_file) = &OpenInputFile($main::outfile{prefix}."_clusters_information/".$cluster."/levels_JSON_".$cluster."_table_linkage_order.tab");
-
-
-
-# Note 1: perl variable $mat_desc in the original code corresponds to results.list$Motif_info_tab
-#
-# Note 2: perl variable @levels_JSON is created from this line: push(@levels_JSON, $spl[2]); 
-#         LVL_JSON corresponds to results.list$JSON_branch_nb
-#
-# Note 3: perl variable $node_to_cluster corresponds to the output of the function treenode2cluster
-#
-# Note 4:
-
-
-
-# motif.info.list <- results.list$Motif_info_tab %>% purrr::transpose()
-# names(motif.info.list) <- results.list$Motif_info_tab$id
-
-
-# [1] 13
-# [1] 16
-# [1] 21
-# [1] 36
-# [1] 41
-# [1] 46
-# [1] 51
-# [1] 54
-# [1] 67
-# [1] 70
-# [1] 81
-# [1] 84
-# [1] 89
-# [1] 102
-# [1] 107
-# [1] 114
-# [1] 117
-# [1] 122
-# [1] 133
-# [1] 136
-# [1] 145
-# [1] 148
-# [1] 161
-# [1] 164
-# [1] 169
-# [1] 200
-# [1] 203
-# [1] 208
-# [1] 215
-# [1] 218
-# [1] 225
-# [1] 234
-# [1] 237
-# [1] 242
-# [1] 249
-# [1] 256
-# [1] 259
-# [1] 274
-# [1] 279
-# [1] 282
-# [1] 295
-# [1] 302
-# [1] 307
-# [1] 310
-# [1] 317
-# [1] 326
-# [1] 329
-# [1] 340
-# [1] 343
-# [1] 348
-# [1] 357
-# [1] 366
-# [1] 371
-# [1] 376
-# [1] 379
-# [1] 388
-# [1] 399
-# [1] 404
-# [1] 407
-# [1] 420
-# [1] 423
-# [1] 428
-# [1] 439
-# [1] 444
-# [1] 447
-# [1] 454
-
-
 
 # --------------------------------- #
 # Update JSON file with annotations #
 # --------------------------------- #
-# 
+
 # # Aqui
 # motif.description.tab <- results.list$Motif_info_tab
-# levels.json.tab       <- results.list$JSON_branch_nb
 # color.map             <- cl.col
 # htree                 <- results.list$All_motifs_tree
 # json.woa.file         <- output.files.list$JSON_tree_all
 # json.wa.file          <- output.files.list$JSON_radial_annotated
-# alignent.width        <- max(results.list$Alignment_table$width)
+# alignent.width        <- max(results.list$Alignment_radial_table$width)
 # 
 # Add_attributes_to_JSON_radial_tree(motif.description.tab = results.list$Motif_info_tab,
-#                                    levels.json.tab       = results.list$JSON_branch_nb,
+#                                    #levels.json.tab       = results.list$JSON_branch_nb,
 #                                    color.map             = cl.col,
 #                                    htree                 = results.list$All_motifs_tree,
 #                                    json.woa.file         = output.files.list$JSON_tree_all,
@@ -886,6 +798,7 @@ message("; End of program")
 # motif.info  <- results.list$Motif_info_tab
 # d3.lib      <- d3.min.lib
 # outdir      <- dirname(out.folder)
+# # clusters <- find.clusters.list$clusters
 # 
 # create.html.radial.tree(json.file   = output.files.list$JSON_radial_annotated,
 #                         d3.template = d3.radial.tree.template,
@@ -893,471 +806,3 @@ message("; End of program")
 #                         motif.info  = results.list$Motif_info_tab,
 #                         d3.lib      = d3.min.lib,
 #                         outdir      = dirname(out.folder))
-# 
-# 
-# Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
-#                                                levels.json.tab       = NULL,
-#                                                color.map             = NULL,
-#                                                htree                 = NULL,
-#                                                json.woa.file         = NULL,
-#                                                json.wa.file          = NULL,
-#                                                alignent.width        = NULL)  {
-# 
-#   # Convert description table into a list
-#   motif.info.list <- motif.description.tab %>% purrr::transpose()
-#   names(motif.info.list) <- motif.description.tab$id
-# 
-#   # Same motif width for all logos
-#   motif.logo.size <- max(motif.description.tab$width)
-# 
-#   # This array has the branch number of the hclust tree mapped in the JSON tree
-#   levels.JSON <- levels.json.tab$node
-# 
-#   # Nodes (tree branches) to cluster association table
-#   node2cluster <- treenode2cluster(cluster_results = find.clusters.list,
-#                                    tree            = htree)
-# 
-#   # Motifs (tree leaves) to cluster association table
-#   leaf2cluster <- treeleaf2cluster(node2cluster_tab = node2cluster$node2cluster_detailed,
-#                                    tree             = htree)
-#   leaf2cluster <- merge(leaf2cluster, color.map)
-# 
-#   # Read JSON file, it is stored as an array where each element corresponds to a line
-#   JSON.lines        <- readLines(json.woa.file)
-#   cluster.tree      <- "cluster_01"
-#   tree.branch       <- 0
-#   line.counter      <- 0
-#   JSON.lines.parsed <- JSON.lines
-#   for (jl in JSON.lines) {
-# 
-#     # ll <- 454
-#     # jl <- JSON.lines[ll]
-#     # line.counter <- ll
-# 
-#     # Initialize
-#     json.flag <- 0
-#     line.counter <- line.counter + 1
-# 
-#     # ------------------------------------ #
-#     # Find the line indicating a tree leaf #
-#     # Update tree leaves                   #
-#     # ------------------------------------ #
-#     if (grepl(pattern = '"label":\\s+(.+)",', jl)) {
-# 
-#       print(line.counter)
-# 
-#       tree.label <- gsub(pattern = '"label":\\s*"(.+)",', replacement = "\\1", x = jl)
-#       tree.label <- gsub(pattern = "\\s", replacement = "", x = tree.label)
-#       tree.label
-# 
-#       json.flag <- 1
-#       add.this  <- ""
-# 
-# 
-# 
-# 
-#       ## Define the URL of the logo files, relative to the location of the json file
-#       align.logo.link.relpath.F <- this.path::as.rel.path(relative.to = results.main.dir,
-#                                                           path        = this.path::here(motif.info.list[[tree.label]]$Logo))
-#       align.logo.link.relpath.R <- this.path::as.rel.path(relative.to = results.main.dir,
-#                                                           path        = this.path::here(motif.info.list[[tree.label]]$Logo_RC))
-# 
-#       ### Create the line that will be added to JSON file
-#       image.F.line      <- paste0('"image" : "', align.logo.link.relpath.F, '"')
-#       image.R.line      <- paste0(',\n "image_rc" : "', align.logo.link.relpath.R, '"')
-#       url.line          <- paste0(',\n "url" : "', '', '"')
-#       ic.line           <- paste0(',\n "ic" : "', round(motif.info.list[[tree.label]]$IC, digits = 3), '"')
-#       size.line         <- paste0(',\n "size" : ', alignent.width)
-#       name.line         <- paste0(',\n "name" : "', motif.info.list[[tree.label]]$name, '"')
-#       branch.color.line <- paste0(',\n "branch_color" : "', as.vector(subset(leaf2cluster, leaves == tree.label)$color), '"')
-# 
-# 
-# 
-#       add.this <- paste0(image.F.line,
-#                          image.R.line,
-#                          url.line,
-#                          ic.line,
-#                          size.line,
-#                          name.line,
-#                          branch.color.line)
-# 
-#       # This needs to be completed
-#       # if (ID_link_flag) {
-#       #
-#       #   link.ext.line <- paste0(',\n "link_ext" : "', '', '"')
-#       #   color.line    <- paste0(',\n "color" : "', '', '"')
-#       #
-#       #   add.this <- paste0(add.this,
-#       #                      link.ext.line,
-#       #                      color.line)
-#       # }
-# 
-#       JSON.lines[line.counter] <- paste0(jl, add.this)
-#       #JSON.lines.parsed <- append(JSON.lines.parsed, add.this, after = line.counter)
-#     }
-# 
-#     # -------------------------------------- #
-#     # Find the line indicating a tree branch #
-#     # Update tree branches                   #
-#     # -------------------------------------- #
-#     # if (grepl(pattern = '"children":', jl)) {
-#     #
-#     #   # Update variables
-#     #   tree.branch     <- tree.branch + 1
-#     #   add.branch.line <- ""
-#     #
-#     #   if (tree.branch > 1) {
-#     #
-#     #     # Check this 'folder' variable
-#     #     folder <- levels.JSON[tree.branch - 2]
-#     #
-#     #     # Check this node_to_cluster_hash variable
-#     #     # Check that nodes without clusters have a different color
-#     #     add.branch.line <- paste0('\n "branch_color" : "', '#ccc;', '",\n')
-#     #
-#     #     #JSON.lines.parsed <- append(JSON.lines.parsed, add.branch.line, after = line.counter)
-#     #     JSON.lines[line.counter] <- paste0(jl, add.branch.line)
-#     #   }
-#     # } # end of children grepl if
-#   } # End for loop
-# 
-#   # Export JSON file with annotations
-#   message("; Exporting JSON file with annotations: ", json.wa.file)
-#   writeLines(JSON.lines.parsed, con = json.wa.file)
-# 
-#   writeLines(JSON.lines, con = json.wa.file)
-# 
-# }
-
-
-#' ################################################################
-#' ## Add attributes to JSON file, links to pictures and other
-#' ## attributes
-#' sub Add_attributes_to_JSON_radial_tree {
-#'   
-#'   #############################################
-#'   ## Create a hash with the attribute data:
-#'   ##	key :  name
-#'   ##	values : attribute (link, etc)
-#'   
-#'   ## Open the file with the picture's data
-#'   my ($mat_desc) = &OpenInputFile($main::outfile{matrix_descriptions});
-#'   while(<$mat_desc>) {
-#'     next unless (/\S/); ## Skip empty rows
-#'     next if (/^;/); ## Skip comment rows
-#'     next if (/^#/); ## Skip header rows
-#'              chomp();
-#'              @split_line = split(/\s+/, $_);
-#'              my $matrix_label = $split_line[6];
-#'              my $id = $split_line[1];
-#'              
-#'              $matrix_info{$id}{id} = $id;
-#'              $matrix_info{$id}{name} = $split_line[2];
-#'              $matrix_info{$id}{width} = $alignment_info{$matrix_info{$id}{id}}{width};
-#'              $matrix_info{$id}{consensus} = $split_line[4];
-#'              $matrix_info{$id}{consensus_rc} = $split_line[5];
-#'              $matrix_info{$id}{ic} = $split_line[6];
-#'              $matrix_info{$id}{nb_sites} = $split_line[7];
-#'              }
-#'   close($mat_desc);
-#'   
-#'   ## Open a file with the attributes of the nodes of each cluster (IC, width, number of motifs, etc)
-#'   my $cluster_nodes_ic_info = &OpenOutputFile($main::outfile{prefix}."_clusters_information/".$cluster."_attributes_table.tab");
-#'   print $cluster_nodes_ic_info join("\t", "#cluster", "node_ID", "child_1", "child_2", "IC", "IC_child_1", "IC_child_2", "Sites", "Sites_child_1", "Sites_child_2"), "\n";
-#'   
-#'   
-#'   ############################################################
-#'   ## Read the JSON file and add the link data to each node
-#'   &RSAT::message::TimeWarn("Linking data to nodes in JSON files") if ($main::verbose >= 2);
-#'   my $cluster = "cluster_1";
-#'   my $line = "";
-#'   my $children = 0;
-#'   my ($M1, $M2, $Add_this, $Flag);
-#'   my (@Split_line, @Parsed_JSON) = ();
-#'   my $file = $main::outfile{prefix}."_clusters_information/".$cluster."/levels_JSON_".$cluster."_table.tab";
-#'   
-#'   my @levels_JSON = ();
-#'   open(LVL_JSON, $file) || &RSAT::error::FatalError($file, "Cannot open the JSON Levels file");
-#'   while(<LVL_JSON>) {
-#'     chomp;
-#'     next if /^;/;
-#'     my @spl = split(/\t+/, $_);
-#'     push(@levels_JSON, $spl[2]);  
-#'   }
-#'   close(LVL_JSON);
-#'   
-#'
-#'   ## Node to clusters
-#'   my ($node_to_cluster) = &OpenInputFile($main::outfile{prefix}."_tables/node_to_cluster.tab");
-#'   while(<$node_to_cluster>) {
-#'     chomp;
-#'     next if /^;/;
-#'     my @spl = split(/\t+/, $_);
-#'     my $node = "node_".$spl[0];
-#'     my $cluster = "cluster_".$spl[1];
-#'     $node_to_cluster_hash{$node}{cluster} = $cluster;
-#'     $node_to_cluster_hash{$node}{color} = $hexa_code{$cluster};
-#'     if ($cluster eq "cluster_0"){
-#'       $node_to_cluster_hash{$node}{color} = "#ccc;";
-#'     }
-#'   }
-#'   close($node_to_cluster);
-#'   
-#'   
-#'   ## Leaf to clusters
-#'   my ($leaf_to_cluster) = &OpenInputFile($main::outfile{prefix}."_tables/leaf_to_cluster.tab");
-#'   while(<$leaf_to_cluster>) {
-#'     chomp;
-#'     next if /^;/;
-#'     my @spl = split(/\t+/, $_);
-#'     my $leaf = $spl[0];
-#'     my $cluster = "cluster_".$spl[1];
-#'     $leaf_to_cluster_hash{$leaf}{cluster} = $cluster;
-#'     $leaf_to_cluster_hash{$leaf}{color} = $hexa_code{$cluster};
-#'   }
-#'   close($leaf_to_cluster);	      
-#'   
-#'   
-#'   ## Open the nodes to cluster
-#'   ## Read he file with the linkage order
-#'   ## Save the info in a hash
-#'   my %linkage_order_info = ();
-#'   
-#'   ## Open the JSON file produced by R
-#'   my $parsed_json;
-#'   my $cluster_width = 0;
-#'   my $JSON = $main::outfile{prefix}."_trees/tree_".$cluster.".json";
-#'   &RSAT::message::TimeWarn("JSON file", $JSON, $cluster ) if ($main::verbose >= 2);
-#'   
-#   open(JSON, $JSON) || &RSAT::error::FatalError($JSON, "Cannot open the JSON file");
-#   while(<JSON>) {
-#     chomp;
-#     $Flag = 0;
-#     $line = $_;
-# 
-#     ################################################################
-#     ## Search the pattern separating the matrices names (tree leaves)
-#     if ($line =~ /\s*\"label\":\s*\"(.+)\",/) {
-# 	  $Flag = 1;
-# 	  $Add_this = "";
-# 	  $M1 = $1;
-# 
-# 	  ## Define te URL of the logo file, relative to the location of the json file
-# 	  my $aligned_logo_link = &RSAT::util::RelativePath($main::outfile{summary}, $alignment_info{$M1}{logo});
-# 	  $aligned_logo_link =~ s/^\.\.\///g;
-# 
-# 	  my $aligned_logo_url = $aligned_logo_link.".png";
-# 
-# 	  ## Define te URL of the logo file, relative to the location of the json file
-# 	  my $aligned_rc_logo_link = &RSAT::util::RelativePath($main::outfile{summary}, $alignment_info{$M1}{logo_rc});
-# 	  $aligned_rc_logo_link =~ s/^\.\.\///g;
-# 	  my $aligned_rc_logo_url = $aligned_logo_link.".png";
-# 
-# 	  ### Create the line that will be added to JSON file
-# 	  $Add_this .= "\n \"image\" : \"${aligned_logo_link}\"";
-# 	  $Add_this .= ",\n \"image_rc\" : \"${aligned_rc_logo_link}\"";
-# 	  $Add_this .= ",\n \"url\" : \"${aligned_logo_link}\"";
-# 
-# 	  foreach my $field (@supported_label_fields) {
-# 	    if ($label_fields_to_return{$field}) {
-# 	      if ($field eq "ic"){
-# 	        $Add_this .= ",\n \"".$field."\" : \"".$matrix_info{$M1}{$field}."\"";
-# 	      } else {
-# 	        $Add_this .= ",\n \"".$field."\" : \"".$matrix_info{$M1}{$field}."\"";
-# 	      }
-# 	    }
-# 	  }
-# 	  $Add_this .= ",\n \"ic\" : \"".$matrix_info{$M1}{ic}."\"";
-# 	  $Add_this .= ",\n \"size\" : ".$matrix_info{$M1}{width};
-# 	  $Add_this .= ",\n \"title\" : \"".$motifs_ID_unique{$M1}."\"";
-# 	  $Add_this .= ",\n \"consensus_rc\" : \"".$matrix_info{$M1}{consensus_rc}."\"";
-# 	  $Add_this .= ",\n \"branch_color\" : \"".$leaf_to_cluster_hash{$M1}{color}."\"";
-# 
-# 	  if ($ID_link_flag == 1){
-# 
-# 	    $Add_this .= ",\n \"link_ext\" : \"".$ID_link_hash{$M1}{link}."\"";
-# 	    $Add_this .= ",\n \"color\" : \"".$ID_link_hash{$M1}{color}."\"";
-# 	  }
-# 	  }
-#' 
-#' 
-#'   ################################################################
-#'   ## Add the consensus to the json file to be displayed in the tree (tree nodes)
-#'   my $IC_info_line = "";
-#'   my $folder = "";
-#'   my @read_motifs = ();
-#'   my $child_1_ic = 0;
-#'   my $child_2_ic = 0;
-#'   if ($line =~ /\"children\":/) {
-#' 	  $children++;
-#' 	  $Add = "";
-#' 	  if ($children > 1) {
-#' 
-#' 	      $folder = $levels_JSON[$children-2];
-#' 
-#'           if (exists($merged_consensuses_files{$cluster}{$folder})) {
-#' 
-#' 
-#' 		  if (scalar(@{$cluster_nodes{$cluster}}) > 1){
-#' 		      my ($linkage_order_info_file) = &OpenInputFile($main::outfile{prefix}."_clusters_information/".$cluster."/levels_JSON_".$cluster."_table_linkage_order.tab");
-#' 
-#' 		      while(<$linkage_order_info_file>) {
-#' 			  chomp;
-#' 			  next if /^;/;
-#' 			  my @spl = split(/\t+/, $_);
-#' 			  my $merge_ID = $spl[0];
-#' 			  my $child_1 = $spl[1];
-#' 			  my $child_2 = $spl[2];
-#' 			  $linkage_order_info{$merge_ID}{child_1} = $child_1;
-#' 			  $linkage_order_info{$merge_ID}{child_2} = $child_2;
-#' 		      }
-#' 		      close $linkage_order_info_file;
-#' 
-#' 		  }
-#' 
-#' 		  ## Calculate IC of branch motif
-#' 		  my @branch_motifs = &RSAT::MatrixReader::readFromFile($merged_consensuses_files{$cluster}{$folder}{tf_file}, "tf");
-#' 		  my $rounded_ic = 0;
-#' 		  my $nb_sites = 0;
-#' 		  my $child_1_nb_sites = 0;
-#' 		  my $child_2_nb_sites = 0;
-#' 		  my $calc_nb_sites = 0;
-#' 		  my $calc_child_1_nb_sites = 0;
-#' 		  my $calc_child_2_nb_sites = 0;
-#' 		  foreach my $matrix (@branch_motifs) {
-#' 
-#' 		      ## Calculates the IC of the matrix
-#' 		      $matrix->calcInformation();
-#' 		      $matrix->toString(col_width=>(1+4),
-#' 					decimals=>1,
-#' 					type=>"information",
-#' 					format=>"tf");
-#'                           my $ic = $matrix->get_attribute("total.information");
-#'                           $rounded_ic = sprintf("%.2f", $ic);
-#' 
-#' 	                  $calc_nb_sites = $matrix->calcNbSites();
-#'                           $nb_sites = $matrix->getNbSites();
-#'                       }
-#' 
-#'                       if (scalar(@{$cluster_nodes{$cluster}}) > 1){
-#' 
-#'                       $linkage_order_info{$folder}{ic} = $rounded_ic;
-#'                       $linkage_order_info{$folder}{sites} = $nb_sites;
-#' 
-#'                       ## Calculate IC from Children nodes
-#'                       if ($linkage_order_info{$folder}{child_1} =~ /node_\d+/){
-#'                          ## Calculate IC of child 1
-#' 		         @read_motifs = &RSAT::MatrixReader::readFromFile($merged_consensuses_files{$cluster}{$linkage_order_info{$folder}{child_1}}{tf_file}, "tf");
-#'                          foreach my $matrix (@read_motifs) {
-#' 
-#' 			    ## Calculates the IC of the matrix
-#' 			    $matrix->calcInformation();
-#' 			    $matrix->toString(col_width=>(1+4),
-#' 					    decimals=>1,
-#' 					    type=>"information",
-#' 					    format=>"tf");
-#'                             my $ic = $matrix->get_attribute("total.information");
-#'                             $child_1_ic = sprintf("%.2f", $ic);
-#' 
-#' 	                    $calc_child_1_nb_sites = $matrix->calcNbSites();
-#'                             $child_1_nb_sites = $matrix->getNbSites();
-#'                          }
-#'                       } else {
-#'                         $child_1_ic = $matrix_info{$linkage_order_info{$folder}{child_1}}{ic};
-#'                         $child_1_nb_sites = $matrix_info{$linkage_order_info{$folder}{child_1}}{nb_sites};
-#' 
-#'                       }
-#' 
-#'                       if ($linkage_order_info{$folder}{child_2} =~ /node_\d+/){
-#'                          ## Calculate IC of child 2
-#' 		         @read_motifs = &RSAT::MatrixReader::readFromFile($merged_consensuses_files{$cluster}{$linkage_order_info{$folder}{child_2}}{tf_file}, "tf");
-#'                          foreach my $matrix (@read_motifs) {
-#' 
-#' 			    ## Calculates the IC of the matrix
-#' 			    $matrix->calcInformation();
-#' 			    $matrix->toString(col_width=>(1+4),
-#' 					    decimals=>1,
-#' 					    type=>"information",
-#' 					    format=>"tf");
-#'                             my $ic = $matrix->get_attribute("total.information");
-#'                             $child_2_ic = sprintf("%.2f", $ic);
-#'                             $calc_child_2_nb_sites = $matrix->calcNbSites();
-#'                             $child_2_nb_sites = $matrix->getNbSites();
-#'                          }
-#'                       } else {
-#'                         $child_2_ic = $matrix_info{$linkage_order_info{$folder}{child_2}}{ic};
-#'                         $child_2_nb_sites = $matrix_info{$linkage_order_info{$folder}{child_2}}{nb_sites};
-#'                       }
-#' 
-#'                       $linkage_order_info{$folder}{child_1_ic} = $child_1_ic;
-#'                       $linkage_order_info{$folder}{child_2_ic} = $child_2_ic;
-#' 
-#'                       $linkage_order_info{$folder}{child_1_nbsites} = $child_1_nb_sites;
-#'                       $linkage_order_info{$folder}{child_2_nbsites} = $child_2_nb_sites;
-#'   }
-#' 
-#' 		      my $branch = $folder;
-#' 		      $branch =~ s/\D+//g;
-#' 		      my $consensus_link = &RSAT::util::RelativePath($main::outfile{summary}, $merged_consensuses_files{$cluster}{$folder}{logo});
-#' 		      my $id_json = $cluster."_".$folder;
-#' 		      $Add .= " \"consensus\" : \"".$merged_consensuses_files{$cluster}{$folder}{consensus}."\",\n";
-#'   $Add .= " \"branch\" : ".$branch.",\n";
-#'   $Add .= " \"id\" : \"".$id_json."\",\n";
-#'   $Add .= " \"ic\" : \"".$rounded_ic."\",\n";
-#'   $Add .= " \"size\" : ".$cluster_info_width{$cluster}.",\n";
-#'   $Add .= " \"name\" : \"".$merged_consensuses_files{$cluster}{$folder}{motif_name}."\",\n";
-#'   $Add .= " \"image\" : \"".&RSAT::util::RelativePath($main::outfile{summary}, $merged_consensuses_files{$cluster}{$folder}{logo})."\",\n";
-#'   $Add .= " \"image_rc\" : \"".&RSAT::util::RelativePath($main::outfile{summary}, $merged_consensuses_files{$cluster}{$folder}{logo_RC})."\",\n";
-#' 
-#'   if ($radial_tree_flag == 1){
-#'     $Add .= " \"branch_color\" : \"".$node_to_cluster_hash{$folder}{color}."\",\n";
-#'   }
-#' 
-#' 
-#' 
-#'   } else {
-#'     if ($radial_tree_flag == 1){
-#'       $Add .= " \"branch_color\" : \"".$node_to_cluster_hash{$folder}{color}."\",\n";
-#'     }
-#'   }
-#' push(@Parsed_JSON, $Add."\n");
-#' 
-#' if (scalar(@{$cluster_nodes{$cluster}}) > 1){
-#' 
-#'   my $line_to_print = $cluster."\t".$folder."\t".$linkage_order_info{$folder}{child_1}."\t".$linkage_order_info{$folder}{child_2}."\t".$linkage_order_info{$folder}{ic}."\t".$linkage_order_info{$folder}{child_1_ic}."\t".$linkage_order_info{$folder}{child_2_ic}."\t".$linkage_order_info{$folder}{sites}."\t".$linkage_order_info{$folder}{child_1_nbsites}."\t".$linkage_order_info{$folder}{child_2_nbsites}."\n";
-#' 
-#'   $line_to_print =~ s/node_//gi;
-#' 
-#'   print $cluster_nodes_ic_info $line_to_print;
-#' }
-#'   }
-#'   }
-#' 
-#' 
-#' push(@Parsed_JSON, $line."\n");
-#' ### Add the new line
-#' if ($Flag) {
-#'   push(@Parsed_JSON, $Add_this."\n");
-#' }
-#' }
-#' close(JSON);
-#' 
-#' ### Create the JSON parsed FILE
-#' open(PARSED_JSON, ">".$main::outfile{prefix}."_trees/parsed_tree_".$cluster.".json") || &RSAT::error::FatalError("Cannot create the PARSED JSON file", $main::outfile{prefix}."_trees/parsed_tree_".$cluster.".json");
-#' print PARSED_JSON @Parsed_JSON;
-#' close(PARSED_JSON);
-#' $json_files_content{$cluster} = "@Parsed_JSON";
-#' 
-#' my $cmd = "rm -r ".$main::outfile{prefix}."_pairwise_compa_logos";
-#' &doit($cmd, 0, $die_on_error, $verbose, 0, "", $main::out, $main::err);
-#' 
-#' return();
-#' }
-
-
-# To do:
-#
-# 1. Verify that all aligned logos have the same width
-# 2. Verify Branch annotation conditional
-# 3. Verify leave color
-
