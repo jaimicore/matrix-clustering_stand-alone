@@ -535,6 +535,7 @@ cp.d3.lib <- function(d3     = NULL,
 
 
 Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
+                                               clusters.list         = NULL,
                                                color.map             = NULL,
                                                htree                 = NULL,
                                                json.woa.file         = NULL,
@@ -549,11 +550,11 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
   motif.logo.size <- max(motif.description.tab$width)
   
   # Nodes (tree branches) to cluster association table
-  node2cluster <- treenode2cluster(cluster_results = find.clusters.list,
+  node2cluster <- treenode2cluster(cluster_results = clusters.list,
                                    tree            = htree)
   
   # Motifs (tree leaves) to cluster association table
-  leaf2cluster <- stack(clusters) |> 
+  leaf2cluster <- stack(clusters.list$clusters) |> 
     rename("Motif"   = "values",
            "cluster" = "ind") |> 
     data.table()
@@ -660,7 +661,7 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
         
         node.cluster <- as.vector(subset(node2cluster, node == tree.node)$cluster)
         #print(tree.node)
-        print(node.cluster)
+        # print(node.cluster)
         #print(line.counter)
         if (grepl(pattern = 'node_\\d+', x = tree.node)) {
           branch.color <- as.vector(subset(leaf2cluster, cluster == node.cluster)$color)
