@@ -340,7 +340,7 @@ check.supported.formats <- function(motif.format = NULL) {
 read.motif.file <- function(motif.file  = NULL,
                             motif.format = NULL) {
   
-  message("; Reading input file in ", motif.format, " format: ", motif.file)
+  # message("; Reading input file in ", motif.format, " format: ", motif.file)
   
   ## Add here more supported motifs
   um.object <- switch(motif.format,
@@ -995,9 +995,9 @@ export.one.logo <- function(um.motif = NULL,
     geom_logo(motif, method = 'bits', stack_width = 1) +
     theme_logo() +
     scale_x_continuous(expand = c(0, 0)) +
-    scale_y_continuous(limits = c(0,2), expand = c(0, 0))
+    scale_y_continuous(limits = c(0,2), expand = c(0, 0)) 
   
-  ggsave(filename = logofile, plot = motif.gg, bg = "white", width = 13, height = 10, dpi = 900)
+  ggsave(filename = logofile, plot = motif.gg, bg = "white", width = 10, height = 6, dpi = 400)
 }
 
 
@@ -1015,18 +1015,9 @@ export.logos <- function(um        = NULL,
   # ------------------------- #
   logos.F.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), rtag, ".png"))
   
+  # plan(multisession, workers = params.list$nb_workers)
   purrr::walk2(.x = logos.F.name,
-               .y = um,
-               .f = ~export.one.logo(um.motif = .y,
-                                     logofile = .x))
-
-  # ------------------------- #
-  # Logos Reverse orientation #
-  # ------------------------- #
-  # logos.R.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), "_rc.jpeg"))
-  # 
-  # purrr::walk2(.x = logos.R.name,
-  #              .y = universalmotif::motif_rc(um),
-  #              .f = ~export.one.logo(um.motif = .y,
-  #                                    logofile = .x))
+                      .y = um,
+                      .f = ~export.one.logo(um.motif = .y,
+                                            logofile = .x))
 }
