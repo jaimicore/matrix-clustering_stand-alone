@@ -195,7 +195,7 @@ output.files.list <- list("Alignment_table"       = file.path(out.folder.list$ta
                           "JSON_tree_all"         = file.path(out.folder.list$trees, "tree.json"),
                           "Newick_tree_all"       = file.path(out.folder.list$trees, "tree.newick"),
                           "JSON_radial_annotated" = file.path(out.folder.list$trees, "Annotated_tree_cluster_01.json"),
-                          "D3_radial_tree"        = paste0(results.main.dir, "_D3_radial_tree.html"))
+                          "D3_radial_tree"        = paste0(out.folder, "_D3_radial_tree.html"))
 
 results.list <- list(Dist_table         = NULL,
                      Dist_matrix        = NULL,
@@ -745,6 +745,32 @@ if (params.list$min_output == FALSE) {
   results.list$Motif_info_tab$Logo    <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, ".png"))
   results.list$Motif_info_tab$Logo_RC <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, "_rc.png"))
 
+  
+  # --------------------------------- #
+  # Create radial tree HTML + D3 file #
+  # --------------------------------- #
+  if (params.list[["radial_tree"]]) {
+
+    # Update JSON file with annotations
+    message("; Adding attributes to JSON file")
+    Add_attributes_to_JSON_radial_tree(motif.description.tab = results.list$Motif_info_tab,
+                                       clusters.list         = find.clusters.list,
+                                       color.map             = cl.col,
+                                       htree                 = results.list$All_motifs_tree,
+                                       json.woa.file         = output.files.list$JSON_tree_all,
+                                       json.wa.file          = output.files.list$JSON_radial_annotated,
+                                       alignent.width        = max(results.list$Alignment_table$width))
+    
+    # Fill the HTML + D3 template 
+    create.html.radial.tree(json.file   = output.files.list$JSON_radial_annotated,
+                            d3.template = d3.radial.tree.template,
+                            d3.outfile  = output.files.list$D3_radial_tree,
+                            motif.info  = results.list$Motif_info_tab,
+                            d3.lib      = d3.min.lib,
+                            outdir      = dirname(out.folder))
+    
+  }
+
 
 ## Remove these folder when --minimal_output mode is activated
 } else {
@@ -763,46 +789,3 @@ if (params.list$min_output == FALSE) {
 
 }
 message("; End of program")
-
-
-
-# --------------------------------- #
-# Update JSON file with annotations #
-# --------------------------------- #
-
-# # Aqui
-# motif.description.tab <- results.list$Motif_info_tab
-# color.map             <- cl.col
-# htree                 <- results.list$All_motifs_tree
-# json.woa.file         <- output.files.list$JSON_tree_all
-# json.wa.file          <- output.files.list$JSON_radial_annotated
-# alignent.width        <- max(results.list$Alignment_radial_table$width)
-# 
-# Add_attributes_to_JSON_radial_tree(motif.description.tab = results.list$Motif_info_tab,
-#                                    #levels.json.tab       = results.list$JSON_branch_nb,
-#                                    color.map             = cl.col,
-#                                    htree                 = results.list$All_motifs_tree,
-#                                    json.woa.file         = output.files.list$JSON_tree_all,
-#                                    json.wa.file          = output.files.list$JSON_radial_annotated,
-#                                    alignent.width        = max(results.list$Alignment_table$width))
-# 
-# 
-# 
-# # ------------------------- #
-# # Fill the D3 html template #
-# # ------------------------- #
-# 
-# json.file   <- output.files.list$JSON_radial_annotated
-# d3.template <- d3.radial.tree.template
-# d3.outfile  <- output.files.list$D3_radial_tree
-# motif.info  <- results.list$Motif_info_tab
-# d3.lib      <- d3.min.lib
-# outdir      <- dirname(out.folder)
-# # clusters <- find.clusters.list$clusters
-# 
-# create.html.radial.tree(json.file   = output.files.list$JSON_radial_annotated,
-#                         d3.template = d3.radial.tree.template,
-#                         d3.outfile  = output.files.list$D3_radial_tree,
-#                         motif.info  = results.list$Motif_info_tab,
-#                         d3.lib      = d3.min.lib,
-#                         outdir      = dirname(out.folder))
