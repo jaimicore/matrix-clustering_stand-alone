@@ -137,7 +137,7 @@ d3.min.lib              <- this.path::here(.. = 0, "html", "js", "d3.v3.min.js")
 
 # Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8
 # matrix.file.table <- "data/OCT4_datasets/OCT4_motif_table.txt"
-# out.folder        <- "results/Oct4_example/Oct4_example"
+# out.folder        <- "results/Oct4_debug_example/Oct4_debug_example"
 
 # Rscript matrix-clustering.R -i data/JASPAR_2022/Jaspar_plants_motifs_tab.txt -o results/Jaspar_plants/Jaspar_plants --number_of_workers 8 --reference_cluster_annotation data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab
 # matrix.file.table           <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/JASPAR_2022/Jaspar_plants_motifs_tab.txt"
@@ -351,16 +351,17 @@ if (params.list[["Nb_motifs"]] > 1) {
   # ------------------------------------- #
   if (params.list[["radial_tree"]]) {
     
-    cluster.sizes                <- purrr::map_dbl(find.clusters.list.radial$clusters, length)
-    cl.singleton                 <- 0
-    cl.many                      <- 1
-    singleton.flag               <- FALSE
-    params.list[["Nb_clusters"]] <- 1
+    cluster.sizes                       <- purrr::map_dbl(find.clusters.list.radial$clusters, length)
+    cl.singleton                        <- 0
+    cl.many                             <- 1
+    singleton.flag                      <- FALSE
+    params.list[["Nb_clusters"]]        <- 1
+    params.list.radial[["Nb_clusters"]] <- 1
     message("; Number of clusters: ", params.list[["Nb_clusters"]])
     
     r.cl.hclust.results <- hclust.cluster.ids(ids        = find.clusters.list.radial$clusters$cluster_1,
-                                            compa      = results.list$Motif_compa_tab,
-                                            parameters = params.list)
+                                              compa      = results.list$Motif_compa_tab,
+                                              parameters = params.list.radial)
 
     # ----------------------- #
     # Motif alignment section #
@@ -408,7 +409,7 @@ if (params.list[["Nb_motifs"]] > 1) {
                                     summarise(id      = paste(id, collapse = ","),
                                               name    = paste(name, collapse = ","),
                                               .groups = "drop")    
-  } 
+  }
 
   
   
@@ -545,8 +546,15 @@ fwrite(x         = summary.clustering.tab,
 # --------------------------------------------------------------------------------------- #
 # Export the alignment + clusters table + motif files: these files are the minimal output #
 # --------------------------------------------------------------------------------------- #
+if (params.list[["radial_tree"]]) {
+  align.tab <- results.list$Alignment_radial_table
+} else {
+  align.tab <- results.list$Alignment_table
+}
+
+
 message("; Exporting alignment table: ", output.files.list$Alignment_table)
-fwrite(x         = results.list$Alignment_table,
+fwrite(x         = align.tab,
        file      = output.files.list$Alignment_table,
        row.names = FALSE,
        col.names = TRUE,
@@ -582,12 +590,6 @@ message("; Adding gaps to motif files")
 
 # When the radial_tree option is active, all motifs are aligned in a single cluster
 # The number of gaps was calculated in the 'Alignment_radial_table'
-if (params.list[["radial_tree"]]) {
-  align.tab <- results.list$Alignment_radial_table
-} else {
-  align.tab <- results.list$Alignment_table
-}
-
 add.gaps.tab <- add.gaps.to.indiv.tf.files(motif.folder = out.folder.list$indiv_motifs,
                                            gap.info     = align.tab)
 
@@ -759,7 +761,7 @@ if (params.list$min_output == FALSE) {
                                        htree                 = results.list$All_motifs_tree,
                                        json.woa.file         = output.files.list$JSON_tree_all,
                                        json.wa.file          = output.files.list$JSON_radial_annotated,
-                                       alignent.width        = max(results.list$Alignment_table$width))
+                                       alignent.width        = max(results.list$Alignment_radial_table$width))
     
     # Fill the HTML + D3 template 
     create.html.radial.tree(json.file   = output.files.list$JSON_radial_annotated,
@@ -789,3 +791,6 @@ if (params.list$min_output == FALSE) {
 
 }
 message("; End of program")
+
+# To do:
+# Revisar que los alineamientos sean correctos, algunos motivos estan desfasados.
