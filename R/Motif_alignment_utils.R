@@ -283,8 +283,7 @@ align.motifs.in.cluster <- function(tree       = NULL,
   ## the nodes at each level of the input hierarchical tree
   plan(multisession, workers = parameters$nb_workers)
   comparisons.per.tree.node <- furrr::future_map(motif.IDs.per.tree.level, motif.comparison.entries, compa = compa, full = TRUE, self = FALSE)
-  # compaaaa <- furrr::future_map(comparisons.per.tree.node, ~closest.or.farthest.motifs.ids(compa.tab = .x, metric = parameters$comparison_metric, closest = TRUE))
- 
+
   
   ## A table with the paired motif comparison among the closest motifs in each
   ## tree node, following the agglomeration order
@@ -312,18 +311,13 @@ align.motifs.in.cluster <- function(tree       = NULL,
   motif.ids.per.node.list <- leaves.at.x.node(tree          = tree,
                                               ids.per.level = ids.per.tree.node)
 
-  
-  # which(sapply(motif.at.tree.level, length) > 60)
-  # tree$merge   View(tree$merge )  #380 190  96  48  24  12
-  # 669 : 567 + 646
-  # 646
-  # nn <- 669
-  # # l <- 28
-  # for (l in 1:nn) {
+
+  # l <- 13
+  #nn <- 64
+  #for (l in 1:nn) {
   for (l in seq_len(nrow(best.comparison.pair.in.tree.nodes))) {
     
     #message("; Aligning cluster, node ", l)
-    
     ## Paired Comparison information
     l.id1    <- as.vector(unlist(best.comparison.pair.in.tree.nodes[l, "id1"]))
     l.id2    <- as.vector(unlist(best.comparison.pair.in.tree.nodes[l, "id2"]))
@@ -364,17 +358,26 @@ align.motifs.in.cluster <- function(tree       = NULL,
     R.R.R <- id1.align.info$Strand == "R" & id2.align.info$Strand == "R" & l.strand == "R"  ## Invert ID1
     invert.these.ids <- NULL
     
+    # print(paste0("; DDD :", D.D.D))
+    # print(paste0("; DRD :", D.R.D))
+    # print(paste0("; RDD :", R.D.D))
+    # print(paste0("; RRD :", R.R.D))
+    # print(paste0("; DDR :", D.D.R))
+    # print(paste0("; DRR :", D.R.R))
+    # print(paste0("; DRD :", R.D.R))
+    # print(paste0("; RRR :", R.R.R))
+
     if (D.R.D | R.D.D | R.R.D | D.D.R | R.D.R | R.R.R) {
       
       ## Depending in the activated flag, select the set of motifs that will be inverted
       if (R.R.D | D.R.R) {
-        # message("; Invert level: ", l, " - Case: 1")
+        #message("; Invert level: ", l, " - Case: 1")
         invert.these.ids <- c(ids.node1, ids.node2)
       } else if (R.D.D | R.R.R) {
-        # message("; Invert level: ", l, " - Case: 2")
+        #message("; Invert level: ", l, " - Case: 2")
         invert.these.ids <- ids.node1
       } else if (D.R.D | D.D.R) {
-        # message("; Invert level: ", l, " - Case: 3")
+        #message("; Invert level: ", l, " - Case: 3")
         invert.these.ids <- ids.node2
       }
       
@@ -384,7 +387,6 @@ align.motifs.in.cluster <- function(tree       = NULL,
       
       ## Update the alignment table
       alignment.tab <- update.alignment.table(rbind(alignment.tab, inverted.entries))
-      
       
       ## When the alignment is inverted, update the information of the reference
       ## motifs in the comparison table
@@ -423,7 +425,7 @@ align.motifs.in.cluster <- function(tree       = NULL,
       
     ## Update the alignment table, keep the most updated entries of each motif id
     alignment.tab <- update.alignment.table(rbind(alignment.tab, subset.update.consensus)) %>%
-    		        data.table()
+    		              data.table()
     
     
     ## Fill the gaps in the downstream side of all consensuses within this tree level      
@@ -436,10 +438,12 @@ align.motifs.in.cluster <- function(tree       = NULL,
                                                                    subset.update.consensus.down))) %>%
     		        data.table()
   }
-  
+  # ids.per.tree.node[1:nn]
+  # cc <- 65
+  # cat(unlist(as.vector(alignment.tab |> filter(id %in% ids.per.tree.node[1:nn][[cc]]) |> select(Oriented_consensus))), sep = "\n")
 
   ## Add the aligned consensus in RC
-  consensus.rc.list <- list(consensus = alignment.tab$consensus,
+  consensus.rc.list <- list(consensus = alignment.tab$rc_consensus,
                             gap_up    = alignment.tab$Offset_down,
                             gap_dw    = alignment.tab$Offset_up)
   
@@ -450,21 +454,7 @@ align.motifs.in.cluster <- function(tree       = NULL,
   
   alignment.tab <- data.frame(alignment.tab) %>%
                     slice(match(tree$labels[tree$order], id))
-                    # %>%
-                    # dplyr::filter(id %in% c(ids.node1, ids.node2))
-  
-  
-  # data.frame(alignment.tab[,c("id", "Oriented_consensus", "Strand")]) %>%
-  #   slice(match(tree$labels[tree$order], id)) %>%
-  #   dplyr::filter(id %in% c(ids.node1, ids.node2))
-  
-  # alignment.tab %>%
-  #   slice(match(tree$labels[tree$order], id)) %>%
-  #   dplyr::filter(id %in% c(ids.node1, ids.node2))
-  # 
-  # alignment.tab <- alignment.tab %>%
-  #                   slice(match(tree$labels[tree$order], id))
-  
+
   return(alignment.tab)
 }
 
