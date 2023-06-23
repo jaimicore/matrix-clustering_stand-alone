@@ -324,6 +324,33 @@ If the option `--export_heatmap TRUE` is indicated the file `Heatmap_clusters.pd
 
 &nbsp;
 
+
+### Example 2
+
+When the users activate the option `--radial_tree TRUE`) all the motifs are forced to be aligned in a single cluster.
+The output is an `html` document containing the code in [`D3`](https://d3js.org/) (a javascript library). Open this document in an internet browser to visualize the results.
+
+
+
+You can zoom in/out using the mouse and change the motif orientation by clicking on the red buttons on the page top.
+
+<img src="data/images/Radial_tree_OCT4.png" width="500px" align="center">
+
+&nbsp;
+&nbsp;
+
+<img src="data/images/Radial_tree_OCT4_zoom.png" width="500px" align="center">
+
+Sorry for the low-resolution logos, we will fix it as soon as possible.
+
+:warning: It is possible that this `html` is not properly displayed by all browsers, we recommend to use [Firefox](https://www.mozilla.org/en-US/).
+
+:warning: It is possible that this `html` have to be opened from a webserver and may need you have [Apache](https://httpd.apache.org/) ready to use. More information in the **Extra** section below.
+
+&nbsp;
+&nbsp;
+
+
 ### Example 3
 
 When the users provide a reference annotation table (argument `-r` or `--reference_cluster_annotation`) the script will produce a contingency table comparing the resulting clusters and the reference groups, this table is visualized as a heatmap in the file `Clusters_vs_reference_contingency_table.pdf`.
@@ -466,6 +493,22 @@ In this figure we show the advantages of using a window-based approach to trim t
 
 &nbsp;
 &nbsp;
+
+
+### Install `apache`
+
+Unfortunately, to visualize the content of the `html` file containing the radial tree it is required to have installed [apache2](https://httpd.apache.org/)
+and open this html file as a localhost. If you don't do this, you will not see the html content.
+
+To install `apache` you can follow this [instructions](https://ubuntu.com/tutorials/install-and-configure-apache#1-overview).
+
+Once `apache` is installed in your computer:
+
+1. Remove the folder `sudo rm -rf /var/www/html` 
+2. Copy the result folder (including all directories) to `/var/www/` . You will need **sudo** permissions.
+3. Open your browser and type `localhost`. Now you can browse the files in  `/var/www/`
+4. Search and open the file `*.html`
+
 
 ## :tada: Acknowledgements
 
