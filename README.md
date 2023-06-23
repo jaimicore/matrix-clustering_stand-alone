@@ -324,7 +324,7 @@ If the option `--export_heatmap TRUE` is indicated the file `Heatmap_clusters.pd
 
 &nbsp;
 
-### Example 2
+### Example 3
 
 When the users provide a reference annotation table (argument `-r` or `--reference_cluster_annotation`) the script will produce a contingency table comparing the resulting clusters and the reference groups, this table is visualized as a heatmap in the file `Clusters_vs_reference_contingency_table.pdf`.
 
@@ -371,9 +371,9 @@ When the users provide a reference annotation table (argument `-r` or `--referen
     2. Reference group
 
 
-### Radial trees (under development)
+### Radial trees
 
-- `--radial_tree`: When this option is activated all the motifs are forced to be aligned in a single cluster. **Note** : this option is under development. Example coming soon.
+- `--radial_tree`: When this option is activated all the motifs are forced to be aligned in a single cluster. **Note** : this option was recently released and it is under active development.
 
 ### Others
 
