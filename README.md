@@ -4,14 +4,15 @@ This is a stand-alone version of *RSAT matrix-clustering*. This version is faste
 
 *RSAT matrix-clustering* is a software to cluster and align Transcription Factor binding motifs. Here is a brief description of the method:
 
-  - **Motif comparison**: The motifs are compared to each other using two comparison metrics (pearson correlation coeficient (*cor*) and a alignment-width correction (normalized pearson correlation (*Ncor*)).
+  - **Motif comparison**: The motifs are compared to each other using two comparison metrics (pearson correlation coeficient (*cor*) and an alignment-width correction (normalized pearson correlation (*Ncor*)).
   - **Hierarchical clustering**: The motifs are hierarchically clustered based in the values of a comparison metric (default = *Ncor*) .
-  - **Tree partition**: the hierarchical tree is partitioned by calculating the average *cor* and *Ncor* values at each node, each time a node does not satisfy the thresholds (one value for *cor* and another for *Ncor*) the node is split in two clusters.
-  - **Motif alignment**: for each cluster, the motifs are progressively aligned following the linkage order of the hierarchical tree, this ensures that each motif is aligned in relation to its most similar motif in the cluster. 
+  - **Tree partition**: the hierarchical tree is partitioned by calculating the average *cor* and *Ncor* values at each node, each time a node does not satisfy any of these thresholds (one value for *cor* and another one for *Ncor*) the node is split in two clusters.
+  - **Motif alignment**: for each cluster, the motifs are progressively aligned following the linkage order of the hierarchical tree, this ensures that each motif is aligned in relation to its closest motif in the cluster.
+  - **Radial alignment (optional)**: all the motifs are forced to be aligned, the aligned logos are displayed in a radial (circular) tree. This option is useful to visualize entire motif collections. See example in the [*JASPAR* website](https://jaspar.genereg.net/matrix-clusters/nematodes/).
 
-As in the original version of *RSAT matrix-clustering*, there is no limit in the input motif files (so far we have tried up to 900 input files). When users have two or more input files, some intersection statistics are calculated (e.g., overlap among input collections) visualized as heatmaps.
+As in the original version of *RSAT matrix-clustering*, there is no limit in the input motif files (so far we have tried with up to 900 input files). When users have two or more input files, some intersection statistics are calculated (e.g., overlap among input collections) visualized as heatmaps.
 
-Originally, *RSAT matrix-clustering* was planned to be part of the [*RSAT* suite](http://www.rsat.eu/) for motif analysis, we decided to create a portable stand-alone version that can be ran without installing the whole *RSAT* environment and that can be easily integrated within pipelines.
+*RSAT matrix-clustering* is part of the [*RSAT* suite](http://www.rsat.eu/) for motif analysis, we decided to create a portable stand-alone version that can be ran without installing the whole *RSAT* environment and that can be easily integrated within pipelines.
 
 &nbsp;
 &nbsp;
@@ -19,11 +20,11 @@ Originally, *RSAT matrix-clustering* was planned to be part of the [*RSAT* suite
 
 ## Before starting
 
-If you want to run the original version with all the graphical output, you can do it through the [*RSAT* website](http://rsat-tagc.univ-mrs.fr/rsat/matrix-clustering_form.cgi) or alternatively, installing *RSAT* locally and run the command line version of *matrix-clustering*.
+If you want to run the original version with all the graphical output, you can do it through the [*RSAT* website](http://rsat.sb-roscoff.fr/matrix-clustering_form.cgi) or alternatively, installing *RSAT* locally and run the command line version of *matrix-clustering*.
 
-:warning: This repository is under active development, so we expect many changes as long as you see this line.
+:warning: This repository is under active development, so you can expect many changes as long as you see this line.
 
-The graphical output (interactive trees and heatmaps will be added soon).
+The graphical output (interactive trees) will be added soon.
 
 &nbsp;
 
@@ -101,14 +102,14 @@ The motif comparison step is ran by `compare-matrices-quick`, a fast version of 
 
 This repository contains the script written in `C` but it needs to be compiled to generate the executable script that will be called inside `matrix-clustering`.
 
-Assuming you are in the main directory, after cloning the repository:
+Assuming you are in the main directory, after cloning this repository:
 
 ```bash
 cd compare-matrices-quick
 make
 ```
 
-The makefile contains the commands to compile the `compare-matrices-quick.c` script, after running the makefile, be sure it generated the executable script
+The `makefile` contains the commands to compile the `compare-matrices-quick.c` script, after running the `makefile`, be sure the next executable script was created by running the following command:
 
 ```
 ./compare-matrices-quick
