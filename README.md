@@ -131,15 +131,34 @@ Clustering of 66 motifs separated in three motif collections (files). An [Oct4](
 :hourglass_flowing_sand: Running time: ~1 minute
 
 ```bash
-Rscript matrix-clustering.R                          \
-  -i data/OCT4_datasets/OCT4_motif_table.txt         \
-  -o results/OCT4_motifs_example/OCT4_motif_analysis \
+Rscript matrix-clustering.R                           \
+  -i data/OCT4_datasets/OCT4_motif_table.txt          \
+  -o results/OCT4_motifs_clusters/OCT4_motif_analysis \
   -w 8                              
 ```
 
 &nbsp;
 
+
 ### Example 2
+
+Similar dataset as in the Example 1, but in this case the option `--radial_tree` is activated. This will force all the motifs to be grouped in a single alignment displayed in a radial (circular) visualization.
+
+:hourglass_flowing_sand: Running time: ~2 minutes
+
+```bash
+Rscript matrix-clustering.R                       \
+  -i data/OCT4_datasets/OCT4_motif_table.txt      \
+  -o results/OCT4_motifs_radial/OCT4_motif_radial \
+  --radial_tree TRUE                              \
+  -w 8                              
+```
+
+&nbsp;
+&nbsp;
+
+
+### Example 3
 
 We cluster the [*JASPAR 2022 plants*](https://jaspar.genereg.net/matrix-clusters/plants/) motif collection (656 motifs), we compare the resulting clusters detected by *RSAT matrix-clustering* against a user-provided reference annotation (in this case the Transcription Factor classes). We calculated the *Adjusted Rand Index* (ARI), a single-value metric (ranging from -1 to +1) indicating the proportion of consistent pairs between two classifications, in this example the ARI measures the proportion of motif pairs that are consistently classified between *RSAT matrix-clustering* results and the reference TF classes. We consider that a motif pair is consistently classified when the two motifs either belong to the same class and are co-clustered, or belong to different families and are not co-clustered.
 
