@@ -325,12 +325,7 @@ if (params.list[["Nb_motifs"]] > 1) {
     find.clusters.list.radial <- find.motif.clusters(tree             = results.list$All_motifs_tree,
                                                      comparison.table = results.list$Motif_compa_tab,
                                                      parameters       = params.list.radial)
-    
-    # results.list$JSON_branch_nb <- identify.JSON.tree.branches(htree             = results.list$All_motifs_tree,
-    #                                                            description.table = results.list$Motif_info_tab)
   }
-  # save.image("Debug_radial.Rdata")
-
   
   # ----------------------------- #
   # Calculate Adjusted Rand Index #
@@ -404,6 +399,8 @@ if (params.list[["Nb_motifs"]] > 1) {
     results.list$Alignment_radial_table <- results.list$Alignment_radial_table %>% 
       select("id", "name", "cluster", "strand", "offset_up", "offset_down", "width", "aligned_consensus", "aligned_consensus_rc")
 
+    # cat(results.list$Alignment_radial_table$aligned_consensus, sep = "\n")
+    
     results.list$Clusters_table <- results.list$Alignment_radial_table %>% 
                                     group_by(cluster) %>% 
                                     summarise(id      = paste(id, collapse = ","),
@@ -503,8 +500,6 @@ if (params.list[["Nb_motifs"]] > 1) {
                 .groups = "drop")    
   }
   
-  
-  
 } else {
   stop("The clustering analysis required at least 2 motifs.")
 }
@@ -551,6 +546,7 @@ if (params.list[["radial_tree"]]) {
 } else {
   align.tab <- results.list$Alignment_table
 }
+# cat(align.tab$aligned_consensus, sep = "\n")
 
 
 message("; Exporting alignment table: ", output.files.list$Alignment_table)
@@ -576,13 +572,15 @@ fwrite(x         = results.list$Clusters_table,
 # 3) Root motifs                  #
 # 4) Central motifs               #
 # ------------------------------- #
-
+# save.image("Debug_radial.Rdata") # At this point the alignment table is correct
 
 # -------------------------------------------------------------------------
 # 1) Export motifs (without gaps) as transfac files in D and R orientation
 message("; Exporting individual motif files in", out.folder.list$indiv_motifs)
-export.indiv.motif.files(un.motifs = all.motifs.um,
-                         outdir    = out.folder.list$indiv_motifs)
+
+export.indiv.motif.files(un.motifs       = all.motifs.um,
+                         alignment.table = align.tab,
+                         outdir          = out.folder.list$indiv_motifs)
 
 ## universalmotif does not accepts rows containing only 0s, therefore, the insertion of gaps
 ## must be done directly to the transfac file, instead of using universalmotif functions
