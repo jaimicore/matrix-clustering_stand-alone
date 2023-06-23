@@ -440,15 +440,15 @@ export.one.motif.transfac <- function(un     = NULL,
 }
 
 
-
 ## Export the motifs stored in the input universalmotif object as inidividual transfac files
 ## Each motif is exported in D and R orientations
-export.indiv.motif.files <- function(un.motifs = NULL,
-                                     outdir    = NULL) {
+export.indiv.motif.files <- function(un.motifs       = NULL,
+                                     alignment.table = NULL,
+                                     outdir          = NULL) {
   
   ## A list containing the oriented motifs in D and R orientations
   um.final.orientation <- motifs.final.orientation(un.motifs         = un.motifs,    
-                                                   orientation.table = results.list$Alignment_table)
+                                                   orientation.table = alignment.table)
   
   
   ## Iterate over the strands
@@ -471,7 +471,7 @@ export.indiv.motif.files <- function(un.motifs = NULL,
     
     ## Iterate over each motif to export it as a transfac file
     furrr::future_walk2(.x = uo.motifs.oriented,
-                        .y = rep(outdir, times = length(motifs.D)),
+                        .y = rep(outdir, times = length(uo.motifs.oriented)),
                         .f = ~export.one.motif.transfac(un     = .x,
                                                         outdir = .y,
                                                         strand = strand.oriented))
