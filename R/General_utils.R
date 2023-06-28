@@ -420,8 +420,8 @@ create.html.radial.tree <- function(json.file   = NULL,
     # Insert JSON updated file
     if (grepl(pattern = "--json_file--", x = d3l)) {
       
-      json.rel.path <- this.path::as.rel.path(relative.to = results.main.dir,
-                                              path = json.file)
+      json.rel.path <- this.path::relpath(relative.to = results.main.dir,
+                                          path = json.file)
       
       d3.lines.updated[d3.line.counter] <- gsub(pattern = "--json_file--", x = d3l, replacement = json.rel.path)
     }
@@ -524,13 +524,13 @@ cp.d3.lib <- function(d3     = NULL,
             to   = folder,
             recursive = TRUE)
   
-  new.d3           <- this.path::here(.. = 1, file.path(folder, "js", basename(d3)))
-  results.main.dir <- this.path::here(.. = 1, folder)
+  # new.d3           <- this.path::here(.. = 1, file.path(dirname(folder), "js", basename(d3)))
+  # #results.main.dir <- this.path::here(.. = 1, folder)
+  # 
+  # d3.radial.js <- this.path::relpath(relative.to = folder,
+  #                                    path        = new.d3)
   
-  d3.radial.js <- this.path::as.rel.path(relative.to = results.main.dir,
-                                         path = new.d3)
-  
-  return(d3.radial.js)
+  return("js/d3.v3.min.js")
 }
 
 
@@ -594,10 +594,10 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
       
       
       ## Define the URL of the logo files, relative to the location of the json file
-      align.logo.link.relpath.F <- this.path::as.rel.path(relative.to = results.main.dir,
-                                                          path        = this.path::here(motif.info.list[[tree.label]]$Logo))
-      align.logo.link.relpath.R <- this.path::as.rel.path(relative.to = results.main.dir,
-                                                          path        = this.path::here(motif.info.list[[tree.label]]$Logo_RC))
+      align.logo.link.relpath.F <- this.path::relpath(relative.to = results.main.dir,
+                                                      path        = this.path::here(motif.info.list[[tree.label]]$Logo))
+      align.logo.link.relpath.R <- this.path::relpath(relative.to = results.main.dir,
+                                                      path        = this.path::here(motif.info.list[[tree.label]]$Logo_RC))
       
       ### Create the line that will be added to JSON file
       image.F.line      <- paste0(',\n "image" : "', align.logo.link.relpath.F, '"')
