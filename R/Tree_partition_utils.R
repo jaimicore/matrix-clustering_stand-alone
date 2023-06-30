@@ -326,7 +326,7 @@ treenode2cluster <- function(cluster_results = NULL,
   cluster_results$agglomeration.stats$cluster <- n2cl
   cluster_results$agglomeration.stats$node    <- paste0("node_", seq_len(nrow(cluster_results$agglomeration.stats)))
   
-  node2cluster.df <- cluster_results$agglomeration.stats |> 
+  node2cluster.df <- cluster_results$agglomeration.stats %>% 
                        dplyr::select(cluster, node)
   
   
