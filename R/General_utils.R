@@ -554,9 +554,9 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
                                    tree            = htree)
   
   # Motifs (tree leaves) to cluster association table
-  leaf2cluster <- stack(clusters.list$clusters) |> 
+  leaf2cluster <- stack(clusters.list$clusters) %>% 
     rename("Motif"   = "values",
-           "cluster" = "ind") |> 
+           "cluster" = "ind") %>% 
     data.table()
   leaf2cluster <- merge(leaf2cluster, color.map)
   

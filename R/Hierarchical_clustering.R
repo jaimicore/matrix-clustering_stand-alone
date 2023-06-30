@@ -215,9 +215,17 @@ draw.heatmap.clusters.vs.ref <- function(clusters.tab = NULL,
   
   ## Convert the actual values into frequencies
   ## This helps to better detect the classes in the heatmap
-  clusters.tab.mt <- as.data.frame.matrix(clusters.tab) %>%
-                        dplyr::rename(Unkwnon = V1) %>% 
-                        as.matrix()
+  if (any(colnames(clusters.tab) == "")) {
+
+    clusters.tab.mt <- as.data.frame.matrix(clusters.tab) %>%
+                          dplyr::rename(Unknown = V1) %>% 
+                          as.matrix()
+  } else {
+
+    clusters.tab.mt <- as.data.frame.matrix(clusters.tab) %>%
+                          as.matrix()
+  }
+
   clusters.tab.perc <- clusters.tab.mt
 
   
