@@ -800,74 +800,98 @@ message("; End of program")
 # Simplify Walter's script into a function #
 # ---------------------------------------- #
 
-# # Motifs (tree leaves) to cluster association table
-# treeleaf2cluster <- stack(find.clusters.list$clusters) %>% 
-#   rename("Motif"   = "values",
-#          "cluster" = "ind") %>% 
-#   data.table()
-# treeleaf2cluster <- merge(treeleaf2cluster, results.list$Cluster_color)
-# 
-# matrix_order.df <- results.list$All_motifs_tree$labels[results.list$All_motifs_tree$order]
-# 
-# matrix_order.df <- treeleaf2cluster[match(matrix_order.df, treeleaf2cluster$Motif), ] |> 
-#                     select(Motif, color) |> 
-#                     rename(matrix_name = Motif,
-#                            cluster_nb  = color) |> 
-#                     mutate(id_motif = 1:nrow(treeleaf2cluster))
-# 
-# 
-# annotation.df <- fread("data/JASPAR_2022/JASPAR_nematodes_annotations.tsv")
-# colnames(annotation.df) <- c("collection_name", "matrix_name", "class", "class_nb")
-# annotation.df$collection_name <- gsub("\"","",as.character(annotation.df$collection_name))
-# annotation.df$matrix_name     <- gsub("\"","",as.character(annotation.df$matrix_name))
-# 
-# matrix_element <- annotation.df[1,]
-# rm(matrix_element)
-# annotation.merge.df <- apply(annotation.df, 1 ,function(matrix_element){
+# annotate.radial.tree <- function(clusters              = NULL,
+#                                  cluster2color         = NULL,
+#                                  tree                  = NULL,
+#                                  motif.annotation.file = NULL) {
 #   
-#   # Create regex 
+#   suppressMessages(library(jsonlite))
 #   
-#   #regex_string    <- paste0("^", matrix_element["collection_name"], "_m\\d+_", matrix_element["matrix_name"],"_n+\\d+$")
-#   regex_string <- matrix_element["matrix_name"]
-#   message(regex_string)
-#   # NOTE WSG: spcial character from regex must be forbidden in 
-#   # the file names. Need to add a sanity check
-#   # Safe check for special characters in regex
-#   #regex_string <- sub("\\+", "\\\\+", regex_string) 
-#   # Find complete motif name
-#   match_matrix.df <- matrix_order.df[grepl(regex_string, as.character(matrix_order.df$matrix_name)), ]
-#   print(match_matrix.df)
+#   # Motifs (tree leaves) to cluster association table
+#   treeleaf2cluster <- stack(clusters) %>%
+#                         rename("Motif"   = "values",
+#                                "cluster" = "ind") %>%
+#                         data.table()
 #   
-#   # Transpose match 
-#   matrix_element <- as.data.frame(t(as.data.frame(matrix_element)))
-#   # Add annotation columns to matched matrix
-#   match_matrix.df <- cbind(match_matrix.df,matrix_element)
+#   # Cluster::Motif::Cluster-color mapping table
+#   treeleaf2cluster <- merge(treeleaf2cluster, cluster2color)
 #   
-#   return(match_matrix.df)
-# }) %>% (plyr::rbind.fill)
-# 
-# 
-# print("; INFO Calculating degrees intervals for each annotation layer.")
-# 
-# # Sort the data frame by id_motif
-# annotation.merge.df       <- annotation.merge.df[order(annotation.merge.df$id_motif),]
-# annotation.merge.df$start <- (0:(dim(annotation.merge.df)[1] - 1)) * (360/dim(annotation.merge.df)[1])
-# annotation.merge.df$end   <- (1:(dim(annotation.merge.df)[1])) * (360/dim(annotation.merge.df)[1])
-# 
-# suppressMessages(library(jsonlite))
-# annotation.json <- toJSON(annotation.merge.df)
-# 
-# print("; INFO Writing JSON file")
-# output.files.list$annotation_json_file  <- file.path(out.folder.list$trees, "annotation_matrix.json")
-# # annotation_json_file <- paste0(tree_subdir_name,"/annotation_matrix.json")
-# write_json(annotation.json, output.files.list$annotation_json_file)
-# 
-# prefix <- gsub(output.files.list$D3_radial_tree, pattern = "_D3_radial_tree.html", replacement = "")
-# cmd_annotate_htmltree <- paste0("python3 annotate-html-radialtree.py ",
-#                                 "-i ", prefix)
-# 
-# #Execute it!
-# print(cmd_annotate_htmltree)
-# system(cmd_annotate_htmltree)
-# 
-# # Remove quotaions from 'class'
+#   # Map motif IDs
+#   matrix_order.df <- tree$labels[tree$order]
+#   matrix_order.df <- treeleaf2cluster[match(matrix_order.df, treeleaf2cluster$Motif), ] |>
+#     select(Motif, color) |>
+#     rename(matrix_name = Motif,
+#            cluster_nb  = color) |>
+#     mutate(id_motif = 1:nrow(treeleaf2cluster))
+#   
+#   # Read and parse annotation file
+#   motif.annotation <- fread(motif.annotation.file)
+#   colnames(motif.annotation) <- c("collection_name", "matrix_name", "class", "class_nb")
+#   motif.annotation$class           <- gsub("'", "", as.character(motif.annotation$class))
+#   motif.annotation$collection_name <- gsub("\"", "", as.character(motif.annotation$collection_name))
+#   motif.annotation$matrix_name     <- gsub("\"", "", as.character(motif.annotation$matrix_name)) 
+#   
+#   
+#   # matrix_element <- annotation.df[1,]
+#   # rm(matrix_element)
+#   annotation.merge.df <- apply(motif.annotation, 1 ,function(matrix_element){
+#     
+#     # Create regex
+#     #regex_string    <- paste0("^", matrix_element["collection_name"], "_m\\d+_", matrix_element["matrix_name"],"_n+\\d+$")
+#     regex_string <- matrix_element["matrix_name"]
+#     # message(regex_string)
+#     
+#     # NOTE WSG: spcial character from regex must be forbidden in
+#     # the file names. Need to add a sanity check
+#     # Safe check for special characters in regex
+#     #regex_string <- sub("\\+", "\\\\+", regex_string)
+#     
+#     # Find complete motif name
+#     match_matrix.df <- matrix_order.df[grepl(regex_string, as.character(matrix_order.df$matrix_name)), ]
+#     # print(match_matrix.df)
+#     
+#     # Transpose match
+#     matrix_element <- as.data.frame(t(as.data.frame(matrix_element)))
+#     
+#     # Add annotation columns to matched matrix
+#     match_matrix.df <- cbind(match_matrix.df, matrix_element)
+#     
+#     return(match_matrix.df)
+#   }) %>% (plyr::rbind.fill)
+#   
+#   
+#   print("; INFO Calculating degrees intervals for each annotation layer.")
+#   
+#   # Sort the data frame by id_motif
+#   annotation.merge.df       <- annotation.merge.df[order(annotation.merge.df$id_motif),]
+#   annotation.merge.df$start <- (0:(dim(annotation.merge.df)[1] - 1)) * (360/dim(annotation.merge.df)[1])
+#   annotation.merge.df$end   <- (1:(dim(annotation.merge.df)[1])) * (360/dim(annotation.merge.df)[1])
+#   
+#   # Convert annotation DF to JSON format
+#   annotation.json <- toJSON(annotation.merge.df)
+#   
+#   message("; Annotating JSON file")
+#   output.files.list$annotation_json_file  <- file.path(out.folder.list$trees, "annotation_matrix.json")
+#   write_json(annotation.json, output.files.list$annotation_json_file)
+#   
+#   prefix <- gsub(output.files.list$D3_radial_tree, pattern = "_D3_radial_tree.html", replacement = "")
+#   cmd_annotate_htmltree <- paste0("python3 annotate-html-radialtree.py ",
+#                                   "-i ", prefix)
+#   
+#   #Execute it!
+#   print(cmd_annotate_htmltree)
+#   system(cmd_annotate_htmltree) 
+# }
+
+
+ 
+
+
+# annotate.radial.tree(clusters              = find.clusters.list$clusters,
+#                      cluster2color         = results.list$Cluster_color,
+#                      tree                  = results.list$All_motifs_tree,
+#                      motif.annotation.file = "data/JASPAR_2022/JASPAR_nematodes_annotations.tsv")
+
+
+
+# Remove quotaions from 'class'
