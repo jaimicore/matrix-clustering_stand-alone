@@ -383,12 +383,13 @@ draw.heatmap.motifs <- function(dist.table    = NULL,
 
 
 
-create.html.radial.tree <- function(json.file   = NULL,
-                                    d3.template = NULL,
-                                    d3.outfile  = NULL,
-                                    motif.info  = NULL,
-                                    d3.lib      = NULL,
-                                    outdir      = NULL) {
+create.html.radial.tree <- function(json.file        = NULL,
+                                    d3.template      = NULL,
+                                    d3.outfile       = NULL,
+                                    motif.info       = NULL,
+                                    d3.lib           = NULL,
+                                    outdir           = NULL,
+                                    alignment.length = 20) {
   
   # Read D3 template as an array an iterate over it
   d3.lines <- readLines(d3.template)
@@ -447,6 +448,12 @@ create.html.radial.tree <- function(json.file   = NULL,
         tree.radium = 450;
       }
       
+      # Ring annotations tart/end coordinates depend on tree's radium
+      start.annotation.pos <- tree.radium + 5
+      end.annotation.pos   <- (max(nchar(motif.info$name)) * 7 + 5) + ((alignment.length + 2) * 5) + 0
+      end.annotation.pos   <- start.annotation.pos + end.annotation.pos
+      
+      
       d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radium--", x = d3l, replacement = tree.radium)
     }
     
@@ -476,7 +483,6 @@ create.html.radial.tree <- function(json.file   = NULL,
       x.displacement <- max(nchar(motif.info$name)) * 7 + 5
       
       # x.displacement <- 75
-      
       # if (nb.motifs <= 30) {
       #   x.displacement <- 75
       # } else if (nb.motifs > 30 & nb.motifs <= 100) {
@@ -498,6 +504,17 @@ create.html.radial.tree <- function(json.file   = NULL,
       y.displacement <- 0
       
       d3.lines.updated[d3.line.counter] <- gsub(pattern = "--y-displ--", x = d3l, replacement = y.displacement);
+    }
+    
+  
+
+    # Set inner ring start/end variables
+    if (grepl(pattern = "--innerRad_start--", x = d3l)) {
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--innerRad_start--", x = d3l, replacement = start.annotation.pos);
+    }
+    
+    if (grepl(pattern = "--innerRad_end--", x = d3l)) {
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--innerRad_end--", x = d3l, replacement = end.annotation.pos);
     }
     
     
@@ -689,7 +706,9 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
 annotate.radial.tree <- function(clusters              = NULL,
                                  cluster2color         = NULL,
                                  tree                  = NULL,
-                                 motif.annotation.file = NULL) {
+                                 motif.annotation.file = NULL,
+                                 motif.info            = NULL,
+                                 alignment.length      = 20) {
 
   suppressMessages(library(jsonlite))
 
@@ -745,8 +764,7 @@ annotate.radial.tree <- function(clusters              = NULL,
     return(match_matrix.df)
   }) %>% (plyr::rbind.fill)
 
-
-  print("; INFO Calculating degrees intervals for each annotation layer.")
+  message("; Calculating degrees intervals for each annotation layer.")
 
   # Sort the data frame by id_motif
   annotation.merge.df       <- annotation.merge.df[order(annotation.merge.df$id_motif),]
@@ -765,7 +783,7 @@ annotate.radial.tree <- function(clusters              = NULL,
                                   "-i ", prefix)
 
   # Launch annotation script
-  # Walter Santana wrote this in python
+  # Walter Santana wrote this script in python
   # It works for the moment but ideally we should convert the script to R code 
   #print(cmd_annotate_htmltree)
   system(cmd_annotate_htmltree)
