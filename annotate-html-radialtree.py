@@ -70,10 +70,6 @@ mclust_prefix   = mclust_dir.strip("/").split("/")[-1]
 mclust_dir      = os.path.dirname(mclust_dir)
 
 
-print(mclust_dir)
-print(mclust_prefix)
-print("_______________________________________________")
-
 # Strip absolute path
 mclust_dir_tree = mclust_prefix + "_trees"
 
@@ -123,7 +119,7 @@ annotation = "var data_sample = " + annotation
 annotation = annotation + ";\n"
 
 # Create d3.js annotation functions
-d3_code = ("    // Add background elements for selection\n"
+d3_code = ("\n\n// Add background elements for selection\n"
 "     vis.selectAll('rect_selection')\n"
 "        .data(data_sample)\n"
 "        .enter()\n"
@@ -133,8 +129,8 @@ d3_code = ("    // Add background elements for selection\n"
 "        .attr('d', d3.svg.arc()\n"
 "          .startAngle(function(d){ return( (d.start * Math.PI)/180)  }  )  //converting from degs to radians\n"
 "          .endAngle(function(d){   return( (d.end   * Math.PI)/180)  }  ) //just radians\n"
-"          .innerRadius(205)         // This is the size of the donut hole\n"
-"          .outerRadius(440)\n"
+"          .innerRadius(innerRad_start)         // This is the size of the donut hole\n"
+"          .outerRadius(innerRad_end)\n"
 "        )\n"
 "        .style('fill',function(d){return(d.class)})\n"
 "        .attr('transform', 'translate(0,0)')\n"
@@ -147,18 +143,47 @@ d3_code = ("    // Add background elements for selection\n"
 "                .data(data_sample)\n"
 "                .enter()\n"
 "                .append('path')\n"
-"                .attr('class','annotation2')\n"
+"                .attr('class','annotation1')\n"
+"		  .attr('id', function(d,i){return('path' + i) })\n"
 "                .attr('d', d3.svg.arc()\n"
 "                  .startAngle(function(d){ return( d.start * (Math.PI/180) ) }  )  //converting from degs to radians\n"
 "                  .endAngle(function(d){ return( d.end * (Math.PI/180) ) }  ) //just radians\n"
-"                  .innerRadius(440)         // This is the size of the donut hole\n"
-"                  .outerRadius(470)\n"
+"                  .innerRadius(innerRad_end)         // This is the size of the donut hole\n"
+"                  .outerRadius(innerRad_end + (30*1))\n"
 "                )\n"
 "                .attr('fill', function(d){return(d.class)})\n"
 "                .attr('stroke', 'white')\n"
 "                .attr('transform', 'translate(0,0)')\n"
 "                .style('stroke-width', '2px')\n"
 "                .style('opacity', 1);\n"
+"\n"
+"\n"
+"        // Color algorithm Non-Validated text layer\n"
+"        vis.selectAll('annotation1')\n"
+"            .data(data_sample)\n"
+"            .enter()\n"
+"            .append('text')\n"
+"            .attr('dy', 20)\n"
+"            .attr('x',33)\n"
+"            .style('font-size', '15px')\n"
+"            .append('textPath')\n"
+"            .attr('startOffset','50%')\n"
+"            .style('text-anchor','middle')\n"
+"            //.attr('stroke','black')\n"
+"            //.attr('fill','black')\n"
+"            .attr('xlink:href', function(d,i){return('#path' + i) })\n"
+"            .text(function(d){\n"
+"              var token = d.matrix_name.split('_').slice(-2).slice(0);\n"
+"              token = token[0];\n"
+"              if(/^UN/.test(token)){\n"
+"                var text_content = d.class_nb + '*';\n"
+"              } else {\n"
+"                var text_content = d.class_nb;\n"
+"              }\n"
+"              return(text_content);\n"
+"            })\n"
+"            ;\n"
+"\n"
 "\n"
 "            vis.selectAll('g.text')\n"
 "                .data(nodes)\n"
@@ -173,7 +198,7 @@ d3_code = ("    // Add background elements for selection\n"
 "                .text(function(d) { return d.children ? '' :  d.name; })\n"
 "                .attr('fill', function(d) { return d.class; })\n"
 "                .style('font-size', '12px')\n"
-"                .attr('font-family', 'Arial')\n"
+"                .attr('font-family', 'Ubuntu Mono')\n"
 "                .attr('dx', function(d) { return d.x < 180 ? 10 : -10; })\n"
 "                .attr('dy', '.31em')\n"
 "                .attr('text-anchor', function(d) { return d.x < 180 ? 'start' : 'end'; })\n"
@@ -220,4 +245,4 @@ for line in fh_html:
 fh_html.close()
 fh_output.close()
 # Verbose end
-print("\n\n\n;INFO radial tree html created succesfully!\n\n")
+print("; Radial tree html annoatetd succesfully")
