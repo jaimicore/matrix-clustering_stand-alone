@@ -142,16 +142,20 @@ Rscript matrix-clustering.R                           \
 
 ### Example 2
 
-Similar dataset as in the Example 1, but in this case the option `--radial_tree` is activated. This will force all the motifs to be grouped in a single alignment displayed in a radial (circular) visualization.
+In this example we are reproducing the clustering of [JASPAR nematodes](https://jaspar.genereg.net/matrix-clusters/nematodes/) (43 motifs corresponding to 12 TF classes). We are using the option `--radial_tree = TRUE` and this will force all the motifs to be grouped in a single alignment displayed in a radial (circular) visualization.
+
+Users can provide motif metadata with the option `-a`.
 
 :hourglass_flowing_sand: Running time: ~2 minutes
 
 ```bash
-Rscript matrix-clustering.R                       \
-  -i data/OCT4_datasets/OCT4_motif_table.txt      \
-  -o results/OCT4_motifs_radial/OCT4_motif_radial \
-  --radial_tree TRUE                              \
-  -w 8                              
+Rscript matrix-clustering.R                            \
+  -i data/JASPAR_2022/Jaspar_nematodes_motifs_tab.txt  \
+  -o results/JASPAR_nematodes_radial/JASPAR_nematodes  \
+  -a data/JASPAR_2022/JASPAR_nematodes_annotations.tsv \
+  --radial_tree TRUE                                   \
+  -w 8
+
 ```
 
 &nbsp;
