@@ -991,11 +991,13 @@ export.one.logo <- function(um.motif = NULL,
   motif <- convert_type(um.motif, "PPM")
   motif <- motif["motif"]
   
-  motif.gg <- ggplot() +
-    geom_logo(motif, method = 'bits', stack_width = 1) +
-    theme_logo() +
-    scale_x_continuous(expand = c(0, 0)) +
-    scale_y_continuous(limits = c(0,2), expand = c(0, 0)) 
+  invisible(suppressMessages(
+    motif.gg <- ggplot() +
+      geom_logo(motif, method = 'bits', stack_width = 1) +
+      theme_logo() +
+      scale_x_continuous(expand = c(0, 0)) +
+      scale_y_continuous(limits = c(0,2), expand = c(0, 0))
+  ))
   
   ggsave(filename = logofile, plot = motif.gg, bg = "white", width = 10, height = 6, dpi = 400)
 }
