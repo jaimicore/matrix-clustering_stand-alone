@@ -137,6 +137,9 @@ var cluster = d3.layout.cluster()
     .size([360, --radium--])
     .separation(function(a, b) { return (a.parent == b.parent ? 1 : 1); })
     .sort(null);
+    
+var innerRad_start = --innerRad_start--;
+var innerRad_end   = --innerRad_end--;
 
 var diagonal = d3.svg.diagonal.radial()
     .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
