@@ -93,6 +93,11 @@ path.arc {
     </style>
   </head>
   <body>
+  
+  <!-- Insert annotation within these comments : start-->
+  <!-- legend -->
+  <!-- Insert annotation within these comments : end-->
+  
     <div id="cluster_1" style='display: inline-block;float:left;position:absolute;'>
       <div id="footer" style='display: inline-block;float:left;position:absolute;'>
 
@@ -131,14 +136,15 @@ var w = --radial_w--,
     rx = w / 4,
     ry = h / 4,
     m0,
+    tree_radium = --radium--,
     rotate = 0;
 
 var cluster = d3.layout.cluster()
-    .size([360, --radium--])
+    .size([360, tree_radium])
     .separation(function(a, b) { return (a.parent == b.parent ? 1 : 1); })
     .sort(null);
     
-var innerRad_start = --innerRad_start--;
+var innerRad_start = tree_radium + 5;
 var innerRad_end   = --innerRad_end--;
 
 var diagonal = d3.svg.diagonal.radial()
