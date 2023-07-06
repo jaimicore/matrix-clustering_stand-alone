@@ -368,7 +368,6 @@ When the users activate the option `--radial_tree TRUE`) all the motifs are forc
 The output is an `html` document containing the code in [`D3`](https://d3js.org/) (a javascript library). Open this document in an internet browser to visualize the results.
 
 
-
 You can zoom in/out using the mouse and change the motif orientation by clicking on the red buttons on the page top.
 
 <img src="data/images/Radial_tree_JASPAR_nematodes.png" width="500px" align="center">
@@ -438,6 +437,13 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 ### Radial trees
 
 - `--radial_tree`: When this option is activated all the motifs are forced to be aligned in a single cluster. **Note** : this option was recently released and it is under active development.
+
+- `-a` or `--annotation_table`: motif annotation tab. One line per motif, the class color will be used as background in the radial tree, the class name text will be shown as an annotation layer (ring) in the radial tree. A tab-delimited file with four columns, it does not expect a header, but it expects these columns in the indicated order:
+
+    1. Collection 
+    2. Motif ID 
+    3. Class color : hexa color code
+    4. Class name : any string
 
 ### Others
 
