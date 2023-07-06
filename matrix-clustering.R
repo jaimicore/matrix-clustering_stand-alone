@@ -68,9 +68,12 @@ option_list = list(
 
   make_option(c("-M", "--minimal_output"), type = "logical", default = FALSE, 
               help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical"),
+
+  make_option(c("-a", "--annotation_table"), type = "character", default = NULL, 
+              help = "Motif annotation table, when this file is provided with the '--radial_tree = TRUE' option add annotations to the radial tree. A tab-delimited file with 4 columns : 1) Collection name, 2) Motif ID, 3) Category color code, 4) Category number. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "character"),
   
   make_option(c("-r", "--reference_cluster_annotation"), type = "character", default = NULL, 
-              help = "User defined cluster annotation tab, when this file is provided, this script will calculate the Adjusted Rand Index (ARI) of the resulting clusters. A tab-delimited file with two columns: 1) Motif ID and 2) Reference group. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "logical")
+              help = "User defined cluster annotation tab, when this file is provided this script will calculate the Adjusted Rand Index (ARI) of the resulting clusters. A tab-delimited file with two columns: 1) Motif ID and 2) Reference group. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "character")
   
 );
 message("; Reading arguments from command-line")
@@ -98,6 +101,18 @@ if (!is.null(reference.clusters.tab.file)) {
   reference.clusters.flag <- TRUE
 }
 
+
+# In case of an annotation file is provided
+motif.annotation.flag  <- FALSE
+motif.annotation.file <- opt$annotation_table
+if (!is.null(motif.annotation.file)) {
+  if (!file.exists(motif.annotation.file)) {
+    stop("Motif annotation file not found: ", motif.annotation.file)
+  }
+  motif.annotation.flag <- TRUE
+}
+
+
 params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "export_heatmap"        = as.numeric(opt$export_heatmap),
                     "heatmap_color_classes" = as.numeric(opt$color_palette_classes),
@@ -110,6 +125,7 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "nb_workers"            = as.numeric(opt$number_of_workers),
                     "min_output"            = opt$minimal_output,
                     "ref_clusters"          = reference.clusters.flag,
+                    "annotation"            = motif.annotation.flag,
                     "radial_tree"           = opt$radial_tree)
 
 
@@ -773,6 +789,15 @@ if (params.list$min_output == FALSE) {
                             d3.lib      = d3.min.lib,
                             outdir      = dirname(out.folder))
     
+    if (params.list[["annotation"]]) {
+      
+      # Add color background to radial tree
+      annotate.radial.tree(clusters              = find.clusters.list$clusters,
+                           cluster2color         = results.list$Cluster_color,
+                           tree                  = results.list$All_motifs_tree,
+                           motif.annotation.file = motif.annotation.file)
+    }
+
   }
 
 
@@ -794,104 +819,3 @@ if (params.list$min_output == FALSE) {
 }
 save.image("Debug_radial.Rdata")
 message("; End of program")
-
-
-# ---------------------------------------- #
-# Simplify Walter's script into a function #
-# ---------------------------------------- #
-
-# annotate.radial.tree <- function(clusters              = NULL,
-#                                  cluster2color         = NULL,
-#                                  tree                  = NULL,
-#                                  motif.annotation.file = NULL) {
-#   
-#   suppressMessages(library(jsonlite))
-#   
-#   # Motifs (tree leaves) to cluster association table
-#   treeleaf2cluster <- stack(clusters) %>%
-#                         rename("Motif"   = "values",
-#                                "cluster" = "ind") %>%
-#                         data.table()
-#   
-#   # Cluster::Motif::Cluster-color mapping table
-#   treeleaf2cluster <- merge(treeleaf2cluster, cluster2color)
-#   
-#   # Map motif IDs
-#   matrix_order.df <- tree$labels[tree$order]
-#   matrix_order.df <- treeleaf2cluster[match(matrix_order.df, treeleaf2cluster$Motif), ] |>
-#     select(Motif, color) |>
-#     rename(matrix_name = Motif,
-#            cluster_nb  = color) |>
-#     mutate(id_motif = 1:nrow(treeleaf2cluster))
-#   
-#   # Read and parse annotation file
-#   motif.annotation <- fread(motif.annotation.file)
-#   colnames(motif.annotation) <- c("collection_name", "matrix_name", "class", "class_nb")
-#   motif.annotation$class           <- gsub("'", "", as.character(motif.annotation$class))
-#   motif.annotation$collection_name <- gsub("\"", "", as.character(motif.annotation$collection_name))
-#   motif.annotation$matrix_name     <- gsub("\"", "", as.character(motif.annotation$matrix_name)) 
-#   
-#   
-#   # matrix_element <- annotation.df[1,]
-#   # rm(matrix_element)
-#   annotation.merge.df <- apply(motif.annotation, 1 ,function(matrix_element){
-#     
-#     # Create regex
-#     #regex_string    <- paste0("^", matrix_element["collection_name"], "_m\\d+_", matrix_element["matrix_name"],"_n+\\d+$")
-#     regex_string <- matrix_element["matrix_name"]
-#     # message(regex_string)
-#     
-#     # NOTE WSG: spcial character from regex must be forbidden in
-#     # the file names. Need to add a sanity check
-#     # Safe check for special characters in regex
-#     #regex_string <- sub("\\+", "\\\\+", regex_string)
-#     
-#     # Find complete motif name
-#     match_matrix.df <- matrix_order.df[grepl(regex_string, as.character(matrix_order.df$matrix_name)), ]
-#     # print(match_matrix.df)
-#     
-#     # Transpose match
-#     matrix_element <- as.data.frame(t(as.data.frame(matrix_element)))
-#     
-#     # Add annotation columns to matched matrix
-#     match_matrix.df <- cbind(match_matrix.df, matrix_element)
-#     
-#     return(match_matrix.df)
-#   }) %>% (plyr::rbind.fill)
-#   
-#   
-#   print("; INFO Calculating degrees intervals for each annotation layer.")
-#   
-#   # Sort the data frame by id_motif
-#   annotation.merge.df       <- annotation.merge.df[order(annotation.merge.df$id_motif),]
-#   annotation.merge.df$start <- (0:(dim(annotation.merge.df)[1] - 1)) * (360/dim(annotation.merge.df)[1])
-#   annotation.merge.df$end   <- (1:(dim(annotation.merge.df)[1])) * (360/dim(annotation.merge.df)[1])
-#   
-#   # Convert annotation DF to JSON format
-#   annotation.json <- toJSON(annotation.merge.df)
-#   
-#   message("; Annotating JSON file")
-#   output.files.list$annotation_json_file  <- file.path(out.folder.list$trees, "annotation_matrix.json")
-#   write_json(annotation.json, output.files.list$annotation_json_file)
-#   
-#   prefix <- gsub(output.files.list$D3_radial_tree, pattern = "_D3_radial_tree.html", replacement = "")
-#   cmd_annotate_htmltree <- paste0("python3 annotate-html-radialtree.py ",
-#                                   "-i ", prefix)
-#   
-#   #Execute it!
-#   print(cmd_annotate_htmltree)
-#   system(cmd_annotate_htmltree) 
-# }
-
-
- 
-
-
-# annotate.radial.tree(clusters              = find.clusters.list$clusters,
-#                      cluster2color         = results.list$Cluster_color,
-#                      tree                  = results.list$All_motifs_tree,
-#                      motif.annotation.file = "data/JASPAR_2022/JASPAR_nematodes_annotations.tsv")
-
-
-
-# Remove quotaions from 'class'
