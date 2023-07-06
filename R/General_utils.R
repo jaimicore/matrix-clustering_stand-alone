@@ -473,17 +473,19 @@ create.html.radial.tree <- function(json.file   = NULL,
     # Set displacement (x axis) of the logos according to the number of motifs
     if (grepl(pattern = "--x_displ--", x = d3l)) {
       
-      x.displacement = 75
+      x.displacement <- max(nchar(motif.info$name)) * 7 + 5
       
-      if (nb.motifs <= 30) {
-        x.displacement <- 75
-      } else if (nb.motifs > 30 & nb.motifs <= 100) {
-        x.displacement <- 70
-      } else if (nb.motifs > 100 & nb.motifs < 500) {
-        x.displacement <- 55
-      } else if (nb.motifs >= 500) {
-        x.displacement <- 50
-      }
+      # x.displacement <- 75
+      
+      # if (nb.motifs <= 30) {
+      #   x.displacement <- 75
+      # } else if (nb.motifs > 30 & nb.motifs <= 100) {
+      #   x.displacement <- 70
+      # } else if (nb.motifs > 100 & nb.motifs < 500) {
+      #   x.displacement <- 55
+      # } else if (nb.motifs >= 500) {
+      #   x.displacement <- 50
+      # }
       
       d3.lines.updated[d3.line.counter] <- gsub(pattern = "--x_displ--", x = d3l, replacement = x.displacement);
     }
@@ -682,3 +684,89 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
   
 }
 
+
+
+annotate.radial.tree <- function(clusters              = NULL,
+                                 cluster2color         = NULL,
+                                 tree                  = NULL,
+                                 motif.annotation.file = NULL) {
+
+  suppressMessages(library(jsonlite))
+
+  # Motifs (tree leaves) to cluster association table
+  treeleaf2cluster <- stack(clusters) %>%
+                        rename("Motif"   = "values",
+                               "cluster" = "ind") %>%
+                        data.table()
+
+  # Cluster::Motif::Cluster-color mapping table
+  treeleaf2cluster <- merge(treeleaf2cluster, cluster2color)
+
+  # Map motif IDs
+  matrix_order.df <- tree$labels[tree$order]
+  matrix_order.df <- treeleaf2cluster[match(matrix_order.df, treeleaf2cluster$Motif), ] |>
+    select(Motif, color) |>
+    rename(matrix_name = Motif,
+           cluster_nb  = color) |>
+    mutate(id_motif = 1:nrow(treeleaf2cluster))
+
+  # Read and parse annotation file
+  motif.annotation <- fread(motif.annotation.file)
+  colnames(motif.annotation) <- c("collection_name", "matrix_name", "class", "class_nb")
+  motif.annotation$class           <- gsub("'", "", as.character(motif.annotation$class))
+  motif.annotation$collection_name <- gsub("\"", "", as.character(motif.annotation$collection_name))
+  motif.annotation$matrix_name     <- gsub("\"", "", as.character(motif.annotation$matrix_name))
+
+
+  # matrix_element <- annotation.df[1,]
+  # rm(matrix_element)
+  annotation.merge.df <- apply(motif.annotation, 1 ,function(matrix_element){
+
+    # Create regex
+    #regex_string    <- paste0("^", matrix_element["collection_name"], "_m\\d+_", matrix_element["matrix_name"],"_n+\\d+$")
+    regex_string <- matrix_element["matrix_name"]
+    # message(regex_string)
+
+    # NOTE WSG: spcial character from regex must be forbidden in
+    # the file names. Need to add a sanity check
+    # Safe check for special characters in regex
+    #regex_string <- sub("\\+", "\\\\+", regex_string)
+
+    # Find complete motif name
+    match_matrix.df <- matrix_order.df[grepl(regex_string, as.character(matrix_order.df$matrix_name)), ]
+    # print(match_matrix.df)
+
+    # Transpose match
+    matrix_element <- as.data.frame(t(as.data.frame(matrix_element)))
+
+    # Add annotation columns to matched matrix
+    match_matrix.df <- cbind(match_matrix.df, matrix_element)
+
+    return(match_matrix.df)
+  }) %>% (plyr::rbind.fill)
+
+
+  print("; INFO Calculating degrees intervals for each annotation layer.")
+
+  # Sort the data frame by id_motif
+  annotation.merge.df       <- annotation.merge.df[order(annotation.merge.df$id_motif),]
+  annotation.merge.df$start <- (0:(dim(annotation.merge.df)[1] - 1)) * (360/dim(annotation.merge.df)[1])
+  annotation.merge.df$end   <- (1:(dim(annotation.merge.df)[1])) * (360/dim(annotation.merge.df)[1])
+
+  # Convert annotation DF to JSON format
+  annotation.json <- toJSON(annotation.merge.df)
+
+  message("; Annotating JSON file")
+  output.files.list$annotation_json_file  <- file.path(out.folder.list$trees, "annotation_matrix.json")
+  write_json(annotation.json, output.files.list$annotation_json_file)
+
+  prefix <- gsub(output.files.list$D3_radial_tree, pattern = "_D3_radial_tree.html", replacement = "")
+  cmd_annotate_htmltree <- paste0("python3 annotate-html-radialtree.py ",
+                                  "-i ", prefix)
+
+  # Launch annotation script
+  # Walter Santana wrote this in python
+  # It works for the moment but ideally we should convert the script to R code 
+  #print(cmd_annotate_htmltree)
+  system(cmd_annotate_htmltree)
+}
