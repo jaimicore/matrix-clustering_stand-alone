@@ -232,7 +232,7 @@ Users can provide a reference table that will be used to compare it against the 
 
 The reference table (`-r`) must be a tab-delimited file providing the following information (in the following order; no header):
 
-1. Motif ID:
+1. Motif ID
 2. Group
 3. Collection
 
@@ -251,6 +251,39 @@ MA0970.1	CAMTA       JASPAR_plants
 MA0975.1	AP2/EREBP   JASPAR_plants
 MA0976.2	AP2/EREBP   JASPAR_plants
 MA1376.1	AP2/EREBP   JASPAR_plants
+```
+
+&nbsp;
+&nbsp;
+
+
+### Motif annotation table (Optional)
+
+Users can provide a motif metadata table that will be used to add some color features in a radial tree.
+
+Note that this table is only used with the parameter `--radial_tree = TRUE`.
+
+The metadata/annotation table (`-a`) must be a tab-delimited file providing the following information (in the following order; no header):
+
+1. Collection 
+2. Motif ID 
+3. Class color : A Hex color code for each class
+4. Class name : Any string
+
+The Motif IDs in this annotation table must be the same IDs as in the motif files, if this is not the case the program will stop.
+
+The collection names in the reference table must be the same as those in the matrix file table, if this is not the case the program will stop.
+
+For visualization purposes we recommend to use numbers in the 'Class name' column
+
+Example: 
+```bash
+JASPAR_nematodes  MA0542.1	#3D4768	1
+JASPAR_nematodes	MA1439.1	#3D4768	1
+JASPAR_nematodes	MA0925.1	#85204C	2
+JASPAR_nematodes	MA0544.1	#661100	3
+JASPAR_nematodes	MA0540.1	#888888	4
+JASPAR_nematodes	MA0261.1	#888888	5
 ```
 
 &nbsp;
