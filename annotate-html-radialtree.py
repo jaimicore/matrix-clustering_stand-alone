@@ -132,7 +132,7 @@ d3_code = ("\n\n// Add background elements for selection\n"
 "          .innerRadius(innerRad_start)         // This is the size of the donut hole\n"
 "          .outerRadius(innerRad_end)\n"
 "        )\n"
-"        .style('fill',function(d){return(d.class)})\n"
+"        .style('fill',function(d){return(d.colour)})\n"
 "        .attr('transform', 'translate(0,0)')\n"
 "        .style('stroke-width', '1px')\n"
 "        .style('opacity', 0.15);\n"
@@ -151,7 +151,7 @@ d3_code = ("\n\n// Add background elements for selection\n"
 "                  .innerRadius(innerRad_end)         // This is the size of the donut hole\n"
 "                  .outerRadius(innerRad_end + (30*1))\n"
 "                )\n"
-"                .attr('fill', function(d){return(d.class)})\n"
+"                .attr('fill', function(d){return(d.colour)})\n"
 "                .attr('stroke', 'white')\n"
 "                .attr('transform', 'translate(0,0)')\n"
 "                .style('stroke-width', '2px')\n"
@@ -173,7 +173,7 @@ d3_code = ("\n\n// Add background elements for selection\n"
 "            //.attr('fill','black')\n"
 "            .attr('xlink:href', function(d,i){return('#path' + i) })\n"
 "            .text(function(d){\n"
-"              var token = d.matrix_name.split('_').slice(-2).slice(0);\n"
+"              var token = d.motif_id.split('_').slice(-2).slice(0);\n"
 "              token = token[0];\n"
 "              if(/^UN/.test(token)){\n"
 "                var text_content = d.class_nb + '*';\n"
@@ -182,6 +182,7 @@ d3_code = ("\n\n// Add background elements for selection\n"
 "              }\n"
 "              return(text_content);\n"
 "            })\n"
+"            .attr('font-family', 'Ubuntu Mono')\n"
 "            ;\n"
 "\n"
 "\n"
@@ -192,11 +193,12 @@ d3_code = ("\n\n// Add background elements for selection\n"
 "                .attr('class', 'node_text')\n"
 "                .attr('transform', function(d) { return 'rotate(' + (d.x - 90) + ')translate(' + d.y + ')'; })\n"
 "                .append('svg:a')\n"
-"                .attr('xlink:href', function(d) { return d.link_ext; })\n"
+"//                .attr('xlink:href', function(d) { return d.link_ext; })\n"
+"                .attr('xlink:href', 'https://jaspar.uio.no/matrix/MA0261.1/')\n"
 "                .attr('target', '_blank')\n"
 "                .append('text')\n"
 "                .text(function(d) { return d.children ? '' :  d.name; })\n"
-"                .attr('fill', function(d) { return d.class; })\n"
+"                .attr('fill', function(d) { return d.color; })\n"
 "                .style('font-size', '12px')\n"
 "                .attr('font-family', 'Ubuntu Mono')\n"
 "                .attr('dx', function(d) { return d.x < 180 ? 10 : -10; })\n"
@@ -204,6 +206,8 @@ d3_code = ("\n\n// Add background elements for selection\n"
 "                .attr('text-anchor', function(d) { return d.x < 180 ? 'start' : 'end'; })\n"
 "                .attr('transform', function(d) { return d.x < 180 ? null : 'rotate(180)'; });\n")
 
+
+#  return d.color;  This color must be the class color
 
 # Create flag
 save = 0
@@ -245,4 +249,4 @@ for line in fh_html:
 fh_html.close()
 fh_output.close()
 # Verbose end
-print("; Radial tree html annoatetd succesfully")
+print("; Radial tree html annotated succesfully")
