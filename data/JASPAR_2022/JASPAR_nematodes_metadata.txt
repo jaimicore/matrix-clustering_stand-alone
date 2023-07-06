@@ -1,0 +1,44 @@
+motif_id	class	collection	motif_name
+MA1438.1	Basic leucine zipper factors (bZIP)	JASPAR_nematodes	atf-7
+MA0537.1	C2H2 zinc finger factors	JASPAR_nematodes	blmp-1
+MA1444.1	Basic leucine zipper factors (bZIP)	JASPAR_nematodes	cebp-1
+MA0263.1	Homeo domain factors,Homeo domain factors	JASPAR_nematodes	ceh-10::ttx-3
+MA0264.1	Homeo domain factors	JASPAR_nematodes	ceh-22
+MA1445.1	Homeo domain factors	JASPAR_nematodes	ceh-28
+MA1699.1	Homeo domain factors	JASPAR_nematodes	ceh-38
+MA0921.1	Homeo domain factors	JASPAR_nematodes	ceh-48
+MA0922.1	Basic leucine zipper factors (bZIP)	JASPAR_nematodes	ces-2
+MA0260.1	C2H2 zinc finger factors	JASPAR_nematodes	che-1
+MA0538.1	Other C4 zinc finger-type factors	JASPAR_nematodes	daf-12
+MA1446.1	Fork head / winged helix factors	JASPAR_nematodes	daf-16
+MA0540.1		JASPAR_nematodes	dpy-27
+MA0919.1	Homeo domain factors	JASPAR_nematodes	dsc-1
+MA0541.1	Fork head / winged helix factors	JASPAR_nematodes	efl-1
+MA1701.1	Other C4 zinc finger-type factors	JASPAR_nematodes	elt-2
+MA0542.1	Other C4 zinc finger-type factors	JASPAR_nematodes	elt-3
+MA1439.1	Other C4 zinc finger-type factors	JASPAR_nematodes	elt-6
+MA0543.1	C2H2 zinc finger factors	JASPAR_nematodes	eor-1
+MA0920.1	Fork head / winged helix factors	JASPAR_nematodes	fkh-2
+MA1440.1	Fork head / winged helix factors	JASPAR_nematodes	fkh-9
+MA1448.1	Basic leucine zipper factors (bZIP)	JASPAR_nematodes	fos-1
+MA0545.1	Basic helix-loop-helix factors (bHLH)	JASPAR_nematodes	hlh-1
+MA1449.1	Basic helix-loop-helix factors (bHLH)	JASPAR_nematodes	hlh-30
+MA0923.1	C2H2 zinc finger factors	JASPAR_nematodes	lim-4
+MA1441.1	Homeo domain factors	JASPAR_nematodes	lim-7
+MA0261.1		JASPAR_nematodes	lin-14
+MA1450.1	CRC domain	JASPAR_nematodes	lin-54
+MA0262.1	DM-type intertwined zinc finger factors	JASPAR_nematodes	mab-3
+MA1442.1	Homeo domain factors	JASPAR_nematodes	mab-5
+MA1451.1	Nuclear receptors with C4 zinc fingers	JASPAR_nematodes	nhr-6
+MA0924.1	Homeo domain factors	JASPAR_nematodes	pal-1
+MA0546.1	Fork head / winged helix factors	JASPAR_nematodes	pha-4
+MA1703.1	C2H2 zinc finger factors	JASPAR_nematodes	pqm-1
+MA0547.1	Basic leucine zipper factors (bZIP)	JASPAR_nematodes	skn-1
+MA0925.1	SMAD/NF-1 DNA-binding domain factors	JASPAR_nematodes	sma-4
+MA0544.1	Tryptophan cluster factors	JASPAR_nematodes	snpc-4
+MA1443.1	Homeo domain factors	JASPAR_nematodes	unc-30
+MA0918.1	Homeo domain factors	JASPAR_nematodes	unc-62
+MA0926.1	Homeo domain factors	JASPAR_nematodes	unc-86
+MA0927.1	Homeo domain factors	JASPAR_nematodes	vab-7
+MA0928.1	Homeo domain factors	JASPAR_nematodes	zfh-2
+MA1704.1	Basic leucine zipper factors (bZIP)	JASPAR_nematodes	zip-8
