@@ -389,7 +389,8 @@ create.html.radial.tree <- function(json.file        = NULL,
                                     motif.info       = NULL,
                                     d3.lib           = NULL,
                                     outdir           = NULL,
-                                    alignment.length = 20) {
+                                    alignment.length = 20,
+                                    html.legend      = NULL) {
   
   # Read D3 template as an array an iterate over it
   d3.lines <- readLines(d3.template)
@@ -409,6 +410,12 @@ create.html.radial.tree <- function(json.file        = NULL,
       d3.lines.updated[d3.line.counter] <- gsub(pattern = "--radial_w--", x = d3l, replacement = radial.w)
     }
     
+    if (!is.null(html.legend)) {
+      if (grepl(pattern = '<!-- legend -->', x = d3l)) {
+        d3.lines.updated[d3.line.counter] <- gsub(pattern = '<!-- legend -->', x = d3l, replacement = html.legend)
+      }
+    }
+
     
     # Update tree height
     if (grepl(pattern = "--radial_h--", x = d3l)) {
@@ -703,12 +710,10 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
 
 
 
-annotate.radial.tree <- function(clusters              = NULL,
-                                 cluster2color         = NULL,
-                                 tree                  = NULL,
-                                 motif.annotation.file = NULL,
-                                 motif.info            = NULL,
-                                 alignment.length      = 20) {
+annotate.radial.tree <- function(clusters         = NULL,
+                                 cluster2color    = NULL,
+                                 tree             = NULL,
+                                 motif.annotation = NULL) {
 
   suppressMessages(library(jsonlite))
 
@@ -725,16 +730,14 @@ annotate.radial.tree <- function(clusters              = NULL,
   matrix_order.df <- tree$labels[tree$order]
   matrix_order.df <- treeleaf2cluster[match(matrix_order.df, treeleaf2cluster$Motif), ] |>
     select(Motif, color) |>
-    rename(matrix_name = Motif,
+    rename(motif_id    = Motif,
            cluster_nb  = color) |>
     mutate(id_motif = 1:nrow(treeleaf2cluster))
 
   # Read and parse annotation file
-  motif.annotation <- fread(motif.annotation.file)
-  colnames(motif.annotation) <- c("collection_name", "matrix_name", "class", "class_nb")
-  motif.annotation$class           <- gsub("'", "", as.character(motif.annotation$class))
-  motif.annotation$collection_name <- gsub("\"", "", as.character(motif.annotation$collection_name))
-  motif.annotation$matrix_name     <- gsub("\"", "", as.character(motif.annotation$matrix_name))
+  motif.annotation$class      <- gsub("'", "", as.character(motif.annotation$class))
+  motif.annotation$collection <- gsub("\"", "", as.character(motif.annotation$collection))
+  motif.annotation$motif_id   <- gsub("\"", "", as.character(motif.annotation$motif_id))
 
 
   # matrix_element <- annotation.df[1,]
@@ -743,7 +746,7 @@ annotate.radial.tree <- function(clusters              = NULL,
 
     # Create regex
     #regex_string    <- paste0("^", matrix_element["collection_name"], "_m\\d+_", matrix_element["matrix_name"],"_n+\\d+$")
-    regex_string <- matrix_element["matrix_name"]
+    regex_string <- matrix_element["motif_id"]
     # message(regex_string)
 
     # NOTE WSG: spcial character from regex must be forbidden in
@@ -752,7 +755,7 @@ annotate.radial.tree <- function(clusters              = NULL,
     #regex_string <- sub("\\+", "\\\\+", regex_string)
 
     # Find complete motif name
-    match_matrix.df <- matrix_order.df[grepl(regex_string, as.character(matrix_order.df$matrix_name)), ]
+    match_matrix.df <- matrix_order.df[grepl(regex_string, as.character(matrix_order.df$motif_id)), ]
     # print(match_matrix.df)
 
     # Transpose match
@@ -787,4 +790,116 @@ annotate.radial.tree <- function(clusters              = NULL,
   # It works for the moment but ideally we should convert the script to R code 
   #print(cmd_annotate_htmltree)
   system(cmd_annotate_htmltree)
+}
+
+
+
+create.color.annotation <- function(motif.meta.file = NULL,
+                                    ann.outdir      = NULL) {
+  
+  
+  # ---------------------------- #
+  # Read and parse metadata file #
+  # ---------------------------- #
+  message("; Reading motif metadata table")
+  motif.meta <- fread(motif.meta.file)
+  
+  ## For the dimers considers only the first TF class
+  motif.meta$class <- gsub(motif.meta$class, pattern = ",.+$", replacement = "", perl = T)
+  motif.meta$class <- gsub(motif.meta$class, pattern = "::.+$", replacement = "", perl = T)
+  
+  ## Add the 'Unknown' TF class to entries without a class
+  motif.meta$class <- ifelse(motif.meta$class == "", yes = "Unknown", no = motif.meta$class)
+  
+  
+  # --------------------- #
+  # Create TF-class table #
+  # --------------------- #
+  
+  
+  ## Get the TF class names ordered by number of motifs
+  TF.class.order <- motif.meta %>% 
+    group_by(class) %>% 
+    tally() %>% 
+    arrange(desc(n)) %>% 
+    dplyr::filter(class != "Unknown")
+  TF.class.order <- TF.class.order$class  
+  
+  
+  # ---------------------------- #
+  # TF class - Color assignation #
+  # ---------------------------- #
+  message("; Assigning colours to TF classes")
+  
+  TF.known.classes    <- TF.class.order
+  TF.known.classes.nb <- length(TF.known.classes)
+  
+  ## Grey color for Unknown class
+  unknown.class.color <- "#888888"
+  
+  nb.classes.palette <- 12  ## We want to use the first 12 colors of the Safe palette
+  nb.seed.colors     <- ifelse(TF.known.classes.nb < nb.classes.palette,
+                               yes = TF.known.classes.nb,
+                               no = nb.classes.palette)
+  
+  ## Generate a carto palette (remove gray value)
+  carto.pal.classes  <- carto_pal(nb.seed.colors, "Safe")
+  carto.pal.classes  <- carto.pal.classes[which(carto.pal.classes != "#888888")]
+  
+  ## Expand the color palette and add the gray color at the end
+  class.colors        <- c(colorRampPalette(carto.pal.classes, space = "Lab")(TF.known.classes.nb),
+                           unknown.class.color)
+  names(class.colors) <- c(TF.known.classes, "Unknown")
+  df.class.colour     <- data.frame(colour   = class.colors,
+                                    class    = names(class.colors),
+                                    class_nb = seq_len(TF.known.classes.nb + 1)) 
+  
+  
+  
+  # --------------------------- #
+  # TF_class::Colour HTML table #
+  # --------------------------- #
+  
+  ## Table header + tail
+  head.tab <- "<div id='Color_class_tab' style='display: inline-block;float:left;position:relative;' class='color-legend' width='450px'><p style='font-size:12px;padding:0px;border:0px'><b></b></p><table id='Color_class_table' class='hover compact stripe' cellspacing='0' width='450px' style='padding:15px;align:center;'><thead><tr><th > Color </th> <th> TF Class </th> <th> Number</th> </tr></thead><tbody>"
+  tab.lines <- paste("\n<tr><td class='color-box' style='background-color: --color--';></td> <td>--TFClass--</td> <td>--TFClass_ID--</td> </tr>", collapse = "")
+  tail.tab <- "<tr><td class='non_validated'>*</td><td>Unvalidated</td></tr></tbody></table></div>"
+  
+  
+  ## Table body
+  table.body <- sapply(1:nrow(df.class.colour), function(r.nb){
+    
+    ## Set variables
+    tab.lines.current.line <- tab.lines
+    TF.class.Color <- df.class.colour[r.nb,1]
+    TF.class.Name  <- df.class.colour[r.nb,2]
+    TF.class.ID    <- df.class.colour[r.nb,3]
+    
+    tab.lines.current.line <- gsub("--TFClass--", TF.class.Name, tab.lines.current.line)
+    tab.lines.current.line <- gsub("--color--", TF.class.Color, tab.lines.current.line)
+    tab.lines.current.line <- gsub("--TFClass_ID--", TF.class.ID, tab.lines.current.line)
+    
+  })
+  table.body <- paste(table.body, collapse = "")
+  
+  html.table <- paste(head.tab, table.body, tail.tab, collapse = "")
+  html.annotation.table <- file.path(ann.outdir, "Radial_tree_legend.html")
+  message("; Radial tree HTML legend : ", html.annotation.table)
+  writeLines(html.table, html.annotation.table)
+  
+  
+  # --------------------- #
+  # Export metadata table #
+  # --------------------- #
+  
+  ## Combine tables
+  motif.meta.colour <- merge(motif.meta, df.class.colour, by = "class") |> 
+    select(collection, motif_id, colour, class, class_nb, motif_name)
+  
+  annotation.table.file <- file.path(ann.outdir, "annotation_table.txt")
+  message("; Motif annotation table : ", annotation.table.file)
+  fwrite(motif.meta.colour, file = annotation.table.file, sep = "\t")
+  
+  return(list(df   = motif.meta.colour,
+              html = html.table))
 }
