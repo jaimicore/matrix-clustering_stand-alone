@@ -13,6 +13,7 @@ required.packages = c("dplyr",          ## Data manipulation
                       "optparse",       ## Read command-line arguments
                       "purrr",          ## Iterations,
                       "reshape2",       ## Dataframe operations
+                      "rcartocolor",    ## Nice color palettes
                       "this.path",      ## Create relative paths
                       "tidyr",          ## Data manipulation
                       "universalmotif") ## Motif manipulation (Bioconductor)
@@ -69,11 +70,11 @@ option_list = list(
   make_option(c("-M", "--minimal_output"), type = "logical", default = FALSE, 
               help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical"),
 
-  make_option(c("-a", "--annotation_table"), type = "character", default = NULL, 
-              help = "Motif annotation table, when this file is provided with the '--radial_tree = TRUE' option add annotations to the radial tree. A tab-delimited file with 4 columns : 1) Collection name, 2) Motif ID, 3) Category color code, 4) Category number. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "character"),
+  make_option(c("-a", "--annotation_table"), type = "character", default = NULL,
+              help = "Motif annotation table, when this file is provided with the '--radial_tree = TRUE' option add annotations to the radial tree. A tab-delimited file with at least the following columns : 1) motif_id, 2) class ID, 3) collection. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "character"),
   
-  make_option(c("-r", "--reference_cluster_annotation"), type = "character", default = NULL, 
-              help = "User defined cluster annotation tab, when this file is provided this script will calculate the Adjusted Rand Index (ARI) of the resulting clusters. A tab-delimited file with two columns: 1) Motif ID and 2) Reference group. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "character")
+  make_option(c("--ARI"), type = "logical", default = FALSE, 
+              help = "Calculate the Adjusted Rand Index (ARI) of the resulting clusters based in the provided annotation table (--annotation_table). [Default \"%default\"].", metavar = "logical")
   
 );
 message("; Reading arguments from command-line")
@@ -91,16 +92,8 @@ if (!file.exists(matrix.file.table)) {
 }
 
 
-# In case of a reference clustering file is provided
-reference.clusters.flag     <- FALSE
-reference.clusters.tab.file <- opt$reference_cluster_annotation
-if (!is.null(reference.clusters.tab.file)) {
-  if (!file.exists(reference.clusters.tab.file)) {
-    stop("Reference clustering annotation file not found: ", reference.clusters.tab.file)
-  }
-  reference.clusters.flag <- TRUE
-}
-
+# ARI flag
+reference.clusters.flag <- opt$ARI
 
 # In case of an annotation file is provided
 motif.annotation.flag  <- FALSE
@@ -109,7 +102,7 @@ if (!is.null(motif.annotation.file)) {
   if (!file.exists(motif.annotation.file)) {
     stop("Motif annotation file not found: ", motif.annotation.file)
   }
-  motif.annotation.flag <- TRUE
+  motif.annotation.flag   <- TRUE
 }
 
 
@@ -124,7 +117,7 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "Ncor"                  = as.numeric(opt$Ncor_th),
                     "nb_workers"            = as.numeric(opt$number_of_workers),
                     "min_output"            = opt$minimal_output,
-                    "ref_clusters"          = reference.clusters.flag,
+                    "ARI"                   = reference.clusters.flag,
                     "annotation"            = motif.annotation.flag,
                     "radial_tree"           = opt$radial_tree)
 
@@ -176,7 +169,7 @@ d3.min.lib              <- this.path::here(.. = 0, "html", "js", "d3.v3.min.js")
 #                     "Ncor"                  = 0.55,
 #                     "nb_workers"            = 8,
 #                     "min_output"            = FALSE,
-#                     "ref_clusters"          = FALSE,
+#                     "ARI"                   = FALSE,
 #                     "radial_tree"           = TRUE) #
 
 
@@ -285,13 +278,13 @@ results.list[["Original_matrix"]] <- data.table(as.data.frame.matrix(distances.o
 # -------------------------------------- #
 # Optional: read reference cluster table #
 # -------------------------------------- #
-if (params.list$ref_clusters) {
+if (params.list$ARI) {
   
   message('; Reading user-provided reference clusters table')
   reference.clusters.tab <- fread(reference.clusters.tab.file, header = FALSE) %>% 
-                              dplyr::rename(ID         = V1,
-                                            cluster    = V2,
-                                            Collection = V3)
+                              dplyr::rename(ID         = motif_id,
+                                            cluster    = class,
+                                            Collection = collection)
   
   ## Parse the motif ID in the 'Motif Information Table' (remove the numeric suffix) to create Ids with simlar format
   motif.id.parsed <- gsub(x = results.list$Motif_info_tab$id, pattern = "_n\\d+$", replacement = "")
@@ -351,7 +344,7 @@ if (params.list[["Nb_motifs"]] > 1) {
   # ----------------------------- #
   # Calculate Adjusted Rand Index #
   # ----------------------------- #
-  if (params.list$ref_clusters) {
+  if (params.list$ARI) {
     
     message("; Calculating Adjusted Rand Index (ARI) based on the user-provided reference clusters")
     clustering.ari <- calculate.ARI(matrix.clustering.clusters = clusters.list.to.df(find.clusters.list$clusters, id.pttrn.rm = "_n\\d+$"),
@@ -542,7 +535,7 @@ summary.clustering.tab <- data.table(Nb_motifs         = params.list$Nb_motifs,
                                      Similarity_metric = params.list$comparison_metric)
 
 ## Add columns when the Rand index is calculated
-if (params.list$ref_clusters) {
+if (params.list$ARI) {
   
   ri.dt <- data.table(Rand_Index          = params.list$RI,
                       Adjusted_Rand_Index = params.list$ARI)
@@ -735,7 +728,7 @@ if (params.list$min_output == FALSE) {
   # ----------------------- #
   # Draw Rand Index heatmap #
   # ----------------------- #
-  if (params.list$ref_clusters) {
+  if (params.list$ARI) {
     
     message("; Drawing Adjusted Rand Index heatmap")
     heatmap.ari <- draw.heatmap.clusters.vs.ref(clusters.tab = clustering.ari$tab,
@@ -770,7 +763,15 @@ if (params.list$min_output == FALSE) {
   # Create radial tree HTML + D3 file #
   # --------------------------------- #
   if (params.list[["radial_tree"]]) {
+    
+    
+    if (params.list[["annotation"]]) {
+      
+      motif.annotation.list <- create.color.annotation(motif.meta.file = "data/JASPAR_2022/JASPAR_nematodes_metadata.txt",
+                                                       ann.outdir      = out.folder.list$tables)
+    }
 
+    
     # Update JSON file with annotations
     message("; Adding attributes to JSON file")
     Add_attributes_to_JSON_radial_tree(motif.description.tab = results.list$Motif_info_tab,
@@ -788,15 +789,19 @@ if (params.list$min_output == FALSE) {
                             motif.info       = results.list$Motif_info_tab,
                             d3.lib           = d3.min.lib,
                             outdir           = dirname(out.folder),
-                            alignment.length = unique(results.list$Alignment_radial_table$width)[1])
+                            alignment.length = unique(results.list$Alignment_radial_table$width)[1],
+                            html.legend      = motif.annotation.list$html)
     
     if (params.list[["annotation"]]) {
-      
+
+      motif.annotation.df <- create.color.annotation(motif.meta.file = "data/JASPAR_2022/JASPAR_nematodes_metadata.txt",
+                                                     ann.outdir      = out.folder.list$tables)
+
       # Add color background to radial tree
-      annotate.radial.tree(clusters              = find.clusters.list$clusters,
-                           cluster2color         = results.list$Cluster_color,
-                           tree                  = results.list$All_motifs_tree,
-                           motif.annotation.file = motif.annotation.file)
+      annotate.radial.tree(clusters         = find.clusters.list$clusters,
+                           cluster2color    = results.list$Cluster_color,
+                           tree             = results.list$All_motifs_tree,
+                           motif.annotation = motif.annotation.list$df)
     }
 
   }
@@ -820,3 +825,8 @@ if (params.list$min_output == FALSE) {
 }
 save.image("Debug_radial.Rdata")
 message("; End of program")
+
+# To do:
+#
+# Links
+# Barplot
