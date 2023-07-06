@@ -278,12 +278,13 @@ For visualization purposes we recommend to use numbers in the 'Class name' colum
 
 Example: 
 ```bash
-JASPAR_nematodes  MA0542.1	#3D4768	1
-JASPAR_nematodes	MA1439.1	#3D4768	1
-JASPAR_nematodes	MA0925.1	#85204C	2
-JASPAR_nematodes	MA0544.1	#661100	3
-JASPAR_nematodes	MA0540.1	#888888	4
-JASPAR_nematodes	MA0261.1	#888888	5
+
+JASPAR_nematodes  MA0542.1  #3D4768  1
+JASPAR_nematodes  MA1439.1	#3D4768  1
+JASPAR_nematodes  MA0925.1	#85204C  2
+JASPAR_nematodes	MA0544.1	#661100  3
+JASPAR_nematodes	MA0540.1	#888888  4
+JASPAR_nematodes	MA0261.1  #888888  5
 ```
 
 &nbsp;
