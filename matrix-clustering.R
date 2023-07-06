@@ -782,12 +782,13 @@ if (params.list$min_output == FALSE) {
                                        alignent.width        = max(results.list$Alignment_radial_table$width))
     
     # Fill the HTML + D3 template 
-    create.html.radial.tree(json.file   = output.files.list$JSON_radial_annotated,
-                            d3.template = d3.radial.tree.template,
-                            d3.outfile  = output.files.list$D3_radial_tree,
-                            motif.info  = results.list$Motif_info_tab,
-                            d3.lib      = d3.min.lib,
-                            outdir      = dirname(out.folder))
+    create.html.radial.tree(json.file        = output.files.list$JSON_radial_annotated,
+                            d3.template      = d3.radial.tree.template,
+                            d3.outfile       = output.files.list$D3_radial_tree,
+                            motif.info       = results.list$Motif_info_tab,
+                            d3.lib           = d3.min.lib,
+                            outdir           = dirname(out.folder),
+                            alignment.length = unique(results.list$Alignment_radial_table$width)[1])
     
     if (params.list[["annotation"]]) {
       
