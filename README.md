@@ -371,12 +371,12 @@ The output is an `html` document containing the code in [`D3`](https://d3js.org/
 
 You can zoom in/out using the mouse and change the motif orientation by clicking on the red buttons on the page top.
 
-<img src="data/images/Radial_tree_OCT4.png" width="500px" align="center">
+<img src="data/images/Radial_tree_JASPAR_nematodes.png" width="500px" align="center">
 
 &nbsp;
 &nbsp;
 
-<img src="data/images/Radial_tree_OCT4_zoom.png" width="500px" align="center">
+<img src="data/images/Radial_tree_JASPAR_nematodes_zoom.png" width="500px" align="center">
 
 Sorry for the low-resolution logos, we will fix it as soon as possible.
 
