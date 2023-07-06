@@ -149,11 +149,11 @@ Users can provide motif metadata with the option `-a`.
 :hourglass_flowing_sand: Running time: ~2 minutes
 
 ```bash
-Rscript matrix-clustering.R                            \
-  -i data/JASPAR_2022/Jaspar_nematodes_motifs_tab.txt  \
-  -o results/JASPAR_nematodes_radial/JASPAR_nematodes  \
-  -a data/JASPAR_2022/JASPAR_nematodes_annotations.tsv \
-  --radial_tree TRUE                                   \
+Rscript matrix-clustering.R                           \
+  -i data/JASPAR_2022/Jaspar_nematodes_motifs_tab.txt \
+  -o results/JASPAR_nematodes_radial/JASPAR_nematodes \
+  -a data/JASPAR_2022/JASPAR_nematodes_metadata.txt   \
+  --radial_tree TRUE                                  \
   -w 8
 
 ```
@@ -175,7 +175,8 @@ Rscript matrix-clustering.R                         \
   -i data/JASPAR_2022/Jaspar_plants_motifs_tab.txt  \
   -o results/Jaspar_plants/Jaspar_plants            \
   -w 8                                              \
-  -r data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab 
+  --ARI TRUE                                        \
+  -a data/JASPAR_2022/Jaspar_2022_plants_TF_fam.tab 
 ```
 
 &nbsp;
@@ -226,15 +227,18 @@ data/OCT4_datasets/RSAT_OCT4_motifs.tf        RSAT_motifs	  tf
 
 &nbsp;
 
-### Reference groups table (Optional)
+### Motif annotation table (Optional)
 
-Users can provide a reference table that will be used to compare it against the resulting clusters (i.e., how good the resulting clusters resemble the reference groupes). When this file is provided the ARI will be calculated.
+Users can provide a reference table that may be used for to purposes:
 
-The reference table (`-r`) must be a tab-delimited file providing the following information (in the following order; no header):
+1. Compare the resulting clusters against a user-defined annotation (i.e., how good the resulting clusters resemble the reference classes in the annotation file). When this file is provided the adjusted rand index (ARI) will be calculated.
+2. Add some color features (class numbers and background) in a radial tree. Note that this table is only used with the parameter `--radial_tree = TRUE`.
 
-1. Motif ID
-2. Group
-3. Collection
+The reference table (`-a`) must be a tab-delimited file providing at least the following columns (extra columns are ignored):
+
+1. motif_id	
+2. class
+3. collection
 
 The motif IDs in this reference table must be the same IDs as in the motif files, if this is not the case the program will stop.
 
@@ -242,6 +246,7 @@ The collection names in the reference table must be the same as those in the mat
 
 Example: 
 ```bash
+motif_id  class       collection
 MA1404.1	BBR/BPC     JASPAR_plants
 MA1403.1	BBR/BPC     JASPAR_plants
 MA1402.1	BBR/BPC     JASPAR_plants
@@ -256,38 +261,6 @@ MA1376.1	AP2/EREBP   JASPAR_plants
 &nbsp;
 &nbsp;
 
-
-### Motif annotation table (Optional)
-
-Users can provide a motif metadata table that will be used to add some color features in a radial tree.
-
-Note that this table is only used with the parameter `--radial_tree = TRUE`.
-
-The metadata/annotation table (`-a`) must be a tab-delimited file providing the following information (in the following order; no header):
-
-1. Collection 
-2. Motif ID 
-3. Class color : A Hex color code for each class
-4. Class name : Any string
-
-The Motif IDs in this annotation table must be the same IDs as in the motif files, if this is not the case the program will stop.
-
-The collection names in the reference table must be the same as those in the matrix file table, if this is not the case the program will stop.
-
-For visualization purposes we recommend to use numbers in the 'Class name' column
-
-Example: 
-```bash
-JASPAR_nematodes	MA0542.1	#3D4768	5
-JASPAR_nematodes	MA1439.1	#3D4768	5
-JASPAR_nematodes	MA0925.1	#85204C	10
-JASPAR_nematodes	MA0544.1	#661100	11
-JASPAR_nematodes	MA0540.1	#888888	12
-JASPAR_nematodes	MA0261.1	#888888	12
-```
-
-&nbsp;
-&nbsp;
 
 ## :crystal_ball: Example output:
 
