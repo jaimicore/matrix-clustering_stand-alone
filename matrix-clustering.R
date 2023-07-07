@@ -767,7 +767,7 @@ if (params.list$min_output == FALSE) {
     
     if (params.list[["annotation"]]) {
       
-      motif.annotation.list <- create.color.annotation(motif.meta.file = "data/JASPAR_2022/JASPAR_nematodes_metadata.txt",
+      motif.annotation.list <- create.color.annotation(motif.meta.file = motif.annotation.file,
                                                        ann.outdir      = out.folder.list$tables)
     }
 
@@ -793,9 +793,6 @@ if (params.list$min_output == FALSE) {
                             html.legend      = motif.annotation.list$html)
     
     if (params.list[["annotation"]]) {
-
-      motif.annotation.df <- create.color.annotation(motif.meta.file = "data/JASPAR_2022/JASPAR_nematodes_metadata.txt",
-                                                     ann.outdir      = out.folder.list$tables)
 
       # Add color background to radial tree
       annotate.radial.tree(clusters         = find.clusters.list$clusters,
