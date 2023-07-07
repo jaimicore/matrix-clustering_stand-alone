@@ -399,30 +399,25 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 - `--export_heatmap` : Export heatmap with clusters in PDF. Default : `FALSE`. [Options: `TRUE`, `FALSE`].
 
 
-### Clusters vs Reference annotation
+### Annotation table
 
-- `-r` or `--reference_cluster_annotation`: User defined cluster annotation tab. Calculates the Adjusted Rand Index (ARI) of the resulting clusters against the reference groups. If the input motifs are separated in many collections, concatenate all the annotations in a single file. A tab-delimited file with two columns, it does not expect a header, but it expects these columns in the indicated order:
+- `-a` or `--annotation_table`: motif annotation tab. One line per motif, the proved color will be used as background in the radial tree, the class name text will be shown as an annotation layer (ring) in the radial tree. A tab-delimited file with the following columns (additional columns are ignored):
 
-    1. Motif ID
-    2. Reference group
+  1. motif_id	
+  2. class
+  3. collection
 
 
 ### Radial trees
 
 - `--radial_tree`: When this option is activated all the motifs are forced to be aligned in a single cluster. **Note** : this option was recently released and it is under active development.
 
-- `-a` or `--annotation_table`: motif annotation tab. One line per motif, the class color will be used as background in the radial tree, the class name text will be shown as an annotation layer (ring) in the radial tree. A tab-delimited file with four columns, it does not expect a header, but it expects these columns in the indicated order:
-
-    1. Collection 
-    2. Motif ID 
-    3. Class color : hexa color code
-    4. Class name : any string
-
 ### Others
 
 - `-w` or `--number_of_workers` : Number of cores to run in parallel. Default: `2`. [Options: depends in your machine].
 - `--heatmap_color_palette` : Cell colors in clusters heatmap. Default: `RdGy`. [Options: any colorBrewer palette, see colorbrewer2.org for details ].
 - `--color_palette_classes` : Number of classes to create color palette in clusters heatmap. Default: `11`. [Options: depends on the selected colorBrewer palette, see colorbrewer2.org for details ].
+- `--ARI` : when this option is `TRUE` and an annotation table is provided `--annotation_table` the program will calculate the ARI (partition similarity) among the resulting clusters and the provided annotation classes.
   
  
  &nbsp;
