@@ -797,7 +797,6 @@ annotate.radial.tree <- function(clusters         = NULL,
 create.color.annotation <- function(motif.meta.file = NULL,
                                     ann.outdir      = NULL) {
   
-  
   # ---------------------------- #
   # Read and parse metadata file #
   # ---------------------------- #
@@ -894,7 +893,7 @@ create.color.annotation <- function(motif.meta.file = NULL,
   
   ## Combine tables
   motif.meta.colour <- merge(motif.meta, df.class.colour, by = "class") |> 
-    select(collection, motif_id, colour, class, class_nb, motif_name)
+    select(collection, motif_id, colour, class, class_nb)
   
   annotation.table.file <- file.path(ann.outdir, "annotation_table.txt")
   message("; Motif annotation table : ", annotation.table.file)
