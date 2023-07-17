@@ -181,7 +181,7 @@ d3.min.lib              <- this.path::here(.. = 0, "html", "js", "d3.v3.min.js")
 # This path will be used to compute relative path required in the output html files
 # 
 # Example: this.path::as.rel.path(relative.to = results.main.dir, path = new.d3)
-results.main.dir <- out.folder
+results.main.dir <- dirname(out.folder)
 
 
 out.folder.list <- list(tables         = file.path(paste0(out.folder, "_tables")),
