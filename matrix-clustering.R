@@ -281,7 +281,7 @@ results.list[["Original_matrix"]] <- data.table(as.data.frame.matrix(distances.o
 if (params.list$ARI) {
   
   message('; Reading user-provided reference clusters table')
-  reference.clusters.tab <- fread(reference.clusters.tab.file, header = FALSE) %>% 
+  reference.clusters.tab <- fread(motif.annotation.file, header = T) %>% 
                               dplyr::rename(ID         = motif_id,
                                             cluster    = class,
                                             Collection = collection)
