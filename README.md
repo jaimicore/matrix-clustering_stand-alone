@@ -73,7 +73,8 @@ required.packages = c("dplyr",          # Data manipulation
                       "ape",            # Export hclust tree in newick format
                       "RJSONIO",        # Export hclust tree in JSON format
                       "circlize",       # Required to draw heatmaps
-                      "flexclust")      # Calculate adjusted rand index
+                      "flexclust",      # Calculate adjusted rand index
+                      "jsonlite")       # To create the JSON file from the hclust outputs
 
 
 for (lib in required.packages) {

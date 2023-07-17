@@ -621,9 +621,9 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
       
       ## Define the URL of the logo files, relative to the location of the json file
       align.logo.link.relpath.F <- this.path::relpath(relative.to = results.main.dir,
-                                                      path        = this.path::here(motif.info.list[[tree.label]]$Logo))
+                                                      path        = motif.info.list[[tree.label]]$Logo)
       align.logo.link.relpath.R <- this.path::relpath(relative.to = results.main.dir,
-                                                      path        = this.path::here(motif.info.list[[tree.label]]$Logo_RC))
+                                                      path        = motif.info.list[[tree.label]]$Logo_RC)
       
       ### Create the line that will be added to JSON file
       image.F.line      <- paste0(',\n "image" : "', align.logo.link.relpath.F, '"')
@@ -782,8 +782,8 @@ annotate.radial.tree <- function(clusters         = NULL,
   write_json(annotation.json, output.files.list$annotation_json_file)
 
   prefix <- gsub(output.files.list$D3_radial_tree, pattern = "_D3_radial_tree.html", replacement = "")
-  cmd_annotate_htmltree <- paste0("python3 annotate-html-radialtree.py ",
-                                  "-i ", prefix)
+  python_script_path = file.path(this.path::here(.. = 0), "annotate-html-radialtree.py")
+  cmd_annotate_htmltree <- paste0("python3 ", python_script_path, " -i ", prefix)
 
   # Launch annotation script
   # Walter Santana wrote this script in python

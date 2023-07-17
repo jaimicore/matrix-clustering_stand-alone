@@ -181,7 +181,7 @@ d3.min.lib              <- this.path::here(.. = 0, "html", "js", "d3.v3.min.js")
 # This path will be used to compute relative path required in the output html files
 # 
 # Example: this.path::as.rel.path(relative.to = results.main.dir, path = new.d3)
-results.main.dir <- this.path::here(.. = 0, dirname(out.folder))
+results.main.dir <- out.folder
 
 
 out.folder.list <- list(tables         = file.path(paste0(out.folder, "_tables")),
@@ -589,7 +589,7 @@ fwrite(x         = results.list$Clusters_table,
 
 # -------------------------------------------------------------------------
 # 1) Export motifs (without gaps) as transfac files in D and R orientation
-message("; Exporting individual motif files in", out.folder.list$indiv_motifs)
+message("; Exporting individual motif files in ", out.folder.list$indiv_motifs)
 
 export.indiv.motif.files(un.motifs       = all.motifs.um,
                          alignment.table = align.tab,
