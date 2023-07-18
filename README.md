@@ -155,6 +155,7 @@ Rscript matrix-clustering.R                           \
   -o results/JASPAR_nematodes_radial/JASPAR_nematodes \
   -a data/JASPAR_2022/JASPAR_nematodes_metadata.txt   \
   --radial_tree TRUE                                  \
+  --title JASPAR_CORE_nematodes                       \
   -w 8
 
 ```
