@@ -3,6 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <script type="text/javascript" src="--d3--"></script>
+    <script type="text/javascript" src="--jquery--"></script>
     <style type="text/css">
 
 path.arc {
@@ -82,6 +83,7 @@ path.arc {
 
 .color-legend {
   position: relative;
+  clear: both;
 }
 
 
@@ -90,16 +92,52 @@ path.arc {
     	   position:relative;
 }
 
+
+
+.legend_hs_button {
+	border-radius:5px;       
+  text-align: center;
+	margin: 3px 5px 5px 5px;
+	width: 130px;
+	height: 20px;
+	padding: 4px;
+	cursor: pointer;
+	border-radius:5px;
+  background:#0D73A7;
+  color: #ffffff;
+	display: inline-block;
+	position:relative;
+	float:left;
+}
+
+  .selected_header_section {
+    border-radius:5px;       
+  text-align: center;
+	margin: 3px 5px 5px 5px;
+	width: 130px;
+	height: 20px;
+	padding: 4px;
+	cursor: pointer;
+	border-radius:5px;
+	display: inline-block;
+	position:relative;
+	float:left;
+  color : #CC6600;
+  background-color: #F6E6CA !important;
+  border: 1px solid #F6E6CA;
+  }
+
     </style>
   </head>
   <body>
   
   <!-- Insert annotation within these comments : start-->
+  <div id="Legend_button" class="legend_hs_button">Hide Legend</div>
   <!-- legend -->
   <!-- Insert annotation within these comments : end-->
   
-    <div id="cluster_1" style='display: inline-block;float:left;position:absolute;'>
-      <div id="footer" style='display: inline-block;float:left;position:absolute;'>
+    <div id="cluster_1" style='display: inline-block;position:absolute;'>
+      <div id="footer" style='display: inline-block;position:absolute;'>
 
       </div>
     </div>
@@ -273,4 +311,27 @@ function dot(a, b) {
 
     </script>
   </body>
+
+  <script>
+    // Action to Show/Hide the Legend button
+    $(document).ready(function() {
+        $('#Legend_button').click(function() {
+          $('#Color_class_table').slideToggle('fast');
+          $(this).toggleClass('selected_header_section');
+
+        // Get the current text of the button
+        var buttonText = $(this).text();
+
+        // Toggle the text between 'A' and 'B'
+        if (buttonText === 'Hide Legend') {
+            $(this).text('Show Legend');
+        } else {
+            $(this).text('Hide Legend');
+        }
+
+        }); 
+    });
+  
+  </script>
+
 </html>
