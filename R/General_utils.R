@@ -391,7 +391,8 @@ create.html.radial.tree <- function(json.file        = NULL,
                                     jq.lib           = NULL,
                                     outdir           = NULL,
                                     alignment.length = 20,
-                                    html.legend      = NULL) {
+                                    html.legend      = NULL,
+                                    barplot.ann      = NULL) {
   
   # Read D3 template as an array an iterate over it
   d3.lines <- readLines(d3.template)
@@ -414,6 +415,18 @@ create.html.radial.tree <- function(json.file        = NULL,
     if (!is.null(html.legend)) {
       if (grepl(pattern = '<!-- legend -->', x = d3l)) {
         d3.lines.updated[d3.line.counter] <- gsub(pattern = '<!-- legend -->', x = d3l, replacement = html.legend)
+      }
+    }
+    
+    if (!is.null(barplot.ann)) {
+    
+      barplot.ann.path <- relpath(path   = barplot.ann,
+                                  relative.to = results.main.dir)
+      
+      barplot.ann.html <- paste0('<img class="barplot" src="', barplot.ann.path, '" >') 
+    
+      if (grepl(pattern = '<!-- barplot -->', x = d3l)) {
+        d3.lines.updated[d3.line.counter] <- gsub(pattern = '<!-- barplot -->', x = d3l, replacement = barplot.ann.html)
       }
     }
 
@@ -923,5 +936,151 @@ create.color.annotation <- function(motif.meta.file = NULL,
   fwrite(motif.meta.colour, file = annotation.table.file, sep = "\t")
   
   return(list(df   = motif.meta.colour,
-              html = html.table))
+              html = html.table,
+              cpal = class.colors))
+}
+
+
+which.collection <- function(id = NULL) {
+  
+  if (grepl(id, pattern = "MA\\d+\\.\\d+" )) {
+    return("CORE")
+  } else if (grepl(id, pattern = "UN\\d+\\.\\d+")) {
+    return("UNVALIDATED")
+  } else {
+    return("None")
+  }
+}
+wc <- Vectorize(which.collection)
+
+
+
+# This function exports a barplot (jpeg) with the number of motifs in each class
+annotation.barplot <- function(df            = NULL,
+                               class.colors  = NULL,
+                               barplot.title = NULL,
+                               barplot.file  = NULL) {
+  
+  # Init
+  collection.type <- NULL
+  has.MA          <- NULL
+  has.UM          <- NULL
+  alpha.values    <- NULL
+  y.axis.lab      <- NULL
+  
+  # Sort classes by number of TFs
+  # Unkown classes at the end of the vector
+  TF.class.sorted <- names(sort(table(df$class), decreasing = TRUE))
+  TF.class.sorted <- TF.class.sorted[!TF.class.sorted %in% "Unknown"]
+  TF.class.sorted <- c(TF.class.sorted, "Unknown")
+  
+  df$class <- factor(df$class, levels = rev(TF.class.sorted))
+  
+  # Check format of motif IDs (this is specific for JASPAR motifs)
+  has.MA <- sum(as.vector(sapply(motif.annotation.list$df$motif_id, grepl, pattern = "MA\\d+\\.\\d+"))) > 0
+  has.UM <- sum(as.vector(sapply(motif.annotation.list$df$motif_id, grepl, pattern = "UM\\d+\\.\\d+"))) > 0
+  
+  if (has.MA & !has.UM) {
+    collection.type <- "CORE"
+  } else if (has.MA & has.UM) {
+    collection.type <- "UNVALIDATED"
+  } else {
+    collection.type <- "None"
+  }
+  
+  ## This dataframe contains the labels to be displayed on each bar
+  ## Adapt to collection type
+  if (collection.type %in%  c("CORE", "UNVALIDATED")) {
+    label.df <- df |> 
+      mutate(type = wc(motif_id)) |> 
+      group_by(class) %>% 
+      mutate(Total_Class = n()) %>%
+      group_by(class, type) |> 
+      mutate(COREc = sum(type %in% "CORE"),
+             UNVc  = sum(type %in% "UNVALIDATED")) %>% 
+      select(class, COREc, UNVc) %>% 
+      distinct() %>% 
+      ungroup() %>% 
+      group_by(class) %>% 
+      mutate(CORE        = max(COREc),
+             UNVALIDATED = max(UNVc)) %>% 
+      select(class, CORE, UNVALIDATED) %>% 
+      distinct()
+    
+  } else {
+    label.df <- df |> 
+      mutate(type = wc(motif_id)) |> 
+      group_by(class) %>% 
+      mutate(Total_Class = n()) %>%
+      group_by(class, type) |> 
+      mutate(COREc = sum(type %in% "None")) %>% 
+      select(class, COREc) %>% 
+      distinct() %>% 
+      ungroup() %>% 
+      group_by(class) %>% 
+      mutate(CORE        = max(COREc)) %>% 
+      select(class, CORE) %>% 
+      distinct()
+  }
+  
+  
+  if (collection.type == "UNVALIDATED") {
+    
+    label.df <- label.df %>% 
+      mutate(lab         = paste0(CORE, "/", UNVALIDATED),
+             Total_Class = sum(c(CORE, UNVALIDATED))) %>% 
+      data.table()
+    
+  } else if (collection.type %in% c("CORE", "None")) {
+    
+    label.df <- label.df %>% 
+      mutate(lab         = CORE,
+             Total_Class = sum(CORE)) %>% 
+      data.table()
+  }
+  
+  
+  ## Use this variable to have enough space to insert the labels
+  max.y <- nrow(df) + 25
+  
+  
+  ## The alpha parameter and plot title change depending on the collection type
+  if (collection.type == "UNVALIDATED") {
+    alpha.values  <- c(0.4, 1)
+    y.axis.lab    <- "Number of motifs (CORE/UNVALIDATED)"
+  } else if (collection.type == "CORE") {
+    alpha.values  <- 1
+    y.axis.lab    <- "Number of motifs (CORE)"
+  } else if (collection.type == "None") {
+    alpha.values  <- 1
+    y.axis.lab    <- "Number of motifs"
+  }
+  
+  TF.class.barplot <- ggplot(df, aes(alpha = collection, x = class, fill = class)) +
+    geom_bar() +
+    coord_flip() +
+    scale_fill_manual(values = class.colors) +
+    theme_classic() +
+    labs(x = "TF class", y = y.axis.lab, title = barplot.title) +
+    scale_alpha_manual(values = alpha.values) +
+    theme(text        = element_text(size = 15),
+          axis.text.y = element_text(angle = 0, hjust = 1, size = 10),
+          axis.text.x = element_text(hjust = 0.5, size = 15),
+          legend.position = "none",
+          legend.title    = element_blank(),
+          legend.text     = element_text(size = 9),
+          legend.box      = "vertical",
+          plot.title      = element_text(hjust = 0.5),
+          panel.grid.major.x = element_line(color = "#969696",
+                                            size = 0.25,
+                                            linetype = 2)) +
+    geom_text(data = label.df, aes(x = class, y = Total_Class, label = lab), vjust = 0.5, hjust = -0.2, inherit.aes = F, size = 3.5) +
+    guides(fill = guide_legend(reverse = T))  +
+    scale_y_continuous(limits = c(0, max.y), expand = c(0,2), breaks = seq(0, max.y, by = 50)[-1])
+  
+  ggsave(plot     = TF.class.barplot,
+         filename = barplot.file,
+         width    = 12,
+         height   = 8)
+  message("; JPEG barplot created: ", barplot.file)
 }
