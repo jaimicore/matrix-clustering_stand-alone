@@ -139,6 +139,7 @@ source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
 # -------- #
 d3.radial.tree.template <- this.path::here(.. = 0, "html", "templates", "Radial_tree_template.html")
 d3.min.lib              <- this.path::here(.. = 0, "html", "js", "d3.v3.min.js")
+jquery.lib              <- this.path::here(.. = 0, "html", "js", "jquery.js")
 
 
 # ----- #
@@ -788,6 +789,7 @@ if (params.list$min_output == FALSE) {
                             d3.outfile       = output.files.list$D3_radial_tree,
                             motif.info       = results.list$Motif_info_tab,
                             d3.lib           = d3.min.lib,
+                            jq.lib           = jquery.lib,
                             outdir           = dirname(out.folder),
                             alignment.length = unique(results.list$Alignment_radial_table$width)[1],
                             html.legend      = motif.annotation.list$html)
