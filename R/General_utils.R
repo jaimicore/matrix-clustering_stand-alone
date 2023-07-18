@@ -388,6 +388,7 @@ create.html.radial.tree <- function(json.file        = NULL,
                                     d3.outfile       = NULL,
                                     motif.info       = NULL,
                                     d3.lib           = NULL,
+                                    jq.lib           = NULL,
                                     outdir           = NULL,
                                     alignment.length = 20,
                                     html.legend      = NULL) {
@@ -525,7 +526,7 @@ create.html.radial.tree <- function(json.file        = NULL,
     }
     
     
-    # Set displacement (y axis) of the logos according to the number of motifs
+    # Add path to d3 library
     if (grepl(pattern = "--d3--", x = d3l)) {
       
       # Create a copy of the D3 library in the results folder
@@ -533,6 +534,16 @@ create.html.radial.tree <- function(json.file        = NULL,
                            folder = outdir)
       
       d3.lines.updated[d3.line.counter] <- gsub(pattern = "--d3--", x = d3l, replacement = d3.path);
+    }
+    
+    # Add path to jquery library
+      if (grepl(pattern = "--jquery--", x = d3l)) {
+      
+      # Create a copy of the D3 library in the results folder
+      jquery.path <- cp.jquery.lib(jquery = jq.lib,
+                                   folder = outdir)
+      
+      d3.lines.updated[d3.line.counter] <- gsub(pattern = "--jquery--", x = d3l, replacement = jquery.path);
     }
   }
   
@@ -557,6 +568,18 @@ cp.d3.lib <- function(d3     = NULL,
   #                                    path        = new.d3)
   
   return("js/d3.v3.min.js")
+}
+
+
+cp.jquery.lib <- function(jquery = NULL,
+                          folder = NULL) {
+  
+  message("; Creating a copy of Jquery library")
+  file.copy(from = dirname(jquery),
+            to   = folder,
+            recursive = TRUE)
+  
+  return("js/jquery.js")
 }
 
 
@@ -621,9 +644,9 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
       
       ## Define the URL of the logo files, relative to the location of the json file
       align.logo.link.relpath.F <- this.path::relpath(relative.to = results.main.dir,
-                                                      path        = motif.info.list[[tree.label]]$Logo)
+                                                      path        = this.path::here(motif.info.list[[tree.label]]$Logo))
       align.logo.link.relpath.R <- this.path::relpath(relative.to = results.main.dir,
-                                                      path        = motif.info.list[[tree.label]]$Logo_RC)
+                                                      path        = this.path::here(motif.info.list[[tree.label]]$Logo_RC))
       
       ### Create the line that will be added to JSON file
       image.F.line      <- paste0(',\n "image" : "', align.logo.link.relpath.F, '"')
@@ -782,8 +805,8 @@ annotate.radial.tree <- function(clusters         = NULL,
   write_json(annotation.json, output.files.list$annotation_json_file)
 
   prefix <- gsub(output.files.list$D3_radial_tree, pattern = "_D3_radial_tree.html", replacement = "")
-  python_script_path = file.path(this.path::here(.. = 0), "annotate-html-radialtree.py")
-  cmd_annotate_htmltree <- paste0("python3 ", python_script_path, " -i ", prefix)
+  cmd_annotate_htmltree <- paste0("python3 annotate-html-radialtree.py ",
+                                  "-i ", prefix)
 
   # Launch annotation script
   # Walter Santana wrote this script in python
