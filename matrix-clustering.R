@@ -72,6 +72,9 @@ option_list = list(
 
   make_option(c("-a", "--annotation_table"), type = "character", default = NULL,
               help = "Motif annotation table, when this file is provided with the '--radial_tree = TRUE' option add annotations to the radial tree. A tab-delimited file with at least the following columns : 1) motif_id, 2) class ID, 3) collection. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "character"),
+
+  make_option(c("--title"), type = "character", default = "matrix-clustering",
+              help = "Analysis title", metavar = "character"),
   
   make_option(c("--ARI"), type = "logical", default = FALSE, 
               help = "Calculate the Adjusted Rand Index (ARI) of the resulting clusters based in the provided annotation table (--annotation_table). [Default \"%default\"].", metavar = "logical")
@@ -117,6 +120,7 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "Ncor"                  = as.numeric(opt$Ncor_th),
                     "nb_workers"            = as.numeric(opt$number_of_workers),
                     "min_output"            = opt$minimal_output,
+                    "title"                 = opt$title,
                     "ARI"                   = reference.clusters.flag,
                     "annotation"            = motif.annotation.flag,
                     "radial_tree"           = opt$radial_tree)
@@ -183,7 +187,6 @@ jquery.lib              <- this.path::here(.. = 0, "html", "js", "jquery.js")
 # 
 # Example: this.path::as.rel.path(relative.to = results.main.dir, path = new.d3)
 results.main.dir <- dirname(out.folder)
-
 
 out.folder.list <- list(tables         = file.path(paste0(out.folder, "_tables")),
                         plots          = file.path(paste0(out.folder, "_plots")),
@@ -765,11 +768,20 @@ if (params.list$min_output == FALSE) {
   # --------------------------------- #
   if (params.list[["radial_tree"]]) {
     
-    
+    barplot.annotation.file <- NULL
     if (params.list[["annotation"]]) {
       
       motif.annotation.list <- create.color.annotation(motif.meta.file = motif.annotation.file,
                                                        ann.outdir      = out.folder.list$tables)
+  
+      barplot.annotation.file <- file.path(out.folder.list$plots, paste0(params.list.radial$title, "_barplot.jpeg"))
+      
+      # Create annotation barplot
+      annotation.barplot(df            = motif.annotation.list$df,
+                         class.colors  = motif.annotation.list$cpal,
+                         barplot.title = params.list.radial$title,
+                         barplot.file  = barplot.annotation.file)
+      
     }
 
     
@@ -792,7 +804,8 @@ if (params.list$min_output == FALSE) {
                             jq.lib           = jquery.lib,
                             outdir           = dirname(out.folder),
                             alignment.length = unique(results.list$Alignment_radial_table$width)[1],
-                            html.legend      = motif.annotation.list$html)
+                            html.legend      = motif.annotation.list$html,
+                            barplot.ann      = barplot.annotation.file)
     
     if (params.list[["annotation"]]) {
 
@@ -828,4 +841,4 @@ message("; End of program")
 # To do:
 #
 # Links
-# Barplot
+# Interactive trees
