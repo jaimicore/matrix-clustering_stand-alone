@@ -241,6 +241,7 @@ The reference table (`-a`) must be a tab-delimited file providing at least the f
 1. motif_id	
 2. class
 3. collection
+4. url (this may be an empty column but the column name is expected)
 
 The motif IDs in this reference table must be the same IDs as in the motif files, if this is not the case the program will stop.
 
@@ -418,6 +419,7 @@ When the users provide a reference annotation table (argument `-r` or `--referen
   1. motif_id	
   2. class
   3. collection
+  4. url (may be an empty column but the header is expected)
 
 
 ### Radial trees
