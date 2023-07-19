@@ -604,6 +604,11 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
                                                json.wa.file          = NULL,
                                                alignent.width        = NULL)  {
   
+  ID_link_flag <- FALSE
+  if ("url" %in% colnames(motif.description.tab)) {
+    ID_link_flag <- TRUE
+  }
+  
   # Convert description table into a list
   motif.info.list <- motif.description.tab %>% purrr::transpose()
   names(motif.info.list) <- motif.description.tab$id
@@ -668,7 +673,6 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
       ic.line           <- paste0(',\n "ic" : ', round(motif.info.list[[tree.label]]$IC, digits = 3))
       size.line         <- paste0(',\n "size" : ', alignent.width)
       name.line         <- paste0(',\n "name" : "', motif.info.list[[tree.label]]$name, '"')
-      link.ext.line     <- paste0(',\n "link_ext" : "', '', '"')
       branch.color.line <- paste0(',\n "branch_color" : "', as.vector(subset(leaf2cluster, Motif == tree.label)$color), '"')
       
       
@@ -679,19 +683,18 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
                          ic.line,
                          size.line,
                          name.line,
-                         link.ext.line,
                          branch.color.line)
       
       # This needs to be completed
-      # if (ID_link_flag) {
-      #
-      #   link.ext.line <- paste0(',\n "link_ext" : "', '', '"')
-      #   color.line    <- paste0(',\n "color" : "', '', '"')
-      #
-      #   add.this <- paste0(add.this,
-      #                      link.ext.line,
-      #                      color.line)
-      # }
+      if (ID_link_flag) {
+
+        link.ext.line <- paste0(',\n "url" : "', motif.info.list[[tree.label]]$url, '"')
+        color.line    <- paste0(',\n "color" : "', motif.info.list[[tree.label]]$colour, '"')
+
+        add.this <- paste0(add.this,
+                           link.ext.line,
+                           color.line)
+      }
       
       JSON.lines[line.counter] <- paste0(jl, add.this)
     }
@@ -929,7 +932,7 @@ create.color.annotation <- function(motif.meta.file = NULL,
   
   ## Combine tables
   motif.meta.colour <- merge(motif.meta, df.class.colour, by = "class") |> 
-    select(collection, motif_id, colour, class, class_nb)
+    select(collection, motif_id, colour, class, class_nb, url)
   
   annotation.table.file <- file.path(ann.outdir, "annotation_table.txt")
   message("; Motif annotation table : ", annotation.table.file)
