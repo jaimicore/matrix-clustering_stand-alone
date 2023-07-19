@@ -343,7 +343,7 @@ When the users activate the option `--radial_tree TRUE`) all the motifs are forc
 The output is an `html` document containing the code in [`D3`](https://d3js.org/) (a javascript library). Open this document in an internet browser to visualize the results.
 
 
-You can zoom in/out using the mouse and change the motif orientation by clicking on the red buttons on the page top.
+You can zoom in/out using the mouse and change the motif orientation by clicking on the red buttons on the page top. Click on the `Hide/Show legend` button to ease the readability.
 
 <img src="data/images/Radial_tree_JASPAR_nematodes.png" width="500px" align="center">
 
@@ -351,6 +351,16 @@ You can zoom in/out using the mouse and change the motif orientation by clicking
 &nbsp;
 
 <img src="data/images/Radial_tree_JASPAR_nematodes_zoom.png" width="500px" align="center">
+
+&nbsp;
+&nbsp;
+
+<img src="data/images/Radial_tree_JASPAR_nematodes_zoom_nolegend.png" width="500px" align="center">
+
+&nbsp;
+&nbsp;
+
+
 
 Sorry for the low-resolution logos, we will fix it as soon as possible.
 
