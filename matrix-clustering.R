@@ -782,6 +782,13 @@ if (params.list$min_output == FALSE) {
                          barplot.title = params.list.radial$title,
                          barplot.file  = barplot.annotation.file)
       
+      # Add url and color from the annotation table
+      results.list$Motif_info_tab <- merge(results.list$Motif_info_tab, motif.annotation.list$df, by.x = "id_old", by.y = "motif_id") |> 
+                                      within(rm(collection, class, class_nb))
+      
+    } else {
+      results.list$Motif_info_tab$colour <- "#000000"
+      results.list$Motif_info_tab$url    <- ""
     }
 
     
@@ -840,5 +847,4 @@ message("; End of program")
 
 # To do:
 #
-# Links
 # Interactive trees
