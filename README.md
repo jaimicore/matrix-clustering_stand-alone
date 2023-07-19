@@ -248,16 +248,16 @@ The collection names in the reference table must be the same as those in the mat
 
 Example: 
 ```bash
-motif_id  class       collection
-MA1404.1	BBR/BPC     JASPAR_plants
-MA1403.1	BBR/BPC     JASPAR_plants
-MA1402.1	BBR/BPC     JASPAR_plants
-MA1197.1	CAMTA       JASPAR_plants
-MA0969.1	CAMTA       JASPAR_plants
-MA0970.1	CAMTA       JASPAR_plants
-MA0975.1	AP2/EREBP   JASPAR_plants
-MA0976.2	AP2/EREBP   JASPAR_plants
-MA1376.1	AP2/EREBP   JASPAR_plants
+motif_id  class       collection     url
+MA1404.1	BBR/BPC     JASPAR_plants  https://jaspar.uio.no/matrix/MA1404.1
+MA1403.1	BBR/BPC     JASPAR_plants  https://jaspar.uio.no/matrix/MA1403.1
+MA1402.1	BBR/BPC     JASPAR_plants  https://jaspar.uio.no/matrix/MA1402.1
+MA1197.1	CAMTA       JASPAR_plants  https://jaspar.uio.no/matrix/MA1197.1
+MA0969.1	CAMTA       JASPAR_plants  https://jaspar.uio.no/matrix/MA0969.1
+MA0970.1	CAMTA       JASPAR_plants  https://jaspar.uio.no/matrix/MA0970.1
+MA0975.1	AP2/EREBP   JASPAR_plants  https://jaspar.uio.no/matrix/MA0975.1
+MA0976.2	AP2/EREBP   JASPAR_plants  https://jaspar.uio.no/matrix/MA0976.2
+MA1376.1	AP2/EREBP   JASPAR_plants  https://jaspar.uio.no/matrix/MA1376.1
 ```
 
 &nbsp;
