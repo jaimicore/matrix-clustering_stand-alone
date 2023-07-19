@@ -535,7 +535,7 @@ Once `apache` is installed in your computer:
 
 ## :tada: Acknowledgements
 
-We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](http://rsat-tagc.univ-mrs.fr/rsat/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs :beetle:.
+We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](https://rsat.eead.csic.es/plants/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs :beetle:.
 
 Special thanks to my colleagues Ieva Rauluseviciute (and her *gently reminders* :unamused: that pushed me to write this stand-alone version) and Vipin Kumar (both from [Anthony Mathelier's lab](https://mathelierlab.com/)) for testing this software, the discussions, ideas, and their suggestions of `R` libraries that make this script faster than the original version.
 
