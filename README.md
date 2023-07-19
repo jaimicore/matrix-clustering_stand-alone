@@ -343,7 +343,7 @@ When the users activate the option `--radial_tree TRUE`) all the motifs are forc
 The output is an `html` document containing the code in [`D3`](https://d3js.org/) (a javascript library). Open this document in an internet browser to visualize the results.
 
 
-You can zoom in/out using the mouse and change the motif orientation by clicking on the red buttons on the page top.
+You can zoom in/out using the mouse and change the motif orientation by clicking on the red buttons on the page top. Click on the `Hide/Show legend` button to ease the readability.
 
 <img src="data/images/Radial_tree_JASPAR_nematodes.png" width="500px" align="center">
 
@@ -351,6 +351,16 @@ You can zoom in/out using the mouse and change the motif orientation by clicking
 &nbsp;
 
 <img src="data/images/Radial_tree_JASPAR_nematodes_zoom.png" width="500px" align="center">
+
+&nbsp;
+&nbsp;
+
+<img src="data/images/Radial_tree_JASPAR_nematodes_zoom_nolegend.png" width="500px" align="center">
+
+&nbsp;
+&nbsp;
+
+
 
 Sorry for the low-resolution logos, we will fix it as soon as possible.
 
@@ -525,7 +535,7 @@ Once `apache` is installed in your computer:
 
 ## :tada: Acknowledgements
 
-We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](http://rsat-tagc.univ-mrs.fr/rsat/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs :beetle:.
+We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](https://rsat.eead.csic.es/plants/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs :beetle:.
 
 Special thanks to my colleagues Ieva Rauluseviciute (and her *gently reminders* :unamused: that pushed me to write this stand-alone version) and Vipin Kumar (both from [Anthony Mathelier's lab](https://mathelierlab.com/)) for testing this software, the discussions, ideas, and their suggestions of `R` libraries that make this script faster than the original version.
 
