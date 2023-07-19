@@ -96,15 +96,16 @@ path.arc {
 
 .legend_hs_button {
 	border-radius:5px;       
-  text-align: center;
+  	text-align: center;
 	margin: 3px 5px 5px 5px;
+	margin-right: 350px;
 	width: 130px;
 	height: 20px;
 	padding: 4px;
 	cursor: pointer;
 	border-radius:5px;
-  background:#0D73A7;
-  color: #ffffff;
+  	background:#0D73A7;
+  	color: #ffffff;
 	display: inline-block;
 	position:relative;
 	float:left;
@@ -317,7 +318,7 @@ function dot(a, b) {
     // Action to Show/Hide the Legend button
     $(document).ready(function() {
         $('#Legend_button').click(function() {
-          $('#Color_class_table').slideToggle('fast');
+          $('.Color_class_table').slideToggle('fast');
           $(this).toggleClass('selected_header_section');
 
         // Get the current text of the button
