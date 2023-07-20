@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  <script type="text/javascript" src="--jquery--"></script>
+  <script type="text/javascript" src="--d3--"></script>
+  <title> Logo Forest </title>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+
+
+<style>
+
+        .node {
+                cursor: pointer;
+        }
+
+	.node circle {
+		//fill: #fff;
+		//stroke: steelblue;
+		stroke-width: 2px;
+	}
+
+
+	.node {
+		font: 16px sans-serif;
+	}
+
+
+	.link {
+		fill: none;
+		//stroke: #0D86D7;
+		stroke-width: 1.5px;
+	}
+	
+	svg {
+		pointer-events: all;
+		background-color: white;
+		overflow: scroll;
+	}
+
+        #Logo_forest_header{
+	   float: left;
+	   margin: 7px 5px 5px 5px;
+	   width: 2000px;
+	   height: 480px;
+	   position: relative;
+	   display: block;
+	   text-align: left;
+	   clear : both;
+	   color: black;
+	   font-size: 21px;
+	   border-radius:5px;
+           background: #B1D4F9;
+        }
+
+	.legend {
+	   text-align: left;
+	   border-radius:5px;       
+      	   text-align: center;
+	   margin: 3px 5px 5px 5px;
+	   width: 180px;
+	   height: 25px;
+	   font-size: 18px;
+	   padding: 4px;
+	   cursor: pointer;
+	   border-radius:5px;
+           color: #ffffff;
+           background:#cc0000;
+
+	   display: inline-block;
+	   position:relative;
+	}
+
+	.legend:active {
+	   position:relative;
+	   top:2px;
+	}
+
+</style>
+
+
+<body>
+
+<div id="Logo_forest_header">
+   <div><h2 style="text-align:center">Dynamic Logo Forest</h2></div>
+   <ul>
+      <li type="square">All the clusters with their respective motifs are represented as  a collection of hierarchical trees (Forest).</li>
+      <li> Each cluster has a different color. </li>
+      <li type="square">Each cluster has a different color and contains the following components:</li>
+   </ul>
+   <ol>
+      <li>The hierarchical tree.</li>
+      <li>At each node, in blue,the IUPAC consensus of the Branch motifs (the summary of the descendant motifs of that branch, also known as Familial Binding Profile (FBP) ).</li>
+      <li>The motif ID + other optional motif features are depicted in the leaves.</li>
+      <li>The aligned logos are shown in the leaves.</li>
+   </ol>
+   <ul>
+   <p><h3>Dynamic Features</h3>
+      <ol>
+         <li type="square">Click on each node to collapse it and display the Branch motif.</li>
+         <li type="square">Click on the node again to expand the tree and show the descendant motifs.</li>
+         <li type="square">Click on the buttons to change the logo (Direct|Reverse) orientation.</li>
+      </ol>
+   </p>
+   </ul>
+</div>
+.<br><br><br>
+	
+	//Divisions
+
+
+	<script type="text/javascript">
+
+
+	//Body
+
+</script>
+
+
+
+<!-- Dynamic JQuery code -->
+<script>
+
+--jquerycode--
+
+</script>
