@@ -335,7 +335,8 @@ if (params.list[["Nb_motifs"]] > 1) {
                                             JSON_folder = file.path(out.folder.list$trees, names(find.clusters.list$clusters)))
   
   results.list$Clusters_files <- results.list$Clusters_files |> 
-    mutate(JSON_file = file.path(JSON_folder, paste0(Cluster, "_tree.json")))
+    mutate(JSON_file           = file.path(JSON_folder, paste0(Cluster, "_tree.json")),
+           JSON_annotated_file = file.path(JSON_folder, paste0(Cluster, "_tree_annotated.json")))
   
   purrr::walk(.x = results.list$Clusters_files$JSON_folder,
               .f = ~dir.create(path = .x, showWarnings = FALSE, recursive = TRUE))
@@ -862,6 +863,13 @@ if (params.list$min_output == FALSE) {
     }
 
   }
+  
+  
+  # ------------------------ #
+  # Create interactive trees #
+  # ------------------------ #
+  
+  # To be completed ...
 
 
 ## Remove these folder when --minimal_output mode is activated
