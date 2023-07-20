@@ -212,6 +212,7 @@ cp.jquery.lib <- function(jquery = NULL,
 }
 
 
+
 Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
                                                clusters.list         = NULL,
                                                color.map             = NULL,
@@ -703,3 +704,163 @@ annotation.barplot <- function(df            = NULL,
          height   = 8)
   message("; JPEG barplot created: ", barplot.file)
 }
+
+
+
+
+# cl        <- "cluster_01"
+# cl.motifs <- find.clusters.list$clusters[[cl]]
+# motif.description.tab = results.list$Motif_info_tab |> dplyr::filter(id %in% cl.motifs)
+# clusters.list         = find.clusters.list
+# color.map             = cl.col
+# htree                 = cl.hclust.results[[cl]]
+#json.woa.file          = subset(results.list$Clusters_files, Cluster == cl)$JSON_file
+#json.wa.file           = subset(results.list$Clusters_files, Cluster == cl)$JSON_annotated_file
+# alignent.width        = max(subset(results.list$Alignment_table, cluster == cl)$width)
+# 
+# Add_attributes_to_JSON_interactive_tree <- function(motif.description.tab = NULL,  # Subset of the table including only the motifs in a cluster
+#                                                     clusters.list         = NULL,
+#                                                     color.map             = NULL,
+#                                                     htree                 = NULL,
+#                                                     json.woa.file         = NULL,
+#                                                     json.wa.file          = NULL,
+#                                                     alignent.width        = NULL)  {
+#   
+# 
+#   # Convert description table into a list
+#   motif.info.list <- motif.description.tab %>% purrr::transpose()
+#   names(motif.info.list) <- motif.description.tab$id
+#   
+#   # Same motif width for all logos
+#   motif.logo.size <- max(motif.description.tab$width)
+#   
+#   # Nodes (tree branches) to cluster association table
+#   node2cluster <- treenode2cluster(cluster_results = clusters.list,
+#                                    tree            = htree)
+#   
+#   # Motifs (tree leaves) to cluster association table
+#   leaf2cluster <- stack(clusters.list$clusters) %>% 
+#     rename("Motif"   = "values",
+#            "cluster" = "ind") %>% 
+#     data.table()
+#   leaf2cluster <- merge(leaf2cluster, color.map)
+#   
+#   # Read JSON file, it is stored as an array where each element corresponds to a line
+#   JSON.lines        <- readLines(json.woa.file)
+#   cluster.tree      <- "cluster_01"
+#   tree.branch       <- 0
+#   line.counter      <- 0
+#   tree.node         <- ""
+#   JSON.lines.parsed <- JSON.lines
+#   for (jl in JSON.lines) {
+#     
+#     # ll <- 7  # Node
+#     # ll <- 5  # Branch
+#     # ll <- 13 # LEave
+#     # jl <- JSON.lines[ll]
+#     # line.counter <- ll
+#     
+#     # Initialize
+#     json.flag <- 0
+#     line.counter <- line.counter + 1
+#     
+#     # ------------------------------------ #
+#     # Find the line indicating a tree leaf #
+#     # Update tree leaves                   #
+#     # ------------------------------------ #
+#     if (grepl(pattern = '"label":\\s*"(.+)"', jl)) {
+#       
+#       tree.label <- gsub(pattern = '"label":\\s*"(.+)"', replacement = "\\1", x = jl)
+#       tree.label <- gsub(pattern = "\\s+", replacement = "", x = tree.label)
+#       tree.label
+#       
+#       json.flag <- 1
+#       add.this  <- ""
+#       
+#       
+#       ## Define the URL of the logo files, relative to the location of the json file
+#       align.logo.link.relpath.F <- this.path::relpath(relative.to = results.main.dir,
+#                                                       path        = this.path::here(motif.info.list[[tree.label]]$Logo))
+#       align.logo.link.relpath.R <- this.path::relpath(relative.to = results.main.dir,
+#                                                       path        = this.path::here(motif.info.list[[tree.label]]$Logo_RC))
+#       
+#       ### Create the line that will be added to JSON file
+#       image.F.line      <- paste0(',\n "image" : "', align.logo.link.relpath.F, '"')
+#       image.R.line      <- paste0(',\n "image_rc" : "', align.logo.link.relpath.R, '"')
+#       url.line          <- paste0(',\n "url" : "', align.logo.link.relpath.F, '"')
+#       ic.line           <- paste0(',\n "ic" : ', round(motif.info.list[[tree.label]]$IC, digits = 3))
+#       size.line         <- paste0(',\n "size" : ', alignent.width)
+#       name.line         <- paste0(',\n "name" : "', motif.info.list[[tree.label]]$name, '"')
+#       branch.color.line <- paste0(',\n "branch_color" : "', as.vector(subset(leaf2cluster, Motif == tree.label)$color), '"')
+#       
+#       
+#       
+#       add.this <- paste0(image.F.line,
+#                          image.R.line,
+#                          url.line,
+#                          ic.line,
+#                          size.line,
+#                          name.line,
+#                          branch.color.line)
+#       
+#       # This needs to be completed
+#       if (ID_link_flag) {
+#         
+#         link.ext.line <- paste0(',\n "url" : "', motif.info.list[[tree.label]]$url, '"')
+#         color.line    <- paste0(',\n "color" : "', motif.info.list[[tree.label]]$colour, '"')
+#         
+#         add.this <- paste0(add.this,
+#                            link.ext.line,
+#                            color.line)
+#       }
+#       
+#       JSON.lines[line.counter] <- paste0(jl, add.this)
+#     }
+#     
+#     # -------------------------------------- #
+#     # Find the line indicating a tree branch #
+#     # Update tree branches                   #
+#     # -------------------------------------- #
+#     if (grepl(pattern = '"node"\\s*:', jl)) {
+#       tree.node <- gsub(pattern = '"node":"(node_\\d+)",', replacement = "\\1", x = jl)
+#       tree.node <- gsub(pattern = "\\s+", replacement = "", x = tree.node)
+#     }
+#     
+#     if (grepl(pattern = '"children"\\s*:', jl)) {
+#       
+#       # Update variables
+#       tree.branch     <- tree.branch + 1
+#       add.branch.line <- ""
+#       
+#       if (tree.branch > 1) {
+#         
+#         tree.label <- gsub(pattern = '"label":\\s*"(.+)"', replacement = "\\1", x = jl)
+#         tree.label <- gsub(pattern = "\\s+", replacement = "", x = tree.label)
+#         
+#         # Check this node_to_cluster_hash variable
+#         # Check that nodes without clusters have a different color
+#         branch.color <- '#ccc;'
+#         
+#         
+#         node.cluster <- as.vector(subset(node2cluster, node == tree.node)$cluster)
+#         #print(tree.node)
+#         # print(node.cluster)
+#         #print(line.counter)
+#         if (grepl(pattern = 'node_\\d+', x = tree.node)) {
+#           branch.color <- as.vector(subset(leaf2cluster, cluster == node.cluster)$color)
+#         }
+#         
+#         
+#         add.branch.line <- paste0('"branch_color" : "', branch.color, '",\n')
+#         
+#         #JSON.lines.parsed <- append(JSON.lines.parsed, add.branch.line, after = line.counter)
+#         JSON.lines[line.counter] <- paste0(add.branch.line, jl)
+#       }
+#     } # end of children grepl if
+#   } # End for loop
+#   
+#   # Export JSON file with annotations
+#   message("; Exporting JSON file with annotations: ", json.wa.file)
+#   writeLines(JSON.lines, con = json.wa.file)
+#   
+# }
