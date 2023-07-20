@@ -30,7 +30,9 @@ The graphical output (interactive trees) will be added soon.
 
 ## :wrench: Changes relative to the original version
 
-- We added a new functionality to calculte how well the resulting clusters are similar to a user provided annotation (see **Example 2**) for more details. This functionality could be used to select the parameters (thresholds in `cor` and `Ncor`) that maximizes a user-provided annotation.
+- We added a function to create motif alignments in a radial (circular) way (see **Example 2**). This representation allows to visualize entire motif collections and highlight categories (TF classes, TF families, Motif collection, etc).
+
+- We added a new functionality to calculte how well the resulting clusters are similar to a user provided annotation (see **Example 3**) for more details. This functionality could be used to select the parameters (thresholds in `cor` and `Ncor`) that maximizes a user-provided annotation.
 
 - Default threshold are different: `cor = 0.75` and `Ncor = 0.55`. To decide if a node in the hierarchical tree will be merged or split, we compute the average `cor` and `Ncor` of all the pairwise comparisons for all the motifs in a particualr node. We realized that the original version didn't considered all the pairwise comparisons, we corrected this problem, but now the original default thresholds are too permissive, so we updated them to obtain good results.
 
