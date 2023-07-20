@@ -440,6 +440,9 @@ Contributors
 - [Rafel Riudavets-Puig](https://github.com/rriupu)
 - [Walter Santana-Garcia](https://github.com/santanaw)
 
+ &nbsp;
+ &nbsp;
+
 This repository is maintained by [Jaime A Castro-Mondragon](https://jaimicore.github.io/).
 
 :e-mail: j.a.castro.mondragon@gmail.com
