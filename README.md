@@ -361,10 +361,6 @@ You can zoom in/out using the mouse and change the motif orientation by clicking
 &nbsp;
 &nbsp;
 
-
-
-Sorry for the low-resolution logos, we will fix it as soon as possible.
-
 :warning: It is possible that this `html` is not properly displayed by all browsers, we recommend to use [Firefox](https://www.mozilla.org/en-US/).
 
 :warning: It is possible that this `html` have to be opened from a webserver and may need you have [Apache](https://httpd.apache.org/) ready to use. More information in the **Extra** section below.
@@ -424,7 +420,7 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 
 ### Radial trees
 
-- `--radial_tree`: When this option is activated all the motifs are forced to be aligned in a single cluster. **Note** : this option was recently released and it is under active development.
+- `--radial_tree`: When this option is activated all the motifs are forced to be aligned in a single cluster. **Note** : this option is under active development.
 
 ### Others
 
@@ -437,9 +433,14 @@ When the users provide a reference annotation table (argument `-r` or `--referen
  &nbsp;
  &nbsp;
   
-## :collision: Contact + Report issues 
+## :collision: Contact + Contributors + Report issues 
 
-This repository is maintained by [Jaime A Castro-Mondragon](https://jaimicore.github.io/) with input from [Rafel Riudavets-Puig](https://github.com/rriupu)
+Contributors
+- [Jaime A Castro-Mondragon](https://jaimicore.github.io/) 
+- [Rafel Riudavets-Puig](https://github.com/rriupu)
+- [Walter Santana-Garcia](https://github.com/santanaw)
+
+This repository is maintained by [Jaime A Castro-Mondragon](https://jaimicore.github.io/).
 
 :e-mail: j.a.castro.mondragon@gmail.com
 :e-mail: jacmondragon@nykode.com
@@ -539,7 +540,7 @@ Once `apache` is installed in your computer:
 
 We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](https://rsat.eead.csic.es/plants/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs :beetle:.
 
-Special thanks to my colleagues Ieva Rauluseviciute (and her *gently reminders* :unamused: that pushed me to write this stand-alone version) and Vipin Kumar (both from [Anthony Mathelier's lab](https://mathelierlab.com/)) for testing this software, the discussions, ideas, and their suggestions of `R` libraries that make this script faster than the original version.
+Special thanks to my colleagues Ieva Rauluseviciute (and her *gently reminders* :unamused: that pushed me to write this stand-alone version), Vipin Kumar and Katalin Ferenc (from [Anthony Mathelier's lab](https://mathelierlab.com/)) for testing this software, the discussions, ideas, and their suggestions of `R` libraries that make this script faster than the original version.
 
 &nbsp;
 &nbsp;
