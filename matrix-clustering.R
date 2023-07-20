@@ -137,6 +137,7 @@ source(this.path::here(.. = 0, "R", "Hierarchical_clustering.R"))
 source(this.path::here(.. = 0, "R", "Motif_alignment_utils.R"))
 source(this.path::here(.. = 0, "R", "Motif_manipulation.R"))
 source(this.path::here(.. = 0, "R", "Tree_partition_utils.R"))
+source(this.path::here(.. = 0, "R", "D3_trees.R"))
 
 # -------- #
 # D3 files #
@@ -225,7 +226,8 @@ results.list <- list(Dist_table         = NULL,
                      Motif_compa_tab    = NULL,
                      Reference_clusters = NULL,
                      Aligned_motifs_um  = NULL,
-                     JSON_branch_nb     = NULL)
+                     JSON_branch_nb     = NULL,
+                     Clusters_files     = NULL)
 
 ## Create output folders
 no.output <- sapply(out.folder.list, dir.create, showWarnings = FALSE, recursive = TRUE)
@@ -327,6 +329,16 @@ if (params.list[["Nb_motifs"]] > 1) {
   find.clusters.list <- find.motif.clusters(tree             = results.list$All_motifs_tree,
                                             comparison.table = results.list$Motif_compa_tab,
                                             parameters       = params.list)
+  
+  # Create a table with the path to the JSON file of each cluster
+  results.list$Clusters_files <- data.table(Cluster     = names(find.clusters.list$clusters),
+                                            JSON_folder = file.path(out.folder.list$trees, names(find.clusters.list$clusters)))
+  
+  results.list$Clusters_files <- results.list$Clusters_files |> 
+    mutate(JSON_file = file.path(JSON_folder, paste0(Cluster, "_tree.json")))
+  
+  purrr::walk(.x = results.list$Clusters_files$JSON_folder,
+              .f = ~dir.create(path = .x, showWarnings = FALSE, recursive = TRUE))
  
   
   # When the --radial_tree option is indicated the find.motif.clusters function is launched two times.
@@ -463,6 +475,17 @@ if (params.list[["Nb_motifs"]] > 1) {
                                                                              motif.info = results.list$Motif_info_tab,
                                                                              parameters = params.list))
     
+    ## Export the JSON file of the cluster
+    json.trees <- furrr::future_map(.x = cl.many.hclust,
+                                    .f = ~convert.hclust.to.JSON(hc = .x))
+    message("; Exporting trees as a JSON files")
+    # Subset to clusters with 2 or more motifs
+    cl.many.files.df <- results.list$Clusters_files |>
+                          dplyr::filter(Cluster %in% cl.many)
+    furrr::future_walk2(.x = cl.many.files.df$JSON_file,
+                        .y = json.trees,
+                        .f = ~writeLines(.y, con = .x))
+
     # ----------------------------- #
     # Parse tables before exporting #
     # ----------------------------- #
@@ -493,9 +516,24 @@ if (params.list[["Nb_motifs"]] > 1) {
                aligned_consensus_rc = rc_consensus) %>% 
         within(rm(n, width, IC, nb_sites, id_old)) 
       
+      
+      
+      message("; Exporting trees as a JSON files")
+      json.trees.singleton <- paste("{\n\"name\": \"\",\n\"children\":[\n{\n \"label\": \"", as.vector(unlist(find.clusters.list$clusters[cl.singleton])), "\",\n}\n]\n}", sep = "")
+      
+      # Subset to singletons
+      cl.singleton.files.df <- results.list$Clusters_files |>
+                                dplyr::filter(Cluster %in% cl.singleton)
+      
+      furrr::future_walk2(.x = cl.singleton.files.df$JSON_file,
+                          .y = json.trees.singleton,
+                          .f = ~writeLines(.y, con = .x))
+      
+      
       ## Combine groups + singleton clusters
       results.list$Alignment_table <- rbind(alignment.clusters.tab.export, singleton.clusters.tab.export) %>% 
         mutate(width = nchar(aligned_consensus))
+      
       
     } else {
       results.list$Alignment_table <- alignment.clusters.tab.export %>% 
