@@ -1015,7 +1015,7 @@ export.logos <- function(um        = NULL,
   # ------------------------- #
   # Logos Forward orientation #
   # ------------------------- #
-  logos.F.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), rtag, ".png"))
+  logos.F.name <- file.path(outfolder, paste0(purrr::map_chr(um, `[`, "name"), rtag, ".svg"))
   
   # plan(multisession, workers = params.list$nb_workers)
   purrr::walk2(.x = logos.F.name,

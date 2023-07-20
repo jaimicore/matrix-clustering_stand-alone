@@ -759,8 +759,8 @@ if (params.list$min_output == FALSE) {
                rev_tag   = TRUE)
   
   # Add the columns with the path to the logos
-  results.list$Motif_info_tab$Logo    <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, ".png"))
-  results.list$Motif_info_tab$Logo_RC <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, "_rc.png"))
+  results.list$Motif_info_tab$Logo    <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, ".svg"))
+  results.list$Motif_info_tab$Logo_RC <- file.path(out.folder.list["aligned_logos"], paste0(results.list$Motif_info_tab$id, "_rc.svg"))
 
   
   # --------------------------------- #
