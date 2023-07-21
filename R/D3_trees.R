@@ -854,3 +854,105 @@ Add_attributes_to_JSON_interactive_tree <- function(cluster_name          = NULL
   writeLines(JSON.lines, con = json.wa.file)
 
 }
+
+
+
+# clusters      = find.clusters.list$clusters
+# clusters.df   = results.list$Clusters_files
+# html.template = html.interactive.tree.template
+# d3.template   = d3.interactive.tree.template
+# cluster.color = cl.col
+
+# create.html.interactive.tree <- function(clusters      = NULL,
+#                                          clusters.df   = NULL,
+#                                          cluster.color = NULL,
+#                                          html.template = NULL,
+#                                          d3.template   = NULL) {
+#   
+#   
+#   
+#   # Read d3 template (same for each cluster)
+#   d3.lines <- readLines(d3.template)
+#   
+#   # --------------------------------------------------------------- #
+#   # For each cluster creates a D3 tree object with its own features #
+#   # (logo, name, color, IC, etc)                                    #
+#   # Save these D3 trees as a single string                          #
+#   # --------------------------------------------------------------- #
+#   
+#   cl        <- "cluster_01"
+#   cl.motifs <- clusters[[cl]]
+#   
+#   cl.name = cl
+#   cl.col  = subset(cluster.color, cluster == cl)$color
+#   cl.comp = cl.motifs
+#   d3.vec  = d3.lines
+#   json.file = subset(clusters.df, Cluster == cl.name)$JSON_annotated_file
+#   
+#   
+#   
+#   d3.tree.one.cluster <- function(cl.name   = NULL,
+#                                   cl.comp   = NULL,
+#                                   cl.color  = NULL,
+#                                   d3.vec    = NULL,
+#                                   json.file = NULL) {
+#     
+#     cl.size <- length(cl.comp)
+#     
+#   
+#     # ---------------------------------------- #
+#     # Complete the missing annotation elements #
+#     # ---------------------------------------- #
+#     d3.annotation.list <- list(JSON_string = NULL,
+#                                widthtree   = 830,
+#                                heighttree  = NULL,
+#                                size        = 350,
+#                                cl_id       = cl.name,
+#                                sep_motifs  = NULL,
+#                                stroke      = cl.color,
+#                                logowidth   = 15,
+#                                logoheight  = 13,
+#                                x_logo      = NULL,
+#                                y_logo      = NULL)
+#     
+#     # This is the JSON inserted in the D3 template
+#     d3.annotation.list$JSON_string <- paste0(readLines(json.file), collapse = "\n")
+#   
+#     # Tree width/height
+#     # d3.annotation.list$widthtree <- 830
+#     d3.annotation.list$widthtree <- 100 * cl.size
+#     # d3.annotation.list$size      <- 350           # d3.layout.cluster()
+#     
+#     # Space between motifs
+#     d3.annotation.list$sep_motifs <- case_when(clusters_info <   5 ~ 150,
+#                                                clusters_info <=  9 ~ 200,
+#                                                clusters_info <= 20 ~ 250,
+#                                                clusters_info <= 50 ~ 300,
+#                                                TRUE ~ 420  # Default value if none of the cases match
+#                                                )
+#     
+#     # Logo displacement
+#     d3.annotation.list$x_logo <- 18 * 10 # To update
+#     d3.annotation.list$y_logo <- 0
+#     
+#     
+#     # ------------------------------------------------ #
+#     # Replace placeholders by variables in D3 template #
+#     # ------------------------------------------------ #
+#     for (d3l in d3.vec) {
+#       
+#     }
+#     
+#     # To do:
+#     # 1. Read D3 template
+#     # 2. Replace placeholder
+#     # 3. Insert div with cluster ID
+#     # 4. Insert button to show/hide
+# 
+#   }
+#   
+# 
+#   
+#   # Insert the D3 trees in the HTML template
+#   
+# }
