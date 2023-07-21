@@ -310,7 +310,7 @@ treenode2cluster <- function(cluster_results = NULL,
   # Nodes that are not merge and therefore do not belong to a cluster are marked as 0
   node.counter <- 0
   n2cl <- rep(0, nnodes)
-  no.output<- sapply(leaves.per.node(tree, labels = TRUE), function(lpn){
+  no.output <- sapply(leaves.per.node(tree, labels = TRUE), function(lpn){
     
     node.counter <<- node.counter + 1
     
