@@ -520,7 +520,7 @@ if (params.list[["Nb_motifs"]] > 1) {
       
       
       message("; Exporting trees as a JSON files")
-      json.trees.singleton <- paste("{\n\"name\": \"\",\n\"children\":[\n{\n \"label\": \"", as.vector(unlist(find.clusters.list$clusters[cl.singleton])), "\",\n}\n]\n}", sep = "")
+      json.trees.singleton <- paste("{\n\"name\": \"\",\n\"children\":[\n{\n \"label\": \"", as.vector(unlist(find.clusters.list$clusters[cl.singleton])), "\"\n}\n]\n}", sep = "")
       
       # Subset to singletons
       cl.singleton.files.df <- results.list$Clusters_files |>
@@ -868,8 +868,26 @@ if (params.list$min_output == FALSE) {
   # ------------------------ #
   # Create interactive trees #
   # ------------------------ #
-  
-  # To be completed ...
+  save.image("Debug_radial.Rdata")
+  plan(multisession, workers = params.list$nb_workers)
+  message("; Adding attributes to JSON files")
+  furrr::future_walk(.x = names(find.clusters.list$clusters),
+                     .f = ~  Add_attributes_to_JSON_interactive_tree(cluster_name          = .x,
+                                                                     motif.description.tab = results.list$Motif_info_tab,
+                                                                     clusters.list         = find.clusters.list,
+                                                                     color.map             = cl.col,
+                                                                     htree                 = cl.hclust.results,
+                                                                     json.file.df          = results.list$Clusters_files,
+                                                                     alignment.df          = results.list$Alignment_table))
+
+  # Add_attributes_to_JSON_interactive_tree(cluster_name          = "cluster_01",
+  #                                         motif.description.tab = results.list$Motif_info_tab,  # Subset of the table including only the motifs in a cluster
+  #                                         clusters.list         = find.clusters.list,
+  #                                         color.map             = cl.col,
+  #                                         htree                 = cl.hclust.results,
+  #                                         json.file.df          = results.list$Clusters_files,
+  #                                         alignment.df          = results.list$Alignment_table)
+
 
 
 ## Remove these folder when --minimal_output mode is activated
