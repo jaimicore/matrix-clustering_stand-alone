@@ -142,9 +142,11 @@ source(this.path::here(.. = 0, "R", "D3_trees.R"))
 # -------- #
 # D3 files #
 # -------- #
-d3.radial.tree.template <- this.path::here(.. = 0, "html", "templates", "Radial_tree_template.html")
-d3.min.lib              <- this.path::here(.. = 0, "html", "js", "d3.v3.min.js")
-jquery.lib              <- this.path::here(.. = 0, "html", "js", "jquery.js")
+d3.radial.tree.template        <- this.path::here(.. = 0, "html", "templates", "Radial_tree_template.html")
+html.interactive.tree.template <- this.path::here(.. = 0, "html", "templates", "Interactive_tree_template.html")
+d3.interactive.tree.template   <- this.path::here(.. = 0, "html", "templates", "Interactive_tree_template.d3")
+d3.min.lib                     <- this.path::here(.. = 0, "html", "js", "d3.v3.min.js")
+jquery.lib                     <- this.path::here(.. = 0, "html", "js", "jquery.js")
 
 
 # ----- #
@@ -886,8 +888,7 @@ if (params.list$min_output == FALSE) {
     #                                         htree                 = cl.hclust.results,
     #                                         json.file.df          = results.list$Clusters_files,
     #                                         alignment.df          = results.list$Alignment_table)
-    
-    
+ 
   }
   
 ## Remove these folder when --minimal_output mode is activated
