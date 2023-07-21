@@ -862,34 +862,34 @@ if (params.list$min_output == FALSE) {
                            motif.annotation = motif.annotation.list$df)
     }
 
+  } else {
+
+    # ------------------------ #
+    # Create interactive trees #
+    # ------------------------ #
+    save.image("Debug_radial.Rdata")
+    plan(multisession, workers = params.list$nb_workers)
+    message("; Adding attributes to JSON files")
+    furrr::future_walk(.x = names(find.clusters.list$clusters),
+                       .f = ~  Add_attributes_to_JSON_interactive_tree(cluster_name          = .x,
+                                                                       motif.description.tab = results.list$Motif_info_tab,
+                                                                       clusters.list         = find.clusters.list,
+                                                                       color.map             = cl.col,
+                                                                       htree                 = cl.hclust.results,
+                                                                       json.file.df          = results.list$Clusters_files,
+                                                                       alignment.df          = results.list$Alignment_table))
+    
+    # Add_attributes_to_JSON_interactive_tree(cluster_name          = "cluster_01",
+    #                                         motif.description.tab = results.list$Motif_info_tab,  # Subset of the table including only the motifs in a cluster
+    #                                         clusters.list         = find.clusters.list,
+    #                                         color.map             = cl.col,
+    #                                         htree                 = cl.hclust.results,
+    #                                         json.file.df          = results.list$Clusters_files,
+    #                                         alignment.df          = results.list$Alignment_table)
+    
+    
   }
   
-  
-  # ------------------------ #
-  # Create interactive trees #
-  # ------------------------ #
-  save.image("Debug_radial.Rdata")
-  plan(multisession, workers = params.list$nb_workers)
-  message("; Adding attributes to JSON files")
-  furrr::future_walk(.x = names(find.clusters.list$clusters),
-                     .f = ~  Add_attributes_to_JSON_interactive_tree(cluster_name          = .x,
-                                                                     motif.description.tab = results.list$Motif_info_tab,
-                                                                     clusters.list         = find.clusters.list,
-                                                                     color.map             = cl.col,
-                                                                     htree                 = cl.hclust.results,
-                                                                     json.file.df          = results.list$Clusters_files,
-                                                                     alignment.df          = results.list$Alignment_table))
-
-  # Add_attributes_to_JSON_interactive_tree(cluster_name          = "cluster_01",
-  #                                         motif.description.tab = results.list$Motif_info_tab,  # Subset of the table including only the motifs in a cluster
-  #                                         clusters.list         = find.clusters.list,
-  #                                         color.map             = cl.col,
-  #                                         htree                 = cl.hclust.results,
-  #                                         json.file.df          = results.list$Clusters_files,
-  #                                         alignment.df          = results.list$Alignment_table)
-
-
-
 ## Remove these folder when --minimal_output mode is activated
 } else {
   
