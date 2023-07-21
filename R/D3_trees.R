@@ -438,8 +438,9 @@ annotate.radial.tree <- function(clusters         = NULL,
   write_json(annotation.json, output.files.list$annotation_json_file)
   
   prefix <- gsub(output.files.list$D3_radial_tree, pattern = "_D3_radial_tree.html", replacement = "")
-  cmd_annotate_htmltree <- paste0("python3 annotate-html-radialtree.py ",
-                                  "-i ", prefix)
+  python_script_path = file.path(this.path::here(.. = 0), "annotate-html-radialtree.py")
+  cmd_annotate_htmltree <- paste0("python3 ", python_script_path,
+                                  " -i ", prefix)
   
   # Launch annotation script
   # Walter Santana wrote this script in python
