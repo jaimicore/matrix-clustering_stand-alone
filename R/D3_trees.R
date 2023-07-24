@@ -908,8 +908,7 @@ create.html.interactive.tree <- function(clusters      = NULL,
   # -------------- #
   # Cluster ID DIV #
   # -------------- #
-  cluster.id.div <- paste0('<div id="', names(clusters), '" style="clear:both;border-left:100px;float:left;"><h2>', names(clusters), '</h2></div><br><br><br>', collapse = "\n")
-
+  cluster.id.div <- paste0('<div id="', names(clusters), '_button" style="clear:both;border-left:100px;float:left;"><h2>', names(clusters), '</h2><div id="', names(clusters), '"></div></div><br><br><br>', collapse = "\n")
 
   # Insert the D3 trees in the HTML template
   html.lines <- readLines(html.template)
