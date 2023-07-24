@@ -791,6 +791,9 @@ if (params.list$min_output == FALSE) {
   # ------------ #
   # Export logos #
   # ------------ #
+  names(all.motifs.um)
+  
+  
   message("; Exporting logos in ", out.folder.list["aligned_logos"])
   export.logos(um        = aligned.motifs.um,
                outfolder = out.folder.list["aligned_logos"],
@@ -881,15 +884,18 @@ if (params.list$min_output == FALSE) {
                                                                        htree                 = cl.hclust.results,
                                                                        json.file.df          = results.list$Clusters_files,
                                                                        alignment.df          = results.list$Alignment_table))
+
     
-    # Add_attributes_to_JSON_interactive_tree(cluster_name          = "cluster_01",
-    #                                         motif.description.tab = results.list$Motif_info_tab,  # Subset of the table including only the motifs in a cluster
-    #                                         clusters.list         = find.clusters.list,
-    #                                         color.map             = cl.col,
-    #                                         htree                 = cl.hclust.results,
-    #                                         json.file.df          = results.list$Clusters_files,
-    #                                         alignment.df          = results.list$Alignment_table)
- 
+    create.html.interactive.tree(clusters      = find.clusters.list$clusters,
+                                 clusters.df   = results.list$Clusters_files,
+                                 cluster.color = cl.col,
+                                 html.template = html.interactive.tree.template,
+                                 hmtl.ready    = output.files.list$D3_dynamic_tree,
+                                 d3.template   = d3.interactive.tree.template,
+                                 d3.lib        = d3.min.lib,
+                                 jq.lib        = jquery.lib,
+                                 outdir        = dirname(out.folder))
+    
   }
   
 ## Remove these folder when --minimal_output mode is activated
