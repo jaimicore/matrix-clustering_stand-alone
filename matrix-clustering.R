@@ -216,7 +216,8 @@ output.files.list <- list("Alignment_table"       = file.path(out.folder.list$ta
                           "JSON_tree_all"         = file.path(out.folder.list$trees, "tree.json"),
                           "Newick_tree_all"       = file.path(out.folder.list$trees, "tree.newick"),
                           "JSON_radial_annotated" = file.path(out.folder.list$trees, "Annotated_tree_cluster_01.json"),
-                          "D3_radial_tree"        = paste0(out.folder, "_D3_radial_tree.html"))
+                          "D3_radial_tree"        = paste0(out.folder, "_D3_radial_tree.html"),
+                          "D3_dynamic_tree"       = paste0(out.folder, "_D3_dynamic_tree.html"))
 
 results.list <- list(Dist_table         = NULL,
                      Dist_matrix        = NULL,
@@ -334,7 +335,7 @@ if (params.list[["Nb_motifs"]] > 1) {
   
   # Create a table with the path to the JSON file of each cluster
   results.list$Clusters_files <- data.table(Cluster     = names(find.clusters.list$clusters),
-                                            JSON_folder = file.path(out.folder.list$trees, names(find.clusters.list$clusters)))
+                                            JSON_folder = this.path::here(file.path(out.folder.list$trees, names(find.clusters.list$clusters))))
   
   results.list$Clusters_files <- results.list$Clusters_files |> 
     mutate(JSON_file           = file.path(JSON_folder, paste0(Cluster, "_tree.json")),
