@@ -834,7 +834,6 @@ Add_attributes_to_JSON_interactive_tree <- function(cluster_name          = NULL
         # Check that nodes without clusters have a different color
         branch.color <- '#ccc;'
 
-
         # node.cluster <- as.vector(subset(node2cluster, node == tree.node)$cluster)
         # 
         # if (grepl(pattern = 'node_\\d+', x = tree.node)) {
@@ -865,17 +864,6 @@ Add_attributes_to_JSON_interactive_tree <- function(cluster_name          = NULL
 # cluster.color = cl.col
 # outdir        = dirname(out.folder)
 # hmtl.ready    = output.files.list$D3_dynamic_tree
-
-
-create.html.interactive.tree(clusters      = find.clusters.list$clusters,
-                             clusters.df   = results.list$Clusters_files,
-                             cluster.color = cl.col,
-                             html.template = html.interactive.tree.template,
-                             hmtl.ready    = output.files.list$D3_dynamic_tree,
-                             d3.template   = d3.interactive.tree.template,
-                             d3.lib        = d3.min.lib,
-                             jq.lib        = jquery.lib,
-                             outdir        = dirname(out.folder))
 
 
 create.html.interactive.tree <- function(clusters      = NULL,
@@ -909,17 +897,18 @@ create.html.interactive.tree <- function(clusters      = NULL,
   # json.file = subset(clusters.df, Cluster == cl.name)$JSON_annotated_file
 
   d3.trees.code <- purrr::map(.x = names(clusters),
+  # d3.trees.code <- purrr::map(.x = c("cluster_01"),
                               .f = ~d3.tree.one.cluster(cl.name   = .x,
                                                         cl.color  = subset(cluster.color, cluster == .x)$color,
-                                                        cl.comp   = cl.motifs,
+                                                        cl.comp   = clusters[[.x]],
                                                         d3.vec    = d3.lines,
                                                         json.file = subset(clusters.df, Cluster == .x)$JSON_annotated_file))
-
+  d3.trees.code <- paste0(d3.trees.code, collapse = "\n\n")
 
   # -------------- #
   # Cluster ID DIV #
   # -------------- #
-  cluster.id.div <- paste0('<div id="', names(clusters), '" style="clear:both;border-left:100px;float:left;"><h2>', names(clusters), '</h2></div><br><br><br>')
+  cluster.id.div <- paste0('<div id="', names(clusters), '" style="clear:both;border-left:100px;float:left;"><h2>', names(clusters), '</h2></div><br><br><br>', collapse = "\n")
 
 
   # Insert the D3 trees in the HTML template
