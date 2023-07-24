@@ -307,7 +307,7 @@ results
 
 The main aoutput of this analysis is an html file containing the logo forest (multiple hierarchical trees, each representing a cluster with aligned motifs).
 
-<img src="data/images/Logo_forest.jpeg" width="550px" align="center">
+<img src="data/images/Logo_forest.png" width="550px" align="center">
 
 &nbsp;
 
