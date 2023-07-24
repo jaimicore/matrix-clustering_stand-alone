@@ -689,9 +689,9 @@ add.gaps.to.indiv.tf.files <- function(motif.folder = NULL,
   
   ## Restrict the table to those motifs that need gaps
   gap.file.tab <- gap.file.tab %>% 
-                    mutate(sum_gaps = offset_up + offset_down) %>% 
-                    dplyr::filter(sum_gaps > 0) %>% 
-                    within(rm(sum_gaps))
+                    mutate(sum_gaps = offset_up + offset_down)
+                   # dplyr::filter(sum_gaps > 0) %>% 
+                   # within(rm(sum_gaps))
   
   
   gap.file.tab$file_rc = gsub(gap.file.tab$file, pattern = "_oriented\\.tf", replacement = "_oriented_rc\\.tf")
