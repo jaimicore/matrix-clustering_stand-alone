@@ -279,9 +279,9 @@ Add_attributes_to_JSON_radial_tree <- function(motif.description.tab = NULL,
       
       ## Define the URL of the logo files, relative to the location of the json file
       align.logo.link.relpath.F <- this.path::relpath(relative.to = results.main.dir,
-                                                      path        = this.path::here(motif.info.list[[tree.label]]$Logo))
+                                                      path        = motif.info.list[[tree.label]]$Logo)
       align.logo.link.relpath.R <- this.path::relpath(relative.to = results.main.dir,
-                                                      path        = this.path::here(motif.info.list[[tree.label]]$Logo_RC))
+                                                      path        = motif.info.list[[tree.label]]$Logo_RC)
       
       ### Create the line that will be added to JSON file
       image.F.line      <- paste0(',\n "image" : "', align.logo.link.relpath.F, '"')
