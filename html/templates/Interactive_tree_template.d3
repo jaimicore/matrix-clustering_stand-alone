@@ -1,0 +1,219 @@
+// Add the buttons to change the orientation
+d3.select("#--cl_id--_button").append("text")
+  .attr("x", 700)
+  .attr("y", 0)
+  .attr("font-size", "10px")
+  .attr("class", "legend")
+  .on("click", function(){
+    // change the orientation
+    d3.select("#--cl_id--").selectAll("image")
+    .attr("xlink:href", function(d) { return d.children ? "" : d.image; });
+  })
+  .text("Direct")
+  .attr("font-family", "Ubuntu Mono");
+
+d3.select("#--cl_id--_button").append("text")
+  .attr("x", 1000)
+  .attr("y", 0)
+  .attr("font-size", "10px")
+  .attr("class", "legend")
+  .on("click", function(){
+    // change the orientation
+    d3.select("#--cl_id--").selectAll("image")
+    .attr("xlink:href", function(d) { return d.children ? "" : d.image_rc; });
+  })
+  .text("Reverse")
+  .attr("font-family", "Ubuntu Mono");
+  
+ 
+
+(function() {
+  var width = --widthtree--,
+    height = --heighttree--;
+
+  var i = 0,
+    duration = 750,
+    root;
+
+  var cluster = d3.layout.cluster()
+    .size([height, --size--])
+    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 1); });
+
+  var diagonal = function elbow(d, i) {
+    return "M" + d.source.y + "," + d.source.x
+      + "V" + d.target.x + "H" + d.target.y;
+  }
+
+  var svg = d3.select("#--cl_id--").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("class", "drawarea")
+    .attr("transform", "translate(90,0)");
+
+  var jsontree = --JSON_string--;
+
+  root = jsontree;
+  root.x0 = height / 2;
+  root.y0 = 0;
+  update(root);
+
+  function update(source) {
+    // compute the new height
+    var levelWidth = [1];
+    var childCount = function(level, n) {
+      if (n.children && n.children.length > 0) {
+        if (levelWidth.length <= level + 1) levelWidth.push(0);
+        levelWidth[level + 1] += n.children.length;
+        n.children.forEach(function(d) {
+          childCount(level + 1, d);
+        });
+      }
+    };
+
+    childCount(0, root);
+    var newHeight = d3.max(levelWidth) * --sep_motifs--; // 20 pixels per line  // 250 ----------> This number must be calculated 
+    cluster = cluster.size([newHeight, --size--]);
+
+    // Re-draw the tree
+    svg = d3.select("#--cl_id--").select("svg")
+      .attr("width", width)
+      .attr("height", newHeight)
+      .attr("transform", "translate(90,0)");
+
+    // Compute the new tree layout.
+    var nodes = cluster.nodes(root).reverse(),
+      links = cluster.links(nodes);
+
+    // Update the nodes…
+    var node = svg.selectAll("g.node")
+      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+    // Enter any new nodes at the parent's previous position.
+    var nodeEnter = node.enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+      .on("click", click);
+
+    nodeEnter.append("circle")
+      .attr("r", 5)
+      .attr("fill", "--stroke--");
+      
+
+ 	nodeEnter.append("a")
+			.append("text")
+        		.style("font-size", "20px")
+			.text(function(d) { return d.children ? "" :  d.name; })
+			.attr("dx", function(d) { return d.children ? 0 : 20; })
+			.attr("dy", function(d) { return d.children ? 0 : 3; })
+			.style("fill", "--stroke--")
+			.attr("text-anchor", function(d) { return d.children ? "end" : "start"; })
+			.attr("fill", function(d) { return d._children ? "black" : "--stroke--"; })
+			.attr("font-family", "Ubuntu Mono")
+                       .attr("font-size", "15px");
+
+
+    nodeEnter.append("image")
+      .attr("xlink:href", function(d) { return d.children ? "" : d.image; })
+      .attr("width", function(d) { return (d.size + 2) * --logowidth--; })
+      .attr("height", --logoheight--)
+      .attr("x", --x_logo--)
+      .attr("y", --y_logo--)
+      .attr("cursor", "default")
+      .attr("preserveAspectRatio", "none");
+
+
+    // Transition nodes to their new position.
+    var nodeUpdate = node.transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+    nodeUpdate.select("circle")
+      .attr("r", 5)
+      .attr("fill", function(d) { return d._children ? "black" : "--stroke--"; })
+      .attr("font-size", "15px");
+
+    nodeUpdate.select("text")
+      .text(function(d) { return d.children ? d.ic : d.name; })
+      .attr("dx", function(d) { return d.children ? -3 : 20; })
+      .attr("dy", function(d) { return d.children ? -6 : 3; })
+      .attr("class", function(d) { return d.children ? "show_con_--cl_id--" : ""; })
+      .style("display", function(d) { return d.children ? "none" : ""; })
+      .attr("fill", function(d) { return d.children ? "blue" : "black"; })
+      .attr("text-anchor", function(d) { return d.children ? "end" : "start"; })
+      .attr("font-family", "Ubuntu Mono")
+      .attr("font-size", "20px");
+
+    nodeUpdate.select("image")
+      .attr("xlink:href", function(d) { return d.children ? "" : d.image; })
+      .attr("width", function(d) { return (d.size + 2) * --logowidth--; })
+      .attr("height", 80)
+      .attr("x", --x_logo--)
+      .attr("y", --y_logo--)
+      .attr("cursor", "default")
+      .attr("preserveAspectRatio", "none");
+
+
+    // Transition exiting nodes to the parent's new position.
+    var nodeExit = node.exit().transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+      .remove();
+
+    nodeExit.select("circle")
+      .attr("r", 1e-6)
+      .attr("font-size", "15px");
+
+    nodeExit.selectAll("image")
+      .remove();
+
+    nodeExit.select("text")
+      .style("fill-opacity", 1e-6);
+
+    // Update the links…
+    var link = svg.selectAll("path.link")
+      .data(links, function(d) { return d.target.id; });
+
+    // Enter any new links at the parent's previous position.
+    link.enter().insert("path", "g")
+      .attr("class", "link")
+      .attr("stroke", "--stroke--")
+      .attr("d", function(d) {
+        var o = {x: source.x0, y: source.y0};
+        return diagonal({source: o, target: o});
+      });
+
+    // Transition links to their new position.
+    link.transition()
+      .duration(duration)
+      .attr("d", diagonal);
+
+    // Transition exiting nodes to the parent's new position.
+    link.exit().transition()
+      .duration(duration)
+      .attr("d", function(d) {
+        var o = {x: source.x, y: source.y};
+        return diagonal({source: o, target: o});
+      })
+      .remove();
+
+    // Stash the old positions for transition.
+    nodes.forEach(function(d) {
+      d.x0 = d.x;
+      d.y0 = d.y;
+    });
+
+    // Toggle children on click.
+    function click(d) {
+      if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+      update(d);
+    }
+  }
+})();
+
