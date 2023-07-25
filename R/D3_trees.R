@@ -895,6 +895,10 @@ create.html.interactive.tree <- function(clusters      = NULL,
   # cl.comp = cl.motifs
   # d3.vec  = d3.lines
   # json.file = subset(clusters.df, Cluster == cl.name)$JSON_annotated_file
+  
+  # Max number of characters in motif IDs
+  # This is needed to calculate the distance between trees and logos
+  nb.char <- max(nchar(as.vector(unlist(clusters))))
 
   d3.trees.code <- purrr::map(.x = names(clusters),
   # d3.trees.code <- purrr::map(.x = c("cluster_01"),
@@ -902,6 +906,7 @@ create.html.interactive.tree <- function(clusters      = NULL,
                                                         cl.color  = subset(cluster.color, cluster == .x)$color,
                                                         cl.comp   = clusters[[.x]],
                                                         d3.vec    = d3.lines,
+                                                        id.nchar  = nb.char,
                                                         json.file = subset(clusters.df, Cluster == .x)$JSON_annotated_file))
   d3.trees.code <- paste0(d3.trees.code, collapse = "\n\n")
 
@@ -965,6 +970,7 @@ d3.tree.one.cluster <- function(cl.name   = NULL,
                                 cl.comp   = NULL,
                                 cl.color  = NULL,
                                 d3.vec    = NULL,
+                                id.nchar  = NULL,
                                 json.file = NULL) {
 
   cl.size <- length(cl.comp)
@@ -974,7 +980,7 @@ d3.tree.one.cluster <- function(cl.name   = NULL,
   # Complete the missing annotation elements #
   # ---------------------------------------- #
   d3.annotation.list <- list(JSON_string = NULL,
-                             widthtree   = 830,
+                             widthtree   = 1500,
                              heighttree  = NULL,
                              size        = 350,
                              cl_id       = cl.name,
@@ -989,7 +995,7 @@ d3.tree.one.cluster <- function(cl.name   = NULL,
   d3.annotation.list$JSON_string <- paste0(readLines(json.file), collapse = "\n")
 
   # Tree width/height
-  d3.annotation.list$widthtree <- 830
+  d3.annotation.list$widthtree <- 1500
   d3.annotation.list$heighttree <- 100 * cl.size
   # d3.annotation.list$size      <- 350           # d3.layout.cluster()
 
@@ -1002,8 +1008,8 @@ d3.tree.one.cluster <- function(cl.name   = NULL,
   )
 
   # Logo displacement
-  d3.annotation.list$x_logo <- 18 * 10 # To update
-  d3.annotation.list$y_logo <- 0
+  d3.annotation.list$x_logo <- id.nchar * 9
+  d3.annotation.list$y_logo <- -40
 
 
   # ------------------------------------------------ #
