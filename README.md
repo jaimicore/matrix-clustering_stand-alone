@@ -24,8 +24,6 @@ If you want to run the original version with all the graphical output, you can d
 
 :warning: This repository is under active development, so you can expect many changes as long as you see this line.
 
-The graphical output (interactive trees) will be added soon.
-
 &nbsp;
 
 ## :wrench: Changes relative to the original version
@@ -306,6 +304,12 @@ results
 &nbsp;
 
 ### Example 1
+
+The main aoutput of this analysis is an html file containing the logo forest (multiple hierarchical trees, each representing a cluster with aligned motifs).
+
+<img src="data/images/Logo_forest.png" width="550px" align="center">
+
+&nbsp;
 
 The analysis produces the file named `alignment_table.tab` which contains one line per motif with its corresponding cluster name, orientation in the alignment, the number of upstream/downstream gaps, the aligned consensus, and the alignment width.
 
