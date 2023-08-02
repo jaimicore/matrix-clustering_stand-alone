@@ -585,7 +585,7 @@ annotation.barplot <- function(df            = NULL,
   # Init
   collection.type <- NULL
   has.MA          <- NULL
-  has.UM          <- NULL
+  has.UN          <- NULL
   alpha.values    <- NULL
   y.axis.lab      <- NULL
   
@@ -599,11 +599,11 @@ annotation.barplot <- function(df            = NULL,
   
   # Check format of motif IDs (this is specific for JASPAR motifs)
   has.MA <- sum(as.vector(sapply(motif.annotation.list$df$motif_id, grepl, pattern = "MA\\d+\\.\\d+"))) > 0
-  has.UM <- sum(as.vector(sapply(motif.annotation.list$df$motif_id, grepl, pattern = "UM\\d+\\.\\d+"))) > 0
+  has.UN <- sum(as.vector(sapply(motif.annotation.list$df$motif_id, grepl, pattern = "UN\\d+\\.\\d+"))) > 0
   
-  if (has.MA & !has.UM) {
+  if (has.MA & !has.UN) {
     collection.type <- "CORE"
-  } else if (has.MA & has.UM) {
+  } else if (has.MA & has.UN) {
     collection.type <- "UNVALIDATED"
   } else {
     collection.type <- "None"
