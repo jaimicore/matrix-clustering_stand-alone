@@ -74,6 +74,9 @@ required.packages = c("dplyr",          # Data manipulation
                       "RJSONIO",        # Export hclust tree in JSON format
                       "circlize",       # Required to draw heatmaps
                       "flexclust",      # Calculate adjusted rand index
+                      ""htmlwidgets,    # Save plotly output as html
+                      "plotly",         # Interactive plots
+                      "svglite",        # Easy export of ggplot content as svg
                       "jsonlite")       # To create the JSON file from the hclust outputs
 
 
