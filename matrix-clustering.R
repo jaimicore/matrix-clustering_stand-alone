@@ -10,10 +10,13 @@ required.packages = c("dplyr",          ## Data manipulation
                       "furrr",          ## Run functions in parallel
                       "ggplot2",
                       "ggseqlogo",
+                      "htmlwidgets",    ## Export plotly as html
                       "optparse",       ## Read command-line arguments
                       "purrr",          ## Iterations,
+                      "plotly",         ## Interactive plots 
                       "reshape2",       ## Dataframe operations
                       "rcartocolor",    ## Nice color palettes
+                      "svglite",
                       "this.path",      ## Create relative paths
                       "tidyr",          ## Data manipulation
                       "universalmotif") ## Motif manipulation (Bioconductor)
@@ -819,7 +822,7 @@ if (params.list$min_output == FALSE) {
       motif.annotation.list <- create.color.annotation(motif.meta.file = motif.annotation.file,
                                                        ann.outdir      = out.folder.list$tables)
   
-      barplot.annotation.file <- file.path(out.folder.list$plots, paste0(params.list.radial$title, "_barplot.jpeg"))
+      barplot.annotation.file <- file.path(out.folder.list$plots, paste0(params.list.radial$title, "_barplot.svg"))
       
       # Create annotation barplot
       annotation.barplot(df            = motif.annotation.list$df,
@@ -916,7 +919,3 @@ if (params.list$min_output == FALSE) {
 }
 save.image("Debug_radial.Rdata")
 message("; End of program")
-
-# To do:
-#
-# Interactive trees
