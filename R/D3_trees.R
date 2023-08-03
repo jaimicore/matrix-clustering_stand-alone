@@ -36,10 +36,10 @@ create.html.radial.tree <- function(json.file        = NULL,
     
     if (!is.null(barplot.ann)) {
       
-      barplot.ann.path <- relpath(path   = barplot.ann,
+      barplot.ann.path <- relpath(path        = barplot.ann,
                                   relative.to = results.main.dir)
       
-      barplot.ann.html <- paste0('<img class="barplot Color_class_table" src="', barplot.ann.path, '" >') 
+      barplot.ann.html <- paste0('<a href="', gsub(barplot.ann.path, pattern = "\\.svg", replacement = "\\.html"),'" target="_blank"> <img class="barplot Color_class_table" src="', barplot.ann.path, '" ></a>') 
       
       if (grepl(pattern = '<!-- barplot -->', x = d3l)) {
         d3.lines.updated[d3.line.counter] <- gsub(pattern = '<!-- barplot -->', x = d3l, replacement = barplot.ann.html)
@@ -703,7 +703,24 @@ annotation.barplot <- function(df            = NULL,
          filename = barplot.file,
          width    = 12,
          height   = 8)
-  message("; JPEG barplot created: ", barplot.file)
+  message("; Class barplot created: ", barplot.file)
+  
+  
+  ## Convert ggplot to plotly
+  TF.class.barplotly <- ggplotly(TF.class.barplot,
+                                 tooltip = c("alpha", "x", "y")) %>% 
+                          config(displayModeBar = F)
+  
+  
+  ###################################################
+  ## Export barplot: interactive and static format ##
+  ###################################################
+  
+  # Same name, different extension (svg -> html)
+  TF.class.barplotly.html <- gsub(barplot.file, pattern = "\\.svg", replacement = "\\.html")
+  
+  htmlwidgets::saveWidget(widget = TF.class.barplotly,
+                          file   = TF.class.barplotly.html, selfcontained = F)
 }
 
 
