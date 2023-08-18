@@ -648,7 +648,7 @@ annotation.barplot <- function(df            = NULL,
   if (collection.type == "UNVALIDATED") {
     
     label.df <- label.df %>% 
-      mutate(lab         = paste0(CORE, "/", UNVALIDATED),
+      mutate(lab         = paste0(UNVALIDATED, "/", CORE),
              Total_Class = sum(c(CORE, UNVALIDATED))) %>% 
       data.table()
     
@@ -662,13 +662,13 @@ annotation.barplot <- function(df            = NULL,
   
   
   ## Use this variable to have enough space to insert the labels
-  max.y <- nrow(df) + 25
+  max.y <- max(label.df$Total_Class) + 25
   
   
   ## The alpha parameter and plot title change depending on the collection type
   if (collection.type == "UNVALIDATED") {
-    alpha.values  <- c(0.4, 1)
-    y.axis.lab    <- "Number of motifs (CORE/UNVALIDATED)"
+    alpha.values  <- c(1, 0.4)
+    y.axis.lab    <- "Number of motifs (Unvalidated/Core)"
   } else if (collection.type == "CORE") {
     alpha.values  <- 1
     y.axis.lab    <- "Number of motifs (CORE)"
