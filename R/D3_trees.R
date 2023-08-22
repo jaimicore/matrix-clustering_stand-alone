@@ -517,7 +517,7 @@ create.color.annotation <- function(motif.meta.file = NULL,
   # --------------------------- #
   
   ## Table header + tail
-  head.tab <- "<div id='Color_class_tab' style='display: inline-block;float:left;position:relative;' class='color-legend' width='450px'><p style='font-size:12px;padding:0px;border:0px'><b></b></p><table id='Color_class_table' class='Color_class_table hover compact stripe' cellspacing='0' width='450px' style='padding:15px;align:center;'><thead><tr><th > Color </th> <th> TF Class </th> <th> Number</th> </tr></thead><tbody>"
+  head.tab <- "<div id='Color_class_tab' style='display: inline-block;float:left;position:relative;' class='color-legend' width='450px'><p style='font-size:12px;padding:0px;border:0px'><b></b></p><table id='Color_class_table' class='Color_class_table hover compact stripe' cellspacing='0' width='450px' style='padding:15px;align:center;font-family:arial'><thead><tr><th > Color </th> <th> TF Class </th> <th> Number</th> </tr></thead><tbody>"
   tab.lines <- paste("\n<tr><td class='color-box' style='background-color: --color--';></td> <td>--TFClass--</td> <td>--TFClass_ID--</td> </tr>", collapse = "")
   tail.tab <- "<tr><td class='non_validated'>*</td><td>Unvalidated</td></tr></tbody></table></div>"
   

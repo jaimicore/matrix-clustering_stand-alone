@@ -236,7 +236,7 @@ d3.json("--json_file--", function(json) {
       .text(function(d) { return d.children ? "" :  d.name; })
       .attr("fill", function(d) { return d.color; })
       .style("font-size", "12px")
-      .attr("font-family", "Ubuntu Mono")
+      .attr("font-family", "courier")
       .attr("dx", function(d) { return d.x < 180 ? 10 : -10; })
       .attr("dy", ".31em")
       .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })

@@ -10,7 +10,7 @@ d3.select("#--cl_id--_button").append("text")
     .attr("xlink:href", function(d) { return d.children ? "" : d.image; });
   })
   .text("Direct")
-  .attr("font-family", "Ubuntu Mono");
+  .attr("font-family", "courier");
 
 d3.select("#--cl_id--_button").append("text")
   .attr("x", 1000)
@@ -23,7 +23,7 @@ d3.select("#--cl_id--_button").append("text")
     .attr("xlink:href", function(d) { return d.children ? "" : d.image_rc; });
   })
   .text("Reverse")
-  .attr("font-family", "Ubuntu Mono");
+  .attr("font-family", "courier");
   
  
 
@@ -109,7 +109,7 @@ d3.select("#--cl_id--_button").append("text")
 			.style("fill", "--stroke--")
 			.attr("text-anchor", function(d) { return d.children ? "end" : "start"; })
 			.attr("fill", function(d) { return d._children ? "black" : "--stroke--"; })
-			.attr("font-family", "Ubuntu Mono")
+			.attr("font-family", "courier")
                        .attr("font-size", "15px");
 
 
@@ -141,7 +141,7 @@ d3.select("#--cl_id--_button").append("text")
       .style("display", function(d) { return d.children ? "none" : ""; })
       .attr("fill", function(d) { return d.children ? "blue" : "black"; })
       .attr("text-anchor", function(d) { return d.children ? "end" : "start"; })
-      .attr("font-family", "Ubuntu Mono")
+      .attr("font-family", "courier")
       .attr("font-size", "20px");
 
     nodeUpdate.select("image")
