@@ -596,6 +596,11 @@ annotation.barplot <- function(df            = NULL,
   TF.class.sorted <- c(TF.class.sorted, "Unknown")
   
   df$class <- factor(df$class, levels = rev(TF.class.sorted))
+
+  # Sort and factorize collections for display purposes in TF.class.barplot
+  unique.collections        <- unique(df$collection)
+  unique.collections.sorted <- unique.collections[order(unique.collections, decreasing = T)]
+  df$collection             <- factor(df$collection, levels = unique.collections.sorted)
   
   # Check format of motif IDs (this is specific for JASPAR motifs)
   has.MA <- sum(as.vector(sapply(motif.annotation.list$df$motif_id, grepl, pattern = "MA\\d+\\.\\d+"))) > 0
@@ -667,7 +672,7 @@ annotation.barplot <- function(df            = NULL,
   
   ## The alpha parameter and plot title change depending on the collection type
   if (collection.type == "UNVALIDATED") {
-    alpha.values  <- c(1, 0.4)
+    alpha.values  <- c(0.4, 1)
     y.axis.lab    <- "Number of motifs (Unvalidated/Core)"
   } else if (collection.type == "CORE") {
     alpha.values  <- 1
