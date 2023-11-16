@@ -180,8 +180,9 @@ int main(int argc, char *argv[]){
 			max_offset = Rmatab[i].width - lth_w;
 			for (k=min_offset; k<=max_offset; k++) {
 				cor_tab[0][i][j] = calc_corr(k,Rmatab[i],Qmatab[j]);
-				cor_tab[1][i][j] = calc_corr(k,Rmatab[i],Qrevtab[j]);
-				(cor_tab[0][i][j].cor >= cor_tab[1][i][j].cor) ? (best_correl = 0) : (best_correl = 1);
+				//cor_tab[1][i][j] = calc_corr(k,Rmatab[i],Qrevtab[j]);
+				//(cor_tab[0][i][j].cor >= cor_tab[1][i][j].cor) ? (best_correl = 0) : (best_correl = 1);
+				best_correl = 0;
 				if ((cor_tab[best_correl][i][j].cor >= lth_cor) && (cor_tab[best_correl][i][j].Ncor >= lth_ncor) && (cor_tab[best_correl][i][j].Ncor1 >= lth_ncor1) && (cor_tab[best_correl][i][j].Ncor2 >= lth_ncor2)) {	// best strand cases
                     if (strcmp(mode,"scan") == 0) {
                         if ((last_match[j] >= 0) && (Rmatab[i].ID == res_tab[last_match[j]].id1) && ((k-res_tab[last_match[j]].offset)<res_tab[last_match[j]].w2)) {
