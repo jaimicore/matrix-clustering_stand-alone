@@ -4,8 +4,8 @@ function.to.apply <- function(parameters = NULL){
   
   switch(params.list$linkage_method,
          average  = mean,
-         single   = min,
-         complete = max)
+         single   = max,
+         complete = min)
 }
 
 

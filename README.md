@@ -30,7 +30,7 @@ If you want to run the original version with all the graphical output, you can d
 
 - We added a function to create motif alignments in a radial (circular) way (see **Example 2**). This representation allows to visualize entire motif collections and highlight categories (TF classes, TF families, Motif collection, etc).
 
-- We added a new functionality to calculte how well the resulting clusters are similar to a user provided annotation (see **Example 3**) for more details. This functionality could be used to select the parameters (thresholds in `cor` and `Ncor`) that maximizes a user-provided annotation.
+- We added a new functionality to calculte how well the resulting clusters are similar to a user provided annotation (see **Example 3**) for more details. This functionality could be used to select the parameters (thresholds in `cor` and `Ncor`) that maximizes the similarity to a user-provided annotation.
 
 - Default threshold are different: `cor = 0.75` and `Ncor = 0.55`. To decide if a node in the hierarchical tree will be merged or split, we compute the average `cor` and `Ncor` of all the pairwise comparisons for all the motifs in a particualr node. We realized that the original version didn't considered all the pairwise comparisons, we corrected this problem, but now the original default thresholds are too permissive, so we updated them to obtain good results.
 
@@ -102,7 +102,7 @@ BiocManager::install("ComplexHeatmap")
 
 ### Compile C dependencies
 
-The motif comparison step is ran by `compare-matrices-quick`, a fast version of `RSAT compare-matrices` implemented in C (with less options but very fast).
+The motif comparison step is ran by `compare-matrices-quick`, a fast version of `RSAT compare-matrices` implemented in C (with limited options but much faster).
 
 This repository contains the script written in `C` but it needs to be compiled to generate the executable script that will be called inside `matrix-clustering`.
 
@@ -146,7 +146,7 @@ Rscript matrix-clustering.R                           \
 
 ### Example 2
 
-In this example we are reproducing the clustering of [JASPAR nematodes](https://jaspar.genereg.net/matrix-clusters/nematodes/) (43 motifs corresponding to 12 TF classes). We are using the option `--radial_tree = TRUE` and this will force all the motifs to be grouped in a single alignment displayed in a radial (circular) visualization.
+In this example we are reproducing the clustering of [JASPAR nematodes](https://jaspar.genereg.net/matrix-clusters/nematodes/) (43 motifs corresponding to 12 TF classes). We use the option `--radial_tree = TRUE` to force the alignment of all motifs (as if they were in a single cluster), this alignment is displayed in a radial (circular) visualization.
 
 Users can provide motif metadata with the option `-a`.
 
