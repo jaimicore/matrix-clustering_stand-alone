@@ -457,6 +457,7 @@ if (params.list[["Nb_motifs"]] > 1) {
     cl.many                      <- names(cluster.sizes[cluster.sizes > 1])
     singleton.flag               <- as.logical(length(cl.singleton))
     params.list[["Nb_clusters"]] <- length(find.clusters.list$clusters)
+    all.singletons.flag          <- ifelse(params.list[["Nb_clusters"]] == params.list[["Nb_motifs"]], yes = 1, no = 0)
     message("; Number of clusters: ", params.list[["Nb_clusters"]])
     
   
@@ -474,21 +475,27 @@ if (params.list[["Nb_motifs"]] > 1) {
   
     ## Align motifs within each cluster (with 2 or more motifs, singletons are treated separately)
     ## This function is ran in parallel using furrr::future_map , see https://furrr.futureverse.org/
-    plan(multisession, workers = params.list$nb_workers)
-    message("; Motif alignment step") 
-    aligment.clusters.tab <- furrr::future_map(.x = cl.many.hclust,
-                                               .f = ~align.motifs.in.cluster(tree       = .x,
-                                                                             compa      = results.list$Motif_compa_tab,
-                                                                             motif.info = results.list$Motif_info_tab,
-                                                                             parameters = params.list))
+    if (!all.singletons.flag) {
+      
+      plan(multisession, workers = params.list$nb_workers)
+      message("; Motif alignment step") 
+      aligment.clusters.tab <- furrr::future_map(.x = cl.many.hclust,
+                                                 .f = ~align.motifs.in.cluster(tree       = .x,
+                                                                               compa      = results.list$Motif_compa_tab,
+                                                                               motif.info = results.list$Motif_info_tab,
+                                                                               parameters = params.list))
+    }
+
     
     ## Export the JSON file of the cluster
     json.trees <- furrr::future_map(.x = cl.many.hclust,
                                     .f = ~convert.hclust.to.JSON(hc = .x))
     message("; Exporting trees as a JSON files")
+    
     # Subset to clusters with 2 or more motifs
     cl.many.files.df <- results.list$Clusters_files |>
                           dplyr::filter(Cluster %in% cl.many)
+    
     furrr::future_walk2(.x = cl.many.files.df$JSON_file,
                         .y = json.trees,
                         .f = ~writeLines(.y, con = .x))
@@ -497,18 +504,21 @@ if (params.list[["Nb_motifs"]] > 1) {
     # Parse tables before exporting #
     # ----------------------------- #
     
-    ## Prepare tables to export
-    message("; Combining aligned clusters tables")
+    if (!all.singletons.flag) {
+      ## Prepare tables to export
+      message("; Combining aligned clusters tables")
+      
+      ## Groups
+      ## Add cluster name, rename columns and remove unnecessary columns
+      alignment.clusters.tab.export <-  rbindlist(aligment.clusters.tab, idcol = "cluster") %>% 
+                                          within(rm(N, Update_status)) %>% 
+                                          dplyr::rename(strand            = Strand,
+                                                        offset_up         = Offset_up,
+                                                        offset_down       = Offset_down,
+                                                        aligned_consensus = Oriented_consensus)
+    }
     
-    ## Groups
-    ## Add cluster name, rename columns and remove unnecessary columns
-    alignment.clusters.tab.export <-  rbindlist(aligment.clusters.tab, idcol = "cluster") %>% 
-      within(rm(N, Update_status)) %>% 
-      dplyr::rename(strand            = Strand,
-                    offset_up         = Offset_up,
-                    offset_down       = Offset_down,
-                    aligned_consensus = Oriented_consensus)
-
+    
     ## Singleton section
     ## This if only applied when there is at least one singleton
     if (singleton.flag) {
@@ -538,13 +548,18 @@ if (params.list[["Nb_motifs"]] > 1) {
       
       
       ## Combine groups + singleton clusters
-      results.list$Alignment_table <- rbind(alignment.clusters.tab.export, singleton.clusters.tab.export) %>% 
-        mutate(width = nchar(aligned_consensus))
+      if (!all.singletons.flag) {
+        results.list$Alignment_table <- rbind(alignment.clusters.tab.export, singleton.clusters.tab.export) %>% 
+                                          mutate(width = nchar(aligned_consensus))
+      } else {
+        results.list$Alignment_table <- singleton.clusters.tab.export %>% 
+                                          mutate(width = nchar(aligned_consensus))
+      }
       
       
     } else {
       results.list$Alignment_table <- alignment.clusters.tab.export %>% 
-        mutate(width = nchar(aligned_consensus))
+                                        mutate(width = nchar(aligned_consensus))
     }
     
     ## This is the column order of the original version
