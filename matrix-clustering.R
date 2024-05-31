@@ -566,6 +566,7 @@ if (params.list[["Nb_motifs"]] > 1) {
     results.list$Alignment_table <- results.list$Alignment_table %>% 
                                       select("id", "name", "cluster", "strand", "offset_up", "offset_down", "width", "aligned_consensus", "aligned_consensus_rc")
 
+    
     # ------------------- #
     # Clusters - ID table #
     # ------------------- #
@@ -665,19 +666,24 @@ message("; Adding gaps to motif files")
 
 # When the radial_tree option is active, all motifs are aligned in a single cluster
 # The number of gaps was calculated in the 'Alignment_radial_table'
+
+
 add.gaps.tab <- add.gaps.to.indiv.tf.files(motif.folder = out.folder.list$indiv_motifs,
                                            gap.info     = align.tab)
 
-add.gaps.list <- list(File = as.vector(add.gaps.tab$file),
-                      Up   = add.gaps.tab$offset_up,
-                      Down = add.gaps.tab$offset_down)
-
-plan(multisession, workers = params.list$nb_workers)
-furrr::future_pwalk(.l = add.gaps.list,
-                    .f = ~add.gaps.transfac.motif(tf.file.in  = ..1,
-                                                  gap.up      = ..2,
-                                                  gap.down    = ..3,
-                                                  tf.file.out = ..1))
+if (!all.singletons.flag) {
+  
+  add.gaps.list <- list(File = as.vector(add.gaps.tab$file),
+                        Up   = add.gaps.tab$offset_up,
+                        Down = add.gaps.tab$offset_down)
+  
+  plan(multisession, workers = params.list$nb_workers)
+  furrr::future_pwalk(.l = add.gaps.list,
+                      .f = ~add.gaps.transfac.motif(tf.file.in  = ..1,
+                                                    gap.up      = ..2,
+                                                    gap.down    = ..3,
+                                                    tf.file.out = ..1))
+}
 
 
 # --------------------------------------- #
@@ -709,7 +715,6 @@ motifs.files.per.cluster <- export.aligned.motifs.per.cluster(indiv.motis.folder
 message("; Exporting root motifs: ", output.files.list$Root_motifs)
 root.motifs.tf.vector <- purrr::map(.x = sort(motifs.files.per.cluster),
                                     .f = ~export.root.motif(cluster.tf.file = .x))
-
 suppressMessages(root.motifs.tf.vector <- unlist(root.motifs.tf.vector))
 
 ## Print the vector as a text file
