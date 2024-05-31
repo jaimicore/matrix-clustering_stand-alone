@@ -600,10 +600,22 @@ df.to.vector.text <- function(df = NULL) {
   ## Clean the column LL
   df$LL   <- as.numeric(df$LL)
   df.char <- apply(df, 2, as.character)
-  df.char <- apply(df.char, 2, function(x){
-    gsub(x, pattern = "^ ", replacement = "")
-  })
   
+  # when the input df contains only one column, the previous operation returns a character vector
+  # instead of a df (why R !?)
+  # The following code reconstruct the DataFrame
+  if (nrow(df) == 1) {
+      df.char <- matrix(df.char) |> t() |> data.frame()
+      colnames(df.char) <- c("LL", "AA", "CC",  "GG", "TT")
+  } else {
+    df.char <- apply(df.char, 2, function(x){
+      gsub(x, pattern = "^ ", replacement = "")
+    })
+  }
+
+
+  # df = data.frame(LL = 1, AA = 72, CC = 0, GG = 94, TT = 70)
+  # df = data.frame(LL = 1:2, AA = 72:73, CC = 0:1, GG = 94:95, TT = 70:71)
   
   ## Convert each row in a text vector, then as a single string using paste
   nt.counts.lines <- apply(df.char, 1, function(x){
@@ -627,7 +639,6 @@ reconstruct.transfac.file.vector <- function(AC  = NULL,
   tf.separator <- "//"
   p0           <- "P0       A     C     G     T"
   
-  
   ## Concat the variables to create a vector
   new.tf.vec <- c(AC,
                   tf.comment,
@@ -640,6 +651,7 @@ reconstruct.transfac.file.vector <- function(AC  = NULL,
   
   return(new.tf.vec)
 }
+
 
 
 
@@ -773,6 +785,14 @@ reduce.count.matrix.list <- function(count.matrix.list = NULL,
   
   count.matrix.reduced <- data.frame(count.matrix.reduced)
   rownames(count.matrix.reduced) <- c("AA", "CC", "GG", "TT")
+  
+  if (ncol(count.matrix.reduced) == 1) {
+    if (colnames(count.matrix.reduced) == "count.matrix.reduced") {
+      colnames(count.matrix.reduced) <- "X1"
+    }
+  }
+
+
   
   return(count.matrix.reduced)
 }
@@ -928,7 +948,7 @@ export.root.motif <- function(cluster.tf.file = NULL) {
                     t() %>% 
                     data.table() %>% 
                     dplyr::mutate(LL = 1:n()) %>% 
-                    select(LL, AA, CC, GG, TT)
+                    dplyr::select(LL, AA, CC, GG, TT)
   
   ## Reconstruct a transfac file with the minimal fields
   root.motif.file <- reconstruct.transfac.file.vector(AC  = paste0("AC ", root.motif.name),
