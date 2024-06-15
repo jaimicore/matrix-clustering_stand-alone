@@ -937,5 +937,5 @@ if (params.list$min_output == FALSE) {
   invisible(suppressWarnings(file.remove(output.files.list$Summary_table, showWarnings = FALSE)))
 
 }
-save.image("Debug_radial.Rdata")
+# save.image("Debug_radial.Rdata")
 message("; End of program")

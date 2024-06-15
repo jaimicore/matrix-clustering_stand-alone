@@ -6,6 +6,7 @@
 
 ## List of packages to install from CRAN
 required.packages = c("data.table",
+                      "dplyr",          ## For data manipulation
                       "furrr",          ## Run functions in parallel
                       "optparse",       ## Read arguments from commmand-line
                       "this.path",      ## Create relative paths
@@ -41,11 +42,17 @@ option_list = list(
   make_option(c("--rc"), type = "logical", default = FALSE, 
               help = "Return the reverse-complement of the input motifs. [Default \"%default\"] ", metavar = "logical"),
   
-  make_option(c("-t", "--trimm"), type = "logical", default = FALSE,
+  make_option(c("-t", "--trim"), type = "logical", default = FALSE,
               help = "Trim the motif flanks. [Default \"%default\"] ", metavar = "logical"),
   
   make_option(c("--IC_threshold"), type = "numeric", default = 0.25, 
-              help = "IC threshold to trimm the motfis. [Default \"%default\"] ", metavar = "number")
+              help = "IC threshold to trimm the motfis. [Default \"%default\"] ", metavar = "number"),
+  
+  make_option(c("--spike_IC_threshold"), type = "numeric", default = 0.25, 
+              help = "IC threshold for the trimming spikes. [Default \"%default\"] ", metavar = "number"),
+  
+  make_option(c("--trim_values_output"), type = "character", default = "trim_values.txt", 
+              help = "A path to a text file to output trim values [Default \"%default\"] ", metavar = "character")
   
   );
 
@@ -55,13 +62,15 @@ opt = parse_args(opt_parser);
 
 
 ## Output file prefix
-tf.matrix.file.in  <- opt$matrix_file
-tf.matrix.file.out <- opt$output_file
-format.in          <- opt$from
-format.out         <- opt$to
-rc.flag            <- opt$rc
-trimm.flag         <- opt$trimm
-trimm.ic           <- as.numeric(opt$IC_threshold)
+tf.matrix.file.in    <- opt$matrix_file
+tf.matrix.file.out   <- opt$output_file
+format.in            <- opt$from
+format.out           <- opt$to
+rc.flag              <- opt$rc
+trimm.flag           <- opt$trim
+trimm.ic             <- as.numeric(opt$IC_threshold)
+trimm.spike.ic       <- as.numeric(opt$spike_IC_threshold)
+trim.values.out.file <- opt$trim_values_output
 
 
 ## Mandatory input
@@ -84,6 +93,11 @@ if (trimm.ic < 0 | is.character(trimm.ic) | is.na(trimm.ic) | trimm.ic > 2) {
   trimm.flag <- FALSE
 }
 
+if (trimm.spike.ic < 0 | is.character(trimm.spike.ic) | is.na(trimm.spike.ic) | trimm.spike.ic > 2) {
+  warning("; Incorrect value in --spike_IC_threshold argument. The value must be a number > 0 and < 2. The trimming step will not be applied.")
+  trimm.flag <- FALSE
+}
+
 
 ###########
 ## Debug ##
@@ -96,7 +110,9 @@ if (trimm.ic < 0 | is.character(trimm.ic) | is.na(trimm.ic) | trimm.ic > 2) {
 # format.out         <- "cluster-buster"
 # rc.flag            <- TRUE
 # trimm.flag         <- TRUE
-# trimm.ic           <- 0.25
+# trimm.ic           <- 0.3
+# trimm.spike.ic     <- 1
+# trim.values.out.file <- "trim_values.txt"
 
 ## Format in/out test
 fit <- check.supported.formats(motif.format = format.in)
@@ -110,16 +126,26 @@ motifs.um <- read.motif.file(motif.file   = tf.matrix.file.in,
                              motif.format = format.in)
 
 
-##################
-## Trimm motifs ##
-##################
+#################
+## Trim motifs ##
+#################
+
 if (trimm.flag) {
   
-  motifs.um <- trim.motifs.window(um           = motifs.um,
-                                  ic.threshold = trimm.ic,
-                                  window.k     = 1)
+  trimming_res <- trim.motifs.window(um                 = motifs.um,
+                                     ic.threshold       = trimm.ic,
+                                     ic.spike.threshold = trimm.spike.ic,
+                                     window.k           = 1)
+  
+  motifs.um   <- trimming_res$trimmed_matrix
+  trim_values <- trimming_res$trim_values
+  
+  dir.create(dirname(trim.values.out.file), recursive = TRUE, showWarnings = FALSE)
+  fwrite(as.data.frame(trim_values),
+         file      = trim.values.out.file,
+         col.names = TRUE,
+         sep       = "\t")
 }
-
 
 ##################
 ## RC conversion #
