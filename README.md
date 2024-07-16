@@ -448,6 +448,7 @@ Contributors
 - [Jaime A Castro-Mondragon](https://jaimicore.github.io/) 
 - [Rafel Riudavets-Puig](https://github.com/rriupu)
 - [Walter Santana-Garcia](https://github.com/santanaw)
+- [Ieva Rauluseviciute](https://github.com/ievarau)
 
  &nbsp;
  &nbsp;
@@ -485,7 +486,7 @@ For the moment this scripts has three main functions:
 
 1. Motif format conversion, see above for the supported formats.
 2. Export reverse-complement of the input motifs
-3. Trimm motifs (remove columns with low information content).
+3. Trim motifs (remove columns with low information content).
 
 
 Simple motif conversion from `transfac` to `meme` format.
@@ -516,11 +517,12 @@ Simple motif conversion from `transfac` to `meme` format after motif trimming.
 Rscript convert-matrix.R                    \
   -i data/OCT4_datasets/RSAT_OCT4_motifs.tf \
   --from tf --to jaspar                     \
-  --trimm TRUE --IC_threshold 0.25          \
-  --rc TRUE                                 \
+  --trim TRUE                               \
+  --IC_threshold 0.25                       \
+  --spike_IC_threshold 0.25                 \
+  --trim_values_output results/convert-matrix_examples/RSAT_OCT4_motifs_trim_values.txt \
   --output_file results/convert-matrix_examples/RSAT_OCT4_motifs_trimmed.jaspar
 ```
-
 
 In this figure we show the advantages of using a window-based approach to trim the motifs instead of using a single value, we use as example the [IRF7 motif from JASPAR](https://jaspar.genereg.net/matrix/MA0772.1/).
 
