@@ -46,7 +46,7 @@ option_list = list(
               help = "Trim the motif flanks. [Default \"%default\"] ", metavar = "logical"),
   
   make_option(c("--IC_threshold"), type = "numeric", default = 0.25, 
-              help = "IC threshold to trimm the motfis. [Default \"%default\"] ", metavar = "number"),
+              help = "IC threshold to trim the motfis. [Default \"%default\"] ", metavar = "number"),
   
   make_option(c("--spike_IC_threshold"), type = "numeric", default = 0.25, 
               help = "IC threshold for the trimming spikes. [Default \"%default\"] ", metavar = "number"),
@@ -67,9 +67,9 @@ tf.matrix.file.out   <- opt$output_file
 format.in            <- opt$from
 format.out           <- opt$to
 rc.flag              <- opt$rc
-trimm.flag           <- opt$trim
-trimm.ic             <- as.numeric(opt$IC_threshold)
-trimm.spike.ic       <- as.numeric(opt$spike_IC_threshold)
+trim.flag           <- opt$trim
+trim.ic             <- as.numeric(opt$IC_threshold)
+trim.spike.ic       <- as.numeric(opt$spike_IC_threshold)
 trim.values.out.file <- opt$trim_values_output
 
 
@@ -88,14 +88,14 @@ if (is.null(format.in)) {
 
 ## Skip the trimming step when the IC threshold is not correct
 ## For example, if it is a character or numeric values out of the IC range (0-2)
-if (trimm.ic < 0 | is.character(trimm.ic) | is.na(trimm.ic) | trimm.ic > 2) {
+if (trim.ic < 0 | is.character(trim.ic) | is.na(trim.ic) | trim.ic > 2) {
   warning("; Incorrect value in --IC_threshold argument. The value must be a number > 0 and < 2. The trimming step will not be applied.")
-  trimm.flag <- FALSE
+  trim.flag <- FALSE
 }
 
-if (trimm.spike.ic < 0 | is.character(trimm.spike.ic) | is.na(trimm.spike.ic) | trimm.spike.ic > 2) {
+if (trim.spike.ic < 0 | is.character(trim.spike.ic) | is.na(trim.spike.ic) | trim.spike.ic > 2) {
   warning("; Incorrect value in --spike_IC_threshold argument. The value must be a number > 0 and < 2. The trimming step will not be applied.")
-  trimm.flag <- FALSE
+  trim.flag <- FALSE
 }
 
 
@@ -109,9 +109,9 @@ if (trimm.spike.ic < 0 | is.character(trimm.spike.ic) | is.na(trimm.spike.ic) | 
 # format.in          <- "tf"
 # format.out         <- "cluster-buster"
 # rc.flag            <- TRUE
-# trimm.flag         <- TRUE
-# trimm.ic           <- 0.3
-# trimm.spike.ic     <- 1
+# trim.flag         <- TRUE
+# trim.ic           <- 0.3
+# trim.spike.ic     <- 1
 # trim.values.out.file <- "trim_values.txt"
 
 ## Format in/out test
@@ -130,11 +130,11 @@ motifs.um <- read.motif.file(motif.file   = tf.matrix.file.in,
 ## Trim motifs ##
 #################
 
-if (trimm.flag) {
+if (trim.flag) {
   
   trimming_res <- trim.motifs.window(um                 = motifs.um,
-                                     ic.threshold       = trimm.ic,
-                                     ic.spike.threshold = trimm.spike.ic,
+                                     ic.threshold       = trim.ic,
+                                     ic.spike.threshold = trim.spike.ic,
                                      window.k           = 1)
   
   motifs.um   <- trimming_res$trimmed_matrix

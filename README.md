@@ -486,7 +486,7 @@ For the moment this scripts has three main functions:
 
 1. Motif format conversion, see above for the supported formats.
 2. Export reverse-complement of the input motifs
-3. Trimm motifs (remove columns with low information content).
+3. Trim motifs (remove columns with low information content).
 
 
 Simple motif conversion from `transfac` to `meme` format.

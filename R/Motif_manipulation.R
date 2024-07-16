@@ -987,13 +987,13 @@ trim.motifs.window <- function(um                 = NULL,
                                                        sp.th     = ic.spike.threshold,
                                                        k         = 1))
   
-  positions.trimm.list <- list(count_matrices = count.matrices.list,
+  positions.trim.list <- list(count_matrices = count.matrices.list,
                                from           = trim.positions$min,
                                to             = trim.positions$max)
   
   
   ## Subset the motif using the previously calculated positions
-  count.matrices.trimmed.list <- purrr::pmap(.l = positions.trimm.list,
+  count.matrices.trimmed.list <- purrr::pmap(.l = positions.trim.list,
                                              .f = ~subset.matrix(m   = ..1,
                                                                  min = ..2,
                                                                  max = ..3))
