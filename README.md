@@ -20,7 +20,7 @@ As in the original version of *RSAT matrix-clustering*, there is no limit in the
 
 ## Before starting
 
-If you want to run the original version with all the graphical output, you can do it through the [*RSAT* website](http://rsat.sb-roscoff.fr/matrix-clustering_form.cgi) or alternatively, installing *RSAT* locally and run the command line version of *matrix-clustering*.
+If you want to run the original version with all the graphical output, you can do it through the [*RSAT* website](https://rsat.france-bioinformatique.fr/fungi/matrix-clustering.cgi) or alternatively, installing *RSAT* locally and run the command line version of *matrix-clustering*.
 
 :warning: This repository is under active development, so you can expect many changes as long as you see this line.
 
@@ -33,6 +33,8 @@ If you want to run the original version with all the graphical output, you can d
 - We added a new functionality to calculte how well the resulting clusters are similar to a user provided annotation (see **Example 3**) for more details. This functionality could be used to select the parameters (thresholds in `cor` and `Ncor`) that maximizes the similarity to a user-provided annotation.
 
 - Default threshold are different: `cor = 0.75` and `Ncor = 0.55`. To decide if a node in the hierarchical tree will be merged or split, we compute the average `cor` and `Ncor` of all the pairwise comparisons for all the motifs in a particualr node. We realized that the original version didn't considered all the pairwise comparisons, we corrected this problem, but now the original default thresholds are too permissive, so we updated them to obtain good results.
+
+- We implemented a motif trimming algorithm that is robust to IC spikes, see [this reference](https://academic.oup.com/nar/article/52/D1/D174/7420101). Motifs can be trimmed before clustering, more of this in the **Extra** section. 
 
 &nbsp;
 &nbsp;
