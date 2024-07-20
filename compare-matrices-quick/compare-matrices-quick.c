@@ -42,6 +42,7 @@ char *outfile="compmat_out.tab";	// Output file
 int verbose = 0;
 char detect_palindromes = 0;
 char *mode="scan";
+bool use_rev_comp = 1;
 
 //-----------------------------------------------------------------
 
@@ -180,9 +181,13 @@ int main(int argc, char *argv[]){
 			max_offset = Rmatab[i].width - lth_w;
 			for (k=min_offset; k<=max_offset; k++) {
 				cor_tab[0][i][j] = calc_corr(k,Rmatab[i],Qmatab[j]);
-				//cor_tab[1][i][j] = calc_corr(k,Rmatab[i],Qrevtab[j]);
-				//(cor_tab[0][i][j].cor >= cor_tab[1][i][j].cor) ? (best_correl = 0) : (best_correl = 1);
-				best_correl = 0;
+				if (use_rev_comp) {
+					cor_tab[1][i][j] = calc_corr(k,Rmatab[i],Qrevtab[j]);
+					(cor_tab[0][i][j].cor >= cor_tab[1][i][j].cor) ? (best_correl = 0) : (best_correl = 1);
+				}
+				else {
+					best_correl = 0;
+				}
 				if ((cor_tab[best_correl][i][j].cor >= lth_cor) && (cor_tab[best_correl][i][j].Ncor >= lth_ncor) && (cor_tab[best_correl][i][j].Ncor1 >= lth_ncor1) && (cor_tab[best_correl][i][j].Ncor2 >= lth_ncor2)) {	// best strand cases
                     if (strcmp(mode,"scan") == 0) {
                         if ((last_match[j] >= 0) && (Rmatab[i].ID == res_tab[last_match[j]].id1) && ((k-res_tab[last_match[j]].offset)<res_tab[last_match[j]].w2)) {
@@ -328,6 +333,7 @@ void read_arg(int argc, char *argv[]){
 			  if(strcmp(argv[i],"-lth_ncor2") == 0)  lth_ncor2  = atof(argv[++i]);
 			  if(strcmp(argv[i],"-detect_palindromes") == 0)  detect_palindromes  = 1;
               if(strcmp(argv[i],"-mode") == 0)  mode  = argv[++i];
+			  if(strcmp(argv[i],"-norc") == 0)  use_rev_comp = 0;
 		  }
 	  }
   }
@@ -527,6 +533,7 @@ void print_help(void){
     printf("\t\t[-mode <mode>]\t\t\t\t\twhere <mode> can be either \"scan\" or \"matches\" (default = scan)\n\n");
     printf("\t\"scan\" mode: reports all matching positions between matrix 2 (reference) and matrix 1 (query) that pass the thresholds on the metrics""\n\n");
     printf("\t\"matches\" mode: For each pair of matrices (one from file1 and one from file2), the program tests all possible offsets, and reports only\n\t\t the best Ncor matching position (if passing the Ncor threshold)\n\n");
+	printf("\t\t[-norc]\t\t\t\t\tDo not align reverse-complement matrices\n");
 
 	
 	printf("Exucution example: ./compare-matrices-quick -o result.tab -file1 DemoCompMat.txt -file2 JasparCore_Transfac.txt -lth_ncor2 0.7 -lth_w 5 -mode matches\n");
