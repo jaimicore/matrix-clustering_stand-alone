@@ -42,7 +42,7 @@ char *outfile="compmat_out.tab";	// Output file
 int verbose = 0;
 char detect_palindromes = 0;
 char *mode="scan";
-bool use_rev_comp = 1;
+int use_rev_comp = 1;
 
 //-----------------------------------------------------------------
 
