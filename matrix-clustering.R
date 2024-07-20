@@ -80,7 +80,7 @@ option_list = list(
               help = "Analysis title", metavar = "character"),
   
   make_option(c("--ARI"), type = "logical", default = FALSE, 
-              help = "Calculate the Adjusted Rand Index (ARI) of the resulting clusters based in the provided annotation table (--annotation_table). [Default \"%default\"].", metavar = "logical")
+              help = "Calculate the Adjusted Rand Index (ARI) of the resulting clusters based in the provided annotation table (--annotation_table). [Default \"%default\"].", metavar = "logical"),
   
   make_option(c("--no-rc"), type = "logical", default = FALSE, 
               help = "Do not align PWM reverse complements. [Default \"%default\"].", metavar = "logical")
