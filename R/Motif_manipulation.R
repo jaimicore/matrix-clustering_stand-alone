@@ -1051,10 +1051,10 @@ export.one.logo <- function(um.motif = NULL,
   
   invisible(suppressMessages(
     motif.gg <- ggplot() +
-      geom_logo(motif, method = 'bits', stack_width = 1) +
-      theme_logo() +
-      scale_x_continuous(expand = c(0, 0)) +
-      scale_y_continuous(limits = c(0,2), expand = c(0, 0))
+                  geom_logo(motif, method = 'bits', stack_width = 1) +
+                  theme_logo() +
+                  scale_x_continuous(expand = c(0, 0)) +
+                  scale_y_continuous(limits = c(0,2), expand = c(0, 0))
   ))
   
   ggsave(filename = logofile, plot = motif.gg, bg = "white", width = 10, height = 6, dpi = 400)
@@ -1077,7 +1077,7 @@ export.logos <- function(um        = NULL,
   
   # plan(multisession, workers = params.list$nb_workers)
   purrr::walk2(.x = logos.F.name,
-                      .y = um,
-                      .f = ~export.one.logo(um.motif = .y,
-                                            logofile = .x))
+               .y = um,
+               .f = ~export.one.logo(um.motif = .y,
+                                     logofile = .x))
 }

@@ -8,6 +8,8 @@
 required.packages = c("data.table",
                       "dplyr",          ## For data manipulation
                       "furrr",          ## Run functions in parallel
+                      "ggplot2",
+                      "ggseqlogo",      ## Draw logos
                       "optparse",       ## Read arguments from commmand-line
                       "this.path",      ## Create relative paths
                       "universalmotif") ## Motif manipulation (Bioconductor)
@@ -32,6 +34,9 @@ option_list = list(
   
   make_option(c("-o", "--output_file"), type = "character", default = NULL, 
               help = "Folder to save the results (Mandatory)", metavar = "character"),
+  
+  make_option(c("-l", "--logos"), type = "logical", default = TRUE, 
+              help = "Indicates whether the logos are exported or not", metavar = "logical"),
   
   make_option(c("--from"), type = "character", default = NULL, 
               help = "Format of matrices in --matrix_file (Mandatory). Options: cluster-buster, cisbp, homer, jaspar, meme, tf, transfac, uniprobe].", metavar = "character"),
@@ -64,12 +69,13 @@ opt = parse_args(opt_parser);
 ## Output file prefix
 tf.matrix.file.in    <- opt$matrix_file
 tf.matrix.file.out   <- opt$output_file
+logos.flag           <- opt$logos
 format.in            <- opt$from
 format.out           <- opt$to
 rc.flag              <- opt$rc
-trim.flag           <- opt$trim
-trim.ic             <- as.numeric(opt$IC_threshold)
-trim.spike.ic       <- as.numeric(opt$spike_IC_threshold)
+trim.flag            <- opt$trim
+trim.ic              <- as.numeric(opt$IC_threshold)
+trim.spike.ic        <- as.numeric(opt$spike_IC_threshold)
 trim.values.out.file <- opt$trim_values_output
 
 
@@ -174,6 +180,22 @@ if (rc.flag) {
   write.motif.file(um.object    = motifs.um.rc,
                    motif.format = format.out,
                    outfile.name = tf.matrix.file.out.rc)
+}
+
+
+if (logos.flag) {
+  
+  message("; Exporting logos ")
+  
+  if (rc.flag) {
+    motifs.um.oriented <- motifs.um.rc
+  } else {
+    motifs.um.oriented <- motifs.um
+  }
+
+  export.logos(um        = motifs.um.oriented,
+               outfolder = dirname(tf.matrix.file.out))
+  
 }
 
 message("; End of program")
