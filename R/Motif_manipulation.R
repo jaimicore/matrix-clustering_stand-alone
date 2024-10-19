@@ -77,7 +77,8 @@ calculate.nbsites.uo <- function(um = NULL) {
 read_cluster_buster <- function(motif.file = NULL) {
   
   ## Read motif file using universalmotif functions    
-  cluster.buster.uo <- list(universalmotif::read_matrix(file = motif.file, positions = "rows", sep = "//"))
+  ## The separator must be a blank line between motifs
+  cluster.buster.uo <- list(universalmotif::read_matrix(file = motif.file, positions = "rows"))
   
   ## Set nbsites attribute correctly
   ## By default it is set to 100 and this create a problem when genereting RC because
