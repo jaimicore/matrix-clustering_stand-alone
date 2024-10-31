@@ -21,8 +21,10 @@ openssl-devel
 pandoc
 patch
 pcre-devel
+procps
 python3
-R
+R-4.2.3-1.fc37
 readline-devel
 xz-devel
 zlib-devel
+wget

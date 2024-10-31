@@ -13,7 +13,6 @@ RUN xargs dnf -y install < "requirements-sys.txt"
 ## Copy required files ##
 ## ------------------- ##
 
-WORKDIR /opt
 RUN git clone https://github.com/jaimicore/matrix-clustering_stand-alone.git
 COPY requirements.R /opt/requirements.R
 
@@ -21,12 +20,14 @@ COPY requirements.R /opt/requirements.R
 ## Install package requirements ##
 ## ---------------------------- ##
 
+COPY data.table_1.14.8.tar.gz /opt/data.table_1.14.8.tar.gz
+
 RUN Rscript requirements.R
 ENV R_LIBS=${R_LIBS}:/opt/software
 
-RUN cd matrix-clustering_stand-alone/compare-matrices-quick \
-	&& make \
-	&& cd ../..
+WORKDIR /opt/matrix-clustering_stand-alone/compare-matrices-quick
+RUN make
+WORKDIR /opt/software/matrix-clustering_stand-alone
 
 ## --------------------------------------------------- ##
 ## Create symlinks to required scripts and update PATH ##
@@ -34,6 +35,9 @@ RUN cd matrix-clustering_stand-alone/compare-matrices-quick \
 
 RUN chmod +x /opt/matrix-clustering_stand-alone/matrix-clustering.R \
     && ln -s /opt/matrix-clustering_stand-alone/matrix-clustering.R /usr/bin/matrix-clustering
+
+RUN chmod +x /opt/matrix-clustering_stand-alone/convert-matrix.R \
+    && ln -s /opt/matrix-clustering_stand-alone/convert-matrix.R /usr/bin/convert-matrix
 
 ## -------------------------- ##
 ## Switch to non-root account ##
