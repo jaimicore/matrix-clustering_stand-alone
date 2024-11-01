@@ -51,6 +51,12 @@ cd matrix-clustering_stand-alone
 
 &nbsp;
 
+### Docker container
+
+The tools in this repository are available as a container. You can build your own container using requirement and Docker file in `docker` dorectory. Or you can use an [existing image](https://hub.docker.com/repository/docker/cbgr/matrix_clustering/general): `docker pull cbgr/matrix_clustering:0.7.3`.
+
+&nbsp;
+
 ### R libraries
 
 The following R/Bioconductor packages are required to run *RSAT matrix-clustering*, you can install them within `R` using the following commands
