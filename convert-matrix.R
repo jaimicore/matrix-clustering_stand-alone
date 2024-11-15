@@ -35,7 +35,7 @@ option_list = list(
   make_option(c("-o", "--output_file"), type = "character", default = NULL, 
               help = "Folder to save the results (Mandatory)", metavar = "character"),
   
-  make_option(c("-l", "--logos"), type = "logical", default = TRUE, 
+  make_option(c("-l", "--logos"), type = "logical", default = FALSE, 
               help = "Indicates whether the logos are exported or not", metavar = "logical"),
   
   make_option(c("--from"), type = "character", default = NULL, 
