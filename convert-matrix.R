@@ -110,7 +110,7 @@ if (trim.spike.ic < 0 | is.character(trim.spike.ic) | is.na(trim.spike.ic) | tri
 ###########
 ## Example:
 ## Rscript convert-matrix.R -i data/OCT4_datasets/RSAT_OCT4_motifs.tf --from tf --to meme -o RSAT_OCT4_motifs.meme
-# tf.matrix.file.in  <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/RSAT/matrix-clustering_stand-alone/data/OCT4_datasets/RSAT_OCT4_motifs.tf"
+# tf.matrix.file.in  <- "/home/jaime/Documents/Personal/matrix-clustering_stand-alone/data/OCT4_datasets/RSAT_OCT4_motifs.tf"
 # tf.matrix.file.out <- "Example_motif_out.motif"
 # format.in          <- "tf"
 # format.out         <- "cluster-buster"
@@ -156,10 +156,11 @@ if (trim.flag) {
 ##################
 ## RC conversion #
 ##################
+motifs.um.rc <- universalmotif::motif_rc(motifs.um)
+
 if (rc.flag) {
   message("; Generating reverse-complement")
-  motifs.um.rc <- universalmotif::motif_rc(motifs.um)
-  
+
   ## Add the suffix '_rc' before the file format
   ## Example: 'RSAT_OCT4_motifs.tf' becomes 'RSAT_OCT4_motifs_rc.tf' 
   tf.matrix.file.out.rc <- gsub(tf.matrix.file.out, pattern = "^(.+)(\\.\\D+)$", replacement = "\\1_rc\\2")
@@ -187,14 +188,19 @@ if (logos.flag) {
   
   message("; Exporting logos ")
   
-  if (rc.flag) {
-    motifs.um.oriented <- motifs.um.rc
-  } else {
-    motifs.um.oriented <- motifs.um
-  }
+  motifs.d.um.oriented <- motifs.um
+  motifs.r.um.oriented <- motifs.um.rc
+  
+  logos.dir <- file.path(dirname(tf.matrix.file.out), "logos")
+  dir.create(logos.dir, recursive = TRUE, showWarnings = FALSE)
 
-  export.logos(um        = motifs.um.oriented,
-               outfolder = dirname(tf.matrix.file.out))
+  export.logos(um        = motifs.d.um.oriented,
+               outfolder = logos.dir,
+               rev_tag   = FALSE)
+  
+  export.logos(um        = motifs.r.um.oriented,
+               outfolder = logos.dir,
+               rev_tag   = TRUE)
   
 }
 
