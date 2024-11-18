@@ -111,6 +111,7 @@ if (trim.spike.ic < 0 | is.character(trim.spike.ic) | is.na(trim.spike.ic) | tri
 ## Example:
 ## Rscript convert-matrix.R -i data/OCT4_datasets/RSAT_OCT4_motifs.tf --from tf --to meme -o RSAT_OCT4_motifs.meme
 # tf.matrix.file.in  <- "/home/jaime/Documents/Personal/matrix-clustering_stand-alone/data/OCT4_datasets/RSAT_OCT4_motifs.tf"
+# tf.matrix.file.in  <- "/home/jaime/Documents/Personal/matrix-clustering_stand-alone/data/example/one_example_motif.tf"
 # tf.matrix.file.out <- "Example_motif_out.motif"
 # format.in          <- "tf"
 # format.out         <- "cluster-buster"
@@ -119,6 +120,7 @@ if (trim.spike.ic < 0 | is.character(trim.spike.ic) | is.na(trim.spike.ic) | tri
 # trim.ic           <- 0.3
 # trim.spike.ic     <- 1
 # trim.values.out.file <- "trim_values.txt"
+# logos.flag        <- TRUE
 
 ## Format in/out test
 fit <- check.supported.formats(motif.format = format.in)
@@ -130,6 +132,13 @@ fot <- check.supported.formats(motif.format = format.out)
 #####################
 motifs.um <- read.motif.file(motif.file   = tf.matrix.file.in,
                              motif.format = format.in)
+
+
+# Use this flag to avoid some bugs
+one.motif.input.flag <- FALSE
+if (length(motifs.um) == 1) {
+  one.motif.input.flag <- TRUE 
+}
 
 
 #################
@@ -156,6 +165,17 @@ if (trim.flag) {
 ##################
 ## RC conversion #
 ##################
+
+# Rename one motif UniversalMotif object as the provided dirname
+# Only when the input is 1 motif
+if (one.motif.input.flag) {
+  
+  um.name    <- basename(fs:::path_ext_remove(tf.matrix.file.out))
+  
+  motifs.um@name    <- um.name
+  motifs.um@altname <- um.name
+ 
+}
 motifs.um.rc <- universalmotif::motif_rc(motifs.um)
 
 if (rc.flag) {
@@ -165,8 +185,6 @@ if (rc.flag) {
   ## Example: 'RSAT_OCT4_motifs.tf' becomes 'RSAT_OCT4_motifs_rc.tf' 
   tf.matrix.file.out.rc <- gsub(tf.matrix.file.out, pattern = "^(.+)(\\.\\D+)$", replacement = "\\1_rc\\2")
 }
-
-
 
 
 #######################
@@ -188,17 +206,22 @@ if (logos.flag) {
   
   message("; Exporting logos ")
   
-  motifs.d.um.oriented <- motifs.um
-  motifs.r.um.oriented <- motifs.um.rc
+  # When the input is one motif, R decompress the list and treat the object as a 
+  # UniversalMotif object instead of a list, and purrr cannot iterate and crashes
+  # Avoid this by re-generating a 1-length list wit the UniversalMotif object
+  if (one.motif.input.flag) {
+    motifs.um    <- list(motifs.um)
+    motifs.um.rc <- list(motifs.um.rc)
+  }
   
   logos.dir <- file.path(dirname(tf.matrix.file.out), "logos")
   dir.create(logos.dir, recursive = TRUE, showWarnings = FALSE)
 
-  export.logos(um        = motifs.d.um.oriented,
+  export.logos(um        = motifs.um,
                outfolder = logos.dir,
                rev_tag   = FALSE)
   
-  export.logos(um        = motifs.r.um.oriented,
+  export.logos(um        = motifs.um.rc,
                outfolder = logos.dir,
                rev_tag   = TRUE)
   
