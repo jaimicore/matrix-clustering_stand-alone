@@ -16,7 +16,7 @@ required.packages = c("dplyr",          ## Data manipulation
                       "plotly",         ## Interactive plots 
                       "reshape2",       ## Dataframe operations
                       "rcartocolor",    ## Nice color palettes
-                      "svglite",
+                      # "svglite",
                       "this.path",      ## Create relative paths
                       "tidyr",          ## Data manipulation
                       "universalmotif") ## Motif manipulation (Bioconductor)
