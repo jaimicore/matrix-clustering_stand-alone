@@ -213,6 +213,8 @@ find.motif.clusters <- function(tree             = NULL,
   ##
   ## NOTE: depending in the number of motifs, this function may be very slow
   plan(multisession, workers = parameters$nb_workers)
+  options(future.globals.maxSize=400000000000000000)
+  
   comparisons.per.node <- furrr::future_map(.x = motif.IDs.per.tree.level, 
                                             .f = ~motif.comparison.entries(compa    = comparison.table,
                                                                            ids      = .x,

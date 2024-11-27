@@ -457,6 +457,8 @@ export.indiv.motif.files <- function(un.motifs       = NULL,
   motifs.D <- um.final.orientation$D
   motifs.R <- um.final.orientation$R
   plan(multisession, workers = params.list$nb_workers)
+  options(future.globals.maxSize=400000000000000000)
+  
   for (i in 1:2) {
     
     ## Select strand and universalmotif object
