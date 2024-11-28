@@ -1,16 +1,6 @@
 ##############################################################
 ## List of R packages requires in the 'minimal_output' mode ##
 ##############################################################
-# .libPaths( c( "/opt/software" , .libPaths() ) )
-
-## data.table is installed from source using a patched file
-
-# install.packages(
-#   "data.table_1.14.8.tar.gz", 
-#   repos = NULL, 
-#   type = "source")
-  # type = "source",
-  # lib = "/opt/software")
 
 ## CRAN packages:
 required_packages_cran = c(
@@ -35,16 +25,12 @@ required_packages_cran = c(
   "flexclust",      # Calculate adjusted rand index
   "htmlwidgets",    # Save plotly output as html
   "plotly",         # Interactive plots
-  # "svglite",        # Easy export of ggplot content as svg
-  # "systemfonts",
   "jsonlite")       # To create the JSON file from the hclust outputs
 
 message("; Installing these R packages from CRAN repository: ", required_packages_cran)
 install.packages(
   required_packages_cran,
   dependencies = TRUE)
-  # repos = "https://cran.uib.no/", 
-  # lib = "/opt/software")
 
 ## Bioconductor packages:
 required_packages_bioconductor <- c(
@@ -54,5 +40,3 @@ required_packages_bioconductor <- c(
 message("; Installing these R Bioconductor packages: ", required_packages_bioconductor)
 BiocManager::install(
   required_packages_bioconductor)
-  # required_packages_bioconductor,
-  # lib = "/opt/software")
