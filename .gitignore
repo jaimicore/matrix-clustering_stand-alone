@@ -42,3 +42,4 @@ vignettes/*.pdf
 compare-matrices-quick/.cvsignore
 compare-matrices-quick/compare-matrices-quick
 compare-matrices-quick/compare-matrices-quick.o
+.vscode/settings.json
