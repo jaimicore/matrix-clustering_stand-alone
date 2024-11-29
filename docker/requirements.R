@@ -4,10 +4,10 @@
 
 ## CRAN packages:
 required_packages_cran = c(
-  "BiocManager",   # To install bioconductor packages
-  "curl",
+  "BiocManager",    # To install bioconductor packages
+  "curl",           # Download files
   "dplyr",          # Data manipulation
-  "data.table",
+  "data.table",     # Data manipulation
   "furrr",          # Run functions in parallel
   "optparse",       # Read command-line arguments
   "purrr",          # Iterations
@@ -16,7 +16,7 @@ required_packages_cran = c(
   "this.path",      # Create relative paths
   "tidyr",          # Data manipulation
   "dendsort",       # To draw heatmap
-  "ggplot2",
+  "ggplot2",        ## For plotting
   "ggseqlogo",      # Draw logos
   "RColorBrewer",   # Heatmap cell colors
   "ape",            # Export hclust tree in newick format

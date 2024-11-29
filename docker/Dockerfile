@@ -40,7 +40,6 @@ RUN apt-get install --yes --quiet \
 
 RUN git clone https://github.com/jaimicore/matrix-clustering_stand-alone.git
 COPY requirements.R /opt/requirements.R
-COPY data.table_1.14.8.tar.gz data.table_1.14.8.tar.gz
 
 ## ---------------------------- ##
 ## Install package requirements ##
