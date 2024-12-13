@@ -1,17 +1,21 @@
 name: Check RSAT matrix-clustering demos
-run-name: ${{ github.actor }} 
-on: [push]
+run-name: ${{ github.actor }}
+
+on:
+  push:
+
 jobs:
   check-demos:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      # - uses: actions/setup-node@v4
-      #   with:
-      #     node-version: '20'
-      
-      - name : Demo 1
-      - run: | 
+    
+      # Checkout the repository to access the files
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Run the first demo
+      - name: Demo 1
+        run: |
           Rscript matrix-clustering.R                         \
           -i data/OCT4_datasets/OCT4_motif_table.txt          \
           -o results/OCT4_motifs_clusters/OCT4_motif_analysis \
