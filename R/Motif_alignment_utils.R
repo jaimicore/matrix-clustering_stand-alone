@@ -282,6 +282,8 @@ align.motifs.in.cluster <- function(tree       = NULL,
   ## A list where each element is a dataframe with the comparison entries among
   ## the nodes at each level of the input hierarchical tree
   plan(multisession, workers = parameters$nb_workers)
+  options(future.globals.maxSize=400000000000000000)
+  
   comparisons.per.tree.node <- furrr::future_map(motif.IDs.per.tree.level, motif.comparison.entries, compa = compa, full = TRUE, self = FALSE)
 
   

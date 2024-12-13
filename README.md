@@ -53,7 +53,7 @@ cd matrix-clustering_stand-alone
 
 ### Docker container
 
-The tools in this repository are available as a container. You can build your own container using requirement and Docker file in `docker` dorectory. Or you can use an [existing image](https://hub.docker.com/repository/docker/cbgr/matrix_clustering/general): `docker pull cbgr/matrix_clustering:0.7.3`.
+The tools in this repository are available as a container. You can build your own container using requirement and Docker file in `docker` dorectory. Or you can use an [existing image](https://hub.docker.com/repository/docker/cbgr/matrix_clustering/general): `docker pull cbgr/matrix_clustering:1.0.0`.
 
 &nbsp;
 
@@ -82,7 +82,7 @@ required.packages = c("dplyr",          # Data manipulation
                       "RJSONIO",        # Export hclust tree in JSON format
                       "circlize",       # Required to draw heatmaps
                       "flexclust",      # Calculate adjusted rand index
-                      ""htmlwidgets,    # Save plotly output as html
+                      "htmlwidgets",    # Save plotly output as html
                       "plotly",         # Interactive plots
                       "svglite",        # Easy export of ggplot content as svg
                       "jsonlite")       # To create the JSON file from the hclust outputs

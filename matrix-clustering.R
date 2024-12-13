@@ -16,7 +16,7 @@ required.packages = c("dplyr",          ## Data manipulation
                       "plotly",         ## Interactive plots 
                       "reshape2",       ## Dataframe operations
                       "rcartocolor",    ## Nice color palettes
-                      "svglite",
+                      # "svglite",
                       "this.path",      ## Create relative paths
                       "tidyr",          ## Data manipulation
                       "universalmotif") ## Motif manipulation (Bioconductor)
@@ -110,7 +110,6 @@ if (!is.null(motif.annotation.file)) {
   }
   motif.annotation.flag   <- TRUE
 }
-
 
 params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "export_heatmap"        = as.numeric(opt$export_heatmap),
@@ -405,6 +404,8 @@ if (params.list[["Nb_motifs"]] > 1) {
     ## Align motifs within each cluster (with 2 or more motifs, singletons are treated separately)
     ## This function is ran in parallel using furrr::future_map , see https://furrr.futureverse.org/
     plan(multisession, workers = params.list$nb_workers)
+    options(future.globals.maxSize=400000000000000000)
+
     message("; Motif alignment step")
     r.aligment.clusters.tab <- align.motifs.in.cluster(tree       = r.cl.many.hclust,
                                                        compa      = results.list$Motif_compa_tab,
@@ -478,6 +479,8 @@ if (params.list[["Nb_motifs"]] > 1) {
     if (!all.singletons.flag) {
       
       plan(multisession, workers = params.list$nb_workers)
+      options(future.globals.maxSize=400000000000000000)
+
       message("; Motif alignment step") 
       aligment.clusters.tab <- furrr::future_map(.x = cl.many.hclust,
                                                  .f = ~align.motifs.in.cluster(tree       = .x,
@@ -678,6 +681,8 @@ if (!all.singletons.flag) {
                         Down = add.gaps.tab$offset_down)
   
   plan(multisession, workers = params.list$nb_workers)
+  options(future.globals.maxSize=400000000000000000)
+  
   furrr::future_pwalk(.l = add.gaps.list,
                       .f = ~add.gaps.transfac.motif(tf.file.in  = ..1,
                                                     gap.up      = ..2,
@@ -898,6 +903,8 @@ if (params.list$min_output == FALSE) {
     # ------------------------ #
     save.image("Debug_radial.Rdata")
     plan(multisession, workers = params.list$nb_workers)
+    options(future.globals.maxSize=400000000000000000)
+
     message("; Adding attributes to JSON files")
     furrr::future_walk(.x = names(find.clusters.list$clusters),
                        .f = ~  Add_attributes_to_JSON_interactive_tree(cluster_name          = .x,
