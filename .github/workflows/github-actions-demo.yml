@@ -9,13 +9,13 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # Step 2: Install system dependencies
+      
+      # Step 2: Install non-R dependencies
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y g++ libcurl4-openssl-dev libssl-dev libxml2-dev libharfbuzz-dev libfontconfig1-dev libfribidi-dev
-
+          sudo apt-get install -y g++ libcurl4-openssl-dev libssl-dev libxml2-dev libharfbuzz-dev libfribidi-dev
+    
       # Step 3: Set up R
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
@@ -26,34 +26,30 @@ jobs:
       - name: Install renv
         run: |
           Rscript -e "install.packages(c('renv', 'svglite'))"
-          # Uncomment the next line if you need to install Rcpp from GitHub
-          # Rscript -e "remotes::install_github('RcppCore/Rcpp')"
+#          Rscript -e "remotes::install_github('RcppCore/Rcpp')" 
+        
 
       # Step 5: Cache renv packages
-      - name: Cache renv packages
-        uses: actions/cache@v3
-        with:
-          path: renv/library
-          key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
+      # - name: Cache renv packages
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: renv/library
+      #     key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-renv-
 
-      # Step 6: Debug renv Library Path
-      - name: Debug renv Library Path
-        run: ls -R renv/library
-
-      # Step 7: Restore R environment
+      # Step 6: Restore R environment using renv
       - name: Restore R environment
         run: Rscript -e "renv::restore()"
 
-      # Step 8: Compile compare-matrices-quick
+      # Step 7: Compile compare-matrices-quick
       - name: Compile compare-matrices
         run: |
           cd compare-matrices-quick
           make
           cd ..
 
-      # Step 9: Run the demo script
+      # Step 8: Run the demo script
       - name: Run Demo 1
         run: |
           Rscript matrix-clustering.R \
