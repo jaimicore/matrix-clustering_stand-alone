@@ -49,6 +49,12 @@ jobs:
           Rscript -e "if (!requireNamespace('BiocManager', quietly = TRUE)) install.packages('BiocManager')"
           Rscript -e "BiocManager::install(c('universalmotif', 'ComplexHeatmap'))"
 
+      # Compile compare-matrices-quick
+      - name: Compile compare-matrices
+        run: |
+            cd compare-matrices-quick
+            make
+            cd ..
 
       # Run the first demo
       - name: Demo 1
