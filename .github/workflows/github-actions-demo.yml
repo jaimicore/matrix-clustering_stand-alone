@@ -52,14 +52,14 @@ jobs:
       # --------- #
       # Run demos #
       # --------- #
-      - name: Run Demo 1 : Clustering
+      - name: Run Clustering Demo 1
         run: |
           Rscript matrix-clustering.R \
           -i data/OCT4_datasets/OCT4_motif_table.txt \
           -o results/OCT4_motifs_clusters/OCT4_motif_analysis \
           -w 1
           
-      - name: Run Demo 2 : Clustering
+      - name: Run Clustering Demo 2
         run: |
           Rscript matrix-clustering.R                         \
           -i data/JASPAR_2022/Jaspar_nematodes_motifs_tab.txt \
