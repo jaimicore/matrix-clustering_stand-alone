@@ -25,7 +25,7 @@ jobs:
       # Step 4: Install renv
       - name: Install renv
         run: |
-          Rscript -e "install.packages(c('renv', 'remotes'))"
+          Rscript -e "install.packages(c('renv', 'data.table'))"
 #          Rscript -e "remotes::install_github('RcppCore/Rcpp')" 
         
 
