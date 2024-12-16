@@ -32,8 +32,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: renv/library
-          key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}
+          key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}-${{ matrix.config.platform }}
           restore-keys: |
+            ${{ runner.os }}-renv-${{ matrix.config.platform }}
             ${{ runner.os }}-renv-
 
       # Step 6: Restore R environment using renv
