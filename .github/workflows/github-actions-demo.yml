@@ -22,7 +22,10 @@ jobs:
 
       # Step 4: Install renv
       - name: Install renv
-        run: Rscript -e "install.packages('renv')"
+        run: |
+          Rscript -e "install.packages(c'renv', 'remotes')"
+          remotes::install_github("RcppCore/Rcpp")
+        
 
       # Step 5: Cache renv packages
       - name: Cache renv packages
