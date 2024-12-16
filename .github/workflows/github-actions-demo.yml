@@ -1,65 +1,46 @@
 name: Check RSAT matrix-clustering demos
 run-name: ${{ github.actor }}
-
 on:
   push:
-
 jobs:
   check-demos:
     runs-on: ubuntu-latest
     steps:
-    
       # Checkout the repository to access the files
       - name: Checkout code
         uses: actions/checkout@v4
-
+      
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
-
-      - name: Install CRAN packages
+        with:
+          use-public-rspm: true
+      
+      - name: Install pak
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          cache-version: 2
-          packages: |
-            any::dplyr
-            any::data.table
-            any::furrr
-            any::optparse
-            any::purrr
-            any::rcartocolor
-            any::reshape2   
-            any::this.path  
-            any::tidyr      
-            any::dendsort   
-            any::ggplot2
-            any::ggseqlogo  
-            any::RColorBrewer
-            any::ape        
-            any::RJSONIO    
-            any::circlize   
-            any::flexclust  
-            any::htmlwidgets
-            any::plotly     
-            any::svglite    
-            any::jsonlite
-
-      # Install Bioconductor packages
-      - name: Install Bioconductor packages
+          extra-packages: pak
+      
+      - name: Install R packages
         run: |
-          Rscript -e "if (!requireNamespace('BiocManager', quietly = TRUE)) install.packages('BiocManager')"
+          Rscript -e "pak::pkg_install(c(
+            'dplyr', 'data.table', 'furrr', 'optparse', 'purrr', 
+            'rcartocolor', 'reshape2', 'this.path', 'tidyr', 
+            'dendsort', 'ggplot2', 'ggseqlogo', 'RColorBrewer', 
+            'ape', 'RJSONIO', 'circlize', 'flexclust', 
+            'htmlwidgets', 'plotly', 'svglite', 'jsonlite',
+            'BiocManager'
+          ))"
           Rscript -e "BiocManager::install(c('universalmotif', 'ComplexHeatmap'))"
-
-      # Compile compare-matrices-quick
+      
       - name: Compile compare-matrices
         run: |
-            cd compare-matrices-quick
-            make
-            cd ..
-
-      # Run the first demo
-      - name: Demo 1
+          cd compare-matrices-quick
+          make
+          cd ..
+      
+      - name: Run Demo 1
         run: |
-          Rscript matrix-clustering.R                         \
-          -i data/OCT4_datasets/OCT4_motif_table.txt          \
+          Rscript matrix-clustering.R \
+          -i data/OCT4_datasets/OCT4_motif_table.txt \
           -o results/OCT4_motifs_clusters/OCT4_motif_analysis \
-          -w 8
+          -w 1
