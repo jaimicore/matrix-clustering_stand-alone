@@ -39,8 +39,12 @@ jobs:
             ${{ runner.os }}-renv-
 
       # Step 6: Restore R environment using renv
-      - name: Restore R environment
-        run: Rscript -e "renv::restore()"
+      - name: Restore package cache
+        uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-1-${{ hashFiles('renv.lock') }}
+          restore-keys: ${{ runner.os }}-1-
+          path: renv/library
 
       # Step 7: Compile compare-matrices-quick
       - name: Compile compare-matrices
