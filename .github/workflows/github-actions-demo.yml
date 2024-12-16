@@ -49,10 +49,22 @@ jobs:
           make
           cd ..
 
-      # Step 8: Run the demo script
-      - name: Run Demo 1
+      # --------- #
+      # Run demos #
+      # --------- #
+      - name: Run Demo 1 : Clustering
         run: |
           Rscript matrix-clustering.R \
           -i data/OCT4_datasets/OCT4_motif_table.txt \
           -o results/OCT4_motifs_clusters/OCT4_motif_analysis \
+          -w 1
+          
+      - name: Run Demo 2 : Clustering
+        run: |
+          Rscript matrix-clustering.R                         \
+          -i data/JASPAR_2022/Jaspar_nematodes_motifs_tab.txt \
+          -o results/JASPAR_nematodes_radial/JASPAR_nematodes \
+          -a data/JASPAR_2022/JASPAR_nematodes_metadata.txt   \
+          --radial_tree TRUE                                  \
+          --title JASPAR_CORE_nematodes                       \
           -w 1
