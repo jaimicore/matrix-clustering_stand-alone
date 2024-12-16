@@ -22,9 +22,12 @@ jobs:
         with:
           r-version: '4.4.0'
 
-      # Step 4: Debug Cache Key
-      - name: Debug Cache Key
-        run: echo "Cache Key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}"
+      # Step 4: Install renv
+      - name: Install renv
+        run: |
+          Rscript -e "install.packages(c('renv', 'svglite'))"
+          # Uncomment the next line if you need to install Rcpp from GitHub
+          # Rscript -e "remotes::install_github('RcppCore/Rcpp')"
 
       # Step 5: Cache renv packages
       - name: Cache renv packages
@@ -35,26 +38,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-renv-
 
-      # Step 6: Install renv
-      - name: Install renv
-        run: Rscript -e "install.packages(c('renv', 'svglite'))"
-
-      # Step 7: Debug renv Library Path
+      # Step 6: Debug renv Library Path
       - name: Debug renv Library Path
         run: ls -R renv/library
 
-      # Step 8: Restore R environment
+      # Step 7: Restore R environment
       - name: Restore R environment
         run: Rscript -e "renv::restore()"
 
-      # Step 9: Compile compare-matrices-quick
+      # Step 8: Compile compare-matrices-quick
       - name: Compile compare-matrices
         run: |
           cd compare-matrices-quick
           make
           cd ..
 
-      # Step 10: Run the demo script
+      # Step 9: Run the demo script
       - name: Run Demo 1
         run: |
           Rscript matrix-clustering.R \
