@@ -14,7 +14,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libharfbuzz-dev libfribidi-dev
+          sudo apt-get install -y g++ libcurl4-openssl-dev libssl-dev libxml2-dev libharfbuzz-dev libfribidi-dev
     
       # Step 3: Set up R
       - name: Set up R
@@ -24,7 +24,7 @@ jobs:
       - name: Install renv
         run: |
           Rscript -e "install.packages(c('renv', 'remotes'))"
-          Rscript -e "remotes::install_github('RcppCore/Rcpp')" 
+#          Rscript -e "remotes::install_github('RcppCore/Rcpp')" 
         
 
       # Step 5: Cache renv packages
