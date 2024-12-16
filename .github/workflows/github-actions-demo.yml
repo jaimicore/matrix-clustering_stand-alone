@@ -9,25 +9,22 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      # Step 2: Install non-R dependencies
+
+      # Step 2: Install system dependencies
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y g++ libcurl4-openssl-dev libssl-dev libxml2-dev libharfbuzz-dev libfontconfig1-dev libfribidi-dev
-    
+
       # Step 3: Set up R
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: '4.4.0'
 
-      # Step 4: Install renv
-      - name: Install renv
-        run: |
-          Rscript -e "install.packages(c('renv', 'svglite'))"
-#          Rscript -e "remotes::install_github('RcppCore/Rcpp')" 
-        
+      # Step 4: Debug Cache Key
+      - name: Debug Cache Key
+        run: echo "Cache Key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}"
 
       # Step 5: Cache renv packages
       - name: Cache renv packages
@@ -38,22 +35,26 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-renv-
 
-      # Step 6: Restore R environment using renv
-      - name: Restore package cache
-        uses: actions/cache@v4
-        with:
-          key: ${{ runner.os }}-1-${{ hashFiles('renv.lock') }}
-          restore-keys: ${{ runner.os }}-1-
-          path: renv/library
+      # Step 6: Install renv
+      - name: Install renv
+        run: Rscript -e "install.packages(c('renv', 'svglite'))"
 
-      # Step 7: Compile compare-matrices-quick
+      # Step 7: Debug renv Library Path
+      - name: Debug renv Library Path
+        run: ls -R renv/library
+
+      # Step 8: Restore R environment
+      - name: Restore R environment
+        run: Rscript -e "renv::restore()"
+
+      # Step 9: Compile compare-matrices-quick
       - name: Compile compare-matrices
         run: |
           cd compare-matrices-quick
           make
           cd ..
 
-      # Step 8: Run the demo script
+      # Step 10: Run the demo script
       - name: Run Demo 1
         run: |
           Rscript matrix-clustering.R \
