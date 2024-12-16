@@ -26,17 +26,15 @@ jobs:
       - name: Install renv
         run: |
           Rscript -e "install.packages(c('renv', 'svglite'))"
-#          Rscript -e "remotes::install_github('RcppCore/Rcpp')" 
-        
 
       # Step 5: Cache renv packages
-      # - name: Cache renv packages
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: renv/library
-      #     key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-renv-
+      - name: Cache R packages
+        uses: actions/cache@v3
+        with:
+          path: renv/library
+          key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-renv-
 
       # Step 6: Restore R environment using renv
       - name: Restore R environment
@@ -68,3 +66,9 @@ jobs:
           --radial_tree TRUE                                  \
           --title JASPAR_CORE_nematodes                       \
           -w 1
+
+      
+      # Each demo with 1 and >1 motifs
+      # Demos for Logo
+      # Demos for Format conversion
+      # Demos for Trim
