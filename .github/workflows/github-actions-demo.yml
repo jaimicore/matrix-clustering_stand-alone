@@ -4,7 +4,7 @@ on:
 
 jobs:
   check-demos:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       # Step 1: Checkout the repository
       - name: Checkout code
