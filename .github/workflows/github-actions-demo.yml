@@ -68,8 +68,21 @@ jobs:
           --title JASPAR_CORE_nematodes                       \
           -w 1
 
+      - name: Run Format Conversion Demo 1
+        run: |
+          Rscript convert-matrix.R             \
+          -i data/example/one_example_motif.tf \
+          --from tf --to jaspar                \
+          --output_file results/convert-matrix_examples/One_motif/One_motif.jaspar 
 
-      
+      - name: Run Format Conversion Demo 2
+        run: |
+          Rscript convert-matrix.R              \
+          -i data/example/two_example_motifs.tf \
+          --from tf --to jaspar                 \
+          --output_file results/convert-matrix_examples/Two_motifs/Two_motifs.jaspar 
+    
+    
       # Each demo with 1 and >1 motifs
       # Demos for Logo
       # Demos for Format conversion
