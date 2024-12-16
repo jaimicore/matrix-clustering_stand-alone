@@ -110,21 +110,6 @@
       ],
       "Hash": "066f3c5d6b022ed62c91ce49e4d8f619"
     },
-    "MASS": {
-      "Package": "MASS",
-      "Version": "7.3-61",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "grDevices",
-        "graphics",
-        "methods",
-        "stats",
-        "utils"
-      ],
-      "Hash": "0cafd6f0500e5deba33be22c46bf6055"
-    },
     "Matrix": {
       "Package": "Matrix",
       "Version": "1.6-5",
