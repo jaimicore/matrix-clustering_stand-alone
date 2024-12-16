@@ -4,26 +4,22 @@
 # Load required libraries #
 # ----------------------- #
 
-# List of packages to install from CRAN
-required.packages = c("dplyr",          ## Data manipulation
-                      "data.table",     ## Read long matrices in a quick way
-                      "furrr",          ## Run functions in parallel
-                      "ggplot2",
-                      "ggseqlogo",
-                      "htmlwidgets",    ## Export plotly as html
-                      "optparse",       ## Read command-line arguments
-                      "purrr",          ## Iterations,
-                      "plotly",         ## Interactive plots 
-                      "reshape2",       ## Dataframe operations
-                      "rcartocolor",    ## Nice color palettes
-                      # "svglite",
-                      "this.path",      ## Create relative paths
-                      "tidyr",          ## Data manipulation
-                      "universalmotif") ## Motif manipulation (Bioconductor)
+library(dplyr)          # Data manipulation
+library(data.table)     # Read long matrices in a quick way
+library(furrr)          # Run functions in parallel
+library(ggplot2)        # Data visualization
+library(ggseqlogo)      # Sequence logo visualization
+library(htmlwidgets)    # Export plotly as HTML
+library(optparse)       # Read command-line arguments
+library(purrr)          # Iterations
+library(plotly)         # Interactive plots 
+library(reshape2)       # Dataframe operations
+library(rcartocolor)    # Nice color palettes
+library(svglite)        # SVG graphics
+library(this.path)      # Create relative paths
+library(tidyr)          # Data manipulation
+library(universalmotif) # Motif analysis
 
-for (lib in required.packages) {
-  suppressPackageStartupMessages(library(lib, character.only = TRUE, quietly = TRUE))
-}
 
 
 # -------------- #
