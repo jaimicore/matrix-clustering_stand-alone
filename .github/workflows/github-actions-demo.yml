@@ -31,7 +31,7 @@ jobs:
       # Step 4: Install renv
       - name: Install renv
         run: |
-          Rscript -e "install.packages(c('renv', 'svglite'))"
+          install.packages(c('renv', 'svglite'))
           renv::activate()
         shell: Rscript {0} 
           
