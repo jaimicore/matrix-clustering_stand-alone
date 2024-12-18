@@ -4,23 +4,21 @@
 # Load required libraries #
 # ----------------------- #
 
-library(dplyr)          # Data manipulation
-library(data.table)     # Read long matrices in a quick way
-library(furrr)          # Run functions in parallel
-library(ggplot2)        # Data visualization
-library(ggseqlogo)      # Sequence logo visualization
-library(htmlwidgets)    # Export plotly as HTML
-library(optparse)       # Read command-line arguments
-library(purrr)          # Iterations
-library(plotly)         # Interactive plots 
-library(reshape2)       # Dataframe operations
-library(rcartocolor)    # Nice color palettes
-library(svglite)        # SVG graphics
-library(this.path)      # Create relative paths
-library(tidyr)          # Data manipulation
-library(universalmotif) # Motif analysis
-
-
+suppressPackageStartupMessages(library(dplyr))          # Data manipulation
+suppressPackageStartupMessages(library(data.table))     # Read long matrices in a quick way
+suppressPackageStartupMessages(library(furrr))          # Run functions in parallel
+suppressPackageStartupMessages(library(ggplot2))        # Data visualization
+suppressPackageStartupMessages(library(ggseqlogo))      # Sequence logo visualization
+suppressPackageStartupMessages(library(htmlwidgets))    # Export plotly as HTML
+suppressPackageStartupMessages(library(optparse))       # Read command-line arguments
+suppressPackageStartupMessages(library(purrr))          # Iterations
+suppressPackageStartupMessages(library(plotly))         # Interactive plots 
+suppressPackageStartupMessages(library(reshape2))       # Dataframe operations
+suppressPackageStartupMessages(library(rcartocolor))    # Nice color palettes
+suppressPackageStartupMessages(library(svglite))        # SVG graphics
+suppressPackageStartupMessages(library(this.path))      # Create relative paths
+suppressPackageStartupMessages(library(tidyr))          # Data manipulation
+suppressPackageStartupMessages(library(universalmotif)) # Motif analysis
 
 # -------------- #
 # Read arguments #
@@ -152,6 +150,10 @@ jquery.lib                     <- this.path::here(.. = 0, "html", "js", "jquery.
 # ----- #
 ## Example:
 
+# matrix.file.table <- "Debug/Triana/motif_table_test.txt"
+# out.folder        <- "results/Triana/Triana"
+
+
 # Rscript matrix-clustering.R -i data/OCT4_datasets/OCT4_motif_table.txt -o results/OCT4_motifs_example/OCT4_motif_analysis --number_of_workers 8
 # matrix.file.table <- "data/OCT4_datasets/OCT4_motif_table.txt"
 # out.folder        <- "results/Oct4_debug_example/Oct4_debug_example"
@@ -176,7 +178,7 @@ jquery.lib                     <- this.path::here(.. = 0, "html", "js", "jquery.
 #                     "nb_workers"            = 8,
 #                     "min_output"            = FALSE,
 #                     "ARI"                   = FALSE,
-#                     "radial_tree"           = TRUE) #
+#                     "radial_tree"           = FALSE) #
 
 
 # -------------------------------------------------------- #
@@ -655,6 +657,7 @@ fwrite(x         = results.list$Clusters_table,
 # 1) Export motifs (without gaps) as transfac files in D and R orientation
 message("; Exporting individual motif files in ", out.folder.list$indiv_motifs)
 
+
 export.indiv.motif.files(un.motifs       = all.motifs.um,
                          alignment.table = align.tab,
                          outdir          = out.folder.list$indiv_motifs)
@@ -666,18 +669,21 @@ message("; Adding gaps to motif files")
 # When the radial_tree option is active, all motifs are aligned in a single cluster
 # The number of gaps was calculated in the 'Alignment_radial_table'
 
-
 add.gaps.tab <- add.gaps.to.indiv.tf.files(motif.folder = out.folder.list$indiv_motifs,
                                            gap.info     = align.tab)
 
 if (!all.singletons.flag) {
   
+  add.gaps.tab <- add.gaps.tab |> na.omit()
+  
   add.gaps.list <- list(File = as.vector(add.gaps.tab$file),
                         Up   = add.gaps.tab$offset_up,
                         Down = add.gaps.tab$offset_down)
   
+  add.gaps.tab |> na.omit()
+  
   plan(multisession, workers = params.list$nb_workers)
-  options(future.globals.maxSize=400000000000000000)
+  options(future.globals.maxSize = 400000000000000000)
   
   furrr::future_pwalk(.l = add.gaps.list,
                       .f = ~add.gaps.transfac.motif(tf.file.in  = ..1,
@@ -815,9 +821,6 @@ if (params.list$min_output == FALSE) {
   # ------------ #
   # Export logos #
   # ------------ #
-  names(all.motifs.um)
-  
-  
   message("; Exporting logos in ", out.folder.list["aligned_logos"])
   export.logos(um        = aligned.motifs.um,
                outfolder = out.folder.list["aligned_logos"],
@@ -860,7 +863,6 @@ if (params.list$min_output == FALSE) {
       results.list$Motif_info_tab$url    <- ""
     }
 
-    
     # Update JSON file with annotations
     message("; Adding attributes to JSON file")
     Add_attributes_to_JSON_radial_tree(motif.description.tab = results.list$Motif_info_tab,
@@ -897,11 +899,11 @@ if (params.list$min_output == FALSE) {
     # ------------------------ #
     # Create interactive trees #
     # ------------------------ #
-    save.image("Debug_radial.Rdata")
+    # save.image("Debug_radial.Rdata")
     plan(multisession, workers = params.list$nb_workers)
-    options(future.globals.maxSize=400000000000000000)
+    options(future.globals.maxSize = 400000000000000000)
 
-    message("; Adding attributes to JSON files")
+    message("; Adding attributes to JSON files (Interactive trees)")
     furrr::future_walk(.x = names(find.clusters.list$clusters),
                        .f = ~  Add_attributes_to_JSON_interactive_tree(cluster_name          = .x,
                                                                        motif.description.tab = results.list$Motif_info_tab,
@@ -940,5 +942,4 @@ if (params.list$min_output == FALSE) {
   invisible(suppressWarnings(file.remove(output.files.list$Summary_table, showWarnings = FALSE)))
 
 }
-# save.image("Debug_radial.Rdata")
 message("; End of program")
