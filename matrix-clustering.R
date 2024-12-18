@@ -74,7 +74,10 @@ option_list = list(
               help = "Analysis title", metavar = "character"),
   
   make_option(c("--ARI"), type = "logical", default = FALSE, 
-              help = "Calculate the Adjusted Rand Index (ARI) of the resulting clusters based in the provided annotation table (--annotation_table). [Default \"%default\"].", metavar = "logical")
+              help = "Calculate the Adjusted Rand Index (ARI) of the resulting clusters based in the provided annotation table (--annotation_table). [Default \"%default\"].", metavar = "logical"),
+  
+  make_option(c("--no_rc"), type = "logical", default = FALSE, 
+              help = "Do not align PWM reverse complements. [Default \"%default\"].", metavar = "logical")
   
 );
 message("; Reading arguments from command-line")
@@ -119,7 +122,8 @@ params.list <- list("export_newick"         = as.numeric(opt$export_newick),
                     "title"                 = opt$title,
                     "ARI"                   = reference.clusters.flag,
                     "annotation"            = motif.annotation.flag,
-                    "radial_tree"           = opt$radial_tree)
+                    "radial_tree"           = opt$radial_tree,
+                    "no_rc"                 = opt$no_rc)
 
 
 # ------------------------- #
@@ -269,7 +273,8 @@ message("; Analysis with ", params.list[["Nb_motifs"]], " motifs in ", params.li
 # Read motif comparison table #
 # --------------------------- #
 results.list$Motif_compa_tab <- motif.comparison(transfac.file     = output.files.list$Motifs_transfac,
-                                                 output.compa.file = output.files.list$Motif_compa)
+                                                 output.compa.file = output.files.list$Motif_compa,
+                                                 no_rc             = params.list$no_rc)
 
 
 # --------------------------------------------- #
