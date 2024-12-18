@@ -62,7 +62,7 @@ nb.sites.in.um <- function(um.motif = NULL){
 }
 
 
-
+# um <- cluster.buster.uo
 calculate.nbsites.uo <- function(um = NULL) {
   
   um.motifs     <- furrr::future_map(um, `[`, "motif")
@@ -72,16 +72,18 @@ calculate.nbsites.uo <- function(um = NULL) {
 }
 
 
+# motif.file   = matrix.file.list$Motif_file
 
 ## This function reads motifs in cluster-buster format and returns a universalmotif object
 read_cluster_buster <- function(motif.file = NULL) {
   
   ## Read motif file using universalmotif functions    
   ## The separator must be a blank line between motifs
-  cluster.buster.uo <- list(universalmotif::read_matrix(file = motif.file, positions = "rows"))
+  cluster.buster.uo <- universalmotif::read_matrix(file = motif.file, positions = "rows")
+  # cluster.buster.uo <- cluster.buster.uo[[1]]
   
   ## Set nbsites attribute correctly
-  ## By default it is set to 100 and this create a problem when genereting RC because
+  ## By default it is set to 100 and this create a problem when generating RC because
   ## the counts are scaled to the number of sites
   cluster.buster.uo.nbsites <- calculate.nbsites.uo(cluster.buster.uo)
   
@@ -121,6 +123,10 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   message("; Reading motif collection: ", collection.name)
   motif.collection <- read.motif.file(motif.file   = motif.file,
                                       motif.format = motif.format)
+  
+  # message("; Read CB")
+  # read.motif.file(motif.file   = "Debug/Triana/matrix_clust.cb",
+  #                 motif.format = "cluster-buster")
   
   
   ## This step is required when there are cases of motifs with empty columns, for some reason
@@ -162,13 +168,11 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
                                 consensus    = purrr::map_chr(motif.collection, `[`, "consensus"),
                                 nb_sites     = round(purrr::map_dbl(motif.collection, `[`, "nsites")),
                                 IC           = purrr::map_dbl(motif.collection, `[`, "icscore")) %>% 
-      dplyr::mutate(width = nchar(consensus),
-                    n     = 1:n()) %>% 
-      dplyr::mutate(id = paste0(collection.name, "_", id_old, "_n", n))
-    
+                      dplyr::mutate(width = nchar(consensus),
+                                    n     = 1:n()) %>% 
+                      dplyr::mutate(id = paste0(collection.name, "_", id_old, "_n", n))
   }
 
-  
   
   ## Change the motif IDs, this is required to map the collection of origin of each
   ## motif and to avoid repeated IDs
@@ -309,12 +313,13 @@ motifs.final.orientation <- function(un.motifs         = NULL,
   
   ## Get the IDs of motifs in D and R strand after alignment
   final.orientation.tab <- orientation.table %>% 
-    select(id, strand)
+                            select(id, strand)
   
   motif.id.strandD <- subset(final.orientation.tab, strand == "D")$id
   motif.id.strandR <- subset(final.orientation.tab, strand == "R")$id
   
-  oriented.um    <- c(all.motifs.um.D[motif.id.strandD], all.motifs.um.R[motif.id.strandR])
+  # oriented.um    <- c(all.motifs.um.D[motif.id.strandD], all.motifs.um.R[motif.id.strandR])
+  oriented.um    <- c(all.motifs.um.D[motif.ids.um %in% motif.id.strandD], all.motifs.um.R[motif.ids.um %in% motif.id.strandR])
   oriented.um.rc <- universalmotif::motif_rc(oriented.um)
   
   return(list(D = oriented.um,
@@ -457,7 +462,7 @@ export.indiv.motif.files <- function(un.motifs       = NULL,
   motifs.D <- um.final.orientation$D
   motifs.R <- um.final.orientation$R
   plan(multisession, workers = params.list$nb_workers)
-  options(future.globals.maxSize=400000000000000000)
+  options(future.globals.maxSize = 400000000000000000)
   
   for (i in 1:2) {
     
@@ -1051,14 +1056,14 @@ export.one.logo <- function(um.motif = NULL,
   motif <- convert_type(um.motif, "PPM")
   motif <- motif["motif"]
   
-  invisible(suppressWarnings(
+  invisible(suppressMessages(suppressWarnings(
     motif.gg <- ggplot() +
                   geom_logo(motif, method = 'bits', stack_width = 1) +
                   theme_logo() +
                   scale_x_continuous(expand = c(0, 0)) +
                   scale_y_continuous(limits = c(0,2), expand = c(0, 0)) +
                   guides(fill = "none")
-  ))
+  )))
   
   ggsave(filename = logofile, plot = motif.gg, bg = "white", width = 10, height = 6, dpi = 400)
 }
