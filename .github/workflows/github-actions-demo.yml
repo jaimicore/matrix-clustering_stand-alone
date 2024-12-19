@@ -22,24 +22,33 @@ jobs:
         with:
           r-version: '4.4.0'
 
-      # Step 4: Set RENV_PATHS_ROOT
-      - name: Set RENV_PATHS_ROOT
-        run: echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
+      - name: Cache R packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.renv
+          key: Linux-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            Linux-renv-
+            
+            
+      # # Step 4: Set RENV_PATHS_ROOT
+      # - name: Set RENV_PATHS_ROOT
+      #   run: echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
 
       # Step 5: Install and activate renv
       - name: Install renv and restore dependencies
         run: |
-          Rscript -e "install.packages(c('renv', 'svglite'))"
+          Rscript -e "install.packages(c('renv'))"
           Rscript -e "renv::restore()"
 
-      # Step 6: Cache renv packages
-      - name: Cache Renv package cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.RENV_PATHS_ROOT }}
-          key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
+      # # Step 6: Cache renv packages
+      # - name: Cache Renv packages
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ${{ env.RENV_PATHS_ROOT }}
+      #     key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-renv-
 
       # Step 7: Compile compare-matrices-quick
       - name: Compile compare-matrices
@@ -85,5 +94,4 @@ jobs:
     
       # Each demo with 1 and >1 motifs
       # Demos for Logo
-      # Demos for Format conversion
       # Demos for Trim
