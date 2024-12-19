@@ -68,8 +68,8 @@ jobs:
           -i data/example/one_example_motif.tf \
           --from tf --to jaspar                \
           --logos TRUE                          \
-          --output_file results/convert-matrix_examples/One_motif_Logos/One_motif.jaspar 
-
+          --output_file results/convert-matrix_examples/One_motif_Logos/One_motif.jaspar
+          
       - name: Motif format conversion (two motifs)
         run: |
           Rscript convert-matrix.R              \
@@ -94,5 +94,4 @@ jobs:
 
 
       # Each demo with 1 and >1 motifs
-      # Demos for Logo
       # Demos for Trim
