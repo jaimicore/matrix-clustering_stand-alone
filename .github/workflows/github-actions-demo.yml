@@ -6,68 +6,53 @@ jobs:
   check-demos:
     runs-on: ubuntu-24.04
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
       
-      # Step 2: Install non-R dependencies
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y g++ libcurl4-openssl-dev libssl-dev libxml2-dev libharfbuzz-dev libfontconfig1-dev libfribidi-dev
     
-      # Step 3: Set up R
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: '4.4.0'
 
+      - name: Set RENV_PATHS_ROOT
+        run: echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
+
       - name: Cache R packages
         uses: actions/cache@v4
         with:
-          path: ~/.renv
+          path: ${{ runner.temp }}/renv
           key: Linux-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
             Linux-renv-
-            
-            
-      # # Step 4: Set RENV_PATHS_ROOT
-      # - name: Set RENV_PATHS_ROOT
-      #   run: echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
 
-      # Step 5: Install and activate renv
       - name: Install renv and restore dependencies
         run: |
           Rscript -e "install.packages(c('renv'))"
           Rscript -e "renv::restore()"
 
-      # # Step 6: Cache renv packages
-      # - name: Cache Renv packages
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ${{ env.RENV_PATHS_ROOT }}
-      #     key: ${{ runner.os }}-renv-${{ hashFiles('renv.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-renv-
+      - name: Debug File Structure
+        run: ls -R
 
-      # Step 7: Compile compare-matrices-quick
       - name: Compile compare-matrices
         run: |
           cd compare-matrices-quick
+          ls
           make
           cd ..
 
-      # --------- #
-      # Run demos #
-      # --------- #
-      - name: Run Clustering Demo 1
+      - name: Clustering (interactive trees)
         run: |
           Rscript matrix-clustering.R \
           -i data/OCT4_datasets/OCT4_motif_table.txt \
           -o results/OCT4_motifs_clusters/OCT4_motif_analysis \
           -w 1
           
-      - name: Run Clustering Demo 2
+      - name: Clustering (radial tree)
         run: |
           Rscript matrix-clustering.R                         \
           -i data/JASPAR_2022/Jaspar_nematodes_motifs_tab.txt \
@@ -77,21 +62,37 @@ jobs:
           --title JASPAR_CORE_nematodes                       \
           -w 1
 
-      - name: Run Format Conversion Demo 1
+      - name: Motif format conversion (one motif)
+        run: |
+          Rscript convert-matrix.R             \
+          -i data/example/one_example_motif.tf \
+          --from tf --to jaspar                \
+          --logos TRUE                          \
+          --output_file results/convert-matrix_examples/One_motif_Logos/One_motif.jaspar 
+
+      - name: Motif format conversion (two motifs)
+        run: |
+          Rscript convert-matrix.R              \
+          -i data/example/two_example_motifs.tf \
+          --from tf --to jaspar                 \
+          --logos TRUE                          \
+          --output_file results/convert-matrix_examples/Two_motifs_Logos/Two_motifs.jaspar 
+
+      - name: Export logo (one motif)
         run: |
           Rscript convert-matrix.R             \
           -i data/example/one_example_motif.tf \
           --from tf --to jaspar                \
           --output_file results/convert-matrix_examples/One_motif/One_motif.jaspar 
 
-      - name: Run Format Conversion Demo 2
+      - name: Export logos (two motifs)
         run: |
           Rscript convert-matrix.R              \
           -i data/example/two_example_motifs.tf \
           --from tf --to jaspar                 \
-          --output_file results/convert-matrix_examples/Two_motifs/Two_motifs.jaspar 
-    
-    
+          --output_file results/convert-matrix_examples/Two_motifs/Two_motifs.jaspar
+
+
       # Each demo with 1 and >1 motifs
       # Demos for Logo
       # Demos for Trim
