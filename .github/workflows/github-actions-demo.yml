@@ -67,30 +67,46 @@ jobs:
           Rscript convert-matrix.R             \
           -i data/example/one_example_motif.tf \
           --from tf --to jaspar                \
-          --logos TRUE                          \
-          --output_file results/convert-matrix_examples/One_motif_Logos/One_motif.jaspar
+          --output_file results/convert-matrix_examples/One_motif/One_motif.jaspar
           
       - name: Motif format conversion (two motifs)
         run: |
           Rscript convert-matrix.R              \
           -i data/example/two_example_motifs.tf \
           --from tf --to jaspar                 \
-          --logos TRUE                          \
-          --output_file results/convert-matrix_examples/Two_motifs_Logos/Two_motifs.jaspar 
+          --output_file results/convert-matrix_examples/Two_motifs/Two_motifs.jaspar 
 
       - name: Export logo (one motif)
         run: |
           Rscript convert-matrix.R             \
           -i data/example/one_example_motif.tf \
           --from tf --to jaspar                \
-          --output_file results/convert-matrix_examples/One_motif/One_motif.jaspar 
+          --logos TRUE                         \
+          --output_file results/convert-matrix_examples/One_motif_Logos/One_motif.jaspar 
 
       - name: Export logos (two motifs)
         run: |
           Rscript convert-matrix.R              \
           -i data/example/two_example_motifs.tf \
           --from tf --to jaspar                 \
-          --output_file results/convert-matrix_examples/Two_motifs/Two_motifs.jaspar
+          --logos TRUE                          \
+          --output_file results/convert-matrix_examples/Two_motifs_Logos/Two_motifs.jaspar
+
+      - name: Trimming (one motif)
+        run: |
+          Rscript convert-matrix.R             \
+          -i data/example/one_example_motif.tf \
+          --from tf --to jaspar                \
+          --logos TRUE --trim TRUE             \
+          --output_file results/convert-matrix_examples/One_motif_Trim/One_motif.jaspar 
+
+      - name: Trimming (two motifs)
+        run: |
+          Rscript convert-matrix.R              \
+          -i data/example/two_example_motifs.tf \
+          --from tf --to jaspar                 \
+          --logos TRUE --trim TRUE              \
+          --output_file results/convert-matrix_examples/Two_motifs_Trim/Two_motifs.jaspar
 
 
       # Each demo with 1 and >1 motifs
