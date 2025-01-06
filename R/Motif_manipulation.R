@@ -988,15 +988,15 @@ export.root.motif <- function(cluster.tf.file = NULL) {
 ## This method also considers the window (+/- k) surrounding a given position to remove 
 ## spikes in the IC.
 trim.motifs.window <- function(um                 = NULL,
-                              ic.threshold       = 0.25,
-                              ic.spike.threshold = 0.25,
-                              window.k           = 1) {
+                               ic.threshold       = 0.25,
+                               ic.spike.threshold = 0.25,
+                               window.k           = 1) {
 
   message("; Trimming motifs. General IC threshold: ", ic.threshold, "; IC threshold for spikes: ", ic.spike.threshold, " in +/- ", window.k, " positions") 
   options(stringsAsFactors = FALSE)
-  if (length(um) == 1) {
-    um <- list(um)
-  }
+  # if (length(um) == 1) {
+  #   um <- list(um)
+  # }
   
   ## Get names of all motifs:
   list_of_names <- purrr::map(um, `[`, "name")
@@ -1008,7 +1008,7 @@ trim.motifs.window <- function(um                 = NULL,
   count.matrices.list.ic <- lapply(count.matrices.list.ic, as.vector)
 
 
-  ## Calculate positions thtat should be kept after trimming motifs
+  ## Calculate positions that should be kept after trimming motifs
   trim.positions <- purrr::map_df(.x = count.matrices.list.ic,
                                   .f = ~motif.trimming(IC.vector = .x,
                                                        th        = ic.threshold,
@@ -1016,8 +1016,8 @@ trim.motifs.window <- function(um                 = NULL,
                                                        k         = 1))
   
   positions.trim.list <- list(count_matrices = count.matrices.list,
-                               from           = trim.positions$min,
-                               to             = trim.positions$max)
+                              from           = trim.positions$min,
+                              to             = trim.positions$max)
   
   
   ## Subset the motif using the previously calculated positions
@@ -1025,12 +1025,14 @@ trim.motifs.window <- function(um                 = NULL,
                                              .f = ~subset.matrix(m   = ..1,
                                                                  min = ..2,
                                                                  max = ..3))
-
+  suppressWarnings(
   count.matrices.trimmed.um <- purrr::map2(.x = um,
                                            .y = count.matrices.trimmed.list,
                                            .f = ~set.um.motif(um        = .x,
                                                               new.count = .y))
+  )
   
+  # print(count.matrices.trimmed.um)
   trim_values_df <- cbind(unlist(list_of_names),
                           trim.positions$min,
                           trim.positions$max,
@@ -1038,9 +1040,9 @@ trim.motifs.window <- function(um                 = NULL,
   colnames(trim_values_df) <- c("name", "min_position", "max_position", "motif_size")
   
   # print(trim_values_df)
-  trim_values_df <- as.data.frame(trim_values_df) %>%
-    dplyr::mutate(trim_left  = as.numeric(min_position) -1 ,
-                  trim_right = as.numeric(motif_size) - as.numeric(max_position))
+  trim_values_df <- data.frame(trim_values_df) %>%
+                      dplyr::mutate(trim_left  = as.numeric(min_position) -1 ,
+                                    trim_right = as.numeric(motif_size) - as.numeric(max_position))
   # print(trim_values_df)
   
   # return(count.matrices.trimmed.um)
