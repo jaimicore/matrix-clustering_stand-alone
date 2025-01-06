@@ -92,14 +92,13 @@ jobs:
           --logos TRUE                          \
           --output_file results/convert-matrix_examples/Two_motifs_Logos/Two_motifs.jaspar
 
-      # This doesn't work
-      # - name: Trimming (one motif)
-      #   run: |
-      #     Rscript convert-matrix.R             \
-      #     -i data/example/one_example_motif.tf \
-      #     --from tf --to jaspar                \
-      #     --logos TRUE --trim TRUE             \
-      #     --output_file results/convert-matrix_examples/One_motif_Trim/One_motif.jaspar 
+      - name: Trimming (one motif)
+        run: |
+          Rscript convert-matrix.R             \
+          -i data/example/one_example_motif.tf \
+          --from tf --to jaspar                \
+          --logos TRUE --trim TRUE             \
+          --output_file results/convert-matrix_examples/One_motif_Trim/One_motif.jaspar
 
       - name: Trimming (two motifs)
         run: |
