@@ -135,18 +135,23 @@ motifs.um <- read.motif.file(motif.file   = tf.matrix.file.in,
 
 
 # Use this flag to avoid some bugs
+# When the input is one motif, R decompress the list and treat the object as a 
+# UniversalMotif object instead of a list, and purrr cannot iterate and crashes
+# Avoid this by re-generating a 1-length list wit the UniversalMotif object
 one.motif.input.flag <- FALSE
 if (length(motifs.um) == 1) {
-  one.motif.input.flag <- TRUE 
+  motifs.um <- list(motifs.um)
+  one.motif.input.flag <- TRUE
 }
 
+#Rscript convert-matrix.R -i data/example/one_example_motif.tf --from tf --to jaspar --logos TRUE --trim TRUE --output_file results/convert-matrix_examples/One_motif_Trim/One_motif.jaspar
 
 #################
 ## Trim motifs ##
 #################
 
 if (trim.flag) {
-  
+
   trimming_res <- trim.motifs.window(um                 = motifs.um,
                                      ic.threshold       = trim.ic,
                                      ic.spike.threshold = trim.spike.ic,
@@ -171,9 +176,9 @@ if (trim.flag) {
 if (one.motif.input.flag) {
   
   um.name    <- basename(fs:::path_ext_remove(tf.matrix.file.out))
-  
-  motifs.um@name    <- um.name
-  motifs.um@altname <- um.name
+
+  motifs.um[[1]]@name    <- um.name
+  motifs.um[[1]]@altname <- um.name
  
 }
 motifs.um.rc <- universalmotif::motif_rc(motifs.um)
@@ -206,14 +211,6 @@ if (logos.flag) {
   
   message("; Exporting logos ")
   
-  # When the input is one motif, R decompress the list and treat the object as a 
-  # UniversalMotif object instead of a list, and purrr cannot iterate and crashes
-  # Avoid this by re-generating a 1-length list wit the UniversalMotif object
-  if (one.motif.input.flag) {
-    motifs.um    <- list(motifs.um)
-    motifs.um.rc <- list(motifs.um.rc)
-  }
-  
   logos.dir <- file.path(dirname(tf.matrix.file.out), "logos")
   dir.create(logos.dir, recursive = TRUE, showWarnings = FALSE)
 
@@ -228,3 +225,5 @@ if (logos.flag) {
 }
 
 message("; End of program")
+
+# Rscript convert-matrix.R  -i data/example/one_example_motif.tf   --from tf --to jaspar --output_file results/convert-matrix_examples/DEBUG_IEVA/IEVA_MOTIF.jaspar --logos TRUE
