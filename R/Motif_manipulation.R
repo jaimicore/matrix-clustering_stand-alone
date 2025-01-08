@@ -27,13 +27,15 @@ set.um.motif <- function(um        = NULL,
                          new.count = NULL) {
   
   ## As the motif is modified, the universalmotif object needs to be updated
-  new.motif <- create_motif(input = new.count, type =  um@type)
+  new.motif <- create_motif(input    = new.count,
+                            type     = um@type,
+                            alphabet = "DNA")
   
   ## Rename it
   new.motif@name    <- um@name
   new.motif@altname <- um@altname
-  
-  return(new.motif)
+
+    return(new.motif)
 }
 
 
@@ -41,7 +43,14 @@ set.um.motif <- function(um        = NULL,
 subset.matrix <- function(m   = NULL,
                           min = NULL,
                           max = NULL) {
-  m[, min:max]
+  
+  m <- m[, min:max, drop = FALSE]
+  
+  # In cases when subseting results in 1 column motifs reset the rownames
+  rownames(m) <- NULL
+  # rownames(m) <- c("A", "C", "G", "T")
+  
+  return(m)
 }
 
 
@@ -882,7 +891,7 @@ motif.trimming <- function(IC.vector = NULL,
       pos.to.check <- pos.to.check[pos.to.check <= flank_size] ## Selecting the positions in our range only
       pos.to.check <- pos.to.check[pos.to.check != pos.idx]
     
-      decision.sum          <- sum(pos.binarized.IC[pos.to.check])
+      decision.sum <- sum(pos.binarized.IC[pos.to.check])
 
     } else {
       decision.sum <- 2*k
@@ -896,17 +905,30 @@ motif.trimming <- function(IC.vector = NULL,
   }
   
   passed_thr_pos <- checked_positions[which(checked_positions$desicion.sum.fraction >= 0.5), ]
-
-  min.trim.idx   <- min(passed_thr_pos$pos.idx)
-  max.trim.idx   <- max(passed_thr_pos$pos.idx)
-
-  ## Trimming:
-  IC_trimmed     <- IC.vector[min.trim.idx:max.trim.idx]
-
+  comment.trim   <- ""
   
-  return(data.table(min = min.trim.idx,
-                    max = max.trim.idx,
-                    matrix_size = flank_size))
+  # If no position passed the threshold, raise a Warning and return the whole motif
+  if (nrow(passed_thr_pos) == 0) {
+    
+    min.trim.idx <- 1
+    max.trim.idx <- flank_size
+    comment.trim <- "Warning: All positions trimmed"
+    warning("No position left after trimming. The original motif will be kept.")
+    
+  # Otherwise trim the motif
+  } else {
+    
+    min.trim.idx <- min(passed_thr_pos$pos.idx)
+    max.trim.idx <- max(passed_thr_pos$pos.idx)
+    
+    ## Trimming:
+    # IC_trimmed   <- IC.vector[min.trim.idx:max.trim.idx]
+  }
+  
+  return(data.table(min         = min.trim.idx,
+                    max         = max.trim.idx,
+                    matrix_size = flank_size,
+                    comment     = comment.trim))
 }
 
 
@@ -994,15 +1016,12 @@ trim.motifs.window <- function(um                 = NULL,
 
   message("; Trimming motifs. General IC threshold: ", ic.threshold, "; IC threshold for spikes: ", ic.spike.threshold, " in +/- ", window.k, " positions") 
   options(stringsAsFactors = FALSE)
-  # if (length(um) == 1) {
-  #   um <- list(um)
-  # }
   
   ## Get names of all motifs:
   list_of_names <- purrr::map(um, `[`, "name")
   
   ## Get the count matrices within the Universalmotif object
-  ## Then obtain the Ic content per column in each count matrix
+  ## Then obtain the IC content per column in each count matrix
   count.matrices.list    <- purrr::map(um, `[`, "motif")
   count.matrices.list.ic <- purrr::map(count.matrices.list, calculate.col.IC.count.matrix)
   count.matrices.list.ic <- lapply(count.matrices.list.ic, as.vector)
@@ -1015,29 +1034,37 @@ trim.motifs.window <- function(um                 = NULL,
                                                        sp.th     = ic.spike.threshold,
                                                        k         = 1))
   
+  
   positions.trim.list <- list(count_matrices = count.matrices.list,
                               from           = trim.positions$min,
                               to             = trim.positions$max)
   
-  
-  ## Subset the motif using the previously calculated positions
-  count.matrices.trimmed.list <- purrr::pmap(.l = positions.trim.list,
-                                             .f = ~subset.matrix(m   = ..1,
-                                                                 min = ..2,
-                                                                 max = ..3))
-  suppressWarnings(
-  count.matrices.trimmed.um <- purrr::map2(.x = um,
-                                           .y = count.matrices.trimmed.list,
-                                           .f = ~set.um.motif(um        = .x,
-                                                              new.count = .y))
-  )
+  # Trim only when there are no trimming comments
+  if (trim.positions$comment == "") {
+    
+    ## Subset the motif using the previously calculated positions
+    count.matrices.trimmed.list <- purrr::pmap(.l = positions.trim.list,
+                                               .f = ~subset.matrix(m   = ..1,
+                                                                   min = ..2,
+                                                                   max = ..3))
+    suppressWarnings(
+      count.matrices.trimmed.um <- purrr::map2(.x = um,
+                                               .y = count.matrices.trimmed.list,
+                                               .f = ~set.um.motif(um        = .x,
+                                                                  new.count = .y))
+    )    
+  } else {
+    count.matrices.trimmed.um <- um
+  }
+
   
   # print(count.matrices.trimmed.um)
   trim_values_df <- cbind(unlist(list_of_names),
                           trim.positions$min,
                           trim.positions$max,
-                          trim.positions$matrix_size)
-  colnames(trim_values_df) <- c("name", "min_position", "max_position", "motif_size")
+                          trim.positions$matrix_size,
+                          trim.positions$comment)
+  colnames(trim_values_df) <- c("name", "min_position", "max_position", "motif_size", "comment")
   
   # print(trim_values_df)
   trim_values_df <- data.frame(trim_values_df) %>%
