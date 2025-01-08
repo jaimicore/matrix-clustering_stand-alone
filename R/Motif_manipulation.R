@@ -1039,26 +1039,20 @@ trim.motifs.window <- function(um                 = NULL,
                               from           = trim.positions$min,
                               to             = trim.positions$max)
   
-  # Trim only when there are no trimming comments
-  if (trim.positions$comment == "") {
-    
-    ## Subset the motif using the previously calculated positions
-    count.matrices.trimmed.list <- purrr::pmap(.l = positions.trim.list,
-                                               .f = ~subset.matrix(m   = ..1,
-                                                                   min = ..2,
-                                                                   max = ..3))
-    suppressWarnings(
-      count.matrices.trimmed.um <- purrr::map2(.x = um,
-                                               .y = count.matrices.trimmed.list,
-                                               .f = ~set.um.motif(um        = .x,
-                                                                  new.count = .y))
-    )    
-  } else {
-    count.matrices.trimmed.um <- um
-  }
+  ## Subset the motif using the previously calculated positions
+  count.matrices.trimmed.list <- purrr::pmap(.l = positions.trim.list,
+                                             .f = ~subset.matrix(m   = ..1,
+                                                                 min = ..2,
+                                                                 max = ..3))
+  suppressWarnings(
+    count.matrices.trimmed.um <- purrr::map2(.x = um,
+                                             .y = count.matrices.trimmed.list,
+                                             .f = ~set.um.motif(um        = .x,
+                                                                new.count = .y))
 
+  )
   
-  # print(count.matrices.trimmed.um)
+
   trim_values_df <- cbind(unlist(list_of_names),
                           trim.positions$min,
                           trim.positions$max,
