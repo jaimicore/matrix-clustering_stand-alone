@@ -115,7 +115,7 @@ jobs:
           -i data/example/pbm_example.jaspar                                                \
           --from jaspar --to tf                                                             \
           --logos TRUE --trim TRUE                                                          \
-          --IC_threshold 0.3 --spike_IC_threshold 0.6                                       \       
+          --IC_threshold 0.3 --spike_IC_threshold 1                                         \       
           --trim_values_output results/convert-matrix_examples/Trim_warning/trim_values.tsv \
           --output_file results/convert-matrix_examples/Trim_warning/Trim_warning.tf
 
