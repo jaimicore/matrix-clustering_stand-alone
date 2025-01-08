@@ -112,15 +112,18 @@ if (trim.spike.ic < 0 | is.character(trim.spike.ic) | is.na(trim.spike.ic) | tri
 ## Rscript convert-matrix.R -i data/OCT4_datasets/RSAT_OCT4_motifs.tf --from tf --to meme -o RSAT_OCT4_motifs.meme
 # tf.matrix.file.in  <- "/home/jaime/Documents/Personal/matrix-clustering_stand-alone/data/OCT4_datasets/RSAT_OCT4_motifs.tf"
 # tf.matrix.file.in  <- "/home/jaime/Documents/Personal/matrix-clustering_stand-alone/data/example/one_example_motif.tf"
-# tf.matrix.file.out <- "Example_motif_out.motif"
-# format.in          <- "tf"
-# format.out         <- "cluster-buster"
-# rc.flag            <- TRUE
-# trim.flag         <- TRUE
-# trim.ic           <- 0.3
-# trim.spike.ic     <- 1
+
+# tf.matrix.file.in  <- "/home/jaime/Documents/Personal/matrix-clustering_stand-alone/Debug/Ieva/pbm_example.jaspar"
+# tf.matrix.file.out <- "/home/jaime/Documents/Personal/matrix-clustering_stand-alone/Debug/Ieva/trimmed_motif.meme"
+# format.in            <- "jaspar"
+# format.out           <- "meme"
+
+# rc.flag              <- TRUE
+# trim.flag            <- TRUE
+# trim.ic              <- 0.3
+# trim.spike.ic        <- 0.6
 # trim.values.out.file <- "trim_values.txt"
-# logos.flag        <- TRUE
+# logos.flag           <- TRUE
 
 ## Format in/out test
 fit <- check.supported.formats(motif.format = format.in)
@@ -130,9 +133,10 @@ fot <- check.supported.formats(motif.format = format.out)
 #####################
 ## Read motif file ##
 #####################
-motifs.um <- read.motif.file(motif.file   = tf.matrix.file.in,
-                             motif.format = format.in)
-
+suppressWarnings(
+  motifs.um <- read.motif.file(motif.file   = tf.matrix.file.in,
+                               motif.format = format.in)
+)
 
 # Use this flag to avoid some bugs
 # When the input is one motif, R decompress the list and treat the object as a 
@@ -144,7 +148,6 @@ if (length(motifs.um) == 1) {
   one.motif.input.flag <- TRUE
 }
 
-#Rscript convert-matrix.R -i data/example/one_example_motif.tf --from tf --to jaspar --logos TRUE --trim TRUE --output_file results/convert-matrix_examples/One_motif_Trim/One_motif.jaspar
 
 #################
 ## Trim motifs ##
@@ -166,6 +169,7 @@ if (trim.flag) {
          col.names = TRUE,
          sep       = "\t")
 }
+
 
 ##################
 ## RC conversion #
