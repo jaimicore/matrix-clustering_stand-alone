@@ -109,15 +109,15 @@ jobs:
           --output_file results/convert-matrix_examples/Two_motifs_Trim/Two_motifs.jaspar
 
 
-      # - name: Trimming (No positions left)
-      #   run: |
-      #     Rscript convert-matrix.R                                                          \
-      #     -i data/example/pbm_example.jaspar                                                \
-      #     --from jaspar --to tf                                                             \
-      #     --logos TRUE --trim TRUE                                                          \
-      #     --IC_threshold 0.3 --spike_IC_threshold 1                                         \       
-      #     --trim_values_output results/convert-matrix_examples/Trim_warning/trim_values.tsv \
-      #     --output_file results/convert-matrix_examples/Trim_warning/Trim_warning.tf
+      - name: Trimming (No positions left)
+        run: |
+          Rscript convert-matrix.R                                                          \
+          -i data/example/pbm_example.jaspar                                                \
+          --from jaspar --to tf                                                             \
+          --logos TRUE --trim TRUE                                                          \
+          --IC_threshold 0.3 --spike_IC_threshold 1                                         \
+          --trim_values_output results/convert-matrix_examples/Trim_warning/trim_values.tsv \
+          --output_file results/convert-matrix_examples/Trim_warning/Trim_warning.tf
 
 
       # Each demo with 1 and >1 motifs
