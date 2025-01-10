@@ -151,11 +151,11 @@ one.motif.input.flag <- ifelse(length(motifs.um) == 1, TRUE, FALSE)
 # UniversalMotif object instead of a list, and purrr cannot iterate and crashes
 # Avoid this by re-generating a 1-length list wit the UniversalMotif object
 if (one.motif.input.flag) {
-  um.object <- list(um.object)
+  motifs.um <- list(motifs.um)
 }
 
 # Check if the motif has only one site and prevent universalmotif from interpreting it as a frequency matrix
-um.object <- purrr::map(.x = um.object,
+motifs.um <- purrr::map(.x = motifs.um,
                         .f = ~check.one.site.motifs(.x))
 
 #################
