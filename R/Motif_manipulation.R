@@ -131,7 +131,7 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   ## Read motifs 
   message("; Reading motif collection: ", collection.name)
   motif.collection <- read.motif.file(motif.file   = motif.file,
-                                      motif.format = motif.format, )
+                                      motif.format = motif.format)
   
   # message("; Read CB")
   # read.motif.file(motif.file   = "Debug/Triana/matrix_clust.cb",
@@ -353,8 +353,8 @@ check.supported.formats <- function(motif.format = NULL) {
 
 
 ## Given the path of a motif file and its format load the content as a universalmotif object
-read.motif.file <- function(motif.file  = NULL,
-                            motif.format = NULL) {
+read.motif.file <- function(motif.file     = NULL,
+                            motif.format   = NULL) {
   
   # message("; Reading input file in ", motif.format, " format: ", motif.file)
   
@@ -368,18 +368,6 @@ read.motif.file <- function(motif.file  = NULL,
                       "tf"             = universalmotif::read_transfac(file = motif.file),
                       "transfac"       = universalmotif::read_transfac(file = motif.file),
                       "uniprobe"       = universalmotif::read_uniprobe(file = motif.file))
-  
-  # Use this flag to avoid some bugs
-  # When the input is one motif, R decompress the list and treat the object as a 
-  # UniversalMotif object instead of a list, and purrr cannot iterate and crashes
-  # Avoid this by re-generating a 1-length list wit the UniversalMotif object
-  if (length(um.object) == 1) {
-    um.object <- list(um.object)
-  }
-  
-  # Check if the motif has only one site and prevent universalmotif from interpreting it as a frequency matrix
-  um.object <- purrr::map(.x = um.object,
-                          .f = ~check.one.site.motifs(.x))
   
   return(um.object)
 }

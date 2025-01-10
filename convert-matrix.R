@@ -146,6 +146,17 @@ suppressWarnings(
 )
 one.motif.input.flag <- ifelse(length(motifs.um) == 1, TRUE, FALSE)
 
+# Use this flag to avoid some bugs
+# When the input is one motif, R decompress the list and treat the object as a 
+# UniversalMotif object instead of a list, and purrr cannot iterate and crashes
+# Avoid this by re-generating a 1-length list wit the UniversalMotif object
+if (one.motif.input.flag) {
+  um.object <- list(um.object)
+}
+
+# Check if the motif has only one site and prevent universalmotif from interpreting it as a frequency matrix
+um.object <- purrr::map(.x = um.object,
+                        .f = ~check.one.site.motifs(.x))
 
 #################
 ## Trim motifs ##
