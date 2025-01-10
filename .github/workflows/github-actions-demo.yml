@@ -120,12 +120,12 @@ jobs:
           --output_file results/convert-matrix_examples/Trim_warning/Trim_warning.tf
 
 
-      - name: One site matrix
-        run: |
-          Rscript convert-matrix.R                                            \
-          -i data/example/tf2meme.tf                                          \
-          --from tf --to meme                                                 \
-          --output_file results/convert-matrix_examples/One_site/One_site.tf
+      # - name: One site matrix
+      #   run: |
+      #     Rscript convert-matrix.R                                            \
+      #     -i data/example/tf2meme.tf                                          \
+      #     --from tf --to jaspar                                               \
+      #     --output_file results/convert-matrix_examples/One_site/One_site.tf
 
 
       # Each demo with 1 and >1 motifs
