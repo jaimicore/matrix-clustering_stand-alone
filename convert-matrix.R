@@ -144,10 +144,7 @@ suppressWarnings(
   motifs.um <- read.motif.file(motif.file   = tf.matrix.file.in,
                                motif.format = format.in)
 )
-
-
 one.motif.input.flag <- ifelse(length(motifs.um) == 1, TRUE, FALSE)
-
 
 
 #################

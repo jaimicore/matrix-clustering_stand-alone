@@ -400,7 +400,7 @@ check.one.site.motifs <- function(um) {
     }
   }
   
-  return(motifs.um)
+  return(um)
 }
 
 
