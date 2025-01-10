@@ -131,7 +131,7 @@ preprocess.one.motif.collection <- function(motif.file      = NULL,
   ## Read motifs 
   message("; Reading motif collection: ", collection.name)
   motif.collection <- read.motif.file(motif.file   = motif.file,
-                                      motif.format = motif.format)
+                                      motif.format = motif.format, )
   
   # message("; Read CB")
   # read.motif.file(motif.file   = "Debug/Triana/matrix_clust.cb",
@@ -369,9 +369,30 @@ read.motif.file <- function(motif.file  = NULL,
                       "transfac"       = universalmotif::read_transfac(file = motif.file),
                       "uniprobe"       = universalmotif::read_uniprobe(file = motif.file))
   
+  # Check if the motif has only one site and prevent universalmotif from interpreting it as a frequency matrix
+  um.object <- check.one.site.motifs(um.object)
+  
   return(um.object)
 }
 
+
+
+# This function is used to check if the motif has only one site
+# Universalmotif interprets this a frequency matrix, but it is a site matrix
+check.one.site.motifs <- function(um) {
+  
+  motif.nb.sites     <- um@nsites
+  motif.colsum.sites <- unique(universalmotif::colSums(um))
+  
+  if (motif.nb.sites == 1) {
+    if (motif.nb.sites != motif.colsum.sites) {
+      um@motif[um@motif > 0] <- 1
+      warning("Motif has only one site, it will be interpreted as a count matrix")
+    }
+  }
+  
+  return(motifs.um)
+}
 
 
 ## Export universalmotif object as cluster-buster motif file
