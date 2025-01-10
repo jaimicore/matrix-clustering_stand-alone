@@ -369,8 +369,17 @@ read.motif.file <- function(motif.file  = NULL,
                       "transfac"       = universalmotif::read_transfac(file = motif.file),
                       "uniprobe"       = universalmotif::read_uniprobe(file = motif.file))
   
+  # Use this flag to avoid some bugs
+  # When the input is one motif, R decompress the list and treat the object as a 
+  # UniversalMotif object instead of a list, and purrr cannot iterate and crashes
+  # Avoid this by re-generating a 1-length list wit the UniversalMotif object
+  if (length(um.object) == 1) {
+    um.object <- list(um.object)
+  }
+  
   # Check if the motif has only one site and prevent universalmotif from interpreting it as a frequency matrix
-  um.object <- check.one.site.motifs(um.object)
+  um.object <- purrr::map(.x = um.object,
+                          .f = ~check.one.site.motifs(.x))
   
   return(um.object)
 }

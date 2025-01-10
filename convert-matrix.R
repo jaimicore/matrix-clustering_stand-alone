@@ -146,15 +146,8 @@ suppressWarnings(
 )
 
 
-# Use this flag to avoid some bugs
-# When the input is one motif, R decompress the list and treat the object as a 
-# UniversalMotif object instead of a list, and purrr cannot iterate and crashes
-# Avoid this by re-generating a 1-length list wit the UniversalMotif object
-one.motif.input.flag <- FALSE
-if (length(motifs.um) == 1) {
-  motifs.um <- list(motifs.um)
-  one.motif.input.flag <- TRUE
-}
+one.motif.input.flag <- ifelse(length(motifs.um) == 1, TRUE, FALSE)
+
 
 
 #################
