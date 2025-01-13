@@ -378,8 +378,12 @@ read.motif.file <- function(motif.file     = NULL,
 # Universalmotif interprets this a frequency matrix, but it is a site matrix
 check.one.site.motifs <- function(um) {
   
+  # In many cases the motif has the nsite slot empty. Fill it using the colSums
   motif.nb.sites     <- um@nsites
   motif.colsum.sites <- unique(universalmotif::colSums(um))
+  if (length(motif.nb.sites) == 0 & length(motif.colsum.sites) > 1) {
+    um@nsites <- motif.colsum.sites
+  }
   
   if (motif.nb.sites == 1) {
     if (motif.nb.sites != motif.colsum.sites) {
