@@ -381,8 +381,9 @@ check.one.site.motifs <- function(um) {
   # In many cases the motif has the nsite slot empty. Fill it using the colSums
   motif.nb.sites     <- um@nsites
   motif.colsum.sites <- unique(universalmotif::colSums(um))
-  if (length(motif.nb.sites) == 0 & length(motif.colsum.sites) > 1) {
-    um@nsites <- motif.colsum.sites
+  if ( (length(motif.nb.sites) == 0) & (length(motif.colsum.sites) == 1)) {
+    um@nsites      <- motif.colsum.sites
+    motif.nb.sites <- um@nsites
   }
   
   if (motif.nb.sites == 1) {
