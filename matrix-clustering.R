@@ -253,6 +253,10 @@ results.list$Motif_info_tab  <- rbindlist(purrr::map(motif.info.and.motifs, `[[`
 all.motifs.um                <- unlist(purrr::map(motif.info.and.motifs, `[[`, "um_object")) ## All motifs as a universalmotif object
 
 
+# Check if the motif has only one site and prevent universalmotif from interpreting it as a frequency matrix
+all.motifs.um <- purrr::map(.x = all.motifs.um,
+                            .f = ~check.one.site.motifs(.x))
+
 ## Export transfac file with correct header to be read by compare-matrices-quick
 write.transfac.parsed.header(old.tf.file = output.files.list$Motifs_transfac_tmp,
                              new.tf.file = output.files.list$Motifs_transfac,
