@@ -163,7 +163,7 @@ motifs.um <- purrr::map(.x = motifs.um,
 #################
 
 if (trim.flag) {
-
+  # message("; Trimming motifs")
   trimming_res <- trim.motifs.window(um                 = motifs.um,
                                      ic.threshold       = trim.ic,
                                      ic.spike.threshold = trim.spike.ic,
