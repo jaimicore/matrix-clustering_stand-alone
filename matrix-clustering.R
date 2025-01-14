@@ -239,6 +239,7 @@ no.output <- sapply(out.folder.list, dir.create, showWarnings = FALSE, recursive
 # ---------------------------------------------------------- #
 
 matrix.file.list <- check.status.motif.table(matrix.file.table = matrix.file.table)
+collection.ids   <- matrix.file.list$Collection
 
 ## Returns the motif description table and the motifs (as a universalmotif object)
 ## with the modified IDs (unique identifiers with the motif number and motif collection name)
@@ -916,15 +917,16 @@ if (params.list$min_output == FALSE) {
                                                                        alignment.df          = results.list$Alignment_table))
 
     
-    create.html.interactive.tree(clusters      = find.clusters.list$clusters,
-                                 clusters.df   = results.list$Clusters_files,
-                                 cluster.color = cl.col,
-                                 html.template = html.interactive.tree.template,
-                                 hmtl.ready    = output.files.list$D3_dynamic_tree,
-                                 d3.template   = d3.interactive.tree.template,
-                                 d3.lib        = d3.min.lib,
-                                 jq.lib        = jquery.lib,
-                                 outdir        = dirname(out.folder))
+    create.html.interactive.tree(clusters         = find.clusters.list$clusters,
+                                 collection.names = collection.ids,
+                                 clusters.df      = results.list$Clusters_files,
+                                 cluster.color    = cl.col,
+                                 html.template    = html.interactive.tree.template,
+                                 hmtl.ready       = output.files.list$D3_dynamic_tree,
+                                 d3.template      = d3.interactive.tree.template,
+                                 d3.lib           = d3.min.lib,
+                                 jq.lib           = jquery.lib,
+                                 outdir           = dirname(out.folder))
     
   }
   
