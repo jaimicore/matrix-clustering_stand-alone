@@ -75,7 +75,7 @@ RUN apt-get install --yes --quiet \
 ## ------------------- ##
 
 RUN git clone https://github.com/jaimicore/matrix-clustering_stand-alone.git
-COPY requirements.R /opt/requirements.R
+COPY docker/requirements.R /opt/requirements.R
 
 ## ---------------------------- ##
 ## Install package requirements ##
