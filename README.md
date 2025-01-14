@@ -447,13 +447,14 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 
 &nbsp;
 
-### Others
+### Other
 
 - `-w` or `--number_of_workers` : Number of cores to run in parallel. Default: `2`. [Options: depends in your machine].
 - `--heatmap_color_palette` : Cell colors in clusters heatmap. Default: `RdGy`. [Options: any colorBrewer palette, see colorbrewer2.org for details ].
 - `--color_palette_classes` : Number of classes to create color palette in clusters heatmap. Default: `11`. [Options: depends on the selected colorBrewer palette, see colorbrewer2.org for details ].
 - `--title`: Set an analysis title. Default : `matrix-clustering`.
 
+&nbsp;
 
 ### Optional output
 
@@ -462,8 +463,6 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 - `-M` or `--minimal_output` : When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. Default : `FALSE`. [Options: `TRUE`, `FALSE`]
 
 
-  
- 
  &nbsp;
  &nbsp;
   
