@@ -888,15 +888,16 @@ Add_attributes_to_JSON_interactive_tree <- function(cluster_name          = NULL
 # hmtl.ready    = output.files.list$D3_dynamic_tree
 
 
-create.html.interactive.tree <- function(clusters      = NULL,
-                                         clusters.df   = NULL,
-                                         cluster.color = NULL,
-                                         html.template = NULL,
-                                         hmtl.ready    = NULL,
-                                         d3.template   = NULL,
-                                         d3.lib        = NULL,
-                                         jq.lib        = NULL,
-                                         outdir        = NULL) {
+create.html.interactive.tree <- function(clusters         = NULL,
+                                         collection.names = NULL,
+                                         clusters.df      = NULL,
+                                         cluster.color    = NULL,
+                                         html.template    = NULL,
+                                         hmtl.ready       = NULL,
+                                         d3.template      = NULL,
+                                         d3.lib           = NULL,
+                                         jq.lib           = NULL,
+                                         outdir           = NULL) {
 
   # Read d3 template (same for each cluster)
   d3.lines <- readLines(d3.template)
@@ -920,7 +921,12 @@ create.html.interactive.tree <- function(clusters      = NULL,
   
   # Max number of characters in motif IDs
   # This is needed to calculate the distance between trees and logos
-  nb.char <- max(nchar(as.vector(unlist(clusters))))
+  motifids <- as.vector(unlist(clusters))
+  motifids <- sapply(motifids, gsub, pattern = "_n\\d+$", replacement = "")
+  for (cn in collection.names) {
+    motifids <- sapply(motifids, gsub, pattern = paste0("^", cn, "_"), replacement = "")
+  }
+  nb.char  <- max(nchar(motifids))
 
   d3.trees.code <- purrr::map(.x = names(clusters),
   # d3.trees.code <- purrr::map(.x = c("cluster_01"),
@@ -1001,6 +1007,15 @@ d3.tree.one.cluster <- function(cl.name   = NULL,
   # ---------------------------------------- #
   # Complete the missing annotation elements #
   # ---------------------------------------- #
+  
+  # Adapt font-size according to the number of characters
+  # This is a quick solution, we don't expect to have such long motif names, but in a few cases we have them.
+  # So this if block can be easily extended to adapt to these cases
+  font.size.dynamic.tree <- 20
+  if (id.nchar > 35) {
+    font.size.dynamic.tree <- 16
+  }
+  
   d3.annotation.list <- list(JSON_string = NULL,
                              widthtree   = 1500,
                              heighttree  = NULL,
@@ -1010,6 +1025,7 @@ d3.tree.one.cluster <- function(cl.name   = NULL,
                              stroke      = cl.color,
                              logowidth   = 15,
                              logoheight  = 13,
+                             font_size   = font.size.dynamic.tree,
                              x_logo      = NULL,
                              y_logo      = NULL)
 
@@ -1029,8 +1045,9 @@ d3.tree.one.cluster <- function(cl.name   = NULL,
                                              TRUE ~ 420  # Default value if none of the cases match
   )
 
-  # Logo displacement
-  d3.annotation.list$x_logo <- id.nchar * 9
+  # Values for logo displacement
+  gap.logo                  <- 0.66
+  d3.annotation.list$x_logo <- (id.nchar * d3.annotation.list[['font_size']]) * gap.logo
   d3.annotation.list$y_logo <- -40
 
 
