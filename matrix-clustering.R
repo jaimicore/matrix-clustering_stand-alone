@@ -83,7 +83,7 @@ option_list = list(
               help = "Export heatmap with clusters in PDF. [Default \"%default\"] ", metavar = "logical"), 
 
   make_option(c("-M", "--minimal_output"), type = "logical", default = FALSE, 
-              help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical"),
+              help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical")
 
 );
 message("; Reading arguments from command-line")
