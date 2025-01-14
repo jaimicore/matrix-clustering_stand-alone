@@ -1,8 +1,8 @@
 # matrix-clustering_stand-alone
 
-This is a stand-alone version of *RSAT matrix-clustering*. This version is faster and simplified compared to the original one but the graphical output is still under development.
+This is a stand-alone version of *RSAT matrix-clustering*. This version is faster and with more features compared to the original one but the graphical output is still under development.
 
-*RSAT matrix-clustering* is a software to cluster and align Transcription Factor binding motifs. Here is a brief description of the method:
+*RSAT matrix-clustering* is a software to cluster and align Transcription Factor Binding Motifs (*TFBM*s). Here is a brief description of the method:
 
   - **Motif comparison**: The motifs are compared to each other using two comparison metrics (pearson correlation coeficient (*cor*) and an alignment-width correction (normalized pearson correlation (*Ncor*)).
   - **Hierarchical clustering**: The motifs are hierarchically clustered based in the values of a comparison metric (default = *Ncor*) .
@@ -10,7 +10,7 @@ This is a stand-alone version of *RSAT matrix-clustering*. This version is faste
   - **Motif alignment**: for each cluster, the motifs are progressively aligned following the linkage order of the hierarchical tree, this ensures that each motif is aligned in relation to its closest motif in the cluster.
   - **Radial alignment (optional)**: all the motifs are forced to be aligned, the aligned logos are displayed in a radial (circular) tree. This option is useful to visualize entire motif collections. See example in the [*JASPAR* website](https://jaspar.genereg.net/matrix-clusters/nematodes/).
 
-As in the original version of *RSAT matrix-clustering*, there is no limit in the input motif files (so far we have tried with up to 900 input files). When users have two or more input files, some intersection statistics are calculated (e.g., overlap among input collections) visualized as heatmaps.
+There is no limit in the input motif files (so far we have tried with up to 900 input files), each file is treated as a *collection*. When an analysis contains two or more *collections*, some intersection statistics are calculated (e.g., overlap among input collections) visualized as heatmaps.
 
 *RSAT matrix-clustering* is part of the [*RSAT* suite](http://www.rsat.eu/) for motif analysis, we decided to create a portable stand-alone version that can be ran without installing the whole *RSAT* environment and that can be easily integrated within pipelines.
 
@@ -28,13 +28,13 @@ If you want to run the original version with all the graphical output, you can d
 
 ## :wrench: Changes relative to the original version
 
-- We added a function to create motif alignments in a radial (circular) way (see **Example 2**). This representation allows to visualize entire motif collections and highlight categories (TF classes, TF families, Motif collection, etc).
+- :placard: Functionality to create motif alignments in a radial (circular) representation (see **Example 2**). This representation allows to visualize entire motif collections (a motif browser) and highlight categories (TF classes, TF families, Motif collection, etc).
 
-- We added a new functionality to calculte how well the resulting clusters are similar to a user provided annotation (see **Example 3**) for more details. This functionality could be used to select the parameters (thresholds in `cor` and `Ncor`) that maximizes the similarity to a user-provided annotation.
+- :placard: Functionality to calculate how well the resulting clusters are similar to a user provided annotation (see **Example 3** for more details). This functionality could be used to select the parameters (thresholds in `cor` and `Ncor`) that maximizes the similarity to a user-provided annotation.
 
-- Default threshold are different: `cor = 0.75` and `Ncor = 0.55`. To decide if a node in the hierarchical tree will be merged or split, we compute the average `cor` and `Ncor` of all the pairwise comparisons for all the motifs in a particualr node. We realized that the original version didn't considered all the pairwise comparisons, we corrected this problem, but now the original default thresholds are too permissive, so we updated them to obtain good results.
+- :placard: Default thresholds are slightly different: `cor = 0.75` and `Ncor = 0.55`. To decide if a node in the hierarchical tree will be merged or split, we compute the average `cor` and `Ncor` of all the pairwise comparisons for all the motifs in a particualr node. We realized that the original version didn't considered all the pairwise comparisons, we corrected this problem, but now the original default thresholds are too permissive, so we updated them to obtain good results.
 
-- We implemented a motif trimming algorithm that is robust to IC spikes, see [this reference](https://academic.oup.com/nar/article/52/D1/D174/7420101). Motifs can be trimmed before clustering, more of this in the **Extra** section. 
+- :placard: We implemented a motif trimming algorithm that is robust to IC spikes, see [this reference](https://academic.oup.com/nar/article/52/D1/D174/7420101) for the details. Motifs can be trimmed before clustering, more of this in the **Extra** section. 
 
 &nbsp;
 &nbsp;
@@ -110,9 +110,9 @@ BiocManager::install("ComplexHeatmap")
 
 ### Compile C dependencies
 
-The motif comparison step is ran by `compare-matrices-quick`, a fast version of `RSAT compare-matrices` implemented in C (with limited options but much faster).
+The motif comparison step is ran by `compare-matrices-quick`, a fast version of `RSAT compare-matrices` implemented in `C` (with limited options but much faster).
 
-This repository contains the script written in `C` but it needs to be compiled to generate the executable script that will be called inside `matrix-clustering`.
+This repository contains the script written in `C` but it needs to be compiled to generate the executable script that will be called inside `matrix-clustering.R`.
 
 Assuming you are in the main directory, after cloning this repository:
 
@@ -138,7 +138,7 @@ Assuming you are in the root of the repository folder you can run the following 
 
 ### Example 1
 
-Clustering of 66 motifs separated in three motif collections (files). An [Oct4](https://doi.org/10.1016/j.cell.2008.04.043) ChIP-seq dataset was analyzed with three different motif discovery tools (*RSAT peak-motifs*, *MEME-ChIP*, and *HOMER*), the resulting motifs are used as input and we detected a cluster of Oct4 motifs, including the canonical motif, and other binding variants including homodimers and heterodimers, see [Fig 2 of the *RSAT matrix-clustering* paper](https://doi.org/10.1093/nar/gkx314) for a detailed explanation.
+Clustering of 66 motifs separated in three motif collections (files). An [*Oct4*](https://doi.org/10.1016/j.cell.2008.04.043) ChIP-seq dataset was analyzed with three different motif discovery tools ( [*RSAT peak-motifs*](https://doi.org/10.1093/nar/gkr1104), [*MEME-ChIP*](https://doi.org/10.1093/bioinformatics/btr189), and [*HOMER*](https://doi.org/10.1016/j.molcel.2010.05.004)), the resulting motifs are used as input and we detected a cluster of *Oct4* motifs, including the canonical motif, and other binding variants including homodimers and heterodimers, see [Fig 2 of the *RSAT matrix-clustering* paper](https://doi.org/10.1093/nar/gkx314) for a detailed explanation.
 
 :hourglass_flowing_sand: Running time: ~1 minute
 
@@ -482,6 +482,7 @@ Use this space to report [issues](https://github.com/jaimicore/matrix-clustering
 - Trim root motifs
 - Detect the central motif within each cluster.
 - Export motif collection intersection stats.
+- Add option to trim motifs during clustering (at the moment this is done with the *convert-matrix.R* script).
 
 &nbsp;
 &nbsp;
