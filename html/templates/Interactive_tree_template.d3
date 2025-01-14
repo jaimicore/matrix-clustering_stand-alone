@@ -102,7 +102,7 @@ d3.select("#--cl_id--_button").append("text")
 
  	nodeEnter.append("a")
 			.append("text")
-        		.style("font-size", "20px")
+        		.style("font-size", "--font_size--")
 			.text(function(d) { return d.children ? "" :  d.name; })
 			.attr("dx", function(d) { return d.children ? 0 : 20; })
 			.attr("dy", function(d) { return d.children ? 0 : 3; })
@@ -110,7 +110,7 @@ d3.select("#--cl_id--_button").append("text")
 			.attr("text-anchor", function(d) { return d.children ? "end" : "start"; })
 			.attr("fill", function(d) { return d._children ? "black" : "--stroke--"; })
 			.attr("font-family", "courier")
-                       .attr("font-size", "15px");
+                       .attr("font-size", "--font_size--");
 
 
     nodeEnter.append("image")
