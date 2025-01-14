@@ -154,7 +154,7 @@ Rscript matrix-clustering.R                           \
 
 ### Example 2
 
-In this example we are reproducing the clustering of [JASPAR nematodes](https://jaspar.genereg.net/matrix-clusters/nematodes/) (43 motifs corresponding to 12 TF classes). We use the option `--radial_tree = TRUE` to force the alignment of all motifs (as if they were in a single cluster), this alignment is displayed in a radial (circular) visualization.
+In this example we are reproducing the clustering of [JASPAR nematodes](https://jaspar.uio.no/matrix-clusters/nematodes/) (43 motifs corresponding to 12 TF classes). We use the option `--radial_tree = TRUE` to force the alignment of all motifs (as if they were in a single cluster), this alignment is displayed in a radial (circular) visualization.
 
 Users can provide motif metadata with the option `-a`.
 
@@ -177,9 +177,9 @@ Rscript matrix-clustering.R                           \
 
 ### Example 3
 
-We cluster the [*JASPAR 2022 plants*](https://jaspar.genereg.net/matrix-clusters/plants/) motif collection (656 motifs), we compare the resulting clusters detected by *RSAT matrix-clustering* against a user-provided reference annotation (in this case the Transcription Factor classes). We calculated the *Adjusted Rand Index* (ARI), a single-value metric (ranging from -1 to +1) indicating the proportion of consistent pairs between two classifications, in this example the ARI measures the proportion of motif pairs that are consistently classified between *RSAT matrix-clustering* results and the reference TF classes. We consider that a motif pair is consistently classified when the two motifs either belong to the same class and are co-clustered, or belong to different families and are not co-clustered.
+We cluster the [*JASPAR 2022 plants*](https://jaspar.uio.no/matrix-clusters/plants/) motif collection (656 motifs), we compare the resulting clusters detected by *RSAT matrix-clustering* against a user-provided reference annotation (in this case the Transcription Factor classes). We calculated the *Adjusted Rand Index* (*ARI*), a single-value metric (ranging from -1 to +1) indicating the proportion of consistent pairs between two classifications, in this example the *ARI* measures the proportion of motif pairs that are consistently classified between *RSAT matrix-clustering* results and the reference TF classes. We consider that a motif pair is consistently classified when the two motifs either belong to the same class and are grouped in the same cluster, or belong to different families and grouped in different clusters.
 
-The calculation of ARI is a new functionality of *RSAT matrix-clustering*, in this example, using default paramters we obtained `ARI = 0.38`, changing parameters may increase/decrease the resulting ARI.
+The calculation of *ARI* is a new functionality of *RSAT matrix-clustering*, in this example, using default paramters we obtained `ARI = 0.38`, changing parameters may increase/decrease the resulting *ARI*.
 
 :hourglass_flowing_sand: Running time: ~5 minutes
 
@@ -218,9 +218,9 @@ In case your motif format is not in this list, please contact me to add it.
 
 To avoid long commands when the input are many motif collections, we opted for a simple file format. The input file (`-i`) must be a tab-delimited file providing the following information (in the following order; no header):
 
-1. Motif file path
-2. Collection name: an alias given to the motif file
-3. Motif format: see above for the list of supported format.
+1. Motif collection file path
+2. Collection name (i.e. an alias given to the motif file)
+3. Motif format: see above for the list of supported formats.
 
 Each line in this table should correspond to a different motif file.
 
@@ -242,10 +242,10 @@ data/OCT4_datasets/RSAT_OCT4_motifs.tf        RSAT_motifs	  tf
 
 ### Motif annotation table (Optional)
 
-Users can provide a reference table that may be used for to purposes:
+Users can provide a reference table that may be used for two purposes:
 
-1. Compare the resulting clusters against a user-defined annotation (i.e., how good the resulting clusters resemble the reference classes in the annotation file). When this file is provided the adjusted rand index (ARI) will be calculated.
-2. Add some color features (class numbers and background) in a radial tree. Note that this table is only used with the parameter `--radial_tree = TRUE`.
+1. Compare the resulting clusters against a user-defined annotation (i.e., how good the resulting clusters resemble the reference classes in the annotation file). When this file is provided the *adjusted rand index* (*ARI*) will be calculated.
+2. Add some color features (class numbers and background) in a radial tree (see this [example](https://jaspar.uio.no/matrix-clusters/plants/)). Note that this table is only used with the parameter `--radial_tree = TRUE`. 
 
 The reference table (`-a`) must be a tab-delimited file providing at least the following columns (extra columns are ignored):
 
@@ -254,9 +254,7 @@ The reference table (`-a`) must be a tab-delimited file providing at least the f
 3. collection
 4. url (this may be an empty column but the column name is expected)
 
-The motif IDs in this reference table must be the same IDs as in the motif files, if this is not the case the program will stop.
-
-The collection names in the reference table must be the same as those in the matrix file table, if this is not the case the program will stop.
+The motif IDs and collectio names in this reference table must be the same IDs as in the motif files, if this is not the case the program will stop.
 
 Example: 
 ```bash
@@ -316,7 +314,7 @@ results
 
 ### Example 1
 
-The main aoutput of this analysis is an html file containing the logo forest (multiple hierarchical trees, each representing a cluster with aligned motifs).
+The main output of this analysis is an html file containing the logo forest (multiple hierarchical trees, each representing a cluster with aligned motifs).
 
 <img src="data/images/Logo_forest.png" width="550px" align="center">
 
@@ -357,7 +355,7 @@ If the option `--export_heatmap TRUE` is indicated the file `Heatmap_clusters.pd
 
 ### Example 2
 
-When the users activate the option `--radial_tree TRUE`) all the motifs are forced to be aligned in a single cluster.
+When the users activate the option `--radial_tree TRUE` all the motifs are forced to be aligned in a single cluster.
 The output is an `html` document containing the code in [`D3`](https://d3js.org/) (a javascript library). Open this document in an internet browser to visualize the results.
 
 
@@ -396,7 +394,7 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 &nbsp;
 
 
-## :wrench: Arguments and Options
+## :hammer_and_wrench: Arguments and Options
 
 
 ### Mandatory arguments
@@ -409,6 +407,8 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 
 - `-o` or `--output_folder` : Folder to save the results.
 
+&nbsp;
+&nbsp;
 
 ### Comparison + Clustering arguments
 
@@ -416,7 +416,9 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 - `-l` or `--linkage_method` : Linkage/agglomeration method to build the hierarchical tree. Default: `average`. [Options: `average`, `complete`, `single`].
 - `-c` or `--cor_th` : Pearson correlation lower threshold. Default: `0.75`. [Options: any value among `-1` and `+1`].
 - `-n` or `--Ncor_th` : Normalized Pearson correlation lower threshold. Default: `0.55`. [Options: any value among `-1` and `+1`].
+- `-W` or `--w_th` : Minimum number of aligned positions between a pair of motifs. Default: `5`.
 
+&nbsp;
 
 ### Output files
 
@@ -424,8 +426,9 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 - `--export_newick` : Export hierarchical tree in Newick format. Default : `FALSE`. [Options: `TRUE`, `FALSE`].
 - `--export_heatmap` : Export heatmap with clusters in PDF. Default : `FALSE`. [Options: `TRUE`, `FALSE`].
 
+&nbsp;
 
-### Annotation table
+### Annotation table + ARI
 
 - `-a` or `--annotation_table`: motif annotation tab. One line per motif, the proved color will be used as background in the radial tree, the class name text will be shown as an annotation layer (ring) in the radial tree. A tab-delimited file with the following columns (additional columns are ignored):
 
@@ -434,17 +437,31 @@ When the users provide a reference annotation table (argument `-r` or `--referen
   3. collection
   4. url (may be an empty column but the header is expected)
 
+- `--ARI` : when this option is `TRUE` and an annotation table is provided `--annotation_table` the program will calculate the ARI (partition similarity) among the resulting clusters and the provided annotation classes.
+
+&nbsp;
 
 ### Radial trees
 
-- `--radial_tree`: When this option is activated all the motifs are forced to be aligned in a single cluster. **Note** : this option is under active development.
+- `--radial_tree`: When this option is activated all the motifs are forced to be aligned in a single cluster. Default : `FALSE`. [Options: `TRUE`, `FALSE`].
+
+&nbsp;
 
 ### Others
 
 - `-w` or `--number_of_workers` : Number of cores to run in parallel. Default: `2`. [Options: depends in your machine].
 - `--heatmap_color_palette` : Cell colors in clusters heatmap. Default: `RdGy`. [Options: any colorBrewer palette, see colorbrewer2.org for details ].
 - `--color_palette_classes` : Number of classes to create color palette in clusters heatmap. Default: `11`. [Options: depends on the selected colorBrewer palette, see colorbrewer2.org for details ].
-- `--ARI` : when this option is `TRUE` and an annotation table is provided `--annotation_table` the program will calculate the ARI (partition similarity) among the resulting clusters and the provided annotation classes.
+- `--title`: Set an analysis title. Default : `matrix-clustering`.
+
+
+### Optional output
+
+- `--export_newick` : Export hierarchical tree in Newick format. Default : `FALSE`. [Options: `TRUE`, `FALSE`]
+- `--export_heatmap` : Export heatmap with clusters in PDF. Default : `FALSE`. [Options: `TRUE`, `FALSE`]
+- `-M` or `--minimal_output` : When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. Default : `FALSE`. [Options: `TRUE`, `FALSE`]
+
+
   
  
  &nbsp;
