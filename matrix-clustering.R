@@ -23,35 +23,21 @@ suppressPackageStartupMessages(library(universalmotif)) # Motif analysis
 # -------------- #
 option_list = list(
   
-  make_option(c("-i", "--matrix_file_table"), type = "character", default = NULL, 
+  
+  # Mandatory arguments
+  make_option(c("-i", "--matrix_file_table"), type = "character", default = NULL,
               help = "A text-delimited file where each line contain the next fields. 1: Motif file path; 2: Motif collection name; 3: Motif format (Mandatory). It does not expect a header, but it expects those columns in the indicated order.", metavar = "character"),
   
-  make_option(c("-o", "--output_folder"), type = "character", default = NULL, 
+  make_option(c("-o", "--output_folder"), type = "character", default = NULL,
               help = "Folder to save the results (Mandatory)", metavar = "character"),
   
+  
+  # Comparison + Clustering arguments
   make_option(c("-m", "--comparison_metric"), type = "character", default = "Ncor", 
               help = "Comparison metric used to build the hierarchical tree. [Default: \"%default\" . Options: cor, Ncor]", metavar = "character"),  
   
   make_option(c("-l", "--linkage_method"), type = "character", default = "average", 
               help = "Linkage/agglomeration method to build the hierarchical tree. [Default: \"%default\" . Options: average, complete, single]", metavar = "character"),
-  
-  make_option(c("-w", "--number_of_workers"), type = "numeric", default = 2, 
-              help = "number of cores to run in parallel. [Default \"%default\"] ", metavar = "number"),
-  
-  make_option(c("--export_newick"), type = "logical", default = FALSE, 
-              help = "Export hierarchical tree in Newick format. [Default \"%default\"] ", metavar = "logical"), 
-  
-  make_option(c("--export_heatmap"), type = "logical", default = FALSE, 
-              help = "Export heatmap with clusters in PDF. [Default \"%default\"] ", metavar = "logical"), 
-
-  make_option(c("--radial_tree"), type = "logical", default = FALSE, 
-              help = "Radial representation of all motifs aligned. In this alignment the thresholds are ignored, however the clusters are detected and highlighted in the radial tree [Default \"%default\"] ", metavar = "logical"), 
-  
-  make_option(c("--heatmap_color_palette"), type = "character", default = "RdGy", 
-              help = "Cell colors in clusters heatmap. [Default: \"%default\"]. Options: any colorBrewer palette, see colorbrewer2.org for details", metavar = "character"),
-  
-  make_option(c("--color_palette_classes"), type = "numeric", default = 11, 
-              help = "Number of classes to create color palette in clusters heatmap. [Default: \"%default\"]. Options: depends on the selected colorBrewer palette, see colorbrewer2.org for details", metavar = "number"),
   
   make_option(c("-c", "--cor_th"), type = "numeric", default = 0.75, 
               help = "Pearson correlation threshold. [Default \"%default\"] ", metavar = "number"),
@@ -61,19 +47,44 @@ option_list = list(
   
   make_option(c("-W", "--w_th"), type = "numeric", default = 5,
               help = "Minimum number of aligned positions between a pair of motifs. [Default \"%default\"] ", metavar = "number"),
+  
+  # Annotation table + ARI
+  make_option(c("-a", "--annotation_table"), type = "character", default = NULL,
+              help = "Motif annotation table, when this file is provided with the '--radial_tree = TRUE' option add annotations to the radial tree. A tab-delimited file with at least the following columns : 1) motif_id, 2) class ID, 3) collection. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "character"),
+  
+  make_option(c("--ARI"), type = "logical", default = FALSE, 
+              help = "Calculate the Adjusted Rand Index (ARI) of the resulting clusters based in the provided annotation table (--annotation_table). [Default \"%default\"].", metavar = "logical"),
+  
+  
+  # Radial tree
+  make_option(c("--radial_tree"), type = "logical", default = FALSE, 
+              help = "Radial representation of all motifs aligned. In this alignment the thresholds are ignored, however the clusters are detected and highlighted in the radial tree [Default \"%default\"] ", metavar = "logical"), 
+  
+  
+  # Other
+  make_option(c("-w", "--number_of_workers"), type = "numeric", default = 2, 
+              help = "number of cores to run in parallel. [Default \"%default\"] ", metavar = "number"),
+  
+  make_option(c("--heatmap_color_palette"), type = "character", default = "RdGy", 
+              help = "Cell colors in clusters heatmap. [Default: \"%default\"]. Options: any colorBrewer palette, see colorbrewer2.org for details", metavar = "character"),
+  
+  make_option(c("--color_palette_classes"), type = "numeric", default = 11, 
+              help = "Number of classes to create color palette in clusters heatmap. [Default: \"%default\"]. Options: depends on the selected colorBrewer palette, see colorbrewer2.org for details", metavar = "number"),
+
+  make_option(c("--title"), type = "character", default = "matrix-clustering",
+              help = "Analysis title", metavar = "character"),  
+  
+  
+  # Optional output
+  make_option(c("--export_newick"), type = "logical", default = FALSE, 
+              help = "Export hierarchical tree in Newick format. [Default \"%default\"] ", metavar = "logical"), 
+  
+  make_option(c("--export_heatmap"), type = "logical", default = FALSE, 
+              help = "Export heatmap with clusters in PDF. [Default \"%default\"] ", metavar = "logical"), 
 
   make_option(c("-M", "--minimal_output"), type = "logical", default = FALSE, 
               help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical"),
 
-  make_option(c("-a", "--annotation_table"), type = "character", default = NULL,
-              help = "Motif annotation table, when this file is provided with the '--radial_tree = TRUE' option add annotations to the radial tree. A tab-delimited file with at least the following columns : 1) motif_id, 2) class ID, 3) collection. If the input motifs are separated in many collections, concatenate all the annotations in a single file.", metavar = "character"),
-
-  make_option(c("--title"), type = "character", default = "matrix-clustering",
-              help = "Analysis title", metavar = "character"),
-  
-  make_option(c("--ARI"), type = "logical", default = FALSE, 
-              help = "Calculate the Adjusted Rand Index (ARI) of the resulting clusters based in the provided annotation table (--annotation_table). [Default \"%default\"].", metavar = "logical")
-  
 );
 message("; Reading arguments from command-line")
 opt_parser = OptionParser(option_list = option_list);
