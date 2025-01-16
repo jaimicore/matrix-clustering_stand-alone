@@ -1,4 +1,4 @@
-name: Check RSAT matrix-clustering demos
+name: RSAT matrix-clustering demos
 on:
   push:
 
@@ -45,13 +45,28 @@ jobs:
           make
           cd ..
 
+      # ----------------- #
+      # Insert demos here #
+      # ----------------- #
+      
       - name: Clustering (interactive trees)
         run: |
-          Rscript matrix-clustering.R \
-          -i data/OCT4_datasets/OCT4_motif_table.txt \
+          Rscript matrix-clustering.R                         \
+          -i data/OCT4_datasets/OCT4_motif_table.txt          \
           -o results/OCT4_motifs_clusters/OCT4_motif_analysis \
           -w 1
-          
+
+
+      - name: Clustering one collection from command line
+        run: |
+          Rscript matrix-clustering.R                                        \
+          --M data/OCT4_datasets/OCT4_motif_table.txt                        \
+          --C RSAT_OCT4v                                                     \
+          --F tf                                                             \
+          -o results/OCT4_motifs_clusters/One_collection/OCT4_motif_analysis \
+          -w 1
+
+
       - name: Clustering (radial tree)
         run: |
           Rscript matrix-clustering.R                         \
@@ -62,19 +77,22 @@ jobs:
           --title JASPAR_CORE_nematodes                       \
           -w 1
 
+
       - name: Motif format conversion (one motif)
         run: |
           Rscript convert-matrix.R             \
           -i data/example/one_example_motif.tf \
           --from tf --to jaspar                \
           --output_file results/convert-matrix_examples/One_motif/One_motif.jaspar
-          
+
+
       - name: Motif format conversion (two motifs)
         run: |
           Rscript convert-matrix.R              \
           -i data/example/two_example_motifs.tf \
           --from tf --to jaspar                 \
           --output_file results/convert-matrix_examples/Two_motifs/Two_motifs.jaspar 
+
 
       - name: Export logo (one motif)
         run: |
@@ -84,6 +102,7 @@ jobs:
           --logos TRUE                         \
           --output_file results/convert-matrix_examples/One_motif_Logos/One_motif.jaspar 
 
+
       - name: Export logos (two motifs)
         run: |
           Rscript convert-matrix.R              \
@@ -92,6 +111,7 @@ jobs:
           --logos TRUE                          \
           --output_file results/convert-matrix_examples/Two_motifs_Logos/Two_motifs.jaspar
 
+
       - name: Trimming (one motif)
         run: |
           Rscript convert-matrix.R             \
@@ -99,6 +119,7 @@ jobs:
           --from tf --to jaspar                \
           --logos TRUE --trim TRUE             \
           --output_file results/convert-matrix_examples/One_motif_Trim/One_motif.jaspar
+
 
       - name: Trimming (two motifs)
         run: |
@@ -126,7 +147,3 @@ jobs:
           -i data/example/tf2meme.tf                                          \
           --from tf --to jaspar                                               \
           --output_file results/convert-matrix_examples/One_site/One_site.tf
-
-
-      # Each demo with 1 and >1 motifs
-      # Demos for Trim
