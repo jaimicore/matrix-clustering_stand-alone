@@ -136,6 +136,23 @@ This should print the help to run `compare-matrices-quick` and the exaplanation 
 
 Assuming you are in the root of the repository folder you can run the following examples. The input files are part of the repository, they are found in the folder `data`.
 
+### Example 0
+
+The most common case to use this tool is when you have one motif collection as input. In this case we cluster a collection of motifs discovered by [*RSAT peak-motifs*](https://doi.org/10.1093/nar/gkr1104) in an [*Oct4*](https://doi.org/10.1016/j.cell.2008.04.043) ChIP-seq dataset.
+
+Here we use the arguments `--M` (motif file path). `--C` (collection name). and `--F` (motif format) because the input is one motif file. In cases when you have two or more collections (input files), you can use the option `-i`, as shown in the other Examples.
+
+:hourglass_flowing_sand: Running time: ~1 minute
+
+```bash
+Rscript matrix-clustering.R                  \
+  --M data/OCT4_datasets/RSAT_OCT4_motifs.tf \
+  --C RSAT_OCT4                              \
+  --F tf                                     \
+  -o results/OCT4_motifs/OCT4_motif_analysis \
+  -w 8                              
+```
+
 ### Example 1
 
 Clustering of 66 motifs separated in three motif collections (files). An [*Oct4*](https://doi.org/10.1016/j.cell.2008.04.043) ChIP-seq dataset was analyzed with three different motif discovery tools ( [*RSAT peak-motifs*](https://doi.org/10.1093/nar/gkr1104), [*MEME-ChIP*](https://doi.org/10.1093/bioinformatics/btr189), and [*HOMER*](https://doi.org/10.1016/j.molcel.2010.05.004)), the resulting motifs are used as input and we detected a cluster of *Oct4* motifs, including the canonical motif, and other binding variants including homodimers and heterodimers, see [Fig 2 of the *RSAT matrix-clustering* paper](https://doi.org/10.1093/nar/gkx314) for a detailed explanation.
@@ -214,7 +231,7 @@ In case your motif format is not in this list, please contact me to add it.
 
 &nbsp;
 
-### Matrix file table (Mandatory)
+### Matrix file table (Mandatory, Option 1)
 
 To avoid long commands when the input are many motif collections, we opted for a simple file format. The input file (`-i`) must be a tab-delimited file providing the following information (in the following order; no header):
 
@@ -238,6 +255,22 @@ data/OCT4_datasets/MEME_OCT4_motifs.meme      MEME_motifs	  meme
 data/OCT4_datasets/RSAT_OCT4_motifs.tf        RSAT_motifs	  tf
 ```
 
+&nbsp;
+&nbsp;
+
+### Matrix file table (Mandatory, Option 2)
+
+Alternatively, if you have one input file, instead of creating a matrix file table, you can pass the file path, collection name and motif format directly through the command-line (see the **Example 0**).
+
+The three arguments (`--M`, `--C`, and `--F`) must be provided.
+
+Example:
+
+```bash
+--M data/OCT4_datasets/RSAT_OCT4_motifs.tf  --C RSAT_motifs  --F tf
+```
+
+&nbsp;
 &nbsp;
 
 ### Motif annotation table (Optional)
