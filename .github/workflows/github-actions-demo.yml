@@ -3,7 +3,7 @@ on:
   push:
 
 jobs:
-  check-demos:
+  Run_RSAT_matrix-clustering_demos:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
