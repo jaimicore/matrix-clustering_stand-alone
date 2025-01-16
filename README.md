@@ -140,7 +140,7 @@ Assuming you are in the root of the repository folder you can run the following 
 
 The most common case to use this tool is when you have one motif collection as input. In this case we cluster a collection of motifs discovered by [*RSAT peak-motifs*](https://doi.org/10.1093/nar/gkr1104) in an [*Oct4*](https://doi.org/10.1016/j.cell.2008.04.043) ChIP-seq dataset.
 
-Here we use the arguments `--M` (motif file path). `--C` (collection name). and `--F` (motif format) because the input is one motif file. In cases when you have two or more collections (input files), you can use the option `-i`, as shown in the other Examples.
+Here we use the arguments `--M` (motif file path), `--C` (collection name), and `--F` (motif format) because the input is one motif file. In cases when you have two or more collections (input files), you can use the option `-i`, as shown in the other Examples.
 
 :hourglass_flowing_sand: Running time: ~1 minute
 
