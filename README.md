@@ -432,11 +432,31 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 
 ### Mandatory arguments
 
+&nbsp;
+
+#### Option 1 : provide a matrix_file_table'. Use this when you have 2 or more input motif collections.
  - `-i` or `--matrix_file_table` : A text-delimited file where each line contain the following fields/columns. It does not expect a header, but it expects these columns in the indicated order.
  
     1. Motif file path
     2. Motif collection name
-    3. Motif format. 
+    3. Motif format.
+
+&nbsp;
+
+#### Option 2 : use these arguments when you have one input motif collections.
+
+An alternative to the `--matrix_file_table` argument. If you have once inpt file you can pass the following three arguments instead of creating the motif file table.
+The program expects the three `--M --C --F` arguments, if one of them is not provided it will stop.
+
+  - `--M` : Path to motif file.
+  - `--C` : Motif collection name.
+  - `--F` : Motif format.
+
+&nbsp;
+
+**NOTE**: the `--matrix_file_table`  and  `--M --C --F` options are mutually exclusive. If both options are provided the program will stop.
+
+&nbsp;
 
 - `-o` or `--output_folder` : Folder to save the results.
 
