@@ -59,11 +59,11 @@ jobs:
 
       - name: Clustering one collection from command line
         run: |
-          Rscript matrix-clustering.R                                        \
-          --M data/OCT4_datasets/OCT4_motif_table.txt                        \
-          --C RSAT_OCT4v                                                     \
-          --F tf                                                             \
-          -o results/OCT4_motifs_clusters/One_collection/OCT4_motif_analysis \
+          Rscript matrix-clustering.R                   \
+          --M data/OCT4_datasets/RSAT_OCT4_motifs.tf    \
+          --C RSAT_OCT4                                 \
+          --F tf                                        \
+          -o results/One_collection/OCT4_motif_analysis \
           -w 1
 
 
