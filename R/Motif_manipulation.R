@@ -257,13 +257,30 @@ check.input.motif.file <- function(motif.file       = NULL,
 ## Verify the status of the files, collection names, and motif formats provided 
 ## in the --matrix_file_table command-line argument
 ## Also it reports when motif files or collection names are duplicated
-check.status.motif.table <- function(matrix.file.table = NULL) {
+check.status.motif.table <- function(matrix.file.table = NULL,
+                                     matrix.table.df   = NULL) {
   
-  message("; Reading input motif file table: ", matrix.file.table)
-  matrix.files <- fread(matrix.file.table,
-                        header    = FALSE,
-                        col.names = c("Motif_file", "Collection_name", "Format")) %>% 
-                  dplyr::mutate(Line = 1:n())
+  if (!is.null(matrix.file.table) & !is.null(matrix.file.table)) {
+    stop("Both matrix.file.table and matrix.table.df cannot be provided at the same time")
+  } 
+  
+  
+  # When the motif file table file is provided
+  if (!is.null(matrix.file.table)) {
+    message("; Reading input motif file table: ", matrix.file.table)
+    matrix.files <- fread(matrix.file.table,
+                          header    = FALSE,
+                          col.names = c("Motif_file", "Collection_name", "Format")) %>% 
+      dplyr::mutate(Line = 1:n())
+  }
+  
+  # When the motif file df is provided
+  if (!is.null(matrix.table.df)) {
+    message("; reating motif file table")
+    matrix.files <- matrix.table.df %>% 
+                      dplyr::mutate(Line = 1:n())
+  } 
+
   
   matrix.files.no.dup <- matrix.files %>% 
                           distinct()

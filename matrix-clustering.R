@@ -24,12 +24,28 @@ suppressPackageStartupMessages(library(universalmotif)) # Motif analysis
 option_list = list(
   
   
-  # Mandatory arguments
+  # Mandatory arguments 
+  
+  # Mandatory input option 1: --matrix_file_table
+  # This is useful for multiple input motif collections
   make_option(c("-i", "--matrix_file_table"), type = "character", default = NULL,
               help = "A text-delimited file where each line contain the next fields. 1: Motif file path; 2: Motif collection name; 3: Motif format (Mandatory). It does not expect a header, but it expects those columns in the indicated order.", metavar = "character"),
   
+  # Mandatory input option 2: --M --C --F (the three parameters should be passed)
+  # This is useful for one input motif collection
+  make_option(c("--M"), type = "character", default = NULL,
+              help = "Motif file path (Mandatory. Alternative option to --matrix_file_table when the input is one motif collection)", metavar = "character"),
+
+  make_option(c("--C"), type = "character", default = NULL,
+              help = "Motif collection name. Alternative option to --matrix_file_table when the input is one motif collection)", metavar = "character"),
+ 
+  make_option(c("--F"), type = "character", default = NULL,
+              help = "Motif format. Alternative option to --matrix_file_table when the input is one motif collection)", metavar = "character"),
+  
+  # Mandatory output 
   make_option(c("-o", "--output_folder"), type = "character", default = NULL,
               help = "Folder to save the results (Mandatory)", metavar = "character"),
+  
   
   
   # Comparison + Clustering arguments
@@ -82,10 +98,12 @@ option_list = list(
   make_option(c("--export_heatmap"), type = "logical", default = FALSE, 
               help = "Export heatmap with clusters in PDF. [Default \"%default\"] ", metavar = "logical"), 
 
-  make_option(c("-M", "--minimal_output"), type = "logical", default = FALSE, 
+  make_option(c("--minimal_output"), type = "logical", default = FALSE, 
               help = "When TRUE only returns the alignment, clusters and motif description tables. Comparison results, plots and trees are not exported. [Default \"%default\"] ", metavar = "logical")
 
 );
+
+
 message("; Reading arguments from command-line")
 opt_parser = OptionParser(option_list = option_list);
 opt = parse_args(opt_parser);
@@ -95,11 +113,58 @@ opt = parse_args(opt_parser);
 out.folder        <- opt$output_folder
 matrix.file.table <- opt$matrix_file_table
 
-# Mandatory input
-if (!file.exists(matrix.file.table)) {
-  stop("Mandatory input file not found: ", matrix.file.table)
+one.input.path       <- opt$M
+one.input.collection <- opt$C
+one.input.format     <- opt$F
+
+# Verify that the three mandatory input parameters are provided
+one.input.cl.flag <- !all( c(is.null(one.input.path),
+                            is.null(one.input.collection),
+                            is.null(one.input.format))
+                         )
+
+if (one.input.cl.flag & !is.null(matrix.file.table)) {
+  stop("The --matrix_file_table and --M --C --F options are mutually exclusive. Please provide only one of them.")
 }
 
+# ---------------------- #
+# Mandatory input/output #
+# ---------------------- #
+
+# If matrix.file.table doesn't exists then the user must provided the alternative option --M --C --F
+if (is.null(matrix.file.table)) {
+  
+  # Verify that the three alternative mandatory input parameters (--M --C --F) are provided
+  one.input.cl.flag <- all( c(!is.null(one.input.path),
+                              !is.null(one.input.collection),
+                              !is.null(one.input.format)))
+  
+  # --M --C --F must be provided
+  if (one.input.cl.flag) {
+    matrix.table <- data.table(Motif_file      = one.input.path,
+                               Collection_name = one.input.collection,
+                               Format          = one.input.format)
+  } else {
+    stop("Mandatory input parameters (--M --C --F ) not provided. Please provide the path to the motif file, the collection name and the format with the --M --C --F options, respectively. Alternatively, provide a text-delimited file with the --matrix_file_table option.")
+  }
+} else {
+  if (!file.exists(matrix.file.table)) {
+    stop("Mandatory input file not found: ", matrix.file.table)
+  }
+}
+
+
+if (is.null(out.folder)) {
+  stop("Mandatory output not provided.")
+}
+
+
+
+
+
+# ---------------- #
+# Other parameters #
+# ---------------- #
 
 # ARI flag
 reference.clusters.flag <- opt$ARI
@@ -249,7 +314,12 @@ no.output <- sapply(out.folder.list, dir.create, showWarnings = FALSE, recursive
 # Pre-process motif files + Generate motif description table #
 # ---------------------------------------------------------- #
 
-matrix.file.list <- check.status.motif.table(matrix.file.table = matrix.file.table)
+if (one.input.cl.flag) {
+  matrix.file.list <- check.status.motif.table(matrix.table.df = matrix.table)
+} else {
+  matrix.file.list <- check.status.motif.table(matrix.file.table = matrix.file.table)
+}
+
 collection.ids   <- matrix.file.list$Collection
 
 ## Returns the motif description table and the motifs (as a universalmotif object)
