@@ -116,16 +116,7 @@ matrix.file.table <- opt$matrix_file_table
 one.input.path       <- opt$M
 one.input.collection <- opt$C
 one.input.format     <- opt$F
-
-# Verify that the three mandatory input parameters are provided
-one.input.cl.flag <- !all( c(is.null(one.input.path),
-                            is.null(one.input.collection),
-                            is.null(one.input.format))
-                         )
-
-if (one.input.cl.flag & !is.null(matrix.file.table)) {
-  stop("The --matrix_file_table and --M --C --F options are mutually exclusive. Please provide only one of them.")
-}
+one.input.cl.flag    <- FALSE
 
 # ---------------------- #
 # Mandatory input/output #
@@ -154,12 +145,14 @@ if (is.null(matrix.file.table)) {
 }
 
 
-if (is.null(out.folder)) {
-  stop("Mandatory output not provided.")
+if (one.input.cl.flag & !is.null(matrix.file.table)) {
+  stop("The --matrix_file_table and --M --C --F options are mutually exclusive. Please provide only one of them.")
 }
 
 
-
+if (is.null(out.folder)) {
+  stop("Mandatory output not provided.")
+}
 
 
 # ---------------- #

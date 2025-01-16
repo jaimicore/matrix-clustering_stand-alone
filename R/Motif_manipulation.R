@@ -260,7 +260,7 @@ check.input.motif.file <- function(motif.file       = NULL,
 check.status.motif.table <- function(matrix.file.table = NULL,
                                      matrix.table.df   = NULL) {
   
-  if (!is.null(matrix.file.table) & !is.null(matrix.file.table)) {
+  if (!is.null(matrix.file.table) & !is.null(matrix.table.df)) {
     stop("Both matrix.file.table and matrix.table.df cannot be provided at the same time")
   } 
   
