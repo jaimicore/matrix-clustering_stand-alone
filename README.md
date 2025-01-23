@@ -530,12 +530,11 @@ Contributors
  &nbsp;
  &nbsp;
 
-This repository is maintained by [Jaime A Castro-Mondragon](https://jaimicore.github.io/).
+This repository is maintained mainly by [Jaime A Castro-Mondragon](https://jaimicore.github.io/) with important contributions from [Ieva Rauluseviciute](https://github.com/ievarau).
 
 :e-mail: j.a.castro.mondragon@gmail.com
-:e-mail: jacmondragon@nykode.com
 
-Twitter: [@jaimicore](https://twitter.com/jaimicore)
+Blusky: [@jaimicore](https://bsky.app/profile/jaimicore.bsky.social)
 
 Use this space to report [issues](https://github.com/jaimicore/matrix-clustering_stand-alone/issues) related to this repository.
 
@@ -565,6 +564,7 @@ For the moment this scripts has three main functions:
 1. Motif format conversion, see above for the supported formats.
 2. Export reverse-complement of the input motifs
 3. Trim motifs (remove columns with low information content).
+4. Export motif logos.
 
 
 Simple motif conversion from `transfac` to `meme` format.
@@ -630,7 +630,7 @@ Once `apache` is installed in your computer:
 
 ## :tada: Acknowledgements
 
-We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](https://rsat.eead.csic.es/plants/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs :beetle:.
+We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](https://rsat.eead.csic.es/plants/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions, merge requests and reporting bugs :beetle:.
 
 Special thanks to my colleagues (now PhD) Ieva Rauluseviciute (and her *gently reminders* :unamused: that pushed me to write this stand-alone version), Vipin Kumar and Katalin Ferenc (from [Anthony Mathelier's lab](https://mathelierlab.com/)) for testing this software, the discussions, ideas, and their suggestions of `R` libraries that make this script faster than the original version.
 
@@ -639,4 +639,40 @@ Special thanks to my colleagues (now PhD) Ieva Rauluseviciute (and her *gently r
 
 ## :page_with_curl: How to cite this software?
 
-If you use this software, please cite [its own publication](https://doi.org/10.1093/nar/gkx314) and/or the [latest *RSAT* publication](https://doi.org/10.1093/nar/gkac312).
+If you use this software, please cite the [*RSAT matrix-clustering* publication](https://doi.org/10.1093/nar/gkx314) and/or the [latest *RSAT* publication](https://doi.org/10.1093/nar/gkac312).
+
+```
+# RSAT matrix-clustering
+
+@article{10.1093/nar/gkx314,
+    author = {Castro-Mondragon, Jaime Abraham and Jaeger, Sébastien and Thieffry, Denis and Thomas-Chollier, Morgane and van Helden, Jacques},
+    title = {RSAT matrix-clustering: dynamic exploration and redundancy reduction of transcription factor binding motif collections},
+    journal = {Nucleic Acids Research},
+    volume = {45},
+    number = {13},
+    pages = {e119-e119},
+    year = {2017},
+    month = {06},
+    issn = {0305-1048},
+    doi = {10.1093/nar/gkx314},
+    url = {https://doi.org/10.1093/nar/gkx314},
+    eprint = {https://academic.oup.com/nar/article-pdf/45/13/e119/25367647/gkx314.pdf},
+}
+
+# RSAT 2022
+
+@article{10.1093/nar/gkac312,
+    author = {Santana-Garcia, Walter and Castro-Mondragon, Jaime A and Padilla-Gálvez, Mónica and Nguyen, Nga Thi Thuy and Elizondo-Salas, Ana and Ksouri, Najla and Gerbes, François and Thieffry, Denis and Vincens, Pierre and Contreras-Moreira, Bruno and van Helden, Jacques and Thomas-Chollier, Morgane and Medina-Rivera, Alejandra},
+    title = {RSAT 2022: regulatory sequence analysis tools},
+    journal = {Nucleic Acids Research},
+    volume = {50},
+    number = {W1},
+    pages = {W670-W676},
+    year = {2022},
+    month = {05},
+    issn = {0305-1048},
+    doi = {10.1093/nar/gkac312},
+    url = {https://doi.org/10.1093/nar/gkac312},
+    eprint = {https://academic.oup.com/nar/article-pdf/50/W1/W670/44378306/gkac312.pdf},
+}
+```
