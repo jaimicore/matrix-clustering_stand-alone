@@ -534,7 +534,7 @@ This repository is maintained mainly by [Jaime A Castro-Mondragon](https://jaimi
 
 :e-mail: j.a.castro.mondragon@gmail.com
 
-Blusky: [@jaimicore](https://bsky.app/profile/jaimicore.bsky.social)
+Bluesky: [@jaimicore](https://bsky.app/profile/jaimicore.bsky.social)
 
 Use this space to report [issues](https://github.com/jaimicore/matrix-clustering_stand-alone/issues) related to this repository.
 
