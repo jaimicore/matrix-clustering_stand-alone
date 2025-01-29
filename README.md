@@ -136,6 +136,23 @@ This should print the help to run `compare-matrices-quick` and the exaplanation 
 
 Assuming you are in the root of the repository folder you can run the following examples. The input files are part of the repository, they are found in the folder `data`.
 
+### Example 0
+
+The most common case to use this tool is when you have one motif collection as input. In this case we cluster a collection of motifs discovered by [*RSAT peak-motifs*](https://doi.org/10.1093/nar/gkr1104) in an [*Oct4*](https://doi.org/10.1016/j.cell.2008.04.043) ChIP-seq dataset.
+
+Here we use the arguments `--M` (motif file path), `--C` (collection name), and `--F` (motif format) because the input is one motif file. In cases when you have two or more collections (input files), you can use the option `-i`, as shown in the other Examples.
+
+:hourglass_flowing_sand: Running time: ~1 minute
+
+```bash
+Rscript matrix-clustering.R                  \
+  --M data/OCT4_datasets/RSAT_OCT4_motifs.tf \
+  --C RSAT_OCT4                              \
+  --F tf                                     \
+  -o results/OCT4_motifs/OCT4_motif_analysis \
+  -w 8                              
+```
+
 ### Example 1
 
 Clustering of 66 motifs separated in three motif collections (files). An [*Oct4*](https://doi.org/10.1016/j.cell.2008.04.043) ChIP-seq dataset was analyzed with three different motif discovery tools ( [*RSAT peak-motifs*](https://doi.org/10.1093/nar/gkr1104), [*MEME-ChIP*](https://doi.org/10.1093/bioinformatics/btr189), and [*HOMER*](https://doi.org/10.1016/j.molcel.2010.05.004)), the resulting motifs are used as input and we detected a cluster of *Oct4* motifs, including the canonical motif, and other binding variants including homodimers and heterodimers, see [Fig 2 of the *RSAT matrix-clustering* paper](https://doi.org/10.1093/nar/gkx314) for a detailed explanation.
@@ -214,7 +231,7 @@ In case your motif format is not in this list, please contact me to add it.
 
 &nbsp;
 
-### Matrix file table (Mandatory)
+### Matrix file table (Mandatory, Option 1)
 
 To avoid long commands when the input are many motif collections, we opted for a simple file format. The input file (`-i`) must be a tab-delimited file providing the following information (in the following order; no header):
 
@@ -238,6 +255,22 @@ data/OCT4_datasets/MEME_OCT4_motifs.meme      MEME_motifs	  meme
 data/OCT4_datasets/RSAT_OCT4_motifs.tf        RSAT_motifs	  tf
 ```
 
+&nbsp;
+&nbsp;
+
+### Matrix file table (Mandatory, Option 2)
+
+Alternatively, if you have one input file, instead of creating a matrix file table, you can pass the file path, collection name and motif format directly through the command-line (see the **Example 0**).
+
+The three arguments (`--M`, `--C`, and `--F`) must be provided.
+
+Example:
+
+```bash
+--M data/OCT4_datasets/RSAT_OCT4_motifs.tf  --C RSAT_motifs  --F tf
+```
+
+&nbsp;
 &nbsp;
 
 ### Motif annotation table (Optional)
@@ -399,11 +432,31 @@ When the users provide a reference annotation table (argument `-r` or `--referen
 
 ### Mandatory arguments
 
+&nbsp;
+
+#### Option 1 : provide a matrix_file_table'. Use this when you have 2 or more input motif collections.
  - `-i` or `--matrix_file_table` : A text-delimited file where each line contain the following fields/columns. It does not expect a header, but it expects these columns in the indicated order.
  
     1. Motif file path
     2. Motif collection name
-    3. Motif format. 
+    3. Motif format.
+
+&nbsp;
+
+#### Option 2 : use these arguments when you have one input motif collections.
+
+An alternative to the `--matrix_file_table` argument. If you have once inpt file you can pass the following three arguments instead of creating the motif file table.
+The program expects the three `--M --C --F` arguments, if one of them is not provided it will stop.
+
+  - `--M` : Path to motif file.
+  - `--C` : Motif collection name.
+  - `--F` : Motif format.
+
+&nbsp;
+
+**NOTE**: the `--matrix_file_table`  and  `--M --C --F` options are mutually exclusive. If both options are provided the program will stop.
+
+&nbsp;
 
 - `-o` or `--output_folder` : Folder to save the results.
 
@@ -477,12 +530,11 @@ Contributors
  &nbsp;
  &nbsp;
 
-This repository is maintained by [Jaime A Castro-Mondragon](https://jaimicore.github.io/).
+This repository is maintained mainly by [Jaime A Castro-Mondragon](https://jaimicore.github.io/) with important contributions from [Ieva Rauluseviciute](https://github.com/ievarau).
 
 :e-mail: j.a.castro.mondragon@gmail.com
-:e-mail: jacmondragon@nykode.com
 
-Twitter: [@jaimicore](https://twitter.com/jaimicore)
+Bluesky: [@jaimicore](https://bsky.app/profile/jaimicore.bsky.social)
 
 Use this space to report [issues](https://github.com/jaimicore/matrix-clustering_stand-alone/issues) related to this repository.
 
@@ -512,6 +564,7 @@ For the moment this scripts has three main functions:
 1. Motif format conversion, see above for the supported formats.
 2. Export reverse-complement of the input motifs
 3. Trim motifs (remove columns with low information content).
+4. Export motif logos.
 
 
 Simple motif conversion from `transfac` to `meme` format.
@@ -577,7 +630,7 @@ Once `apache` is installed in your computer:
 
 ## :tada: Acknowledgements
 
-We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](https://rsat.eead.csic.es/plants/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions and reporting bugs :beetle:.
+We thank the [*JASPAR*](https://jaspar.genereg.net/) curation team for their input to improve *RSAT matrix-clustering*; the [*RSAT developer team*](https://rsat.eead.csic.es/plants/people.php) for their constant support across many years of collaboration; and the users for their advices, suggestions, merge requests and reporting bugs :beetle:.
 
 Special thanks to my colleagues (now PhD) Ieva Rauluseviciute (and her *gently reminders* :unamused: that pushed me to write this stand-alone version), Vipin Kumar and Katalin Ferenc (from [Anthony Mathelier's lab](https://mathelierlab.com/)) for testing this software, the discussions, ideas, and their suggestions of `R` libraries that make this script faster than the original version.
 
@@ -586,4 +639,40 @@ Special thanks to my colleagues (now PhD) Ieva Rauluseviciute (and her *gently r
 
 ## :page_with_curl: How to cite this software?
 
-If you use this software, please cite [its own publication](https://doi.org/10.1093/nar/gkx314) and/or the [latest *RSAT* publication](https://doi.org/10.1093/nar/gkac312).
+If you use this software, please cite the [*RSAT matrix-clustering* publication](https://doi.org/10.1093/nar/gkx314) and/or the [latest *RSAT* publication](https://doi.org/10.1093/nar/gkac312).
+
+```
+# RSAT matrix-clustering
+
+@article{10.1093/nar/gkx314,
+    author = {Castro-Mondragon, Jaime Abraham and Jaeger, Sébastien and Thieffry, Denis and Thomas-Chollier, Morgane and van Helden, Jacques},
+    title = {RSAT matrix-clustering: dynamic exploration and redundancy reduction of transcription factor binding motif collections},
+    journal = {Nucleic Acids Research},
+    volume = {45},
+    number = {13},
+    pages = {e119-e119},
+    year = {2017},
+    month = {06},
+    issn = {0305-1048},
+    doi = {10.1093/nar/gkx314},
+    url = {https://doi.org/10.1093/nar/gkx314},
+    eprint = {https://academic.oup.com/nar/article-pdf/45/13/e119/25367647/gkx314.pdf},
+}
+
+# RSAT 2022
+
+@article{10.1093/nar/gkac312,
+    author = {Santana-Garcia, Walter and Castro-Mondragon, Jaime A and Padilla-Gálvez, Mónica and Nguyen, Nga Thi Thuy and Elizondo-Salas, Ana and Ksouri, Najla and Gerbes, François and Thieffry, Denis and Vincens, Pierre and Contreras-Moreira, Bruno and van Helden, Jacques and Thomas-Chollier, Morgane and Medina-Rivera, Alejandra},
+    title = {RSAT 2022: regulatory sequence analysis tools},
+    journal = {Nucleic Acids Research},
+    volume = {50},
+    number = {W1},
+    pages = {W670-W676},
+    year = {2022},
+    month = {05},
+    issn = {0305-1048},
+    doi = {10.1093/nar/gkac312},
+    url = {https://doi.org/10.1093/nar/gkac312},
+    eprint = {https://academic.oup.com/nar/article-pdf/50/W1/W670/44378306/gkac312.pdf},
+}
+```
