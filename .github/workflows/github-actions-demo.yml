@@ -147,3 +147,11 @@ jobs:
           -i data/example/tf2meme.tf                                          \
           --from tf --to jaspar                                               \
           --output_file results/convert-matrix_examples/One_site/One_site.tf
+
+      - name: One column matrix
+        run: |
+          Rscript convert-matrix.R                                               \
+          -i data/example/one_nt_motif.meme                                      \
+          --from meme --to tf                                                    \
+          --logos TRUE --rc                                                      \
+          --output_file results/convert-matrix_examples/One_column/One_column.tf
