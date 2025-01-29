@@ -1118,6 +1118,14 @@ export.one.logo <- function(um.motif = NULL,
   # Format conversion
   motif <- convert_type(um.motif, "PPM")
   motif <- motif["motif"]
+  motif1nt <- ifelse(ncol(motif) == 1, yes = TRUE, no = FALSE)
+  
+  # ggseqlogo fails with motifs of w = 1
+  # To overcome this issue, we add an extra column 
+  # Print only the first column in the logo
+  if (motif1nt) {
+    motif <- cbind(motif, motif)
+  }
   
   invisible(suppressMessages(suppressWarnings(
     motif.gg <- ggplot() +
@@ -1126,6 +1134,16 @@ export.one.logo <- function(um.motif = NULL,
                   scale_x_continuous(expand = c(0, 0)) +
                   scale_y_continuous(limits = c(0,2), expand = c(0, 0)) +
                   guides(fill = "none")
+  
+  )))
+  
+  # Get the first position of the duplicated column
+  # Reset the x-axis labels
+  invisible(suppressMessages(suppressWarnings(
+    if (motif1nt) {
+      motif.gg <- motif.gg + 
+                    scale_x_continuous(limits = c(0.5,1.5) ,expand = c(0, 0), breaks = 1) 
+    }
   )))
   
   ggsave(filename = logofile, plot = motif.gg, bg = "white", width = 10, height = 6, dpi = 400)
