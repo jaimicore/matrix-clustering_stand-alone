@@ -153,5 +153,5 @@ jobs:
           Rscript convert-matrix.R                                               \
           -i data/example/one_nt_motif.meme                                      \
           --from meme --to tf                                                    \
-          --logos TRUE --rc                                                      \
+          --logos TRUE --rc TRUE                                                 \
           --output_file results/convert-matrix_examples/One_column/One_column.tf
