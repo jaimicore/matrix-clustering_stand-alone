@@ -132,6 +132,13 @@ if (trim.spike.ic < 0 | is.character(trim.spike.ic) | is.na(trim.spike.ic) | tri
 # format.in          <- "tf"
 # format.out         <- "meme"
 
+
+# tf.matrix.file.in  <- "/home/jaime/Documents/Personal/matrix-clustering_stand-alone/data/example/one_nt_motif.meme"
+# format.in          <- "meme"
+# format.out         <- "tf"
+# tf.matrix.file.out <- "/home/jaime/Documents/Personal/matrix-clustering_stand-alone/Debug/1nt/meme2tf.meme"
+
+
 ## Format in/out test
 fit <- check.supported.formats(motif.format = format.in)
 fot <- check.supported.formats(motif.format = format.out)
@@ -195,6 +202,7 @@ if (one.motif.input.flag) {
  
 }
 motifs.um.rc <- universalmotif::motif_rc(motifs.um)
+
 
 if (rc.flag) {
   message("; Generating reverse-complement")
