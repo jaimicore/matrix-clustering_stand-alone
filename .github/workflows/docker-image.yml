@@ -15,4 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file docker/Dockerfile --tag matrix_clustering:$(date +%s)
+      run: docker build . --file docker/Dockerfile --tag cbgr/matrix_clustering:latest
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+    - name: Push the Docker image
+      run: docker push cbgr/matrix_clustering:latest
