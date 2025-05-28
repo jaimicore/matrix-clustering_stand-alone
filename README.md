@@ -80,6 +80,7 @@ required.packages = c("dplyr",          # Data manipulation
                       "RColorBrewer",   # Heatmap cell colors
                       "ape",            # Export hclust tree in newick format
                       "RJSONIO",        # Export hclust tree in JSON format
+                      "rjson",
                       "circlize",       # Required to draw heatmaps
                       "flexclust",      # Calculate adjusted rand index
                       "htmlwidgets",    # Save plotly output as html
