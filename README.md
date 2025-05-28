@@ -628,7 +628,7 @@ Once `apache` is installed in your computer:
 
 ```
 sudo rm -rf /var/www/html
-sudo mkdir -p /var/www/JASPAR_nematodes_radial
+sudo mkdir -p /var/www/html
 sudo cp -fr results/JASPAR_nematodes_radial /var/www/html/JASPAR_nematodes_radial
 ```
    
