@@ -624,7 +624,14 @@ To install `apache` you can follow this [instructions](https://ubuntu.com/tutori
 Once `apache` is installed in your computer:
 
 1. Remove the folder `sudo rm -rf /var/www/html` 
-2. Copy the result folder (including all directories) to `/var/www/` . You will need **sudo** permissions.
+2. Copy the result folder (including all directories) to `/var/www/` . You will need **sudo** permissions. For this example we use the results of the *Example 2*.
+
+```
+sudo rm -rf /var/www/html
+sudo mkdir -p /var/www/JASPAR_nematodes_radial
+sudo cp -fr results/JASPAR_nematodes_radial /var/www/html/JASPAR_nematodes_radial
+```
+   
 3. Open your browser and type `localhost`. Now you can browse the files in  `/var/www/`
 4. Search and open the file `*.html`
 
