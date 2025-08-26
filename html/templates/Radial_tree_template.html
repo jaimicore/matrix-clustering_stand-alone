@@ -190,6 +190,30 @@ var innerRad_end   = --innerRad_end--;
 var diagonal = d3.svg.diagonal.radial()
     .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
 
+// One outer <svg> that always shows the whole canvas
+var outer = d3.select("#cluster_1").append("svg")
+              .attr("viewBox", "0 0 " + w + " " + h)
+              .attr("preserveAspectRatio", "xMidYMid meet")
+              .attr("width", w)
+              .attr("height", h);
+
+// A zoomable layer
+var svg = outer.append("g");
+
+// Attach zoom to the OUTER svg, transform the <g>
+outer.call(d3.behavior.zoom().on("zoom", function () {
+  svg.attr("transform",
+    "translate(" + d3.event.translate + ") scale(" + d3.event.scale + ")"
+  );
+}));
+
+// Your drawing layer (centered). Nudge up a bit if you want it higher on load.
+var vis = svg.append("g")
+  .attr("transform", "translate(" + (rx-250) + "," + (ry - 250) + ")"); // ← adjust -300 as you like
+
+
+/*
+
 var svg = d3.select("#cluster_1").append("svg")
     .style("width", w + "px")
     .style("height", w + "px")
@@ -203,7 +227,7 @@ var vis = svg.append("svg:svg")
     .attr("height", w)
   .append("svg:g")
     .attr("transform", "translate(" + rx + "," + ry + ")");
-
+*/
 
 //	vis.append("svg:path")
 //    	.attr("class", "arc")
@@ -251,6 +275,8 @@ d3.json("--json_file--", function(json) {
 		.attr("y", --y-displ--) 
 		.attr("cursor", "default") 
 		.attr("preserveAspectRatio", "none");	
+		
+		//add_annotation_here
 });
 
 d3.select(window)
