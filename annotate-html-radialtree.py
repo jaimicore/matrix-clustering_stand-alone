@@ -96,7 +96,7 @@ if not os.path.exists(mclust_json_file):
 regex_insert_variable   = re.compile(r"<script type=\"text/javascript\">\n$")
 regex_save_textlabels   = re.compile(r"node\.append\(\"svg:a\"\)\n$")
 regex_end_textlabels    = re.compile(r"^\s+;\n$")
-regex_insert_annotation = re.compile(r"^\s+\.attr\(\"preserveAspectRatio\".+\n$")
+regex_insert_annotation = re.compile(r"add_annotation_here$")
 #regex_insert_annotation = re.compile(r"^\}\)\;\n")
 
 # Open filehandlers
